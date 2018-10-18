@@ -1,0 +1,15 @@
+.menu {
+  padding: 0.3em;
+}
+
+.nav a {
+  font-weight: 500;
+  color: #cdddeb;
+  text-decoration: none;
+}
+
+.nav a:hover,
+.nav a:focus,
+.nav .active {
+  color: #fff;
+}

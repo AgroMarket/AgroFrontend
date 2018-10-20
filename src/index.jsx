@@ -1,5 +1,3 @@
-// Добавляем стили бутстрапа из модуля бутстрапа
-import 'bootstrap/dist/css/bootstrap.css';
 import './index.scss';
 
 import React from 'react';

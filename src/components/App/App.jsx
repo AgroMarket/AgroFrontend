@@ -2,6 +2,7 @@ import './App.scss';
 
 import React, {Fragment, PureComponent} from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+// Сброс CSS для браузеров
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Header from 'components/Header';

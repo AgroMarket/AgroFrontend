@@ -1,11 +1,11 @@
-import './CommentsPage.scss';
+import './SellersPage.scss';
 
 import React, { PureComponent } from 'react';
 
 /**
- * Класс CommentsPage - компонент, отображающий страницу Отзывы
+ * Класс SellersPage - компонент, отображающий страницу Продавцам
  */
-export default class CommentsPage extends PureComponent {
+export default class SellersPage extends PureComponent {
   constructor(props) {
     super(props);
     
@@ -17,7 +17,7 @@ export default class CommentsPage extends PureComponent {
   
   render() {    
     return (
-      <p>CommentsPage</p>
+      <p>SellersPage</p>
     );
   }
 }

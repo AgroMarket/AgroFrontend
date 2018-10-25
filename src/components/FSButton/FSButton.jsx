@@ -1,7 +1,7 @@
 import './LoginButton.scss';
 
 import React, { PureComponent } from 'react';
-import { Button } from 'reactstrap';
+import Button from '@material-ui/core/Button';
 // Проверка свойств
 import PropTypes from 'prop-types';
 
@@ -30,7 +30,7 @@ export default class LoginButton extends PureComponent {
     // получаем переданные свойства кнопки
     const {id, name} = this.props.item;
     return (
-      <Button outline color="primary" id={id}>
+      <Button color="primary" id={id}>
         {name}
       </Button>
     );

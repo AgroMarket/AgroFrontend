@@ -1,11 +1,11 @@
-import './HelpPage.scss';
+import './BuyersPage.scss';
 
 import React, { PureComponent } from 'react';
 
 /**
- * Класс HelpPage - компонент, отображающий страницу Вопросы и ответы
+ * Класс BuyersPage - компонент, отображающий страницу Покупателям
  */
-export default class HelpPage extends PureComponent {
+export default class BuyersPage extends PureComponent {
   constructor(props) {
     super(props);
     
@@ -17,7 +17,7 @@ export default class HelpPage extends PureComponent {
   
   render() {    
     return (
-      <p>HelpPage</p>
+      <p>BuyersPage</p>
     );
   }
 }

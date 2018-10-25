@@ -1,11 +1,11 @@
-import './AboutPage.scss';
+import './BasketPage.scss';
 
 import React, { PureComponent } from 'react';
 
 /**
- * Класс AboutPage - компонент, отображающий страницу О нас
+ * Класс BasketPage - компонент, отображающий страницу Корзина
  */
-export default class AboutPage extends PureComponent {
+export default class BasketPage extends PureComponent {
   constructor(props) {
     super(props);
     
@@ -17,7 +17,7 @@ export default class AboutPage extends PureComponent {
   
   render() {    
     return (
-      <p>AboutPage</p>
+      <p>BasketPage</p>
     );
   }
 }

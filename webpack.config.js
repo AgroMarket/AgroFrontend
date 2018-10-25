@@ -44,6 +44,8 @@ module.exports = {
       reducers: path.resolve(__dirname, 'src', 'reducers'),
       // адрес папки pages
       pages: path.resolve(__dirname, 'src', 'pages'),
+      // адрес папки layouts
+      layouts: path.resolve(__dirname, 'src', 'layouts'),
     }
   },
   devtool: false,

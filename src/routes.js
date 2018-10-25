@@ -1,9 +1,9 @@
 import Home from 'pages/HomePage';
 import About from 'pages/AboutPage';
-import Comments from 'pages/CommentsPage';
+import Sellers from 'pages/SellersPage';
+import Buyers from 'pages/BuyersPage';
 import Delivery from 'pages/DeliveryPage';
-import Help from 'pages/HelpPage';
-import Contacts from 'pages/ContactsPage';
+import Basket from 'pages/BasketPage';
 
 /**
  * Маршрутизация приложения
@@ -21,28 +21,28 @@ export default [
     component: About,
     exact: true,
   },
-  // Отзывы
+  // Продавцам
   {
-    path: '/comments',
-    component: Comments,
+    path: '/sellers',
+    component: Sellers,
     exact: true,
   },
-  // Доставка
+  // Покупателям
+  {
+    path: '/buyers',
+    component: Buyers,
+    exact: true,
+  },
+  // Доставка и оплата
   {
     path: '/delivery',
     component: Delivery,
     exact: true,
   },
-  // Вопросы и ответы
+  // Корзина
   {
-    path: '/help',
-    component: Help,
-    exact: true,
-  },
-  // Контакты
-  {
-    path: '/contacts',
-    component: Contacts,
+    path: '/basket',
+    component: Basket,
     exact: true,
   },
 ];

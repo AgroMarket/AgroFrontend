@@ -1,11 +1,10 @@
 import './HorizontalMenu.scss';
 
 import React, { Component } from 'react';
-import { Nav } from 'reactstrap';
 // Проверка свойств
 import PropTypes from 'prop-types';
 
-import MenuItem from 'components/MenuItem';
+import FSMenuItem from 'components/FSMenuItem';
 
 /**
  * Класс HorizontalMenu - компонент, отображающий горизонтальное меню
@@ -41,13 +40,13 @@ export default class HorizontalMenu extends Component {
     // получаем переданные свойства меню
     const { menu } = this.props;
     return (
-      <Nav>
+      <Menu>
         {menu.map( (item, idx) => {
           return (
-            <MenuItem item={item} key={idx}/>
+            <FSMenuItem item={item} key={idx}/>
           );
         })}
-      </Nav>
+      </Menu>
     );
   }
 }

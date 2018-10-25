@@ -3,7 +3,6 @@ import './MainMenu.scss';
 import React, {PureComponent} from 'react';
 // Проверка свойств
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import MainMenuItem from 'components/MainMenuItem';
 
@@ -45,16 +44,13 @@ export default class MainMenu extends PureComponent {
     const { value } = this.state;
 
     return (
-
-        <AppBar position="static">
-          <Tabs fullWidth value={value} onChange={this.handleChange}>
-            {menu.map( (item, idx) => {
-              return (
-                <MainMenuItem item={item} key={idx}/>
-              );
-            })}
-          </Tabs>
-        </AppBar>
+      <Tabs fullWidth value={value} onChange={this.handleChange} fullWidth={false} centered>
+        {menu.map( (item, idx) => {
+          return (
+            <MainMenuItem item={item} key={idx}/>
+          );
+        })}
+      </Tabs>
     );
   }
 }

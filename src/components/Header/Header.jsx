@@ -1,49 +1,60 @@
 import './Header.scss';
 
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 // Проверка свойств
 import PropTypes from 'prop-types';
+import Grid from '@material-ui/core/Grid';
 
-import HorizontalMenu from 'components/HorizontalMenu';
-import LoginButton from 'components/LoginButton';
+import MainMenu from 'components/MainMenu';
+import FSButton from 'components/FSButton';
 
 // Список пунктов меню
-// TODO передать из json
 const menu = [
+  // Главная (стартовая) страница Ferma Store
   {
     id: 'main',
-    name: 'Home',
-    to: '/',
+    name: 'Ferma Store',
+    path: '/',
   },
-  {
-    id: 'new_feature,',
-    name: 'Blog',
-    to: '/blog',
-  },
-  {
-    id: 'press',
-    name: 'Comments',
-    to: '/comments',
-  },
-  {
-    id: 'new_hires',
-    name: 'Users',
-    to: '/users',
-  },
+  // О нас
   {
     id: 'about',
-    name: 'About',
-    to: '/about',
+    name: 'О нас',
+    path: '/about',
+  },
+  // Продавцам
+  {
+    id: 'sellers',
+    name: 'Продавцам',
+    path: '/sellers',
+  },
+  // Покупателям
+  {
+    id: 'buyers',
+    name: 'Покупателям',
+    path: '/buyers',
+  },
+  // Доставка и оплата
+  {
+    id: 'delivery',
+    name: 'Доставка и оплата',
+    path: '/delivery',
+  },
+  // Корзина
+  {
+    id: 'basket',
+    name: 'Корзина',
+    path: '/basket',
   },
 ];
 
-// Данные для кнопки логина
+// Данные для кнопки Вход
 const loginButton = {id: 'login', name: 'Войти'};
 
 /**
  * Класс Header - компонент, отображающий хидер страницы
  */
-export default class Header extends Component {
+export default class Header extends PureComponent {
   // Проверка свойств
   static propTypes = {
     // класс для компонента
@@ -56,25 +67,18 @@ export default class Header extends Component {
     className: '',
   };
 
-  // обновляем визуализацию компонента
-  shouldComponentUpdate(nextProps) {
-    return nextProps.className === this.props.className;
-  }
-
   render() {
     return (
         <header>
-          <div className="container">
-            <div className="row menu">
-              <div className="col-10">
-                {/* Меню навигации */}
-                <HorizontalMenu menu={menu}/>
-              </div>
-              <div className="col-2">
-                <LoginButton item={loginButton}/>
-              </div>
-            </div>
-          </div>
+          <Grid container spacing={24}>
+            <Grid item xl={11}>
+              {/* Меню навигации */}
+              <MainMenu menu={menu}/>
+            </Grid>
+            <Grid item xl={1}>
+              <FSButton item={loginButton}/>
+            </Grid>
+          </Grid>
         </header>
     );
   }

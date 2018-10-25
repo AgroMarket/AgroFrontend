@@ -1,15 +1,20 @@
-import './HorizontalMenu.scss';
+import './MainMenu.scss';
 
-import React, { Component } from 'react';
+import React, {PureComponent} from 'react';
 // Проверка свойств
 import PropTypes from 'prop-types';
-
-import FSMenuItem from 'components/FSMenuItem';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import MainMenuItem from 'components/MainMenuItem';
 
 /**
- * Класс HorizontalMenu - компонент, отображающий горизонтальное меню
+ * Класс MainMenu - компонент, отображающий главное меню в шапке на всех страницах сайта
  */
-export default class HorizontalMenu extends Component {
+export default class MainMenu extends PureComponent {
+  state = {
+    value: 0,
+  };
+
   // Проверка свойств
   static propTypes = {
     // Пункты меню - массив объектов
@@ -18,35 +23,38 @@ export default class HorizontalMenu extends Component {
       id:  PropTypes.string,
       // название пункта
       name: PropTypes.string,
+      // адрес
+      path: PropTypes.string,
     })),
-    // класс для компонента
-    className: PropTypes.string,
   };
 
   // значения атрибутов по умолчанию
   static defaultProps = {
     // аттрибут menu инициализируем пустым массивом
     menu: [],
-    // имя класса отсутствует
-    className: '',
   };
 
-  // обновляем визуализацию компонента
-  shouldComponentUpdate(nextProps) {
-    return nextProps.className === this.props.className;
-  }
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
 
   render() {
     // получаем переданные свойства меню
     const { menu } = this.props;
+    // TODO выделение правильного пункта меню при прямом переходе по ссылке
+    const { value } = this.state;
+
     return (
-      <Menu>
-        {menu.map( (item, idx) => {
-          return (
-            <FSMenuItem item={item} key={idx}/>
-          );
-        })}
-      </Menu>
+
+        <AppBar position="static">
+          <Tabs fullWidth value={value} onChange={this.handleChange}>
+            {menu.map( (item, idx) => {
+              return (
+                <MainMenuItem item={item} key={idx}/>
+              );
+            })}
+          </Tabs>
+        </AppBar>
     );
   }
 }

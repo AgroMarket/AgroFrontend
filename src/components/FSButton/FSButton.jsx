@@ -1,4 +1,4 @@
-import './LoginButton.scss';
+import './FSButton.scss';
 
 import React, { PureComponent } from 'react';
 import Button from '@material-ui/core/Button';
@@ -6,9 +6,9 @@ import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 
 /**
- * Класс LoginButton - компонент, отображающий кнопку на странице
+ * Класс FSButton - компонент, отображающий кнопку на странице
  */
-export default class LoginButton extends PureComponent {
+export default class FSButton extends PureComponent {
   // Проверка свойств
   static propTypes = {
     // Кнопка - объект
@@ -30,7 +30,7 @@ export default class LoginButton extends PureComponent {
     // получаем переданные свойства кнопки
     const {id, name} = this.props.item;
     return (
-      <Button color="primary" id={id}>
+      <Button variant="contained" color="primary" id={id}>
         {name}
       </Button>
     );

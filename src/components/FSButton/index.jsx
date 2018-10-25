@@ -1,1 +1,1 @@
-export {default} from './LoginButton';
+export {default} from './FSButton';

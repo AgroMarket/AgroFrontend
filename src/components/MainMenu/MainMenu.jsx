@@ -44,7 +44,7 @@ export default class MainMenu extends PureComponent {
     const { value } = this.state;
 
     return (
-      <Tabs fullWidth value={value} onChange={this.handleChange} fullWidth={false} centered>
+      <Tabs fullWidth value={value} onChange={this.handleChange} centered>
         {menu.map( (item, idx) => {
           return (
             <MainMenuItem item={item} key={idx}/>

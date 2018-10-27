@@ -2,6 +2,7 @@ import './MainPage.scss';
 
 import React, { PureComponent } from 'react';
 import LeftMenu from 'components/LeftMenu';
+import SearchForm from 'components/SearchForm';
 
 // Список пунктов меню
 const menu = [
@@ -72,15 +73,33 @@ const menu = [
  * Класс HomePage - компонент, отображающий главную страницу
  */
 export default class MainPage extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      items: [],
+    };
+  }
+
+  handleItemSearch = item => {
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          // перезаписываем содержимое всего массива комментариев новым массивом, содержащим все комментарии старого массива и новый комментарий
+          items: prevState.comments.concat([item]),
+        };
+      }
+    );
+  };
+
   render() {
     // Отображаем main
     return (
       <main>
         <div></div>
         <LeftMenu menu={menu} className="left_menu"/>
-        <h1>
-          Items
-        </h1>
+        <SearchForm onSend={this.handleItemSearch}/>
       </main>
     );
   }

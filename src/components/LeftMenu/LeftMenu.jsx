@@ -10,10 +10,14 @@ import ListItemText from '@material-ui/core/ListItemText';
  * Класс LeftMenu - компонент, отображающий разделы каталога на странице каталога
  */
 export default class LeftMenu extends PureComponent {
-  state = {
-    // при входе на страницу ни один из разделов каталога не выбран
-    selectedIndex: -1,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      // при входе на страницу ни один из разделов каталога не выбран
+      selectedIndex: -1,
+    };
+  }
 
   handleListItemClick = (event, index) => {
     this.setState({ selectedIndex: index });

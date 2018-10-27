@@ -56,7 +56,6 @@ export default class Header extends PureComponent {
     return (
       <header>
         <div></div>
-        {/* Меню навигации */}
         <MainMenu menu={menu} className="main_menu"/>
         <FSButton item={loginButton} className="login_button"/>
         <div></div>

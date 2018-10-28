@@ -6,6 +6,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Header from 'components/Header';
+import Footer from 'components/Footer';
 
 // машрутизация сайта
 import routes from '../../routes';
@@ -20,10 +21,11 @@ export default class App extends PureComponent {
         <CssBaseline/>
         <BrowserRouter>
           <div className="container">
-            <Header className="item header"/>
-            <Switch className="item page">
+            <Header className="header"/>
+            <Switch className="page">
               {routes.map((route, idx) => <Route key={idx} {...route}/>)}
             </Switch>
+            <Footer/>
           </div>
         </BrowserRouter>
       </Fragment>

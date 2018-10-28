@@ -34,7 +34,7 @@ export default class ItemCard extends PureComponent {
             <Typography gutterBottom component="p">
               Продукты
             </Typography>
-            <Typography gutterBottom variant="p" component="h2">
+            <Typography gutterBottom variant="h2" component="p">
               100
             </Typography>
           </CardContent>

@@ -116,7 +116,7 @@ module.exports = {
       },
       // настраиваем обработку изображений
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(jpg|png|gif)$/,
         use: [
           {
             loader: 'file-loader',

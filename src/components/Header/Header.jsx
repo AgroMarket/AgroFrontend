@@ -55,10 +55,10 @@ export default class Header extends PureComponent {
   render() {
     return (
       <header>
-        <div></div>
+        <div/>
         <MainMenu menu={menu} className="main_menu"/>
         <FSButton item={loginButton} className="login_button"/>
-        <div></div>
+        <div/>
       </header>
     );
   }

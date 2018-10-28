@@ -81,13 +81,13 @@ export default class MainPage extends PureComponent {
     };
   }
 
-  handleItemSearch = item => {
+  handleItemSearch = items => {
     this.setState(
       prevState => {
         return {
           ...prevState,
-          // перезаписываем содержимое всего массива комментариев новым массивом, содержащим все комментарии старого массива и новый комментарий
-          items: prevState.comments.concat([item]),
+          // возвращаем массив найденных товаров
+          items: items,
         };
       }
     );
@@ -97,9 +97,13 @@ export default class MainPage extends PureComponent {
     // Отображаем main
     return (
       <main>
-        <div></div>
+        <div/>
         <LeftMenu menu={menu} className="left_menu"/>
-        <SearchForm onSend={this.handleItemSearch}/>
+        <div>
+          <SearchForm onSend={this.handleItemSearch}/>
+
+        </div>
+        <div/>
       </main>
     );
   }

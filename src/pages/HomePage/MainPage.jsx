@@ -3,6 +3,7 @@ import './MainPage.scss';
 import React, { PureComponent } from 'react';
 import LeftMenu from 'components/LeftMenu';
 import SearchForm from 'components/SearchForm';
+import CatalogList from 'components/CatalogList';
 
 // Список пунктов меню
 const menu = [
@@ -101,7 +102,7 @@ export default class MainPage extends PureComponent {
         <LeftMenu menu={menu} className="left_menu"/>
         <div>
           <SearchForm onSend={this.handleItemSearch}/>
-
+          <CatalogList/>
         </div>
         <div/>
       </main>

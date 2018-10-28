@@ -28,7 +28,7 @@ export default class ItemCard extends PureComponent {
           <CardMedia
             component="img"
             src={CatalogItemPhoto}
-            title="Contemplative Reptile"
+            title="Продукт"
           />
           <CardContent>
             <Typography gutterBottom component="p">

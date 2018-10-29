@@ -4,62 +4,64 @@ import React, {PureComponent} from 'react';
 
 import MainMenu from 'components/MainMenu';
 import FSButton from 'components/FSButton';
-
-// Список пунктов меню
-const menu = [
-  // Главная (стартовая) страница Ferma Store
-  {
-    id: 'main',
-    name: 'Ferma Store',
-    path: '/',
-  },
-  // О нас
-  {
-    id: 'about',
-    name: 'О нас',
-    path: '/about',
-  },
-  // Продавцам
-  {
-    id: 'sellers',
-    name: 'Продавцам',
-    path: '/sellers',
-  },
-  // Покупателям
-  {
-    id: 'buyers',
-    name: 'Покупателям',
-    path: '/buyers',
-  },
-  // Доставка и оплата
-  {
-    id: 'delivery',
-    name: 'Доставка и оплата',
-    path: '/delivery',
-  },
-  // Корзина
-  {
-    id: 'basket',
-    name: 'Корзина',
-    path: '/basket',
-  },
-];
+// TODO удалить mock.json
+import mainMenuData from 'mocks/mainmenu.json';
 
 // Данные для кнопки Вход
-const loginButton = {id: 'login', name: 'Войти'};
+const loginButton = {id: 'login', name: 'Вход'};
 
 /**
  * Класс Header - компонент, отображающий хидер страницы
  */
 export default class Header extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      menu: [],
+      isLoaded: false,
+      error: null,
+    };
+  }
+
+  componentDidMount() {
+    // TODO включить прием данных с сервера
+    /*    fetch('http://80.211.153.183:3000/api/mainmenu')
+          .then(res => res.json())
+          .then(res => {
+            this.setState({items: res});
+            this.setState({isLoaded: true});
+            },
+          error => {
+            this.setState({
+              isLoaded: true,
+              error,
+            });
+          });*/
+    // TODO удалить mock.json
+    this.setState({menu: mainMenuData});
+    this.setState({isLoaded: true});
+  }
+
   render() {
-    return (
-      <header>
-        <div/>
-        <MainMenu menu={menu} className="main_menu"/>
-        <FSButton item={loginButton} className="login_button"/>
-        <div/>
-      </header>
-    );
+    const { error, isLoaded, menu } = this.state;
+    if (error) {
+      return <p>Ошибка: {error.message}</p>;
+    }
+    else
+    // Отображаем main
+    if (!isLoaded) {
+      return <p>Пожалуйста, подождите, идет загрузка страницы</p>;
+    }
+    else {
+      return (
+        <header>
+          <div/>
+          <MainMenu menu={menu} className="main_menu"/>
+          <FSButton item={loginButton} className="login_button"/>
+          <div/>
+        </header>
+      );
+    }
   }
 }

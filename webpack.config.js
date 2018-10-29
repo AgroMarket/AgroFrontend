@@ -46,6 +46,8 @@ module.exports = {
       pages: path.resolve(__dirname, 'src', 'pages'),
       // адрес папки layouts
       layouts: path.resolve(__dirname, 'src', 'layouts'),
+      // адрес папки для хранения json-заглушек
+      mocks: path.resolve(__dirname, 'mocks'),
     }
   },
   devtool: false,

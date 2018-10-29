@@ -10,10 +10,6 @@ import Tab from '@material-ui/core/Tab';
  * Класс MainMenuItem - компонент, отображающий элемент меню в шапке страницы
  */
 export default class MainMenuItem extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   // Проверка свойств
   static propTypes = {
     // Пункты меню - массив объектов
@@ -28,6 +24,7 @@ export default class MainMenuItem extends PureComponent {
   };
   
   render() {
+    // получаем переданные свойства пункта главного меню сайта
     const { item } = this.props;
 
     return <Tab component={Link} label={item.name} to={item.path} {...this.props}/>;

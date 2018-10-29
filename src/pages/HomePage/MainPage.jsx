@@ -4,6 +4,8 @@ import React, { PureComponent } from 'react';
 import LeftMenu from 'components/LeftMenu';
 import SearchForm from 'components/SearchForm';
 import CatalogList from 'components/CatalogList';
+// TODO удалить mock.json
+import startListData from 'mocks/startlist.json';
 
 // Список пунктов меню
 const menu = [
@@ -79,7 +81,28 @@ export default class MainPage extends PureComponent {
 
     this.state = {
       items: [],
+      isLoaded: false,
+      error: null,
     };
+  }
+
+  componentDidMount() {
+    // TODO включить прием данных с сервера
+/*    fetch('http://80.211.153.183:3000/api/startlist')
+      .then(res => res.json())
+      .then(res => {
+        this.setState({items: res});
+        this.setState({isLoaded: true});
+        },
+      error => {
+        this.setState({
+          isLoaded: true,
+          error,
+        });
+      });*/
+    // TODO удалить mock.json
+    this.setState({items: startListData});
+    this.setState({isLoaded: true});
   }
 
   handleItemSearch = items => {
@@ -95,17 +118,27 @@ export default class MainPage extends PureComponent {
   };
 
   render() {
+    const { error, isLoaded, items } = this.state;
+    if (error) {
+      return <p>Ошибка: {error.message}</p>;
+    }
+    else
     // Отображаем main
-    return (
-      <main>
-        <div/>
-        <LeftMenu menu={menu} className="left_menu"/>
-        <div>
-          <SearchForm onSend={this.handleItemSearch}/>
-          <CatalogList/>
-        </div>
-        <div/>
-      </main>
-    );
+      if (!isLoaded) {
+        return <p>Пожалуйста, подождите, идет загрузка страницы</p>;
+      }
+      else {
+        return (
+          <main>
+            <div/>
+            <LeftMenu menu={menu} className="left_menu"/>
+            <div>
+              <SearchForm onSend={this.handleItemSearch}/>
+              <CatalogList items={items}/>
+            </div>
+            <div/>
+          </main>
+        );
+      }
   }
 }

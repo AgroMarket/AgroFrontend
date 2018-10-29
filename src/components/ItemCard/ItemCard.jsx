@@ -22,17 +22,19 @@ export default class ItemCard extends PureComponent {
   }
 
   render() {
+    // получаем переданные свойства товара каталога
+    const { item } = this.props;
     return (
       <Card>
         <CardActionArea>
           <CardMedia
             component="img"
             src={CatalogItemPhoto}
-            title="Продукт"
+            title={item.name}
           />
           <CardContent>
             <Typography gutterBottom component="p">
-              Продукты
+              {item.name}
             </Typography>
             <Typography gutterBottom variant="h2" component="p">
               100

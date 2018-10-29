@@ -10,8 +10,12 @@ import MainMenuItem from 'components/MainMenuItem';
  * Класс MainMenu - компонент, отображающий главное меню в шапке на всех страницах сайта
  */
 export default class MainMenu extends PureComponent {
-  state = {
-    value: 0,
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: 0,
+    };
   };
 
   // Проверка свойств

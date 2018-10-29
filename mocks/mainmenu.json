@@ -1,0 +1,32 @@
+[
+  {
+    "id": "main",
+    "name": "Ferma Store",
+    "path": "/"
+  },
+  {
+    "id": "about",
+    "name": "О нас",
+    "path": "/about"
+  },
+  {
+    "id": "sellers",
+    "name": "Продавцам",
+    "path": "/sellers"
+  },
+  {
+    "id": "buyers",
+    "name": "Покупателям",
+    "path": "/buyers"
+  },
+  {
+    "id": "delivery",
+    "name": "Доставка и оплата",
+    "path": "/delivery"
+  },
+  {
+    "id": "basket",
+    "name": "Корзина",
+    "path": "/basket"
+  }
+]

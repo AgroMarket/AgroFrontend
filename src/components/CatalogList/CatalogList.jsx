@@ -7,15 +7,6 @@ import ItemCard from 'components/ItemCard';
  * Класс CatalogList - компонент, отображающий товары каталога на странице
  */
 export default class CatalogList extends PureComponent {
-  constructor(props) {
-    super(props);
-    
-    // значения полей, используемых в render()
-    this.state = {
-      
-    };
-  }
-  
   render() {
     // получаем переданные свойства каталога
     const { items } = this.props;

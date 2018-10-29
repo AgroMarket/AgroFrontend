@@ -30,14 +30,14 @@ export default class ItemCard extends PureComponent {
           <CardMedia
             component="img"
             src={CatalogItemPhoto}
-            title={item.name}
+            title={item.title}
           />
           <CardContent>
             <Typography gutterBottom component="p">
-              {item.name}
+              {item.title}
             </Typography>
-            <Typography gutterBottom variant="h2" component="p">
-              100
+            <Typography gutterBottom variant="h5" component="p">
+              {item.quantity} {item.measures} / {item.price} руб.
             </Typography>
           </CardContent>
         </CardActionArea>

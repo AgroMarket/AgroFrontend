@@ -44,7 +44,7 @@ export default class SearchForm extends PureComponent {
     // получаем содержимое state
     const { item } = this.state;
     return (
-      <div>
+      <div className="searcher">
         <input type="text" name="item" onChange={this.handleChange} value={item}/>
         <button onClick={this.handleClick}>Найти</button>
       </div>

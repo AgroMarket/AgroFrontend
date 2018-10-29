@@ -16,17 +16,16 @@ export default class CatalogList extends PureComponent {
     };
   }
   
-  render() {    
+  render() {
+    // получаем переданные свойства каталога
+    const { items } = this.props;
     return (
       <div className="catalog_items">
-        <ItemCard/>
-        <ItemCard/>
-        <ItemCard/>
-        <ItemCard/>
-        <ItemCard/>
-        <ItemCard/>
-        <ItemCard/>
-        <ItemCard/>
+        {items.map( (item, idx) => {
+          return (
+            <ItemCard item={item} key={idx}/>
+          );
+        })}
       </div>
     );
   }

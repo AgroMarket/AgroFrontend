@@ -16,10 +16,15 @@ export default class MainPage extends PureComponent {
     super(props);
 
     this.state = {
+      // пункты меню каталога
       menuItems: [],
+      // товары каталога
       catalogItems: [],
+      // состояние загрузки пунктов меню каталога
       menuLoaded: false,
+      // состояние загрузки товаров каталога
       itemsLoaded: false,
+      // ошибка загрузки
       error: null,
     };
   }

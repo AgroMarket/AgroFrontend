@@ -15,12 +15,20 @@ export default class LeftMenu extends PureComponent {
 
     this.state = {
       // при входе на страницу ни один из разделов каталога не выбран
-      selectedIndex: -1,
+      section: -1,
     };
   }
 
+  /**
+   * Устанавливает выбранный пользователем раздел каталога в качестве текущего открытого и передает его номер в MainPage
+   * @param event обрабатываемое событие щелчка по разделу каталога
+   * @param index номер выбранного пользователем раздела каталога
+   */
   handleListItemClick = (event, index) => {
-    this.setState({ selectedIndex: index });
+    this.setState({
+      section: index,
+    });
+    this.props.section(index);
   };
 
   // Проверка свойств
@@ -34,6 +42,8 @@ export default class LeftMenu extends PureComponent {
       // адрес
       path: PropTypes.string,
     })),
+    // функция обратного вызова в родительский компонент
+    section: PropTypes.func,
   };
 
   // значения атрибутов по умолчанию
@@ -51,7 +61,7 @@ export default class LeftMenu extends PureComponent {
           return (
             <ListItem
               button
-              selected={this.state.selectedIndex === idx}
+              selected={this.state.section === idx}
               onClick={event => this.handleListItemClick(event, idx)}
               key={idx}
             >

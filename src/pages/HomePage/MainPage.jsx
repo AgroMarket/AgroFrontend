@@ -5,7 +5,6 @@ import LeftMenu from 'components/LeftMenu';
 import SearchForm from 'components/SearchForm';
 import CatalogList from 'components/CatalogList';
 // TODO удалить mock.json
-import startListData from 'mocks/startlist.json';
 import catalogMenuData from 'mocks/catalogmenu.json';
 
 /**
@@ -18,12 +17,10 @@ export default class MainPage extends PureComponent {
     this.state = {
       // пункты меню каталога
       menuItems: [],
-      // товары каталога
-      catalogItems: [],
       // состояние загрузки пунктов меню каталога
       menuLoaded: false,
-      // состояние загрузки товаров каталога
-      itemsLoaded: false,
+      // при входе на страницу ни один из разделов каталога не выбран, загружается случайный набор товаров
+      openedSection: -1,
       // ошибка загрузки
       error: null,
     };
@@ -43,24 +40,10 @@ export default class MainPage extends PureComponent {
           error,
         });
       });
-
-      fetch('http://80.211.153.183:3000/api/startlist')
-      .then(res => res.json())
-      .then(res => {
-        this.setState({catalogItems: res});
-        this.setState({itemsLoaded: true});
-        },
-      error => {
-        this.setState({
-          itemsLoaded: true,
-          error,
-        });
-      });*/
+*/
     // TODO удалить mock.json
     this.setState({menuItems: catalogMenuData});
     this.setState({menuLoaded: true});
-    this.setState({catalogItems: startListData});
-    this.setState({itemsLoaded: true});
   }
 
   handleItemSearch = items => {
@@ -75,24 +58,32 @@ export default class MainPage extends PureComponent {
     );
   };
 
+  /**
+   * Получает из LeftMenu и сохраняет в state текущий открытый раздел каталога товаров
+   * @param sectionNumber выбранный пользователем раздел каталога товаров
+   */
+  changeSection = sectionNumber => {
+    this.setState({openedSection: sectionNumber});
+  };
+
   render() {
-    const { error, itemsLoaded, menuLoaded, menuItems, catalogItems } = this.state;
+    const { error, menuLoaded, menuItems, openedSection } = this.state;
     if (error) {
       return <p>Ошибка: {error.message}</p>;
     }
     else
     // Отображаем main
-      if (!itemsLoaded || !menuLoaded) {
+      if (!menuLoaded) {
         return <p>Пожалуйста, подождите, идет загрузка страницы</p>;
       }
       else {
         return (
           <main>
             <div/>
-            <LeftMenu menu={menuItems} className="left_menu"/>
+            <LeftMenu menu={menuItems} section={this.changeSection} className="left_menu"/>
             <div>
               <SearchForm onSend={this.handleItemSearch}/>
-              <CatalogList items={catalogItems}/>
+              <CatalogList section={openedSection}/>
             </div>
             <div/>
           </main>

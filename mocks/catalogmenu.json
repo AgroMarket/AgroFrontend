@@ -1,0 +1,62 @@
+[
+  {
+    "id": "meat",
+    "name": "Мясо",
+    "path": "/meat"
+  },
+  {
+    "id": "bird",
+    "name": "Птица, яйцо",
+    "path": "/bird"
+  },
+  {
+    "id": "fish",
+    "name": "Рыба и морепродукты",
+    "path": "/fish"
+  },
+  {
+    "id": "milk",
+    "name": "Молочные продукты",
+    "path": "/milk"
+  },
+  {
+    "id": "vegetable",
+    "name": "Овощи и фрукты",
+    "path": "/vegetable"
+  },
+  {
+    "id": "product",
+    "name": "Готовые продукты, заготовки",
+    "path": "/product"
+  },
+  {
+    "id": "honey",
+    "name": "Мёд",
+    "path": "/honey"
+  },
+  {
+    "id": "mushroom",
+    "name": "Грибы и ягоды",
+    "path": "/mushroom"
+  },
+  {
+    "id": "drink",
+    "name": "Напитки",
+    "path": "/drink"
+  },
+  {
+    "id": "nut",
+    "name": "Орехи",
+    "path": "/nut"
+  },
+  {
+    "id": "grain",
+    "name": "Крупы и бобовые",
+    "path": "/grain"
+  },
+  {
+    "id": "oil",
+    "name": "Жиры и масла",
+    "path": "/oil"
+  }
+]

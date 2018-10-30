@@ -16,7 +16,7 @@ export default class MainMenu extends PureComponent {
     this.state = {
       value: 0,
     };
-  };
+  }
 
   // Проверка свойств
   static propTypes = {

@@ -41,10 +41,14 @@ export default class MainMenu extends PureComponent {
     this.setState({ value });
   };
 
+  componentDidMount() {
+    // Выделение пункта меню при прямом переходе по ссылке
+    const menulist = ['/', '/about', '/sellers', '/buyers', '/delivery', '/basket'];
+    this.setState({value: menulist.indexOf('/'+/[^/]*$/.exec(window.location.href)[0])});
+  }
+
   render() {
-    // получаем переданные свойства меню
     const { menu } = this.props;
-    // TODO выделение правильного пункта меню при прямом переходе по ссылке
     const { value } = this.state;
 
     return (

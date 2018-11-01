@@ -3,11 +3,25 @@ import './CatalogList.scss';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import ItemCard from 'components/ItemCard';
+import {serverAddress} from '../../constants';
 
 /**
  * Класс CatalogList - компонент, отображающий товары каталога на странице
  */
 export default class CatalogList extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      // товары каталога
+      catalogItems: [],
+      // состояние загрузки товаров каталога
+      itemsLoaded: false,
+      // ошибка загрузки
+      error: null,
+    };
+  }
+
   // Проверка свойств
   static propTypes = {
     // Пункты меню - массив объектов
@@ -21,6 +35,8 @@ export default class CatalogList extends PureComponent {
       // цена товара
       price: PropTypes.number,
     })),
+    // Путь в адресной строке
+    section: PropTypes.string,
   };
 
   // значения атрибутов по умолчанию
@@ -29,17 +45,42 @@ export default class CatalogList extends PureComponent {
     items: [],
   };
 
+  componentDidMount() {
+    fetch(`${serverAddress}/api${this.props.section}`)
+        .then(res => res.json())
+        .then(res => {
+          this.setState({catalogItems: res});
+          this.setState({itemsLoaded: true});
+          },
+        error => {
+          this.setState({
+            itemsLoaded: true,
+            error,
+          });
+        });
+  }
+
   render() {
     // получаем переданные свойства товаров каталога
-    const { items } = this.props;
-    return (
-      <div className="catalog_items">
-        {items.map( (item, idx) => {
-          return (
-            <ItemCard item={item} key={idx}/>
-          );
-        })}
-      </div>
-    );
+    const { error, itemsLoaded, catalogItems } = this.state;
+    if (error) {
+      return <p>Ошибка: {error.message}</p>;
+    }
+    else
+    // Отображаем main
+    if (!itemsLoaded) {
+      return <p>Пожалуйста, подождите, идет загрузка страницы</p>;
+    }
+    else {
+      return (
+        <div className="catalog_items">
+          {catalogItems.map( (item, idx) => {
+            return (
+              <ItemCard item={item} key={idx}/>
+            );
+          })}
+        </div>
+      );
+    }
   }
 }

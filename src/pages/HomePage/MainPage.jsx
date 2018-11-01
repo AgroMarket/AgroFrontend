@@ -4,8 +4,7 @@ import React, { PureComponent } from 'react';
 import LeftMenu from 'components/LeftMenu';
 import SearchForm from 'components/SearchForm';
 import CatalogList from 'components/CatalogList';
-// TODO удалить mock.json
-import catalogMenuData from 'mocks/catalogmenu.json';
+import {serverAddress} from '../../constants';
 
 /**
  * Класс HomePage - компонент, отображающий главную страницу
@@ -20,15 +19,14 @@ export default class MainPage extends PureComponent {
       // состояние загрузки пунктов меню каталога
       menuLoaded: false,
       // при входе на страницу ни один из разделов каталога не выбран, загружается случайный набор товаров
-      openedSection: -1,
+      openedSection: '/startlist',
       // ошибка загрузки
       error: null,
     };
   }
 
   componentDidMount() {
-    // TODO включить прием данных с сервера
-/*    fetch('http://80.211.153.183:3000/api/catalogmenu')
+    fetch(`${serverAddress}/api/catalogmenu`)
       .then(res => res.json())
       .then(res => {
         this.setState({menuItems: res});
@@ -40,10 +38,6 @@ export default class MainPage extends PureComponent {
           error,
         });
       });
-*/
-    // TODO удалить mock.json
-    this.setState({menuItems: catalogMenuData});
-    this.setState({menuLoaded: true});
   }
 
   handleItemSearch = items => {
@@ -59,11 +53,11 @@ export default class MainPage extends PureComponent {
   };
 
   /**
-   * Получает из LeftMenu и сохраняет в state текущий открытый раздел каталога товаров
+   * Получает из LeftMenu и сохраняет в state адрес текущего открытого раздела каталога товаров
    * @param sectionNumber выбранный пользователем раздел каталога товаров
    */
   changeSection = sectionNumber => {
-    this.setState({openedSection: sectionNumber});
+    this.setState({openedSection: this.state.menuItems[sectionNumber].path});
   };
 
   render() {

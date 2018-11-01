@@ -1,62 +1,516 @@
-[
-  {
-    "id": "meat",
-    "name": "Мясо",
-    "path": "/meat"
-  },
-  {
-    "id": "bird",
-    "name": "Птица, яйцо",
-    "path": "/bird"
-  },
-  {
-    "id": "fish",
-    "name": "Рыба и морепродукты",
-    "path": "/fish"
-  },
-  {
-    "id": "milk",
-    "name": "Молочные продукты",
-    "path": "/milk"
-  },
-  {
-    "id": "vegetable",
-    "name": "Овощи и фрукты",
-    "path": "/vegetable"
-  },
-  {
-    "id": "product",
-    "name": "Готовые продукты, заготовки",
-    "path": "/product"
-  },
-  {
-    "id": "honey",
-    "name": "Мёд",
-    "path": "/honey"
-  },
-  {
-    "id": "mushroom",
-    "name": "Грибы и ягоды",
-    "path": "/mushroom"
-  },
-  {
-    "id": "drink",
-    "name": "Напитки",
-    "path": "/drink"
-  },
-  {
-    "id": "nut",
-    "name": "Орехи",
-    "path": "/nut"
-  },
-  {
-    "id": "grain",
-    "name": "Крупы и бобовые",
-    "path": "/grain"
-  },
-  {
-    "id": "oil",
-    "name": "Жиры и масла",
-    "path": "/oil"
-  }
-]
+{
+  "status": 200,
+  "message": "Список категорий",
+  "result": [
+    {
+      "api": "/api/categories/1/products",
+      "id": 1,
+      "name": "Мёд",
+      "parent_id": 0,
+      "rank": 1,
+      "children": [
+        {
+          "api": "/api/categories/2/products",
+          "id": 2,
+          "name": "Мёд",
+          "parent_id": 1,
+          "rank": 1
+        },
+        {
+          "api": "/api/categories/3/products",
+          "id": 3,
+          "name": "Мёд в сотах",
+          "parent_id": 1,
+          "rank": 2
+        },
+        {
+          "api": "/api/categories/4/products",
+          "id": 4,
+          "name": "Продукты пчеловодства",
+          "parent_id": 1,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "api": "/api/categories/5/products",
+      "id": 5,
+      "name": "Ягоды",
+      "parent_id": 0,
+      "rank": 2,
+      "children": [
+        {
+          "api": "/api/categories/6/products",
+          "id": 6,
+          "name": "Свежие ягоды",
+          "parent_id": 5,
+          "rank": 1
+        },
+        {
+          "api": "/api/categories/7/products",
+          "id": 7,
+          "name": "Замороженные ягоды",
+          "parent_id": 5,
+          "rank": 2
+        },
+        {
+          "api": "/api/categories/8/products",
+          "id": 8,
+          "name": "Сущеные ягоды",
+          "parent_id": 5,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "api": "/api/categories/9/products",
+      "id": 9,
+      "name": "Овощи фрукты",
+      "parent_id": 0,
+      "rank": 3,
+      "children": [
+        {
+          "api": "/api/categories/10/products",
+          "id": 10,
+          "name": "Зелень",
+          "parent_id": 9,
+          "rank": 1
+        },
+        {
+          "api": "/api/categories/11/products",
+          "id": 11,
+          "name": "Овощи",
+          "parent_id": 9,
+          "rank": 2
+        },
+        {
+          "api": "/api/categories/12/products",
+          "id": 12,
+          "name": "Фрукты",
+          "parent_id": 9,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "api": "/api/categories/13/products",
+      "id": 13,
+      "name": "Орехи",
+      "parent_id": 0,
+      "rank": 4,
+      "children": [
+        {
+          "api": "/api/categories/14/products",
+          "id": 14,
+          "name": "Орехи",
+          "parent_id": 13,
+          "rank": 1
+        },
+        {
+          "api": "/api/categories/15/products",
+          "id": 15,
+          "name": "Семечки",
+          "parent_id": 13,
+          "rank": 2
+        },
+        {
+          "api": "/api/categories/16/products",
+          "id": 16,
+          "name": "Орехи, семечки очищенные",
+          "parent_id": 13,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "api": "/api/categories/17/products",
+      "id": 17,
+      "name": "Молочные продукты",
+      "parent_id": 0,
+      "rank": 5,
+      "children": [
+        {
+          "api": "/api/categories/18/products",
+          "id": 18,
+          "name": "Молоко, сливки",
+          "parent_id": 17,
+          "rank": 1
+        },
+        {
+          "api": "/api/categories/19/products",
+          "id": 19,
+          "name": "Кефир, ряженка",
+          "parent_id": 17,
+          "rank": 2
+        },
+        {
+          "api": "/api/categories/20/products",
+          "id": 20,
+          "name": "Сметана",
+          "parent_id": 17,
+          "rank": 3
+        },
+        {
+          "api": "/api/categories/21/products",
+          "id": 21,
+          "name": "Сыр",
+          "parent_id": 17,
+          "rank": 4
+        },
+        {
+          "api": "/api/categories/22/products",
+          "id": 22,
+          "name": "Творог",
+          "parent_id": 17,
+          "rank": 5
+        }
+      ]
+    },
+    {
+      "api": "/api/categories/23/products",
+      "id": 23,
+      "name": "Крупы, Бобовые",
+      "parent_id": 0,
+      "rank": 6,
+      "children": [
+        {
+          "api": "/api/categories/24/products",
+          "id": 24,
+          "name": "Гречка",
+          "parent_id": 23,
+          "rank": 1
+        },
+        {
+          "api": "/api/categories/25/products",
+          "id": 25,
+          "name": "Пшеница",
+          "parent_id": 23,
+          "rank": 2
+        },
+        {
+          "api": "/api/categories/26/products",
+          "id": 26,
+          "name": "Пшено",
+          "parent_id": 23,
+          "rank": 3
+        },
+        {
+          "api": "/api/categories/27/products",
+          "id": 27,
+          "name": "Горох",
+          "parent_id": 23,
+          "rank": 4
+        },
+        {
+          "api": "/api/categories/28/products",
+          "id": 28,
+          "name": "Фасоль",
+          "parent_id": 23,
+          "rank": 5
+        },
+        {
+          "api": "/api/categories/29/products",
+          "id": 29,
+          "name": "Соя",
+          "parent_id": 23,
+          "rank": 6
+        },
+        {
+          "api": "/api/categories/30/products",
+          "id": 30,
+          "name": "Чечевица",
+          "parent_id": 23,
+          "rank": 7
+        }
+      ]
+    },
+    {
+      "api": "/api/categories/31/products",
+      "id": 31,
+      "name": "Готовые продукты, заготовки",
+      "parent_id": 0,
+      "rank": 7,
+      "children": [
+        {
+          "api": "/api/categories/32/products",
+          "id": 32,
+          "name": "Хлебобулочные изделия",
+          "parent_id": 31,
+          "rank": 1
+        },
+        {
+          "api": "/api/categories/33/products",
+          "id": 33,
+          "name": "Консервированные продукты",
+          "parent_id": 31,
+          "rank": 2
+        },
+        {
+          "api": "/api/categories/34/products",
+          "id": 34,
+          "name": "Мясные деликатесы",
+          "parent_id": 31,
+          "rank": 3
+        },
+        {
+          "api": "/api/categories/35/products",
+          "id": 35,
+          "name": "Пельмени, вареники",
+          "parent_id": 31,
+          "rank": 4
+        },
+        {
+          "api": "/api/categories/36/products",
+          "id": 36,
+          "name": "Соусы, специи",
+          "parent_id": 31,
+          "rank": 5
+        },
+        {
+          "api": "/api/categories/37/products",
+          "id": 37,
+          "name": "Кондитерские изделия",
+          "parent_id": 31,
+          "rank": 6
+        }
+      ]
+    },
+    {
+      "api": "/api/categories/38/products",
+      "id": 38,
+      "name": "Птица, Яйцо",
+      "parent_id": 0,
+      "rank": 8,
+      "children": [
+        {
+          "api": "/api/categories/39/products",
+          "id": 39,
+          "name": "Курица",
+          "parent_id": 38,
+          "rank": 1
+        },
+        {
+          "api": "/api/categories/40/products",
+          "id": 40,
+          "name": "Индейка",
+          "parent_id": 38,
+          "rank": 2
+        },
+        {
+          "api": "/api/categories/41/products",
+          "id": 41,
+          "name": "Гусь",
+          "parent_id": 38,
+          "rank": 3
+        },
+        {
+          "api": "/api/categories/42/products",
+          "id": 42,
+          "name": "Утка",
+          "parent_id": 38,
+          "rank": 4
+        },
+        {
+          "api": "/api/categories/43/products",
+          "id": 43,
+          "name": "Яйцо",
+          "parent_id": 38,
+          "rank": 5
+        }
+      ]
+    },
+    {
+      "api": "/api/categories/44/products",
+      "id": 44,
+      "name": "Рыба, Морепродукты",
+      "parent_id": 0,
+      "rank": 9,
+      "children": [
+        {
+          "api": "/api/categories/45/products",
+          "id": 45,
+          "name": "Замороженная рыба",
+          "parent_id": 44,
+          "rank": 1
+        },
+        {
+          "api": "/api/categories/46/products",
+          "id": 46,
+          "name": "Копченная, соленая, вяленная рыба",
+          "parent_id": 44,
+          "rank": 2
+        },
+        {
+          "api": "/api/categories/47/products",
+          "id": 47,
+          "name": "Свежая рыба",
+          "parent_id": 44,
+          "rank": 3
+        },
+        {
+          "api": "/api/categories/48/products",
+          "id": 48,
+          "name": "Икра",
+          "parent_id": 44,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "api": "/api/categories/49/products",
+      "id": 49,
+      "name": "Грибы",
+      "parent_id": 0,
+      "rank": 10,
+      "children": [
+        {
+          "api": "/api/categories/50/products",
+          "id": 50,
+          "name": "Свежие грибы",
+          "parent_id": 49,
+          "rank": 1
+        },
+        {
+          "api": "/api/categories/51/products",
+          "id": 51,
+          "name": "Замороженные грибы",
+          "parent_id": 49,
+          "rank": 2
+        },
+        {
+          "api": "/api/categories/52/products",
+          "id": 52,
+          "name": "Соленые грибы",
+          "parent_id": 49,
+          "rank": 3
+        },
+        {
+          "api": "/api/categories/53/products",
+          "id": 53,
+          "name": "Сушенные грибы",
+          "parent_id": 49,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "api": "/api/categories/54/products",
+      "id": 54,
+      "name": "Напитки",
+      "parent_id": 0,
+      "rank": 11,
+      "children": [
+        {
+          "api": "/api/categories/55/products",
+          "id": 55,
+          "name": "Соки",
+          "parent_id": 54,
+          "rank": 1
+        },
+        {
+          "api": "/api/categories/56/products",
+          "id": 56,
+          "name": "Морс",
+          "parent_id": 54,
+          "rank": 2
+        },
+        {
+          "api": "/api/categories/57/products",
+          "id": 57,
+          "name": "Квас",
+          "parent_id": 54,
+          "rank": 3
+        },
+        {
+          "api": "/api/categories/58/products",
+          "id": 58,
+          "name": "Сиропы",
+          "parent_id": 54,
+          "rank": 4
+        },
+        {
+          "api": "/api/categories/59/products",
+          "id": 59,
+          "name": "Чай",
+          "parent_id": 54,
+          "rank": 5
+        }
+      ]
+    },
+    {
+      "api": "/api/categories/60/products",
+      "id": 60,
+      "name": "Масла, Жиры",
+      "parent_id": 0,
+      "rank": 12,
+      "children": [
+        {
+          "api": "/api/categories/61/products",
+          "id": 61,
+          "name": "Масло сливочное",
+          "parent_id": 60,
+          "rank": 1
+        },
+        {
+          "api": "/api/categories/62/products",
+          "id": 62,
+          "name": "Масло растительное",
+          "parent_id": 60,
+          "rank": 2
+        },
+        {
+          "api": "/api/categories/63/products",
+          "id": 63,
+          "name": "Жир животный",
+          "parent_id": 60,
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "api": "/api/categories/64/products",
+      "id": 64,
+      "name": "Мясо",
+      "parent_id": 0,
+      "rank": 13,
+      "children": [
+        {
+          "api": "/api/categories/65/products",
+          "id": 65,
+          "name": "Говядина",
+          "parent_id": 64,
+          "rank": 1
+        },
+        {
+          "api": "/api/categories/66/products",
+          "id": 66,
+          "name": "Свинина",
+          "parent_id": 64,
+          "rank": 2
+        },
+        {
+          "api": "/api/categories/67/products",
+          "id": 67,
+          "name": "Баранина",
+          "parent_id": 64,
+          "rank": 3
+        },
+        {
+          "api": "/api/categories/68/products",
+          "id": 68,
+          "name": "Крольчатина",
+          "parent_id": 64,
+          "rank": 4
+        },
+        {
+          "api": "/api/categories/69/products",
+          "id": 69,
+          "name": "Субпродукты",
+          "parent_id": 64,
+          "rank": 5
+        }
+      ]
+    }
+  ],
+  "error": null
+}

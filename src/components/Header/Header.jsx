@@ -24,10 +24,10 @@ export default class Header extends PureComponent {
   }
 
   componentDidMount() {
-    fetch(`${serverAddress}/api/mainmenu`)
+    fetch(`${serverAddress}/api/pages`)
       .then(res => res.json())
       .then(res => {
-        this.setState({menu: res});
+        this.setState({menu: res.result});
         this.setState({isLoaded: true});
         },
       error => {

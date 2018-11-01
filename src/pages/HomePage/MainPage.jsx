@@ -19,17 +19,17 @@ export default class MainPage extends PureComponent {
       // состояние загрузки пунктов меню каталога
       menuLoaded: false,
       // при входе на страницу ни один из разделов каталога не выбран, загружается случайный набор товаров
-      openedSection: '/startlist',
+      openedSection: '/api/products?scope=samples',
       // ошибка загрузки
       error: null,
     };
   }
 
   componentDidMount() {
-    fetch(`${serverAddress}/api/catalogmenu`)
+    fetch(`${serverAddress}/api/categories`)
       .then(res => res.json())
       .then(res => {
-        this.setState({menuItems: res});
+        this.setState({menuItems: res.result});
         this.setState({menuLoaded: true});
         },
       error => {
@@ -57,7 +57,7 @@ export default class MainPage extends PureComponent {
    * @param sectionNumber выбранный пользователем раздел каталога товаров
    */
   changeSection = sectionNumber => {
-    this.setState({openedSection: this.state.menuItems[sectionNumber].path});
+    this.setState({openedSection: `/api/categories/${sectionNumber+1}/products`});
   };
 
   render() {

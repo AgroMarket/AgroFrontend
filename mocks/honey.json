@@ -1,0 +1,42 @@
+{
+  "status": 200,
+  "message": "Список товаров по категории",
+  "result": {
+    "products": [
+      {
+        "api": "/api/products/6",
+        "id": 6,
+        "name": "Мёд №6",
+        "messures": "кг",
+        "image": "",
+        "category_id": 2
+      },
+      {
+        "api": "/api/products/5",
+        "id": 5,
+        "name": "Мёд №5",
+        "messures": "кг",
+        "image": "",
+        "category_id": 2
+      },
+      {
+        "api": "/api/products/4",
+        "id": 4,
+        "name": "Мёд №4",
+        "messures": "кг",
+        "image": "",
+        "category_id": 2
+      },
+      {
+        "api": "/api/products/3",
+        "id": 3,
+        "name": "Мёд №3",
+        "messures": "кг",
+        "image": "",
+        "category_id": 2
+      }
+    ],
+    "pagination": ""
+  },
+  "error": null
+}

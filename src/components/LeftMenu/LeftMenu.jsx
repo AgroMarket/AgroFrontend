@@ -36,7 +36,7 @@ export default class LeftMenu extends PureComponent {
     // Пункты меню - массив объектов
     menu: PropTypes.arrayOf(PropTypes.shape({
       // id пункта
-      id:  PropTypes.string,
+      id:  PropTypes.number,
       // название пункта
       name: PropTypes.string,
       // адрес

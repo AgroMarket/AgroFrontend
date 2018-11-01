@@ -7,8 +7,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-// TODO загрузка изображения должна быть с сервера
-import CatalogItemPhoto from 'img/CatalogItem.jpg';
 
 /**
  * Класс ItemCard - компонент, отображающий карточку товара на странице
@@ -20,8 +18,6 @@ export default class ItemCard extends PureComponent {
     item: PropTypes.shape({
       // название товара
       title: PropTypes.string,
-      // количество товара за предлагаемую цену
-      quantity: PropTypes.number,
       // единица измерения товара
       measures: PropTypes.string,
       // цена товара
@@ -37,7 +33,7 @@ export default class ItemCard extends PureComponent {
         <CardActionArea>
           <CardMedia
             component="img"
-            src={CatalogItemPhoto}
+            src={'http://80.211.153.183:3000'+item.image}
             title={item.title}
           />
           <CardContent>
@@ -45,7 +41,7 @@ export default class ItemCard extends PureComponent {
               {item.title}
             </Typography>
             <Typography gutterBottom variant="h5" component="p">
-              {item.quantity} {item.measures} / {item.price} руб.
+              {item.price} руб.&nbsp;/&nbsp;{item.measures}
             </Typography>
           </CardContent>
         </CardActionArea>

@@ -23,7 +23,7 @@ export default class MainMenu extends PureComponent {
     // Пункты меню - массив объектов
     menu: PropTypes.arrayOf(PropTypes.shape({
       // id пункта
-      id:  PropTypes.string,
+      id:  PropTypes.number,
       // название пункта
       name: PropTypes.string,
       // адрес
@@ -43,8 +43,9 @@ export default class MainMenu extends PureComponent {
 
   componentDidMount() {
     // Выделение пункта меню при прямом переходе по ссылке
-    const menulist = ['/', '/about', '/sellers', '/buyers', '/delivery', '/basket'];
-    this.setState({value: menulist.indexOf('/'+/[^/]*$/.exec(window.location.href)[0])});
+    const menulist = ['', 'about', 'sellers', 'buyers', 'delivery', 'basket'];
+    // ищем в url из адресной строки текст после слэша
+    this.setState({value: menulist.indexOf(/[^/]*$/.exec(window.location.href)[0])});
   }
 
   render() {

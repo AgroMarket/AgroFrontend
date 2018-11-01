@@ -28,8 +28,6 @@ export default class CatalogList extends PureComponent {
     items: PropTypes.arrayOf(PropTypes.shape({
       // название товара
       title: PropTypes.string,
-      // количество товара за предлагаемую цену
-      quantity: PropTypes.number,
       // единица измерения товара
       measures: PropTypes.string,
       // цена товара
@@ -46,10 +44,10 @@ export default class CatalogList extends PureComponent {
   };
 
   componentDidMount() {
-    fetch(`${serverAddress}/api${this.props.section}`)
+    fetch(`${serverAddress}${this.props.section}`)
         .then(res => res.json())
         .then(res => {
-          this.setState({catalogItems: res});
+          this.setState({catalogItems: res.result.products});
           this.setState({itemsLoaded: true});
           },
         error => {
@@ -58,6 +56,24 @@ export default class CatalogList extends PureComponent {
             error,
           });
         });
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.section !== this.props.section) {
+      this.setState({itemsLoaded: false});
+      fetch(`${serverAddress}${this.props.section}`)
+        .then(res => res.json())
+        .then(res => {
+            this.setState({catalogItems: res.result.products});
+            this.setState({itemsLoaded: true});
+          },
+          error => {
+            this.setState({
+              itemsLoaded: true,
+              error,
+            });
+          });
+    }
   }
 
   render() {

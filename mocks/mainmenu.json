@@ -1,32 +1,34 @@
-[
-  {
-    "id": "main",
-    "name": "Ferma Store",
-    "path": "/"
-  },
-  {
-    "id": "about",
-    "name": "О нас",
-    "path": "/about"
-  },
-  {
-    "id": "sellers",
-    "name": "Продавцам",
-    "path": "/sellers"
-  },
-  {
-    "id": "buyers",
-    "name": "Покупателям",
-    "path": "/buyers"
-  },
-  {
-    "id": "delivery",
-    "name": "Доставка и оплата",
-    "path": "/delivery"
-  },
-  {
-    "id": "basket",
-    "name": "Корзина",
-    "path": "/basket"
-  }
-]
+{
+  "result": [
+    {
+      "id": "main",
+      "title": "Ferma Store",
+      "api": "/"
+    },
+    {
+      "id": "about",
+      "title": "О нас",
+      "api": "/about"
+    },
+    {
+      "id": "sellers",
+      "title": "Продавцам",
+      "api": "/sellers"
+    },
+    {
+      "id": "buyers",
+      "title": "Покупателям",
+      "api": "/buyers"
+    },
+    {
+      "id": "delivery",
+      "title": "Доставка и оплата",
+      "api": "/delivery"
+    },
+    {
+      "id": "basket",
+      "title": "Корзина",
+      "api": "/basket"
+    }
+  ]
+}

@@ -1,66 +1,98 @@
-[
-  {
-    "link": "",
-    "image": "",
-    "title": "Мёд №1",
-    "quantity": 1,
-    "measures": "кг",
-    "price": 100
+{
+  "status": 200,
+  "message": "Список случайных товаров",
+  "result": {
+    "products": [
+      {
+        "link": "/api/products/90",
+        "image": "/system/products/images/000/000/090/original/missing.png?1541173627",
+        "title": "Сметана №6",
+        "measures": "кг",
+        "price": 7,
+        "category_id": 20,
+        "farmer_id": 2,
+        "id": 90,
+        "rank": 6
+      },
+      {
+        "link": "/api/products/32",
+        "image": "/system/products/images/000/000/032/original/missing.png?1541173620",
+        "title": "Сущеные ягоды №2",
+        "measures": "кг",
+        "price": 4,
+        "category_id": 8,
+        "farmer_id": 1,
+        "id": 32,
+        "rank": 2
+      },
+      {
+        "link": "/api/products/213",
+        "image": "/system/products/images/000/000/213/original/missing.png?1541173642",
+        "title": "Замороженная рыба №3",
+        "measures": "кг",
+        "price": 8,
+        "category_id": 45,
+        "farmer_id": 2,
+        "id": 213,
+        "rank": 3
+      },
+      {
+        "link": "/api/products/142",
+        "image": "/system/products/images/000/000/142/original/missing.png?1541173633",
+        "title": "Чечевица №4",
+        "measures": "кг",
+        "price": 3,
+        "category_id": 30,
+        "farmer_id": 1,
+        "id": 142,
+        "rank": 4
+      },
+      {
+        "link": "/api/products/63",
+        "image": "/system/products/images/000/000/063/original/missing.png?1541173624",
+        "title": "Семечки №3",
+        "measures": "кг",
+        "price": 7,
+        "category_id": 15,
+        "farmer_id": 2,
+        "id": 63,
+        "rank": 3
+      },
+      {
+        "link": "/api/products/126",
+        "image": "/system/products/images/000/000/126/original/missing.png?1541173631",
+        "title": "Горох №6",
+        "measures": "кг",
+        "price": 1,
+        "category_id": 27,
+        "farmer_id": 2,
+        "id": 126,
+        "rank": 6
+      },
+      {
+        "link": "/api/products/212",
+        "image": "/system/products/images/000/000/212/original/missing.png?1541173642",
+        "title": "Замороженная рыба №2",
+        "measures": "кг",
+        "price": 6,
+        "category_id": 45,
+        "farmer_id": 2,
+        "id": 212,
+        "rank": 2
+      },
+      {
+        "link": "/api/products/214",
+        "image": "/system/products/images/000/000/214/original/missing.png?1541173642",
+        "title": "Замороженная рыба №4",
+        "measures": "кг",
+        "price": 1,
+        "category_id": 45,
+        "farmer_id": 1,
+        "id": 214,
+        "rank": 4
+      }
+    ],
+    "pagination": null
   },
-  {
-    "link": "",
-    "image": "",
-    "title": "Мёд №2",
-    "quantity": 1,
-    "measures": "кг",
-    "price": 100
-  },
-  {
-    "link": "",
-    "image": "",
-    "title": "Мёд №3",
-    "quantity": 1,
-    "measures": "кг",
-    "price": 100
-  },
-  {
-    "link": "",
-    "image": "",
-    "title": "Мёд №4",
-    "quantity": 1,
-    "measures": "кг",
-    "price": 100
-  },
-  {
-    "link": "",
-    "image": "",
-    "title": "Мёд №5",
-    "quantity": 1,
-    "measures": "кг",
-    "price": 100
-  },
-  {
-    "link": "",
-    "image": "",
-    "title": "Мёд №6",
-    "quantity": 1,
-    "measures": "кг",
-    "price": 100
-  },
-  {
-    "link": "",
-    "image": "",
-    "title": "Мёд в сотах №1",
-    "quantity": 1,
-    "measures": "кг",
-    "price": 100
-  },
-  {
-    "link": "",
-    "image": "",
-    "title": "Мёд в сотах №2",
-    "quantity": 1,
-    "measures": "кг",
-    "price": 100
-  }
-]
+  "error": null
+}

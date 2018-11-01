@@ -15,7 +15,7 @@ export default class MainMenuItem extends PureComponent {
     // Пункты меню - массив объектов
     item: PropTypes.shape({
       // id пункта
-      id: PropTypes.string,
+      id: PropTypes.number,
       // название пункта
       name: PropTypes.string,
       // адрес
@@ -27,6 +27,6 @@ export default class MainMenuItem extends PureComponent {
     // получаем переданные свойства пункта главного меню сайта
     const { item } = this.props;
 
-    return <Tab component={Link} label={item.name} to={item.path} {...this.props}/>;
+    return <Tab component={Link} label={item.title} to={item.api} {...this.props}/>;
   }
 }

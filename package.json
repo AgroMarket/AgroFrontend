@@ -7,7 +7,8 @@
     "build": "webpack --mode production --watch",
     "dev": "webpack --mode development --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cc": "node cli/component.js --name"
+    "cc": "node cli/component.js --name",
+    "server": "node server"
   },
   "keywords": [
     "Ferm",

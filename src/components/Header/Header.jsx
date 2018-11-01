@@ -27,7 +27,7 @@ export default class Header extends PureComponent {
     fetch(`${serverAddress}/api/mainmenu`)
       .then(res => res.json())
       .then(res => {
-        this.setState({items: res});
+        this.setState({menu: res});
         this.setState({isLoaded: true});
         },
       error => {
@@ -44,9 +44,9 @@ export default class Header extends PureComponent {
       return <p>Ошибка: {error.message}</p>;
     }
     else
-    // Отображаем main
+    // Отображаем header
     if (!isLoaded) {
-      return <p>Пожалуйста, подождите, идет загрузка страницы</p>;
+      return <header><div/><p>Пожалуйста, подождите, идет загрузка страницы</p></header>;
     }
     else {
       return (

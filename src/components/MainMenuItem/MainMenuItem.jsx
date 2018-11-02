@@ -14,8 +14,6 @@ export default class MainMenuItem extends PureComponent {
   static propTypes = {
     // Пункты меню - массив объектов
     item: PropTypes.shape({
-      // id пункта
-      id: PropTypes.number,
       // название пункта
       name: PropTypes.string,
       // адрес

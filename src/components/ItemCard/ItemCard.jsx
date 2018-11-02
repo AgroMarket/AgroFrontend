@@ -7,6 +7,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import {serverAddress} from '../../constants';
 
 /**
  * Класс ItemCard - компонент, отображающий карточку товара на странице
@@ -33,7 +34,7 @@ export default class ItemCard extends PureComponent {
         <CardActionArea>
           <CardMedia
             component="img"
-            src={'http://80.211.153.183:3000'+item.image}
+            src={serverAddress+item.image}
             title={item.title}
           />
           <CardContent>

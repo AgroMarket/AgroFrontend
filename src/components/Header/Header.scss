@@ -1,5 +1,20 @@
+// Коэффициент перевода в em
+$k: 16;
+
 header {
   display: grid;
-  grid-template-columns: 15% 60% 10% 15%;
+  background-color: #fff;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  height: 95px;
+  grid-template-columns: 15% 50% 20% 15%;
   grid-template-rows: 3em;
+}
+
+.menu_buttons {
+  padding-top: 23em/$k;
+  text-align: right;
+}
+
+.login_button {
+  margin-left: 10px;
 }

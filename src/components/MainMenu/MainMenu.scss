@@ -1,15 +1,13 @@
-.menu {
-  padding: 0.3em;
+// Коэффициент перевода в em
+$k: 16;
+
+.main_menu {
+  justify-content: space-between;
+  text-align: center;
 }
 
-.nav a {
-  font-weight: 500;
-  color: #cdddeb;
-  text-decoration: none;
-}
-
-.nav a:hover,
-.nav a:focus,
-.nav .active {
-  color: #fff;
+.goto_main {
+  background: url('../../imgs/logo.png') no-repeat;
+  height: 75px;
+  width: 100%;
 }

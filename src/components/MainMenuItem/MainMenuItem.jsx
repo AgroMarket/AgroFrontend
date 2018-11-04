@@ -25,6 +25,6 @@ export default class MainMenuItem extends PureComponent {
     // получаем переданные свойства пункта главного меню сайта
     const { item } = this.props;
 
-    return <Tab component={Link} label={item.title} to={item.api} {...this.props}/>;
+    return <Tab component={Link} label={item.title} to={item.url} className={item.class} {...this.props}/>;
   }
 }

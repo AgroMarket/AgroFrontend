@@ -1,10 +1,12 @@
 import './App.scss';
 
-import React, {Fragment, PureComponent} from 'react';
+import React, { PureComponent} from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 // Сброс CSS для браузеров
 import CssBaseline from '@material-ui/core/CssBaseline';
-
+import {MuiThemeProvider} from '@material-ui/core';
+// Тема для Material-UI
+import { theme } from '../../theme';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 
@@ -17,7 +19,7 @@ import routes from '../../routes';
 export default class App extends PureComponent {
   render() {
     return (
-      <Fragment>
+      <MuiThemeProvider theme = { theme }>
         <CssBaseline/>
         <BrowserRouter>
           <div className="container">
@@ -28,7 +30,7 @@ export default class App extends PureComponent {
             <Footer/>
           </div>
         </BrowserRouter>
-      </Fragment>
+      </MuiThemeProvider>
     );
   }
 }

@@ -19,19 +19,23 @@ export default class Header extends PureComponent {
       <header>
         <div/>
         <MainMenu/>
-        <Button
-          className="basket_button"
-          variant="contained"
-          color="primary"
-          id={basketButton.id}>
-            {basketButton.name}
-        </Button>
-        <Button
-          className="login_button"
-          color="primary"
-          id={loginButton.id}>
-          {loginButton.name}
-        </Button>
+        <div className="menu_buttons">
+          <span className="basket_button">
+            <Button
+              variant="contained"
+              color="primary"
+              id={basketButton.id}>
+                {basketButton.name}
+            </Button>
+          </span>
+          <span className="login_button">
+            <Button
+              color="primary"
+              id={loginButton.id}>
+              {loginButton.name}
+            </Button>
+          </span>
+        </div>
         <div/>
       </header>
     );

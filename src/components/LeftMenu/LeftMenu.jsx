@@ -56,7 +56,7 @@ export default class LeftMenu extends PureComponent {
     // получаем переданные свойства меню
     const { menu } = this.props;
     return (
-      <List component="nav">
+      <List component="nav" className="leftmenu">
         {menu.map( (item, idx) => {
           return (
             <ListItem
@@ -64,6 +64,7 @@ export default class LeftMenu extends PureComponent {
               selected={this.state.section === idx}
               onClick={event => this.handleListItemClick(event, idx)}
               key={idx}
+              className="catalogmenuitem"
             >
               <ListItemText primary={item.name}/>
             </ListItem>

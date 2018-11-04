@@ -8,28 +8,28 @@ import MainMenuItem from 'components/MainMenuItem';
 
 const menu = [
   {
-    class: 'menu_main',
+    class: 'goto_main',
     title: '',
     url: '/',
 
   },
   {
-    class: 'menu_about',
+    class: 'goto_about',
     title: 'О нас',
     url: '/about',
   },
   {
-    class: 'menu_sellers',
+    class: 'goto_sellers',
     title: 'Продавцам',
     url: '/sellers',
   },
   {
-    class: 'menu_buyers',
+    class: 'goto_buyers',
     title: 'Покупателям',
     url: '/buyers',
   },
   {
-    class: 'menu_delivery',
+    class: 'goto_delivery',
     title: 'Доставка и оплата',
     url: '/delivery',
   },

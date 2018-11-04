@@ -30,7 +30,7 @@ export default class ItemCard extends PureComponent {
     // получаем переданные свойства товара каталога
     const { item } = this.props;
     return (
-      <Card>
+      <Card className="catalogitem">
         <CardActionArea>
           <CardMedia
             component="img"
@@ -38,10 +38,10 @@ export default class ItemCard extends PureComponent {
             title={item.title}
           />
           <CardContent>
-            <Typography gutterBottom component="p">
+            <Typography gutterBottom component="p" className="title">
               {item.title}
             </Typography>
-            <Typography gutterBottom variant="h5" component="p">
+            <Typography gutterBottom component="p" className="price">
               {item.price} руб.&nbsp;/&nbsp;{item.measures}
             </Typography>
           </CardContent>

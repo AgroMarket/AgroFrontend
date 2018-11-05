@@ -32,12 +32,12 @@ export default class ItemCard extends PureComponent {
     return (
       <Card className="catalogitem">
         <CardActionArea>
-          <CardMedia
+          <CardMedia className="item_img"
             component="img"
             src={serverAddress+item.image}
             title={item.title}
           />
-          <CardContent>
+          <CardContent className="description">
             <Typography gutterBottom component="p" className="title">
               {item.title}
             </Typography>

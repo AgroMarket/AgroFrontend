@@ -1,0 +1,28 @@
+// Коэффициент перевода в em
+$k: 16;
+// TODO учесть названия в две строки
+.catalogitem {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  height: 250em/$k;
+  margin-left: 20em/$k;
+  margin-top: 20em/$k;
+}
+.item_img {
+  height: 210em/$k;
+  img {
+    height: 158em/$k;
+  }
+}
+.description {
+  height: 92em/$k;
+  text-align: center;
+}
+.title {
+  color: #34495e;
+  font-size: 18em/$k;
+}
+.price {
+  color: #33691e;
+  font-size: 24em/$k;
+}

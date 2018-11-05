@@ -1,6 +1,6 @@
 import {createMuiTheme} from '@material-ui/core/styles';
 
-// TODO разобраться с @media
+// TODO разобраться с @media, чтобы в хидере меню было 18px
 // Тема для Material-UI
 export const theme = createMuiTheme({
   // Набор цветов (оттенки и их тени)
@@ -42,7 +42,7 @@ export const theme = createMuiTheme({
     },
     action: {
       active: '#eeff41',
-      hover: '#ccdd29',
+      hover: '#f0f4c3',
       selected: '#eeff41',
       //disabled: '#fff',
       //disabledBackground: '#fff',
@@ -105,6 +105,8 @@ export const theme = createMuiTheme({
       root: {
         // Изменяем значения CSS для компонента
         minHeight: 50,
+        paddingTop: 7,
+        paddingBottom: 7,
       },
     },
     MuiDivider: {

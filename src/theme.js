@@ -116,6 +116,13 @@ export const theme = createMuiTheme({
         backgroundColor: '#919191',
       },
     },
+    MuiCardContent: {
+      // Название правила
+      root: {
+        // Изменяем значения CSS для компонента
+        paddingTop: 0,
+      },
+    },
   },
   // Применени свойств для всех компонентов
   props: {

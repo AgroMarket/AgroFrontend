@@ -57,7 +57,7 @@ export default class MainPage extends PureComponent {
    * @param sectionID id выбранного пользователем раздела каталога товаров
    */
   changeSection = sectionID => {
-    this.setState({openedSection: `/api/categories/${sectionID+1}/products`});
+    this.setState({openedSection: `/api/categories/${sectionID}/products`});
   };
 
   render() {

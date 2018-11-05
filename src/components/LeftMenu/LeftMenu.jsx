@@ -24,11 +24,11 @@ export default class LeftMenu extends PureComponent {
    * @param event обрабатываемое событие щелчка по разделу каталога
    * @param index номер выбранного пользователем раздела каталога
    */
-  handleListItemClick = (event, index) => {
+  handleListItemClick = (event, index, id) => {
     this.setState({
       section: index,
     });
-    this.props.section(index);
+    this.props.section(id);
   };
 
   // Проверка свойств
@@ -63,7 +63,7 @@ export default class LeftMenu extends PureComponent {
               <ListItem
                 button
                 selected={this.state.section === idx}
-                onClick={event => this.handleListItemClick(event, idx)}
+                onClick={event => this.handleListItemClick(event, idx, item.id)}
                 className="catalogmenuitem"
               >
                 <ListItemText primary={item.name}/>

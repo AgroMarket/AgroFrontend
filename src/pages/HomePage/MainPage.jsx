@@ -54,10 +54,10 @@ export default class MainPage extends PureComponent {
 
   /**
    * Получает из LeftMenu и сохраняет в state адрес текущего открытого раздела каталога товаров
-   * @param sectionNumber выбранный пользователем раздел каталога товаров
+   * @param sectionID id выбранного пользователем раздела каталога товаров
    */
-  changeSection = sectionNumber => {
-    this.setState({openedSection: `/api/categories/${sectionNumber+1}/products`});
+  changeSection = sectionID => {
+    this.setState({openedSection: `/api/categories/${sectionID+1}/products`});
   };
 
   render() {

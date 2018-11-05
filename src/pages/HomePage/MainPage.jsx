@@ -40,13 +40,13 @@ export default class MainPage extends PureComponent {
       });
   }
 
-  handleItemSearch = items => {
+  handleItemSearch = template => {
     this.setState(
       prevState => {
         return {
           ...prevState,
-          // возвращаем массив найденных товаров
-          catalogItems: items,
+          // загружаем найденные товары
+          openedSection: `/api/products?search=${template.item}`,
         };
       }
     );

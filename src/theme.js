@@ -67,6 +67,9 @@ export const theme = createMuiTheme({
         color: '#558b2f',
         minHeight: 90,
       },
+      indicator: {
+        backgroundColor: '#fff',
+      },
     },
     MuiTab: {
       // Название правила

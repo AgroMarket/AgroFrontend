@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react';
 import LeftMenu from 'components/LeftMenu';
 import SearchForm from 'components/SearchForm';
 import CatalogList from 'components/CatalogList';
+import CatalogItem from 'components/CatalogItem';
 import {serverAddress} from '../../constants';
 
 /**
@@ -20,8 +21,14 @@ export default class MainPage extends PureComponent {
       menuLoaded: false,
       // при входе на страницу ни один из разделов каталога не выбран, загружается случайный набор товаров
       openedSection: '/api/products?scope=samples',
+      // адрес открытого товара каталога
+      openedItem: '',
       // ошибка загрузки
       error: null,
+      // флаг включения пагинации on / off
+      pagination: 'off',
+      // режим отображения catalogList / catalogItem
+      mode: 'catalogList',
     };
   }
 
@@ -47,6 +54,8 @@ export default class MainPage extends PureComponent {
           ...prevState,
           // загружаем найденные товары
           openedSection: `/api/products?search=${template.item}`,
+          // переходим в режим отображения Каталог товаров
+          mode: 'catalogList',
         };
       }
     );
@@ -57,11 +66,34 @@ export default class MainPage extends PureComponent {
    * @param sectionID id выбранного пользователем раздела каталога товаров
    */
   changeSection = sectionID => {
-    this.setState({openedSection: `/api/categories/${sectionID}/products`});
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          openedSection: `/api/categories/${sectionID}/products`,
+          // переходим в режим отображения Каталог товаров
+          mode: 'catalogList',
+        };
+      }
+    );
+  };
+
+  // Пользователь открывает карточку товара
+  openItem = (event, itemID) => {
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          openedItem: `/api/products/${itemID}`,
+          // переходим в режим отображения Карточки товара
+          mode: 'catalogItem',
+        };
+      }
+    );
   };
 
   render() {
-    const { error, menuLoaded, menuItems, openedSection } = this.state;
+    const { error, menuLoaded, menuItems, openedSection, mode, openedItem } = this.state;
     if (error) {
       return <p>Ошибка: {error.message}</p>;
     }
@@ -71,13 +103,20 @@ export default class MainPage extends PureComponent {
         return <p>Пожалуйста, подождите, идет загрузка страницы</p>;
       }
       else {
+        let content;
+        if (mode === 'catalogList') {
+          content = <CatalogList section={openedSection} itemHandle={this.openItem}/>;
+        }
+        if (mode === 'catalogItem') {
+          content = <CatalogItem item={openedItem}/>;
+        }
         return (
           <main>
             <div/>
             <LeftMenu menu={menuItems} section={this.changeSection} className="left_menu"/>
             <div>
               <SearchForm onSend={this.handleItemSearch}/>
-              <CatalogList section={openedSection}/>
+              {content}
             </div>
             <div/>
           </main>

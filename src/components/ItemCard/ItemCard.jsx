@@ -28,10 +28,12 @@ export default class ItemCard extends PureComponent {
 
   render() {
     // получаем переданные свойства товара каталога
-    const { item } = this.props;
+    const { item, itemHandle } = this.props;
     return (
       <Card className="catalogitem">
-        <CardActionArea>
+        <CardActionArea
+          onClick={event => itemHandle(event, item.id)}
+        >
           <CardMedia
             component="img"
             alt={item.title}

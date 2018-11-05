@@ -79,6 +79,7 @@ export default class CatalogList extends PureComponent {
   render() {
     // получаем переданные свойства товаров каталога
     const { error, itemsLoaded, catalogItems } = this.state;
+    const { itemHandle } = this.props;
     if (error) {
       return <p>Ошибка: {error.message}</p>;
     }
@@ -92,7 +93,7 @@ export default class CatalogList extends PureComponent {
         <div className="catalog_items">
           {catalogItems.map( (item, idx) => {
             return (
-              <ItemCard item={item} key={idx}/>
+              <ItemCard item={item} itemHandle={itemHandle} key={idx}/>
             );
           })}
         </div>

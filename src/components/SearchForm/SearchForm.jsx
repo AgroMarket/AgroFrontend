@@ -3,6 +3,10 @@ import './SearchForm.scss';
 import React, { PureComponent } from 'react';
 // Проверка свойств
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+
+// Данные для кнопки Найти
+const searchButton = {id: 'search', name: 'Найти'};
 
 /**
  * Класс SearchForm - компонент, отображающий на странице строку поиска товара
@@ -40,13 +44,21 @@ export default class SearchForm extends PureComponent {
     onSend(this.state);
   };
 
+  // TODO вывод искомых товаров
   render() {    
     // получаем содержимое state
     const { item } = this.state;
     return (
       <div className="searcher">
         <input type="text" name="item" onChange={this.handleChange} value={item}/>
-        <button onClick={this.handleClick}>Найти</button>
+        <span className="search_button">
+            <Button
+              variant="text"
+              id={searchButton.id}
+              onClick={this.handleClick}>
+                {searchButton.name}
+            </Button>
+          </span>
       </div>
     );
   }

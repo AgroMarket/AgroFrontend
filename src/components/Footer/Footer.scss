@@ -1,5 +1,14 @@
+// Коэффициент перевода в em
+$k: 16;
+
 footer {
   display: grid;
+  background-color: #fff;
+  color: #558b2f;
   grid-template-columns: 15% 70% 15%;
   grid-template-rows: 3em;
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  font-size: 18em/$k;
 }

@@ -1,10 +1,11 @@
 import './LeftMenu.scss';
 
-import React, { PureComponent } from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
 
 /**
  * Класс LeftMenu - компонент, отображающий разделы каталога на странице каталога
@@ -59,15 +60,17 @@ export default class LeftMenu extends PureComponent {
       <List component="nav" className="leftmenu">
         {menu.map( (item, idx) => {
           return (
-            <ListItem
-              button
-              selected={this.state.section === idx}
-              onClick={event => this.handleListItemClick(event, idx)}
-              key={idx}
-              className="catalogmenuitem"
-            >
-              <ListItemText primary={item.name}/>
-            </ListItem>
+            <Fragment key={idx}>
+              <ListItem
+                button
+                selected={this.state.section === idx}
+                onClick={event => this.handleListItemClick(event, idx)}
+                className="catalogmenuitem"
+              >
+                <ListItemText primary={item.name}/>
+              </ListItem>
+              <Divider />
+            </Fragment>
           );
         })}
       </List>

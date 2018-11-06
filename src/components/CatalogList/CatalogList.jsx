@@ -86,20 +86,19 @@ export default class CatalogList extends PureComponent {
       return <p>Ошибка: {error.message}</p>;
     }
     else
-    // Отображаем main
-    if (!itemsLoaded) {
-      return <p>Пожалуйста, подождите, идет загрузка страницы</p>;
-    }
-    else {
-      return (
-        <div className="catalog_items">
-          {catalogItems.map( (item, idx) => {
-            return (
-              <ItemCard item={item} itemHandle={itemHandle} key={idx}/>
-            );
-          })}
-        </div>
-      );
-    }
+      if (!itemsLoaded) {
+        return <p>Пожалуйста, подождите, идет загрузка страницы</p>;
+      }
+      else {
+        return (
+          <div className="catalog_items">
+            {catalogItems.map( (item, idx) => {
+              return (
+                <ItemCard item={item} itemHandle={itemHandle} key={idx}/>
+              );
+            })}
+          </div>
+        );
+      }
   }
 }

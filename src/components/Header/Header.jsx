@@ -32,7 +32,7 @@ export default class Header extends PureComponent {
             <Button
               color="primary"
               id={loginButton.id}>
-              {loginButton.name}
+                {loginButton.name}
             </Button>
           </span>
         </div>

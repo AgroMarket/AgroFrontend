@@ -1,0 +1,62 @@
+// Коэффициент перевода в em
+$k: 16;
+
+.catalog_item {
+  background-color: #fff;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-left: 20em/$k;
+  margin-top: 44em/$k;
+  padding: 40em/$k 75em/$k 55em/$k 22em/$k;
+  .left_info {
+    padding-left: 46em/$k;
+    .item_title {
+      color: #34495e;
+      font-size: 24rem/$k;
+      font-weight: 500;
+    }
+    .item_description {
+      color: #34495e;
+      font-size: 14rem/$k;
+      font-weight: normal;
+    }
+    .item_seller {
+      color: #ff620a;
+      font-size: 18rem/$k;
+      font-weight: normal;
+    }
+  }
+  .right_info {
+    padding-left: 37em/$k;
+    img {
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 2px;
+      height: 292em/$k;
+      width: 383em/$k;
+    }
+    .item_price {
+      color: #33691e;
+      font-size: 36rem/$k;
+      font-weight: 500;
+    }
+    .item_counter {
+      color: #34495e;
+      font-size: 24rem/$k;
+      font-weight: normal;
+      padding-left: 5em/$k;
+      padding-right: 46em/$k;
+    }
+    .add_to_basket_button {
+      color: #33691e;
+      font-size: 24rem/$k;
+      font-weight: 500;
+      height: 63rem/$k;
+      width: 383rem/$k;
+      background-color: #eeff41;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 5px;
+    }
+  }
+}

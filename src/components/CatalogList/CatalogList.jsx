@@ -35,6 +35,8 @@ export default class CatalogList extends PureComponent {
     })),
     // Путь в адресной строке
     section: PropTypes.string,
+    // Функция отображения информации о товаре
+    itemHandle: PropTypes.func,
   };
 
   // значения атрибутов по умолчанию

@@ -2,6 +2,7 @@ import './CatalogItem.scss';
 
 import React, { PureComponent } from 'react';
 import {serverAddress} from '../../constants';
+import PropTypes from 'prop-types';
 
 /**
  * Класс CatalogItem - компонент, отображающий сведения о товаре на странице
@@ -19,6 +20,18 @@ export default class CatalogItem extends PureComponent {
       error: null,
     };
   }
+
+  // Проверка свойств
+  static propTypes = {
+    // Адрес для просмотра информации о товаре каталога
+    item: PropTypes.string,
+  };
+
+  // значения атрибутов по умолчанию
+  static defaultProps = {
+    // аттрибут items инициализируем пустым массивом
+    item: {},
+  };
 
   componentDidMount() {
     fetch(`${serverAddress}${this.props.item}`)

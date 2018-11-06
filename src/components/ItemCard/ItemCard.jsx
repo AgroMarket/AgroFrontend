@@ -15,7 +15,7 @@ import {serverAddress} from '../../constants';
 export default class ItemCard extends PureComponent {
   // Проверка свойств
   static propTypes = {
-    // Описание товара - массив объектов
+    // Описание товара - объект
     item: PropTypes.shape({
       // название товара
       title: PropTypes.string,
@@ -24,6 +24,8 @@ export default class ItemCard extends PureComponent {
       // цена товара
       price: PropTypes.number,
     }),
+    // Функция отображения информации о товаре
+    itemHandle: PropTypes.func,
   };
 
   render() {

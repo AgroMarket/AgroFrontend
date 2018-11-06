@@ -45,7 +45,7 @@ export default class SearchForm extends PureComponent {
     onSend(this.state);
   };
 
-  // TODO вывод искомых товаров
+  // Вывод найденных товаров
   render() {    
     // получаем содержимое state
     const { item } = this.state;

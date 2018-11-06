@@ -2,10 +2,10 @@
 $k: 16;
 
 .catalog_item {
+  display: grid;
   background-color: #fff;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 2px;
-  display: grid;
   grid-template-columns: 50% 50%;
   margin-left: 20em/$k;
   margin-top: 44em/$k;

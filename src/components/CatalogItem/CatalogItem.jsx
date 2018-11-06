@@ -3,6 +3,10 @@ import './CatalogItem.scss';
 import React, { PureComponent } from 'react';
 import {serverAddress} from '../../constants';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
+
+// Данные для кнопки Добавить в корзину
+const addToBasketButton = {id: 'addItemToBasket', name: 'Добавить в корзину'};
 
 /**
  * Класс CatalogItem - компонент, отображающий сведения о товаре на странице
@@ -55,18 +59,30 @@ export default class CatalogItem extends PureComponent {
       return <p>Ошибка: {error.message}</p>;
     }
     else
-    // Отображаем main
-    if (!itemLoaded) {
-      return <p>Пожалуйста, подождите, идет загрузка страницы</p>;
-    }
-    else {
-      return (
-        <div className="catalog_item">
-          {catalogItem.title}
-          <img src={serverAddress+catalogItem.image} alt={catalogItem.image}/>
-          {catalogItem.price} руб. / 1 {catalogItem.measures}
-        </div>
-      );
-    }
+      if (!itemLoaded) {
+        return <p>Пожалуйста, подождите, идет загрузка страницы</p>;
+      }
+      else {
+        return (
+          <div className="catalog_item">
+            <div className="left_info">
+              <h2 className="item_title">{catalogItem.title}</h2>
+              <p className="item_description">{catalogItem.descripion}</p>
+              <p className="item_seller">Производитель: {catalogItem.farmer_name}</p>
+            </div>
+            <div className="right_info">
+              <img src={serverAddress+catalogItem.image} alt={catalogItem.image}/>
+              <p className="item_price"><span className="item_counter"> + 1 -</span> {catalogItem.price} руб. / 1 {catalogItem.measures}</p>
+              <Button
+                className="add_to_basket_button"
+                variant="contained"
+                color="primary"
+                id={addToBasketButton.id}>
+                  {addToBasketButton.name}
+              </Button>
+            </div>
+          </div>
+        );
+      }
   }
 }

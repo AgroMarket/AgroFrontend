@@ -28,6 +28,7 @@ export default class SearchForm extends PureComponent {
     onSend: PropTypes.func,
   };
 
+  // TODO Отправка запроса по нажатию Enter
   // обработка нажатий на клавиши
   handleChange = event => {
     this.setState({

@@ -14,6 +14,7 @@ export default class LeftMenu extends PureComponent {
     super(props);
 
     this.state = {
+      // TODO сброс выбранного раздела каталога после нажатия кнопки Найти
       // при входе на страницу ни один из разделов каталога не выбран
       section: -1,
     };

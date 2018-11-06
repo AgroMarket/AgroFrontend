@@ -13,7 +13,7 @@ export const theme = createMuiTheme({
     primary: {
       light: '#757ce8',
       main: '#558b2f',
-      dark: '#002884',
+      dark: '#008b00',
       contrastText: '#fff',
     },
     // для второстепенных элементов интерфейса

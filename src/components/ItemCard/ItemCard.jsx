@@ -6,7 +6,6 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
 import {serverAddress} from '../../constants';
 
 /**
@@ -32,7 +31,7 @@ export default class ItemCard extends PureComponent {
     // получаем переданные свойства товара каталога
     const { item, itemHandle } = this.props;
     return (
-      <Card className="catalogitem">
+      <Card className="catalogItem">
         <CardActionArea
           onClick={event => itemHandle(event, item.id)}
         >
@@ -44,12 +43,12 @@ export default class ItemCard extends PureComponent {
             title={item.title}
           />
           <CardContent className="description">
-            <Typography gutterBottom component="p" className="title">
+            <p className="title">
               {item.title}
-            </Typography>
-            <Typography gutterBottom component="p" className="price">
+            </p>
+            <p className="price">
               {item.price} руб.&nbsp;/&nbsp;{item.measures}
-            </Typography>
+            </p>
           </CardContent>
         </CardActionArea>
       </Card>

@@ -128,6 +128,7 @@ export const theme = createMuiTheme({
       root: {
         // Изменяем значения CSS для компонента
         paddingTop: 0,
+        paddingBottom: 0,
       },
     },
   },

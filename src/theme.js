@@ -109,6 +109,13 @@ export const theme = createMuiTheme({
         paddingBottom: 7,
       },
     },
+    MuiListItemText: {
+      // Название правила
+      primary: {
+        // Изменяем значения CSS для компонента
+        lineHeight: 1,
+      },
+    },
     MuiDivider: {
       // Название правила
       root: {

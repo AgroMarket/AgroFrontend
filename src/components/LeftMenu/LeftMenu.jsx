@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import {serverAddress} from '../../constants';
 
 /**
  * Класс LeftMenu - компонент, отображающий разделы каталога на странице каталога
@@ -57,7 +58,7 @@ export default class LeftMenu extends PureComponent {
     // получаем переданные свойства меню
     const { menu } = this.props;
     return (
-      <List component="nav" className="leftmenu">
+      <List component="nav" className="leftMenu">
         {menu.map( (item, idx) => {
           return (
             <Fragment key={idx}>
@@ -65,8 +66,9 @@ export default class LeftMenu extends PureComponent {
                 button
                 selected={this.state.section === idx}
                 onClick={event => this.handleListItemClick(event, idx, item.id)}
-                className="catalogmenuitem"
+                className="catalogMenuItem"
               >
+                <img src={serverAddress+item.icon} alt={item.name} className="categoryIcon"/>
                 <ListItemText primary={item.name}/>
               </ListItem>
             </Fragment>

@@ -1,8 +1,16 @@
-.leftmenu {
+// Коэффициент перевода в em
+$k: 16;
+
+.leftMenu {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: 18px;
 }
-.catalogmenuitem {
+.catalogMenuItem {
   span {
     color: #34495e;
   }
+}
+.categoryIcon {
+  height: 36rem/$k;
+  width: 36rem/$k;
 }

@@ -1,6 +1,10 @@
 // Коэффициент перевода в em
 $k: 16;
 
+.load_info {
+  color: #558b2f;
+  text-align: center;
+}
 main {
   display: grid;
   grid-template-columns: 15% 20% 50% 15%;

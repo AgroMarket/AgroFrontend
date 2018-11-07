@@ -87,7 +87,7 @@ export default class CatalogList extends PureComponent {
     }
     else
       if (!itemsLoaded) {
-        return <p>Пожалуйста, подождите, идет загрузка страницы</p>;
+        return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
       }
       else {
         return (

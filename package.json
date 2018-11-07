@@ -19,7 +19,8 @@
   "license": "MIT",
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "@material-ui/core": "^3.2.2",
+    "@material-ui/core": "^3.4.0",
+    "@material-ui/icons": "^3.0.1",
     "autoprefixer": "^9.1.5",
     "classnames": "^2.2.6",
     "prop-types": "^15.6.2",

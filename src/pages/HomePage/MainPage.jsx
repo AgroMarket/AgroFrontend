@@ -25,6 +25,7 @@ export default class MainPage extends PureComponent {
       openedItem: '',
       // ошибка загрузки
       error: null,
+      // TODO добавить пагинацию для вывода товаров каталога
       // флаг включения пагинации on / off
       pagination: 'off',
       // режим отображения catalogList / catalogItem
@@ -92,6 +93,20 @@ export default class MainPage extends PureComponent {
     );
   };
 
+  // Пользователь возвращается в каталог из просмотра карточки товара
+  closeItem = () => {
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          openedItem: '',
+          // переходим в режим отображения Каталога товаров
+          mode: 'catalogList',
+        };
+      }
+    );
+  };
+
   render() {
     const { error, menuLoaded, menuItems, openedSection, mode, openedItem } = this.state;
     if (error) {
@@ -100,7 +115,7 @@ export default class MainPage extends PureComponent {
     else
     // Отображаем main
       if (!menuLoaded) {
-        return <p>Пожалуйста, подождите, идет загрузка страницы</p>;
+        return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
       }
       else {
         let content;
@@ -108,7 +123,7 @@ export default class MainPage extends PureComponent {
           content = <CatalogList section={openedSection} itemHandle={this.openItem}/>;
         }
         if (mode === 'catalogItem') {
-          content = <CatalogItem item={openedItem}/>;
+          content = <CatalogItem item={openedItem} actionBack={this.closeItem}/>;
         }
         return (
           <main>

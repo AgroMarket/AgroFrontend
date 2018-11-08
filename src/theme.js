@@ -114,6 +114,7 @@ export const theme = createMuiTheme({
       primary: {
         // Изменяем значения CSS для компонента
         lineHeight: 1,
+        paddingLeft: 50,
       },
     },
     MuiDivider: {

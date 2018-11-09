@@ -58,6 +58,7 @@
     "minimist": "^1.2.0",
     "node-sass": "^4.9.3",
     "postcss-loader": "^3.0.0",
+    "redux-devtools": "^3.4.1",
     "sass-lint": "^1.12.1",
     "sass-lint-webpack": "^1.0.0",
     "sass-loader": "^7.1.0",

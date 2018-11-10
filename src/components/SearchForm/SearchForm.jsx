@@ -39,10 +39,12 @@ export default class SearchForm extends PureComponent {
 
   // обработка щелчков по кнопке
   handleClick = () => {
-    // получаем значение
-    const {onSend} = this.props;
+    if (this.state.item !== '') {
+      // получаем значение
+      const {onSend} = this.props;
 
-    onSend(this.state);
+      onSend(this.state);
+    }
   };
 
   // Вывод найденных товаров

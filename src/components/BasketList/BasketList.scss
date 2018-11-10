@@ -1,0 +1,45 @@
+// Коэффициент перевода в em
+$k: 16;
+
+.basket_list {
+  font-size: 18rem/$k;
+  padding-top: 30em/$k;
+  .basket_icon {
+    color: #33691e;
+    margin-right: 18rem/$k;
+    text-align: center;
+    height: 36rem/$k;
+    width: 36rem/$k;
+  }
+  h2 {
+    text-align: center;
+    font-size: 24rem/$k;
+    font-weight: normal;
+  }
+  img {
+    height: 46rem/$k;
+    width: 54rem/$k;
+  }
+  .item_name, .item_price, .item_full_price {
+    display: inline-block;
+    color: #33691e;
+    text-align: center;
+  }
+  .item_name {
+    width: 300rem/$k;
+    padding-left: 15rem/$k;
+    text-align: left;
+  }
+  .item_price {
+    width: 200rem/$k;
+  }
+  .item_full_price {
+    width: 200rem/$k;
+  }
+  .item_quantity {
+    display: inline-block;
+    font-size: 13rem/$k;
+    text-align: center;
+    width: 50rem/$k;
+  }
+}

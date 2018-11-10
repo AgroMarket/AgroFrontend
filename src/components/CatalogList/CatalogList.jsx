@@ -3,7 +3,7 @@ import './CatalogList.scss';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import ItemCard from 'components/ItemCard';
-import {serverAddress} from '../../constants';
+import {serverAddress} from 'constants/ServerAddress';
 
 /**
  * Класс CatalogList - компонент, отображающий товары каталога на странице

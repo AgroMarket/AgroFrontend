@@ -5,7 +5,7 @@ import LeftMenu from 'components/LeftMenu';
 import SearchForm from 'components/SearchForm';
 import CatalogList from 'components/CatalogList';
 import CatalogItem from 'components/CatalogItem';
-import {serverAddress} from '../../constants';
+import {serverAddress} from 'constants/ServerAddress';
 
 /**
  * Класс HomePage - компонент, отображающий главную страницу

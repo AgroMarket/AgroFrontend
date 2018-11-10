@@ -42,6 +42,8 @@ module.exports = {
       actions: path.resolve(__dirname, 'src', 'actions'),
       // адрес папки reducers
       reducers: path.resolve(__dirname, 'src', 'reducers'),
+      // адрес папки constants
+      constants: path.resolve(__dirname, 'src', 'constants'),
       // адрес папки pages
       pages: path.resolve(__dirname, 'src', 'pages'),
       // адрес папки layouts

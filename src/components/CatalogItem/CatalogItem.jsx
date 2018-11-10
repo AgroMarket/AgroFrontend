@@ -1,7 +1,7 @@
 import './CatalogItem.scss';
 
 import React, { PureComponent } from 'react';
-import {serverAddress} from '../../constants';
+import {serverAddress} from 'constants/ServerAddress';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';

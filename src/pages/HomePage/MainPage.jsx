@@ -126,7 +126,7 @@ export default class MainPage extends PureComponent {
           content = <CatalogItem item={openedItem} actionBack={this.closeItem}/>;
         }
         return (
-          <main>
+          <div className="main_page">
             <div/>
             <LeftMenu menu={menuItems} section={this.changeSection} className="left_menu"/>
             <div>
@@ -134,7 +134,7 @@ export default class MainPage extends PureComponent {
               {content}
             </div>
             <div/>
-          </main>
+          </div>
         );
       }
   }

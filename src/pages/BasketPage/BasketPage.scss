@@ -1,0 +1,7 @@
+// Коэффициент перевода в em
+$k: 16;
+
+.basket_form {
+  display: grid;
+  grid-template-columns: 15% 50% 20% 15%;
+}

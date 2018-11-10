@@ -32,7 +32,7 @@ export default class SearchForm extends PureComponent {
   // обработка нажатий на клавиши
   handleChange = event => {
     this.setState({
-      // подставляем переменную в ключ объекта
+      // подставляем переменную в ключ объекта (item)
       [event.target.name]: event.target.value,
     });
   };

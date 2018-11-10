@@ -65,15 +65,29 @@ export default class MainMenu extends PureComponent {
   };
 
   handleChange = (event, value) => {
-    this.setState({ value });
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          value,
+        };
+      }
+    );
   };
 
   componentDidMount() {
     // Выделение пункта меню при прямом переходе по ссылке
-    const menulist = ['', 'about', 'sellers', 'buyers', 'delivery'];
+    const menuList = ['', 'about', 'sellers', 'buyers', 'delivery'];
     // ищем в url из адресной строки текст после слэша
-    const newValue = menulist.indexOf(/[^/]*$/.exec(window.location.href)[0]);
-    this.setState({value: (newValue === -1) ? 0 : newValue});
+    const newValue = menuList.indexOf(/[^/]*$/.exec(window.location.href)[0]);
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          value: (newValue === -1) ? 0 : newValue,
+        };
+      }
+    );
   }
 
   render() {

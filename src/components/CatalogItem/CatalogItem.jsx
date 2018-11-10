@@ -47,8 +47,15 @@ export default class CatalogItem extends PureComponent {
     fetch(`${serverAddress}${this.props.item}`)
       .then(res => res.json())
       .then(res => {
-          this.setState({catalogItem: res.result});
-          this.setState({itemLoaded: true});
+          this.setState(
+            prevState => {
+              return {
+                ...prevState,
+                catalogItem: res.result,
+                itemLoaded: true,
+              };
+            }
+          );
         },
         error => {
           this.setState({

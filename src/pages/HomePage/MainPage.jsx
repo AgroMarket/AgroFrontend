@@ -37,9 +37,16 @@ export default class MainPage extends PureComponent {
     fetch(`${serverAddress}/api/categories`)
       .then(res => res.json())
       .then(res => {
-        this.setState({menuItems: res.result});
-        this.setState({menuLoaded: true});
-        },
+        this.setState(
+          prevState => {
+            return {
+              ...prevState,
+              menuItems: res.result,
+              menuLoaded: true,
+            };
+          }
+        );
+      },
       error => {
         this.setState({
           menuLoaded: true,

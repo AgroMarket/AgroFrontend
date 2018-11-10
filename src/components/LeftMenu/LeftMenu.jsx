@@ -27,9 +27,14 @@ export default class LeftMenu extends PureComponent {
    * @param index номер выбранного пользователем раздела каталога
    */
   handleListItemClick = (event, index, id) => {
-    this.setState({
-      section: index,
-    });
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          section: index,
+        };
+      }
+    );
     this.props.section(id);
   };
 

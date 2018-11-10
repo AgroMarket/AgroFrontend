@@ -49,9 +49,16 @@ export default class CatalogList extends PureComponent {
     fetch(`${serverAddress}${this.props.section}`)
         .then(res => res.json())
         .then(res => {
-          this.setState({catalogItems: res.result.products});
-          this.setState({itemsLoaded: true});
-          },
+          this.setState(
+            prevState => {
+              return {
+                ...prevState,
+                catalogItems: res.result.products,
+                itemsLoaded: true,
+              };
+            }
+          );
+        },
         error => {
           this.setState({
             itemsLoaded: true,
@@ -62,12 +69,26 @@ export default class CatalogList extends PureComponent {
 
   componentDidUpdate(prevProps) {
     if(prevProps.section !== this.props.section) {
-      this.setState({itemsLoaded: false});
+      this.setState(
+        prevState => {
+          return {
+            ...prevState,
+            itemsLoaded: false,
+          };
+        }
+      );
       fetch(`${serverAddress}${this.props.section}`)
         .then(res => res.json())
         .then(res => {
-            this.setState({catalogItems: res.result.products});
-            this.setState({itemsLoaded: true});
+            this.setState(
+              prevState => {
+                return {
+                  ...prevState,
+                  catalogItems: res.result.products,
+                  itemsLoaded: true,
+                };
+              }
+            );
           },
           error => {
             this.setState({
@@ -89,16 +110,19 @@ export default class CatalogList extends PureComponent {
       if (!itemsLoaded) {
         return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
       }
-      else {
-        return (
-          <div className="catalog_items">
-            {catalogItems.map( (item, idx) => {
-              return (
-                <ItemCard item={item} itemHandle={itemHandle} key={idx}/>
-              );
-            })}
-          </div>
-        );
-      }
+      else
+        if (catalogItems === undefined || catalogItems === []) {
+          return <p className="load_info">Товары не найдены</p>
+        }
+        else
+          return (
+            <div className="catalog_items">
+              {catalogItems.map( (item, idx) => {
+                return (
+                  <ItemCard item={item} itemHandle={itemHandle} key={idx}/>
+                );
+              })}
+            </div>
+          );
   }
 }

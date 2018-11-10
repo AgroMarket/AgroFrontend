@@ -72,7 +72,8 @@ export default class MainMenu extends PureComponent {
     // Выделение пункта меню при прямом переходе по ссылке
     const menulist = ['', 'about', 'sellers', 'buyers', 'delivery'];
     // ищем в url из адресной строки текст после слэша
-    this.setState({value: menulist.indexOf(/[^/]*$/.exec(window.location.href)[0])});
+    const newValue = menulist.indexOf(/[^/]*$/.exec(window.location.href)[0]);
+    this.setState({value: (newValue === -1) ? 0 : newValue});
   }
 
   render() {

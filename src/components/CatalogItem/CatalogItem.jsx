@@ -1,11 +1,11 @@
 import './CatalogItem.scss';
 
 import React, { PureComponent } from 'react';
-import {serverAddress} from 'constants/ServerAddress';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import {serverAddress} from 'constants/ServerAddress';
 
 // Данные для кнопки Добавить в корзину
 const addToBasketButton = {id: 'addItemToBasket', name: 'Добавить в корзину'};
@@ -69,7 +69,7 @@ export default class CatalogItem extends PureComponent {
         });
   }
 
-  // обработка щелчков по кнопке добавить товар
+  // обработка щелчков по кнопке добавить количество товара
   handleAddClick = () => {
     this.setState(
       prevState => {
@@ -81,7 +81,7 @@ export default class CatalogItem extends PureComponent {
     );
   };
 
-  // обработка щелчков по кнопке удалить товар
+  // обработка щелчков по кнопке уменьшить количество товара
   handleRemoveClick = () => {
     if (this.state.itemCounter > 1) {
       this.setState(
@@ -98,21 +98,23 @@ export default class CatalogItem extends PureComponent {
   // обработка щелчков по кнопке Добавить в корзину
   handleAddToBasketClick = () => {
     const itemJSON = JSON.stringify({
-      "item":
+      'item':
         {
-          "product_id": this.state.catalogItem.id,
-          "quantity": this.state.itemCounter,
-        }
+          'product_id': this.state.catalogItem.id,
+          'quantity': this.state.itemCounter,
+        },
     });
     fetch(`${serverAddress}/api/carts/${this.props.basketID}/items`, {
       method: 'post',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: itemJSON,
     })
-      .then(console('data sended'));
+      .then(
+        // TODO сообщение об успешном добавлении товара в корзину
+      );
   };
 
   render() {

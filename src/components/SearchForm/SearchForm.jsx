@@ -48,13 +48,13 @@ export default class SearchForm extends PureComponent {
   };
 
   // Вывод найденных товаров
-  render() {    
+  render() {
     // получаем содержимое state
     const { item } = this.state;
     return (
       <div className="searcher">
         <input type="text" name="item" id="search_row" onChange={this.handleChange} value={item} placeholder=' '/>
-        <label htmlFor="zip">Введите название товара</label>
+        <label htmlFor="search_row">Введите название товара</label>
         <span className="search_button">
             <Button
               variant="text"

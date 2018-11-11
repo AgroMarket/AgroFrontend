@@ -3,6 +3,7 @@ import './BasketPage.scss';
 import React, { PureComponent } from 'react';
 import BasketList from 'components/BasketList';
 import BasketContacts from 'components/BasketContacts';
+import PropTypes from 'prop-types';
 
 const basketItems = {
   'products': [
@@ -41,12 +42,19 @@ export default class BasketPage extends PureComponent {
     };
   }
 
-  render() {    
+  // Проверка свойств
+  static propTypes = {
+    // ID корзины на сервере
+    basketID: PropTypes.number,
+  };
+
+  render() {
+    const { basketID } = this.props;
     return (
       <div className="basket_form">
         <div/>
-        <BasketList basketItems={basketItems.products}/>
-        <BasketContacts />
+        <BasketList basketItems={basketItems.products} basketID={basketID}/>
+        <BasketContacts basketID={basketID}/>
         <div/>
       </div>
     );

@@ -6,6 +6,7 @@ import SearchForm from 'components/SearchForm';
 import CatalogList from 'components/CatalogList';
 import CatalogItem from 'components/CatalogItem';
 import {serverAddress} from 'constants/ServerAddress';
+import PropTypes from 'prop-types';
 
 /**
  * Класс HomePage - компонент, отображающий главную страницу
@@ -32,6 +33,12 @@ export default class MainPage extends PureComponent {
       mode: 'catalogList',
     };
   }
+
+  // Проверка свойств
+  static propTypes = {
+    // ID корзины на сервере
+    basketID: PropTypes.number,
+  };
 
   componentDidMount() {
     fetch(`${serverAddress}/api/categories`)
@@ -116,11 +123,11 @@ export default class MainPage extends PureComponent {
 
   render() {
     const { error, menuLoaded, menuItems, openedSection, mode, openedItem } = this.state;
+    const { basketID } = this.props;
     if (error) {
       return <p>Ошибка: {error.message}</p>;
     }
     else
-    // Отображаем main
       if (!menuLoaded) {
         return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
       }
@@ -130,7 +137,7 @@ export default class MainPage extends PureComponent {
           content = <CatalogList section={openedSection} itemHandle={this.openItem}/>;
         }
         if (mode === 'catalogItem') {
-          content = <CatalogItem item={openedItem} actionBack={this.closeItem}/>;
+          content = <CatalogItem item={openedItem} actionBack={this.closeItem} basketID={basketID}/>;
         }
         return (
           <div className="main_page">

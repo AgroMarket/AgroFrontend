@@ -1,0 +1,51 @@
+// Коэффициент перевода в em
+$k: 16;
+
+.basket_contacts {
+  color: #33691e;
+  display: flex;
+  flex-direction: column;
+  font-size: 14rem/$k;
+  margin-left: 45rem/$k;
+  padding-top: 60rem/$k;
+  position: relative;
+  label
+  {
+    position: absolute;
+    left: 51rem/$k;
+  }
+  .contact_fio {
+    top: 124rem/$k;
+  }
+  .contact_city {
+    top: 175rem/$k;
+  }
+  .contact_address {
+    top: 224rem/$k;
+  }
+  .contact_phone {
+    top: 273rem/$k;
+  }
+  .contact_email {
+    top: 321rem/$k;
+  }
+  .contact_password {
+    top: 372rem/$k;
+  }
+  :focus + label
+  {
+    opacity: 0;
+  }
+  :not(:placeholder-shown) + label {
+    opacity: 0;
+  }
+  input {
+    color: #33691e;
+    height: 50rem/$k;
+    padding-left: 20rem/$k;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  .send_order_button {
+    margin-top: 66rem/$k;
+  }
+}

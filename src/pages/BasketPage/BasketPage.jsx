@@ -6,28 +6,6 @@ import BasketContacts from 'components/BasketContacts';
 import PropTypes from 'prop-types';
 import {serverAddress} from 'constants/ServerAddress';
 
-const basketItemsJSON = {
-  'result': {
-    'products': [
-      {
-        'cart_item_id': 1,
-        'product_name': 'Квас №6',
-        'product_price': 30,
-        'product_quantity': 2,
-        'product_id': 276,
-        'product_link': '/api/products/276',
-      },
-      {
-        'cart_item_id': 2,
-        'product_name': 'Сиропы №1',
-        'product_price': 70,
-        'product_quantity': 1,
-        'product_id': 277,
-        'product_link': '/api/products/277',
-      },
-    ],
-  },
-};
 /**
  * Класс BasketPage - компонент, отображающий страницу Корзина
  */
@@ -52,16 +30,25 @@ export default class BasketPage extends PureComponent {
   };
 
   componentDidMount() {
-    // TODO сделать запрос с сервера
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          basketItems: basketItemsJSON.result.products,
-          basketLoaded: true,
-        };
-      }
-    );
+    fetch(`${serverAddress}/api/carts/${this.props.basketID}`)
+      .then(res => res.json())
+      .then(res => {
+          this.setState(
+            prevState => {
+              return {
+                ...prevState,
+                basketItems: res.result,
+                basketLoaded: true,
+              };
+            }
+          );
+        },
+        error => {
+          this.setState({
+            basketLoaded: true,
+            error,
+          });
+        });
   }
 
   render() {
@@ -71,18 +58,27 @@ export default class BasketPage extends PureComponent {
       return <p>Ошибка: {error.message}</p>;
     }
     else
-    if (!basketLoaded) {
-      return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
+      if (!basketLoaded) {
+        return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
+      }
+      else
+        if (basketItems === undefined || basketItems.length === 0 || basketItems.products === undefined || basketItems.products.length === 0) {
+          return (
+          <div className="load_info">
+            <div/>
+            <p>Ваша корзина пуста</p>
+          </div>
+          );
+        }
+        else {
+          return (
+            <div className="basket_form">
+              <div/>
+              <BasketList basketItems={basketItems.products} basketID={basketID}/>
+              <BasketContacts basketID={basketID}/>
+              <div/>
+            </div>
+          );
+        }
     }
-    else {
-      return (
-        <div className="basket_form">
-          <div/>
-          <BasketList basketItems={basketItems} basketID={basketID}/>
-          <BasketContacts basketID={basketID}/>
-          <div/>
-        </div>
-      );
-    }
-  }
 }

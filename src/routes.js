@@ -1,20 +1,12 @@
-import Home from 'pages/HomePage';
 import About from 'pages/AboutPage';
 import Sellers from 'pages/SellersPage';
 import Buyers from 'pages/BuyersPage';
 import Delivery from 'pages/DeliveryPage';
-import Basket from 'pages/BasketPage';
 
 /**
  * Маршрутизация приложения
  */
 export default [
-  // Главная (стартовая) страница Ferma Store
-  {
-    path: '/',
-    component: Home,
-    exact: true,
-  },
   // О нас
   {
     path: '/about',
@@ -37,12 +29,6 @@ export default [
   {
     path: '/delivery',
     component: Delivery,
-    exact: true,
-  },
-  // Корзина
-  {
-    path: '/basket',
-    component: Basket,
     exact: true,
   },
 ];

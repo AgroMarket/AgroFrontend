@@ -53,7 +53,7 @@ export default class CatalogList extends PureComponent {
             prevState => {
               return {
                 ...prevState,
-                catalogItems: res.result.products,
+                catalogItems: res.result,
                 itemsLoaded: true,
               };
             }
@@ -84,7 +84,7 @@ export default class CatalogList extends PureComponent {
               prevState => {
                 return {
                   ...prevState,
-                  catalogItems: res.result.products,
+                  catalogItems: res.result,
                   itemsLoaded: true,
                 };
               }
@@ -111,13 +111,13 @@ export default class CatalogList extends PureComponent {
         return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
       }
       else
-        if (catalogItems === undefined || catalogItems === []) {
+        if (catalogItems === undefined || catalogItems.length === 0 || catalogItems.products === undefined || catalogItems.products.length === 0) {
           return <p className="load_info">Товары не найдены</p>;
         }
         else
           return (
             <div className="catalog_items">
-              {catalogItems.map( (item, idx) => {
+              {catalogItems.products.map( (item, idx) => {
                 return (
                   <ItemCard item={item} itemHandle={itemHandle} key={idx}/>
                 );

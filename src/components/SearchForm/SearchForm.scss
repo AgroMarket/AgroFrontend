@@ -4,6 +4,21 @@ $k: 16;
 .searcher {
   display: flex;
   margin-left: 20em/$k;
+  position: relative;
+  label
+  {
+    position: absolute;
+    color:#558b2f;
+    top: 14rem/$k;
+    left: 25rem/$k;
+  }
+  :focus ~ label
+  {
+    opacity: 0;
+  }
+  :not(:placeholder-shown) ~ label {
+    opacity: 0;
+  }
   input {
     flex: 1;
     font-size: 18rem/$k;

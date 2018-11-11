@@ -24,72 +24,77 @@ export default class BasketList extends PureComponent {
       // количество товара
       product_quantity: PropTypes.number,
     })),
+    // ID корзины на сервере
+    basketID: PropTypes.number,
   };
-  
+
   render() {
-    const { basketItems } = this.props;
-    const sum = basketItems.map(item => {
-      // создаем массив из произведений цены и количества товара
-      return item.product_price*item.product_quantity;
-    })
-      .reduce((price, current) => {
-        // складываем все цены созданного массива
-        return price + current;
-      });
-    // TODO убрать заглушку для картинки товара
-    return (
-      <div className="basket_list">
-        <h2>
-          <BasketIcon className="basket_icon"/>
-          Корзина
-        </h2>
-        {basketItems.map( (item, idx) => {
-          return (
-            <p key={idx}>
-              <img src={serverAddress+'/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBHdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--d4923ad601f121901e3f572e59278b0f695ee0d4/missing.png'}/>
-              <span className="item_name">
-                {item.product_name}
-              </span>
-              <span className="item_price">
-                {item.product_price} руб.
-              </span>
-              <Button
-                variant="fab"
-                mini
-                color="secondary"
-                aria-label="Add"
-              >
-                <AddIcon />
-              </Button>
-              <span className="item_quantity">
-                {item.product_quantity}
-              </span>
-              <Button
-                variant="fab"
-                mini
-                color="secondary"
-                aria-label="Remove"
-              >
-                <RemoveIcon />
-              </Button>
-              <span className="item_full_price">
-                {item.product_price*item.product_quantity} руб.
-              </span>
-              <Button
-                variant="fab"
-                mini
-                color="secondary"
-                aria-label="Delete"
-              >
-                <DeleteIcon />
-              </Button>
-            </p>
-          );
-        })}
-        <p className="order_total">
-          Общая стоимость товаров в корзине: {sum} руб.
-        </p>
-      </div>
-    );
+    // TODO заменить заглушку для цены на данные с сервера (3 места)
+    const product_price = 100;
+    const {basketItems} = this.props;
+      const sum = basketItems.map(item => {
+        // создаем массив из произведений цены и количества товара
+        return product_price * item.product_quantity;
+      })
+        .reduce((price, current) => {
+          // складываем все цены созданного массива
+          return price + current;
+        });
+      // TODO убрать заглушку для картинки товара
+      return (
+        <div className="basket_list">
+          <h2>
+            <BasketIcon className="basket_icon"/>
+            Корзина
+          </h2>
+          {basketItems.map((item, idx) => {
+            return (
+              <p key={idx}>
+                <img
+                  src={serverAddress + '/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBHdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--d4923ad601f121901e3f572e59278b0f695ee0d4/missing.png'}/>
+                <span className="item_name">
+                  {item.product_name}
+                </span>
+                <span className="item_price">
+                  {product_price} руб.
+                </span>
+                <Button
+                  variant="fab"
+                  mini
+                  color="secondary"
+                  aria-label="Add"
+                >
+                  <AddIcon/>
+                </Button>
+                <span className="item_quantity">
+                  {item.product_quantity}
+                </span>
+                <Button
+                  variant="fab"
+                  mini
+                  color="secondary"
+                  aria-label="Remove"
+                >
+                  <RemoveIcon/>
+                </Button>
+                <span className="item_full_price">
+                  {product_price * item.product_quantity} руб.
+                </span>
+                <Button
+                  variant="fab"
+                  mini
+                  color="secondary"
+                  aria-label="Delete"
+                >
+                  <DeleteIcon/>
+                </Button>
+              </p>
+            );
+          })}
+          <p className="order_total">
+            Общая стоимость товаров в корзине: {sum} руб.
+          </p>
+        </div>
+      );
   }
 }

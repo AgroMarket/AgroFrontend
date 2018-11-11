@@ -2,6 +2,7 @@ import './BasketContacts.scss';
 
 import React, { PureComponent } from 'react';
 import Button from '@material-ui/core/Button/Button';
+import PropTypes from 'prop-types';
 
 // Данные для кнопки Оформить заказ
 const sendOrderButton = {id: 'sendOrder', name: 'Оформить заказ'};
@@ -10,7 +11,16 @@ const sendOrderButton = {id: 'sendOrder', name: 'Оформить заказ'};
  * Класс BasketContacts - компонент, отображающий форму с контактными данными на странице Корзина
  */
 export default class BasketContacts extends PureComponent {
+  // Проверка свойств
+  static propTypes = {
+    // ID корзины на сервере
+    basketID: PropTypes.number,
+    // функция отправки заказа
+    handleOrderClick: PropTypes.func,
+  };
+
   render() {
+    const { handleOrderClick } = this.props;
     return (
       <div className="basket_contacts">
         <p className="description">
@@ -32,6 +42,7 @@ export default class BasketContacts extends PureComponent {
           className="send_order_button"
           variant="contained"
           color="primary"
+          onClick={() => handleOrderClick()}
         >
           {sendOrderButton.name}
         </Button>

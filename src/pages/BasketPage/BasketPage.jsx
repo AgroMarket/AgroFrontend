@@ -15,7 +15,7 @@ export default class BasketPage extends PureComponent {
 
     this.state = {
       // товары в корзине
-      basketItems: [],
+      basketItems: {},
       // состояние загрузки корзины
       basketLoaded: false,
       // ошибка загрузки
@@ -51,6 +51,60 @@ export default class BasketPage extends PureComponent {
         });
   }
 
+  // обработка щелчков по кнопке добавить количество товара
+  handleAddClick = item_number => {
+    const newBasketItems = Object.assign({}, this.state.basketItems);
+    newBasketItems.products[item_number].product_quantity = newBasketItems.products[item_number].product_quantity + 1;
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          basketItems: newBasketItems,
+        };
+      }
+    );
+  };
+
+  // обработка щелчков по кнопке уменьшить количество товара
+  handleRemoveClick = item_number => {
+    if (this.state.basketItems.products[item_number].product_quantity > 1) {
+      const newBasketItems = Object.assign({}, this.state.basketItems);
+      newBasketItems.products[item_number].product_quantity = newBasketItems.products[item_number].product_quantity - 1;
+      this.setState(
+        prevState => {
+          return {
+            ...prevState,
+            basketItems: newBasketItems,
+          };
+        }
+      );
+    }
+  };
+
+  // обработка щелчков по кнопке Удалить товар
+  handleDeleteItem = item_number => {
+    fetch(`${serverAddress}/api/carts/${this.props.basketID}/items/${this.state.basketItems.products[item_number].cart_item_id}`, {
+      method: 'delete',
+    })
+      .then(() => {
+        const newBasketItems = Object.assign({}, this.state.basketItems);
+        newBasketItems.products.splice(item_number, 1);
+        this.setState(
+          prevState => {
+            return {
+              ...prevState,
+              basketItems: newBasketItems,
+            };
+          }
+        );
+      });
+  };
+
+  // TODO обработка щелчков по кнопке Оформить заказ
+  handleOrderClick = () => {
+
+  };
+
   render() {
     const { error, basketItems, basketLoaded } = this.state;
     const { basketID } = this.props;
@@ -74,8 +128,17 @@ export default class BasketPage extends PureComponent {
           return (
             <div className="basket_form">
               <div/>
-              <BasketList basketItems={basketItems.products} basketID={basketID}/>
-              <BasketContacts basketID={basketID}/>
+              <BasketList
+                basketItems={basketItems}
+                basketID={basketID}
+                handleAddClick={this.handleAddClick}
+                handleRemoveClick={this.handleRemoveClick}
+                handleDeleteItem={this.handleDeleteItem}
+              />
+              <BasketContacts
+                basketID={basketID}
+                handleOrderClick={this.handleOrderClick}
+              />
               <div/>
             </div>
           );

@@ -26,6 +26,8 @@ export default class CatalogItem extends PureComponent {
       itemLoaded: false,
       // ошибка загрузки
       error: null,
+      // количество приобретаемого товара
+      itemCounter: 1,
     };
   }
 
@@ -35,6 +37,8 @@ export default class CatalogItem extends PureComponent {
     item: PropTypes.string,
     // Функция возврата в каталог из просмотра информации о товаре каталога
     actionBack: PropTypes.func,
+    // ID корзины на сервере
+    basketID: PropTypes.number,
   };
 
   // значения атрибутов по умолчанию
@@ -65,9 +69,55 @@ export default class CatalogItem extends PureComponent {
         });
   }
 
+  // обработка щелчков по кнопке добавить товар
+  handleAddClick = () => {
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          itemCounter: this.state.itemCounter+1,
+        };
+      }
+    );
+  };
+
+  // обработка щелчков по кнопке удалить товар
+  handleRemoveClick = () => {
+    if (this.state.itemCounter > 1) {
+      this.setState(
+        prevState => {
+          return {
+            ...prevState,
+            itemCounter: this.state.itemCounter - 1,
+          };
+        }
+      );
+    }
+  };
+
+  // обработка щелчков по кнопке Добавить в корзину
+  handleAddToBasketClick = () => {
+    const itemJSON = JSON.stringify({
+      "item":
+        {
+          "product_id": this.state.catalogItem.id,
+          "quantity": this.state.itemCounter,
+        }
+    });
+    fetch(`${serverAddress}/api/carts/${this.props.basketID}/items`, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: itemJSON,
+    })
+      .then(console('data sended'));
+  };
+
   render() {
     // получаем переданные свойства товаров каталога
-    const { error, itemLoaded, catalogItem } = this.state;
+    const { error, itemLoaded, catalogItem, itemCounter } = this.state;
     const { actionBack } = this.props;
     if (error) {
       return <p>Ошибка: {error.message}</p>;
@@ -92,15 +142,17 @@ export default class CatalogItem extends PureComponent {
                   mini
                   color="secondary"
                   aria-label="Add"
+                  onClick={this.handleAddClick}
                 >
                   <AddIcon />
                 </Button>
-                <span className="item_counter">1</span>
+                <span className="item_counter">{itemCounter}</span>
                 <Button
                   variant="fab"
                   mini
                   color="secondary"
                   aria-label="Remove"
+                  onClick={this.handleRemoveClick}
                 >
                   <RemoveIcon />
                 </Button>
@@ -112,7 +164,9 @@ export default class CatalogItem extends PureComponent {
                 className="add_to_basket_button"
                 variant="contained"
                 color="primary"
-                id={addToBasketButton.id}>
+                id={addToBasketButton.id}
+                onClick={this.handleAddToBasketClick}
+              >
                   {addToBasketButton.name}
               </Button>
             </div>

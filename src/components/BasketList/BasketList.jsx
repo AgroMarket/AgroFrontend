@@ -86,8 +86,8 @@ export default class BasketList extends PureComponent {
             </p>
           );
         })}
-        <p>
-          Итого: {sum} руб.
+        <p className="order_total">
+          Общая стоимость товаров в корзине: {sum} руб.
         </p>
       </div>
     );

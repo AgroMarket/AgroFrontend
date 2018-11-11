@@ -112,7 +112,7 @@ export default class CatalogList extends PureComponent {
       }
       else
         if (catalogItems === undefined || catalogItems === []) {
-          return <p className="load_info">Товары не найдены</p>
+          return <p className="load_info">Товары не найдены</p>;
         }
         else
           return (

@@ -16,23 +16,31 @@ export default class BasketList extends PureComponent {
   // Проверка свойств
   static propTypes = {
     // Описание товара - объект
-    basketItems: PropTypes.arrayOf(PropTypes.shape({
-      // название товара
-      product_name: PropTypes.string,
-      // цена товара
-      product_price: PropTypes.number,
-      // количество товара
-      product_quantity: PropTypes.number,
-    })),
+    basketItems: PropTypes.shape({
+      products: PropTypes.arrayOf(PropTypes.shape({
+        // название товара
+        product_name: PropTypes.string,
+        // цена товара
+        product_price: PropTypes.number,
+        // количество товара
+        product_quantity: PropTypes.number,
+      })),
+    }),
     // ID корзины на сервере
     basketID: PropTypes.number,
+    // Функция увеличения количества товаров в корзине
+    handleAddClick: PropTypes.func,
+    // Функция уменьшения количества товаров в корзине
+    handleRemoveClick: PropTypes.func,
+    // Функция удаления товаров в корзине
+    handleDeleteItem: PropTypes.func,
   };
 
   render() {
     // TODO заменить заглушку для цены на данные с сервера (3 места)
     const product_price = 100;
-    const {basketItems} = this.props;
-      const sum = basketItems.map(item => {
+    const { basketItems, handleAddClick, handleRemoveClick, handleDeleteItem } = this.props;
+      const sum = basketItems.products.map(item => {
         // создаем массив из произведений цены и количества товара
         return product_price * item.product_quantity;
       })
@@ -47,7 +55,7 @@ export default class BasketList extends PureComponent {
             <BasketIcon className="basket_icon"/>
             Корзина
           </h2>
-          {basketItems.map((item, idx) => {
+          {basketItems.products.map((item, idx) => {
             return (
               <p key={idx}>
                 <img
@@ -63,6 +71,7 @@ export default class BasketList extends PureComponent {
                   mini
                   color="secondary"
                   aria-label="Add"
+                  onClick={() => handleAddClick(idx)}
                 >
                   <AddIcon/>
                 </Button>
@@ -74,6 +83,7 @@ export default class BasketList extends PureComponent {
                   mini
                   color="secondary"
                   aria-label="Remove"
+                  onClick={() => handleRemoveClick(idx)}
                 >
                   <RemoveIcon/>
                 </Button>
@@ -85,6 +95,7 @@ export default class BasketList extends PureComponent {
                   mini
                   color="secondary"
                   aria-label="Delete"
+                  onClick={() => handleDeleteItem(idx)}
                 >
                   <DeleteIcon/>
                 </Button>

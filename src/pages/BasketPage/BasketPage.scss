@@ -4,4 +4,5 @@ $k: 16;
 .basket_form {
   display: grid;
   grid-template-columns: 15% 50% 20% 15%;
+  padding-bottom: 100em/$k;
 }

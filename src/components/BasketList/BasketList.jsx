@@ -24,6 +24,8 @@ export default class BasketList extends PureComponent {
         product_price: PropTypes.number,
         // количество товара
         product_quantity: PropTypes.number,
+        // изображение товара
+        product_image: PropTypes.string,
       })),
     }),
     // ID корзины на сервере
@@ -37,18 +39,15 @@ export default class BasketList extends PureComponent {
   };
 
   render() {
-    // TODO заменить заглушку для цены на данные с сервера (3 места)
-    const product_price = 100;
     const { basketItems, handleAddClick, handleRemoveClick, handleDeleteItem } = this.props;
       const sum = basketItems.products.map(item => {
         // создаем массив из произведений цены и количества товара
-        return product_price * item.product_quantity;
+        return item.product_price * item.product_quantity;
       })
         .reduce((price, current) => {
           // складываем все цены созданного массива
           return price + current;
         });
-      // TODO убрать заглушку для картинки товара
       return (
         <div className="basket_list">
           <h2>
@@ -59,12 +58,12 @@ export default class BasketList extends PureComponent {
             return (
               <p key={idx}>
                 <img
-                  src={serverAddress + '/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBHdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--d4923ad601f121901e3f572e59278b0f695ee0d4/missing.png'}/>
+                  src={serverAddress + item.product_image}/>
                 <span className="item_name">
                   {item.product_name}
                 </span>
                 <span className="item_price">
-                  {product_price} руб.
+                  {item.product_price} руб.
                 </span>
                 <Button
                   variant="fab"
@@ -88,7 +87,7 @@ export default class BasketList extends PureComponent {
                   <RemoveIcon/>
                 </Button>
                 <span className="item_full_price">
-                  {product_price * item.product_quantity} руб.
+                  {item.product_price * item.product_quantity} руб.
                 </span>
                 <Button
                   variant="fab"

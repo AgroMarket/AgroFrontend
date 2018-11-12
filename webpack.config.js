@@ -36,6 +36,8 @@ module.exports = {
       components: path.resolve(__dirname, 'src', 'components'),
       // адрес папки containers
       containers: path.resolve(__dirname, 'src', 'containers'),
+      // вспомогательные утилиты
+      helpers: path.resolve(__dirname, 'src', 'helpers'),
       // адрес папки img
       img: path.resolve(__dirname, 'src', 'imgs'),
       // адрес папки actions

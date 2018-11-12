@@ -1,9 +1,10 @@
 import './BasketPage.scss';
 
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import BasketList from 'components/BasketList';
 import BasketContacts from 'components/BasketContacts';
-import PropTypes from 'prop-types';
+import BasketFinish from 'components/BasketFinish';
 import {serverAddress} from 'constants/ServerAddress';
 // TODO Корзина должна хранится даже при обновлении страницы
 
@@ -21,6 +22,8 @@ export default class BasketPage extends PureComponent {
       basketLoaded: false,
       // ошибка загрузки
       error: null,
+      // состояние оформления заказа
+      orderFinish: false,
     };
   }
 
@@ -103,11 +106,18 @@ export default class BasketPage extends PureComponent {
 
   // TODO обработка щелчков по кнопке Оформить заказ
   handleOrderClick = () => {
-
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          orderFinish: true,
+        };
+      }
+    );
   };
 
   render() {
-    const { error, basketItems, basketLoaded } = this.state;
+    const { error, basketItems, basketLoaded, orderFinish } = this.state;
     const { basketID } = this.props;
     if (error) {
       return <p>Ошибка: {error.message}</p>;
@@ -126,23 +136,32 @@ export default class BasketPage extends PureComponent {
           );
         }
         else {
-          return (
-            <div className="basket_form">
-              <div/>
-              <BasketList
-                basketItems={basketItems}
-                basketID={basketID}
-                handleAddClick={this.handleAddClick}
-                handleRemoveClick={this.handleRemoveClick}
-                handleDeleteItem={this.handleDeleteItem}
-              />
-              <BasketContacts
-                basketID={basketID}
-                handleOrderClick={this.handleOrderClick}
-              />
-              <div/>
-            </div>
-          );
+          if (orderFinish)
+            return (
+              <div className="basket_finish">
+                <div/>
+                  <BasketFinish/>
+                <div/>
+              </div>
+            );
+          else
+            return (
+              <div className="basket_form">
+                <div/>
+                <BasketList
+                  basketItems={basketItems}
+                  basketID={basketID}
+                  handleAddClick={this.handleAddClick}
+                  handleRemoveClick={this.handleRemoveClick}
+                  handleDeleteItem={this.handleDeleteItem}
+                />
+                <BasketContacts
+                  basketID={basketID}
+                  handleOrderClick={this.handleOrderClick}
+                />
+                <div/>
+              </div>
+            );
         }
     }
 }

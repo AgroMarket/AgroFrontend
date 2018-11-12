@@ -5,6 +5,7 @@ import BasketList from 'components/BasketList';
 import BasketContacts from 'components/BasketContacts';
 import PropTypes from 'prop-types';
 import {serverAddress} from 'constants/ServerAddress';
+// TODO Корзина должна хранится даже при обновлении страницы
 
 /**
  * Класс BasketPage - компонент, отображающий страницу Корзина

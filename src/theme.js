@@ -1,6 +1,6 @@
 import {createMuiTheme} from '@material-ui/core/styles';
 
-// TODO разобраться с @media, чтобы в хидере меню было 18px
+// TODO Сделать адаптив для меньшего разрешения экрана, разобраться с @media, чтобы в хидере меню было 18px
 // Тема для Material-UI
 export const theme = createMuiTheme({
   // Набор цветов (оттенки и их тени)

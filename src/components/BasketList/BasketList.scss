@@ -3,6 +3,7 @@ $k: 16;
 
 .basket_list {
   font-size: 18rem/$k;
+  font-weight: normal;
   padding-top: 30em/$k;
   .basket_icon {
     color: #33691e;
@@ -15,6 +16,33 @@ $k: 16;
     text-align: center;
     font-size: 24rem/$k;
     font-weight: normal;
+  }
+  .items_title {
+    color: #33691e;
+    font-size: 12rem/$k;
+    padding-left: 54rem/$k;
+    margin-top: 0;
+    margin-bottom: 0;
+    span {
+      display: inline-block;
+      text-align: center;
+    }
+    .table_title {
+      width: 300rem/$k;
+      padding-left: 15rem/$k;
+    }
+    .table_price {
+      width: 200rem/$k;
+    }
+    .table_counter {
+      width: 132rem/$k;
+    }
+    .table_total {
+      width: 194rem/$k;
+    }
+    .table_delete {
+      
+    }
   }
   img {
     height: 46rem/$k;

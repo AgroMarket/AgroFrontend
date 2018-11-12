@@ -54,6 +54,13 @@ export default class BasketList extends PureComponent {
             <BasketIcon className="basket_icon"/>
             Корзина
           </h2>
+          <p className="items_title">
+            <span className="table_title">Название товара</span>
+            <span className="table_price">Цена за 1 ед.</span>
+            <span className="table_counter">Количество</span>
+            <span className="table_total">Общая стоимость</span>
+            <span className="table_delete">Удалить</span>
+          </p>
           {basketItems.products.map((item, idx) => {
             return (
               <p key={idx}>

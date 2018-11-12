@@ -1,0 +1,21 @@
+// Коэффициент перевода в em
+$k: 16;
+.basket_finish {
+  // TODO сделать выравнивание по центру без auto
+  margin: 0 auto;
+  background: url('../../imgs/full_basket.png') center bottom no-repeat;
+  color: #33691e;
+  font-size: 24rem/$k;
+  font-weight: normal;
+  text-align: center;
+  width: 582px;
+  height: 547rem/$k;
+  .goto_catalog {
+    background-color: #eeff41;
+    color: #33691e;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    height: 50rem/$k;
+    width: 234rem/$k;
+  }
+}

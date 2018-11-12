@@ -37,7 +37,7 @@ export default class MainPage extends PureComponent {
   // Проверка свойств
   static propTypes = {
     // ID корзины на сервере
-    basketID: PropTypes.number,
+    basketID: PropTypes.string,
   };
 
   componentDidMount() {

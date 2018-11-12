@@ -27,7 +27,7 @@ export default class BasketPage extends PureComponent {
   // Проверка свойств
   static propTypes = {
     // ID корзины на сервере
-    basketID: PropTypes.number,
+    basketID: PropTypes.string,
   };
 
   componentDidMount() {

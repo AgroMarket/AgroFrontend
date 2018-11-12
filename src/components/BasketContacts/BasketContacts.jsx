@@ -14,7 +14,7 @@ export default class BasketContacts extends PureComponent {
   // Проверка свойств
   static propTypes = {
     // ID корзины на сервере
-    basketID: PropTypes.number,
+    basketID: PropTypes.string,
     // функция отправки заказа
     handleOrderClick: PropTypes.func,
   };

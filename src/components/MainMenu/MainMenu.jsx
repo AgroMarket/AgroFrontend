@@ -11,7 +11,6 @@ const menu = [
     class: 'goto_main',
     title: '',
     url: '/',
-
   },
   {
     class: 'goto_about',

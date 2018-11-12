@@ -29,7 +29,7 @@ export default class BasketList extends PureComponent {
       })),
     }),
     // ID корзины на сервере
-    basketID: PropTypes.number,
+    basketID: PropTypes.string,
     // Функция увеличения количества товаров в корзине
     handleAddClick: PropTypes.func,
     // Функция уменьшения количества товаров в корзине

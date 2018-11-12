@@ -38,7 +38,7 @@ export default class CatalogItem extends PureComponent {
     // Функция возврата в каталог из просмотра информации о товаре каталога
     actionBack: PropTypes.func,
     // ID корзины на сервере
-    basketID: PropTypes.number,
+    basketID: PropTypes.string,
   };
 
   // значения атрибутов по умолчанию

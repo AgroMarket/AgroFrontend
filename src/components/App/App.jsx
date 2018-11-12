@@ -13,6 +13,7 @@ import HomePage from 'pages/HomePage';
 import BasketPage from 'pages/BasketPage';
 // машрутизация сайта
 import routes from '../../routes';
+import {storageAvailable} from 'helpers/localStorage';
 import {serverAddress} from 'constants/ServerAddress';
 
 /**
@@ -23,7 +24,6 @@ export default class App extends PureComponent {
     super(props);
 
     this.state = {
-      // TODO использовать redux для хранения id корзины
       // ID корзины
       basketID: -1,
       // состояние создания корзины
@@ -33,8 +33,8 @@ export default class App extends PureComponent {
     };
   }
 
-  // Создаем корзину на сервере
-  componentDidMount() {
+  // получает с сервера id новой корзины и сохраняет его в state
+  getBasketID = () => {
     fetch(`${serverAddress}/api/carts`, {
       method: 'post',
     })
@@ -42,9 +42,10 @@ export default class App extends PureComponent {
       .then(res => {
           this.setState(
             prevState => {
+              localStorage.setItem('basketID', res.result.id);
               return {
                 ...prevState,
-                basketID: res.result.id,
+                basketID: String(res.result.id),
                 basketCreated: true,
               };
             }
@@ -56,6 +57,48 @@ export default class App extends PureComponent {
             error,
           });
         });
+  };
+
+  // проверяет наличие id корзины на сервере в случае отсутствия получает с сервера id новой корзины и сохраняет его в state
+  loadBasketID = id => {
+    fetch(`${serverAddress}/api/carts/${id}`)
+      .then(res => res.json())
+      .then(res => {
+        // если на сервере корзина с указанным id не существует
+        if (res.status !== 200 || this.state.getBasketID === -1)
+          // то олучаем с сервера id для новой корзины
+          this.getBasketID();
+        else
+          // иначе загружаем id корзины из localStorage
+          this.setState(
+            prevState => {
+              return {
+                ...prevState,
+                basketID: localStorage.getItem('basketID'),
+                basketCreated: true,
+              };
+            }
+          );
+      });
+  };
+
+  // Создаем корзину на сервере
+  componentDidMount() {
+    // если доступен localStorage браузера
+    if (storageAvailable('localStorage')) {
+      // если id корзины не существует
+      if (!localStorage.getItem('basketID')) {
+        // получаем с сервера id для новой корзины
+        this.getBasketID();
+      } else {
+        // иначе загружаем id корзины из localStorage
+        this.loadBasketID(localStorage.getItem('basketID'));
+      }
+    }
+    // localStorage не доступен
+    else {
+      this.getBasketID();
+    }
   }
 
   render() {
@@ -72,7 +115,7 @@ export default class App extends PureComponent {
         <MuiThemeProvider theme={theme}>
           <CssBaseline/>
           <BrowserRouter>
-            <div className="container">
+            <div>
               <Header className="header"/>
               <Switch className="page">
                 <Route exact path="/" render={(props) => (

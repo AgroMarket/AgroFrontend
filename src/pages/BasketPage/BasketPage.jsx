@@ -55,34 +55,40 @@ export default class BasketPage extends PureComponent {
         });
   }
 
-  // обработка щелчков по кнопке добавить количество товара
-  handleAddClick = item_number => {
-    const newBasketItems = Object.assign({}, this.state.basketItems);
-    newBasketItems.products[item_number].product_quantity = newBasketItems.products[item_number].product_quantity + 1;
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          basketItems: newBasketItems,
-        };
-      }
-    );
-  };
-
-  // обработка щелчков по кнопке уменьшить количество товара
-  handleRemoveClick = item_number => {
-    if (this.state.basketItems.products[item_number].product_quantity > 1) {
-      const newBasketItems = Object.assign({}, this.state.basketItems);
-      newBasketItems.products[item_number].product_quantity = newBasketItems.products[item_number].product_quantity - 1;
-      this.setState(
-        prevState => {
-          return {
-            ...prevState,
-            basketItems: newBasketItems,
-          };
-        }
-      );
-    }
+  /**
+   * Обрабатывает щелчки по кнопкам с количеством товара
+   * @param item_number порядковый номер товара в корзине
+   * @param count количество добавляемого товара
+   */
+  handleCounterClick = (item_number, count) => {
+    if (count === -1 && this.state.basketItems.products[item_number].product_quantity === 1)
+      return;
+    const itemJSON = JSON.stringify({
+      'item':
+        {
+          'quantity': this.state.basketItems.products[item_number].product_quantity + count,
+        },
+    });
+    fetch(`${serverAddress}/api/carts/${this.props.basketID}/items/${this.state.basketItems.products[item_number].cart_item_id}`, {
+      method: 'put',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: itemJSON,
+    })
+      .then(() => {
+        const newBasketItems = Object.assign({}, this.state.basketItems);
+        newBasketItems.products[item_number].product_quantity = newBasketItems.products[item_number].product_quantity + count;
+        this.setState(
+          prevState => {
+            return {
+              ...prevState,
+              basketItems: newBasketItems,
+            };
+          }
+        );
+      });
   };
 
   // обработка щелчков по кнопке Удалить товар
@@ -151,8 +157,7 @@ export default class BasketPage extends PureComponent {
                 <BasketList
                   basketItems={basketItems}
                   basketID={basketID}
-                  handleAddClick={this.handleAddClick}
-                  handleRemoveClick={this.handleRemoveClick}
+                  handleCounterClick={this.handleCounterClick}
                   handleDeleteItem={this.handleDeleteItem}
                 />
                 <BasketContacts

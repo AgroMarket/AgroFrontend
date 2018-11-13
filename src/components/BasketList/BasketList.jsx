@@ -30,16 +30,14 @@ export default class BasketList extends PureComponent {
     }),
     // ID корзины на сервере
     basketID: PropTypes.string,
-    // Функция увеличения количества товаров в корзине
-    handleAddClick: PropTypes.func,
-    // Функция уменьшения количества товаров в корзине
-    handleRemoveClick: PropTypes.func,
+    // Функция изменения количества товаров в корзине
+    handleCounterClick: PropTypes.func,
     // Функция удаления товаров в корзине
     handleDeleteItem: PropTypes.func,
   };
 
   render() {
-    const { basketItems, handleAddClick, handleRemoveClick, handleDeleteItem } = this.props;
+    const { basketItems, handleCounterClick, handleDeleteItem } = this.props;
       const sum = basketItems.products.map(item => {
         // создаем массив из произведений цены и количества товара
         return item.product_price * item.product_quantity;
@@ -77,7 +75,7 @@ export default class BasketList extends PureComponent {
                   mini
                   color="secondary"
                   aria-label="Add"
-                  onClick={() => handleAddClick(idx)}
+                  onClick={() => handleCounterClick(idx, 1)}
                 >
                   <AddIcon/>
                 </Button>
@@ -89,7 +87,7 @@ export default class BasketList extends PureComponent {
                   mini
                   color="secondary"
                   aria-label="Remove"
-                  onClick={() => handleRemoveClick(idx)}
+                  onClick={() => handleCounterClick(idx, -1)}
                 >
                   <RemoveIcon/>
                 </Button>

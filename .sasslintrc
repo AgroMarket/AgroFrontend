@@ -51,5 +51,5 @@ rules:
     - 2
     -
       properties:
-        - margin
+#        - margin
         - content

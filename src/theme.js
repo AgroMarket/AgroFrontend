@@ -5,13 +5,31 @@ import {createMuiTheme} from '@material-ui/core/styles';
 export const theme = createMuiTheme({
   // Точки переход разрешения
   breakpoints: {
+    keys:
+      [
+        {
+          0: 'xs',
+        },
+        {
+          1: 'sm',
+        },
+        {
+          2: 'md',
+        },
+        {
+          3: 'lg',
+        },
+        {
+          4: 'xl',
+        },
+      ],
     values: {
       'xs': 0,
       'sm': 960,
       'md': 1280,
       'lg': 1440,
       'xl': 1920,
-    }
+    },
   },
   // Набор цветов (оттенки и их тени)
   palette: {

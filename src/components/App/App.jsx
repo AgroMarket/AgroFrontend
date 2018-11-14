@@ -6,7 +6,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {MuiThemeProvider} from '@material-ui/core';
 // Тема для Material-UI
-import { theme } from '../../theme';
+import theme from '../../theme';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import HomePage from 'pages/HomePage';

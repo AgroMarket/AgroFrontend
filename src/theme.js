@@ -2,7 +2,7 @@ import {createMuiTheme} from '@material-ui/core/styles';
 
 // TODO Сделать адаптив для меньшего разрешения экрана, разобраться с @media, чтобы в хидере меню было 18px
 // Тема для Material-UI
-export const theme = createMuiTheme({
+let theme = createMuiTheme({
   // Точки переход разрешения
   breakpoints: {
     keys:
@@ -84,6 +84,10 @@ export const theme = createMuiTheme({
     fontSize: 18,
     useNextVariants: true,
   },
+});
+
+export default theme = {
+  ...theme,
   // Настройка внешнего вида компонентов
   overrides: {
     // Название компонента
@@ -105,7 +109,12 @@ export const theme = createMuiTheme({
         // Изменяем значения CSS для компонента
         fontWeight: 'normal',
         textTransform: 'none',
-        minWidth: 250,
+        [theme.breakpoints.down('xl')]: {
+          fontSize: 18,
+        },
+        [theme.breakpoints.down('lg')]: {
+          fontSize: 13,
+        },
       },
     },
     MuiButton: {
@@ -114,6 +123,12 @@ export const theme = createMuiTheme({
         // Изменяем значения CSS для компонента
         fontWeight: 'normal',
         textTransform: 'none',
+        [theme.breakpoints.down('xl')]: {
+          fontSize: 18,
+        },
+        [theme.breakpoints.down('lg')]: {
+          fontSize: 14,
+        },
       },
     },
     MuiList: {
@@ -143,6 +158,12 @@ export const theme = createMuiTheme({
         // Изменяем значения CSS для компонента
         lineHeight: 1,
         paddingLeft: 50,
+        [theme.breakpoints.down('xl')]: {
+          fontSize: 18,
+        },
+        [theme.breakpoints.down('lg')]: {
+          fontSize: 14,
+        },
       },
     },
     MuiDivider: {
@@ -170,4 +191,4 @@ export const theme = createMuiTheme({
       disableRipple: false,
     },
   },
-});
+};

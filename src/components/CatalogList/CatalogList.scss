@@ -5,6 +5,12 @@ $k: 16;
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
   margin-top: 22em/$k;
+  @media (max-width: 1280px) {
+    grid-template-columns: 33% 33% 33%;
+  }
+  @media (max-width: 960px) {
+    grid-template-columns: 50% 50%;
+  }
 }
 .load_info {
   color: #558b2f;

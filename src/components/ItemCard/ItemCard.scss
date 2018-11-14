@@ -24,3 +24,35 @@ $k: 16;
   margin-top: 0;
   margin-bottom: 0;
 }
+@media (max-width: 1920px) {
+  .title {
+    font-size: 14rem/$k;
+  }
+  .price {
+    font-size: 18rem/$k;
+  }
+}
+@media (max-width: 1440px) {
+  .title {
+    font-size: 13rem/$k;
+  }
+  .price {
+    font-size: 16rem/$k;
+  }
+}
+@media (max-width: 1280px) {
+  .title {
+    font-size: 12rem/$k;
+  }
+  .price {
+    font-size: 15rem/$k;
+  }
+}
+@media (max-width: 960px) {
+  .title {
+    font-size: 11rem/$k;
+  }
+  .price {
+    font-size: 14rem/$k;
+  }
+}

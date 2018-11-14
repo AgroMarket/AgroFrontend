@@ -10,5 +10,12 @@ footer {
   font-style: normal;
   font-weight: normal;
   line-height: normal;
-  font-size: 18em/$k;
+  font-size: 18rem/$k;
+  @media (max-width: 1920px) {
+    font-size: 13rem/$k;
+  }
+  @media (max-width: 1440px) {
+    font-size: 12rem/$k;
+    grid-template-columns: 5% 90% 5%;
+  }
 }

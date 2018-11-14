@@ -8,11 +8,6 @@ import MainMenuItem from 'components/MainMenuItem';
 
 const menu = [
   {
-    class: 'goto_main',
-    title: '',
-    url: '/',
-  },
-  {
     class: 'goto_about',
     title: 'О нас',
     url: '/about',
@@ -43,6 +38,8 @@ export default class MainMenu extends PureComponent {
 
     this.state = {
       value: 0,
+      // флаг отображения выбранного пункта меню
+      showIndicator: false,
     };
   }
 
@@ -76,13 +73,14 @@ export default class MainMenu extends PureComponent {
 
   componentDidMount() {
     // Выделение пункта меню при прямом переходе по ссылке
-    const menuList = ['', 'about', 'sellers', 'buyers', 'delivery'];
+    const menuList = ['about', 'sellers', 'buyers', 'delivery'];
     // ищем в url из адресной строки текст после слэша
     const newValue = menuList.indexOf(/[^/]*$/.exec(window.location.href)[0]);
     this.setState(
       prevState => {
         return {
           ...prevState,
+          showIndicator: newValue !== -1,
           value: (newValue === -1) ? 0 : newValue,
         };
       }

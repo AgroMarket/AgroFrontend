@@ -5,14 +5,3 @@ $k: 16;
   justify-content: space-between;
   text-align: center;
 }
-
-.goto_main {
-  background: url('../../imgs/logo.png') no-repeat;
-  background-size: 300rem/$k 75rem/$k;
-  height: 75px;
-  width: 100%;
-  @media (max-width: 1440px) {
-    background-size: 215rem/$k 53rem/$k;
-
-  }
-}

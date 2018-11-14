@@ -6,18 +6,31 @@ header {
   background-color: #fff;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   height: 95px;
-  grid-template-columns: 15% 50% 20% 15%;
+  grid-template-columns: 15% 21% 34% 15% 15%;
   grid-template-rows: 3em;
-  @media (max-width: 1440px) {
+  @media (max-width: 1920px) {
     height: 81px;
   }
 }
+.goto_main {
+  background: url('../../imgs/logo.png') no-repeat;
+  background-size: 304px 75px;
+  height: 75px;
+  width: 304px;
+  @media (max-width: 1920px) {
+    background-size: 215rem/$k 53rem/$k;
+    height: 53px;
 
+  }
+}
 .menu_buttons {
   padding-top: 23em/$k;
   text-align: right;
 }
-
+.basket_button {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
 .login_button {
   margin-left: 10px;
 }

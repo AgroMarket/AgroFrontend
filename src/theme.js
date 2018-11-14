@@ -47,7 +47,7 @@ let theme = createMuiTheme({
     // для второстепенных элементов интерфейса
     secondary: {
       light: '#ff7961',
-      main: '#008b00',
+      main: '#40732c',
       dark: '#ba000d',
       contrastText: '#000',
     },
@@ -95,9 +95,12 @@ export default theme = {
       // Название правила
       root: {
         // Изменяем значения CSS для компонента
-        paddingTop: 8,
+        paddingTop: 22,
         color: '#558b2f',
         minHeight: 90,
+        [theme.breakpoints.down('lg')]: {
+          paddingTop: 18,
+        },
       },
       indicator: {
         backgroundColor: '#fff',
@@ -111,9 +114,33 @@ export default theme = {
         textTransform: 'none',
         [theme.breakpoints.down('xl')]: {
           fontSize: 18,
+          minWidth: 80,
         },
         [theme.breakpoints.down('lg')]: {
           fontSize: 13,
+        },
+        [theme.breakpoints.down('md')]: {
+          fontSize: 12,
+          minWidth: 60,
+        },
+      },
+      labelContainer: {
+        [theme.breakpoints.down('xl')]: {
+          paddingLeft: 12,
+          paddingRight: 12,
+        },
+      },
+      labelWrapped: {
+        [theme.breakpoints.down('xl')]: {
+          fontSize: 18,
+          minWidth: 80,
+        },
+        [theme.breakpoints.down('lg')]: {
+          fontSize: 13,
+        },
+        [theme.breakpoints.down('md')]: {
+          fontSize: 12,
+          minWidth: 60,
         },
       },
     },
@@ -127,7 +154,11 @@ export default theme = {
           fontSize: 18,
         },
         [theme.breakpoints.down('lg')]: {
-          fontSize: 14,
+          fontSize: 13,
+        },
+
+        [theme.breakpoints.down('md')]: {
+          fontSize: 12,
         },
       },
     },
@@ -136,7 +167,12 @@ export default theme = {
       root: {
         // Изменяем значения CSS для компонента
         backgroundColor: '#fff',
-        width: 340,
+        [theme.breakpoints.down('xl')]: {
+          width: 340,
+        },
+        [theme.breakpoints.down('lg')]: {
+          width: 238,
+        },
       },
       padding: {
         paddingTop: 0,
@@ -151,18 +187,27 @@ export default theme = {
         paddingTop: 7,
         paddingBottom: 7,
       },
+      gutters: {
+        [theme.breakpoints.down('xl')]: {
+          paddingLeft: 32,
+        },
+        [theme.breakpoints.down('lg')]: {
+          paddingLeft: 16,
+        },
+      },
     },
     MuiListItemText: {
       // Название правила
       primary: {
         // Изменяем значения CSS для компонента
         lineHeight: 1,
-        paddingLeft: 50,
         [theme.breakpoints.down('xl')]: {
           fontSize: 18,
+          paddingLeft: 50,
         },
         [theme.breakpoints.down('lg')]: {
           fontSize: 14,
+          paddingLeft: 30,
         },
       },
     },
@@ -179,6 +224,14 @@ export default theme = {
         // Изменяем значения CSS для компонента
         paddingTop: 0,
         paddingBottom: 0,
+        [theme.breakpoints.down('xl')]: {
+          paddingLeft: 24,
+          paddingRight: 24,
+        },
+        [theme.breakpoints.down('lg')]: {
+          paddingLeft: 12,
+          paddingRight: 12,
+        },
       },
     },
   },

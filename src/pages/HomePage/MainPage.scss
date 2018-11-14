@@ -10,7 +10,11 @@ $k: 16;
   grid-template-columns: 15% 20% 50% 15%;
   padding-top: 30em/$k;
   padding-bottom: 100em/$k;
-  @media (max-width: 1440px) {
+  @media (max-width: 1920px) {
     padding-top: 25em/$k;
+    grid-template-columns: 15% 16% 54% 15%;
+  }
+  @media (max-width: 1440px) {
+    grid-template-columns: 5% 30% 60% 5%;
   }
 }

@@ -6,7 +6,7 @@ $k: 16;
   color: #33691e;
   font-size: 18rem/$k;
   font-weight: normal;
-  grid-template-columns: 15% 70% 15%;
+  grid-template-columns: 15% 40% 30% 15%;
   min-height: 927rem/$k;
   padding-top: 35rem/$k;
   h2 {
@@ -18,7 +18,13 @@ $k: 16;
     margin-bottom: 0;
   }
   .info {
-    height: 425rem/$k;
-    max-width: 700rem/$k;
+    min-height: 550rem/$k;
+  }
+  .bags {
+    background: url('../../imgs/bags.jpg') no-repeat center 74rem/$k;
+  }
+  @media (max-width: 1440px) {
+    grid-template-columns: 5% 50% 40% 5%;
+    font-size: 14rem/$k;
   }
 }

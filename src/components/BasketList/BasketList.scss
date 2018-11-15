@@ -11,10 +11,10 @@ $k: 16;
   padding-left: 35rem/$k;
   padding-right: 24rem/$k;
   .basket_item {
+    margin: 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
     border-radius: 2px;
     padding: 7px;
-    margin: 0;
     background-color: #f0f4c3;
   }
   .basket_icon {

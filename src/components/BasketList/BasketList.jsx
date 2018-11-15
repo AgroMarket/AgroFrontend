@@ -61,7 +61,7 @@ export default class BasketList extends PureComponent {
           </p>
           {basketItems.products.map((item, idx) => {
             return (
-              <p key={idx}>
+              <p className="basket_item" key={idx}>
                 <img
                   src={serverAddress + item.product_image}/>
                 <span className="item_name">

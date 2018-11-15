@@ -3,16 +3,20 @@ $k: 16;
 
 .basket_contacts {
   display: flex;
+  background-color: #fff;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
   color: #33691e;
   flex-direction: column;
   font-size: 14rem/$k;
-  margin-left: 45rem/$k;
-  padding-top: 60rem/$k;
+  padding: 62rem/$k 15rem/$k 15rem/$k 15rem/$k;
+  margin-left: 15rem/$k;
+  margin-top: 30rem/$k;
   position: relative;
   label
   {
     position: absolute;
-    left: 22rem/$k;
+    left: 35rem/$k;
   }
   .contact_fio {
     top: 124rem/$k;
@@ -40,6 +44,7 @@ $k: 16;
     opacity: 0;
   }
   input {
+    background-color: #f9fbe7;
     color: #33691e;
     height: 50rem/$k;
     padding-left: 20rem/$k;
@@ -47,5 +52,28 @@ $k: 16;
   }
   .send_order_button {
     margin-top: 66rem/$k;
+  }
+  @media (max-width: 1920px) {
+    .description {
+      font-size: 12rem/$k;
+    }
+    .contact_fio {
+      top: 119rem/$k;
+    }
+    .contact_city {
+      top: 170rem/$k;
+    }
+    .contact_address {
+      top: 219rem/$k;
+    }
+    .contact_phone {
+      top: 268rem/$k;
+    }
+    .contact_email {
+      top: 316rem/$k;
+    }
+    .contact_password {
+      top: 367rem/$k;
+    }
   }
 }

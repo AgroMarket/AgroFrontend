@@ -2,43 +2,57 @@
 $k: 16;
 
 .basket_list {
+  background-color: #fff;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
   font-size: 18rem/$k;
   font-weight: normal;
-  padding-top: 30em/$k;
+  margin-top: 30rem/$k;
+  padding-left: 35rem/$k;
+  padding-right: 24rem/$k;
+  .basket_item {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 2px;
+    padding: 7px;
+    margin: 0;
+    background-color: #f0f4c3;
+  }
   .basket_icon {
     color: #33691e;
     margin-right: 18rem/$k;
-    text-align: center;
     height: 36rem/$k;
     width: 36rem/$k;
   }
   h2 {
-    text-align: center;
     font-size: 24rem/$k;
     font-weight: normal;
   }
   .items_title {
     color: #33691e;
     font-size: 12rem/$k;
-    padding-left: 54rem/$k;
+    padding-left: 60rem/$k;
+    padding-bottom: 10rem/$k;
     margin-top: 0;
     margin-bottom: 0;
     span {
       display: inline-block;
       text-align: center;
     }
+    span:first-child {
+      text-align: left;
+    }
     .table_title {
-      width: 300rem/$k;
-      padding-left: 15rem/$k;
+      width: 180rem/$k;
+      padding-left: 30rem/$k;
     }
     .table_price {
-      width: 200rem/$k;
+      width: 100rem/$k;
     }
     .table_counter {
       width: 132rem/$k;
     }
     .table_total {
-      width: 194rem/$k;
+      width: 134rem/$k;
     }
     .table_delete {
 
@@ -54,15 +68,15 @@ $k: 16;
     text-align: center;
   }
   .item_name {
-    width: 300rem/$k;
+    width: 180rem/$k;
     padding-left: 15rem/$k;
     text-align: left;
   }
   .item_price {
-    width: 200rem/$k;
+    width: 100rem/$k;
   }
   .item_full_price {
-    width: 200rem/$k;
+    width: 140rem/$k;
   }
   .item_quantity {
     display: inline-block;
@@ -76,5 +90,11 @@ $k: 16;
     font-weight: 500;
     margin-top: 30rem/$k;
     text-align: center;
+  }
+  @media (max-width: 1920px) {
+    font-size: 14rem/$k;
+    .order_total {
+      font-size: 18rem/$k;
+    }
   }
 }

@@ -34,13 +34,15 @@ export default class Header extends PureComponent {
     return (
       <header>
         <div/>
-        <Button className="goto_main"
-          component={linkToMain}
-          variant="text"
-          id={gotoMainButton.id}
-        >
-          {gotoMainButton.name}
-        </Button>
+        <div className="goto_main">
+          <Button className="goto_main"
+            component={linkToMain}
+            variant="text"
+            id={gotoMainButton.id}
+          >
+            {gotoMainButton.name}
+          </Button>
+        </div>
         <MainMenu/>
         <div className="menu_buttons">
           <span className="basket_button">

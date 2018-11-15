@@ -11,6 +11,9 @@ header {
   @media (max-width: 1920px) {
     height: 81px;
   }
+  @media (max-width: 1440px) {
+    grid-template-columns: 5% 21% 49% 20% 5%;
+  }
 }
 .goto_main {
   background: url('../../imgs/logo.png') no-repeat;
@@ -20,7 +23,8 @@ header {
   @media (max-width: 1920px) {
     background-size: 215rem/$k 53rem/$k;
     height: 53px;
-
+    width: 215px;
+    margin-top: 12px;
   }
 }
 .menu_buttons {

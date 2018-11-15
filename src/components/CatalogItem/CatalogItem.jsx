@@ -173,7 +173,7 @@ export default class CatalogItem extends PureComponent {
               </Button>
             </div>
             <div>
-              <span className="back_button">
+              <div className="back_button">
                 <Button
                   color="primary"
                   id={backButton.id}
@@ -181,7 +181,7 @@ export default class CatalogItem extends PureComponent {
                 >
                   {backButton.name}
                 </Button>
-              </span>
+              </div>
             </div>
           </div>
         );

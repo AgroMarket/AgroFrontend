@@ -97,4 +97,7 @@ $k: 16;
       font-size: 18rem/$k;
     }
   }
+  @media (max-width: 1280px) {
+    padding-left: 24rem/$k;
+  }
 }

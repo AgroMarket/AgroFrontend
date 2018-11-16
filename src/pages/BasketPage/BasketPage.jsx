@@ -152,8 +152,9 @@ export default class BasketPage extends PureComponent {
             );
           else
             return (
-              <div className="basket_form">
+              <div className="basket_page">
                 <div/>
+                <div className="basket_container">
                 <BasketList
                   basketItems={basketItems}
                   basketID={basketID}
@@ -164,6 +165,7 @@ export default class BasketPage extends PureComponent {
                   basketID={basketID}
                   handleOrderClick={this.handleOrderClick}
                 />
+                </div>
                 <div/>
               </div>
             );

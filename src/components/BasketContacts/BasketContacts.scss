@@ -13,6 +13,11 @@ $k: 16;
   margin-left: 15rem/$k;
   margin-top: 30rem/$k;
   position: relative;
+  @media (max-width: 1280px) {
+    margin-left: 0;
+    padding-left: 24rem/$k;
+    padding-right: 24rem/$k;
+  }
   label
   {
     position: absolute;

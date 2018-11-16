@@ -61,15 +61,15 @@ export default class BasketPage extends PureComponent {
    * @param count количество добавляемого товара
    */
   handleCounterClick = (item_number, count) => {
-    if (count === -1 && this.state.basketItems.products[item_number].product_quantity === 1)
+    if (count === -1 && this.state.basketItems.products[item_number].product.quantity === 1)
       return;
     const itemJSON = JSON.stringify({
-      'item':
+      'cart_item':
         {
-          'quantity': this.state.basketItems.products[item_number].product_quantity + count,
+          'quantity': this.state.basketItems.products[item_number].product.quantity + count,
         },
     });
-    fetch(`${serverAddress}/api/carts/${this.props.basketID}/items/${this.state.basketItems.products[item_number].cart_item_id}`, {
+    fetch(`${serverAddress}/api/carts/${this.props.basketID}/cart_items/${this.state.basketItems.products[item_number].product.cart_item_id}`, {
       method: 'put',
       headers: {
         'Accept': 'application/json',
@@ -79,7 +79,7 @@ export default class BasketPage extends PureComponent {
     })
       .then(() => {
         const newBasketItems = Object.assign({}, this.state.basketItems);
-        newBasketItems.products[item_number].product_quantity = newBasketItems.products[item_number].product_quantity + count;
+        newBasketItems.products[item_number].product.quantity += count;
         this.setState(
           prevState => {
             return {
@@ -93,7 +93,7 @@ export default class BasketPage extends PureComponent {
 
   // обработка щелчков по кнопке Удалить товар
   handleDeleteItem = item_number => {
-    fetch(`${serverAddress}/api/carts/${this.props.basketID}/items/${this.state.basketItems.products[item_number].cart_item_id}`, {
+    fetch(`${serverAddress}/api/carts/${this.props.basketID}/cart_items/${this.state.basketItems.products[item_number].product.cart_item_id}`, {
       method: 'delete',
     })
       .then(() => {

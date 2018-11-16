@@ -48,7 +48,7 @@ export default class MainPage extends PureComponent {
           prevState => {
             return {
               ...prevState,
-              menuItems: res.result,
+              menuItems: res.result.categories,
               menuLoaded: true,
             };
           }

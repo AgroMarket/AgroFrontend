@@ -40,7 +40,7 @@ export default class BasketList extends PureComponent {
     const { basketItems, handleCounterClick, handleDeleteItem } = this.props;
       const sum = basketItems.products.map(item => {
         // создаем массив из произведений цены и количества товара
-        return item.product_price * item.product_quantity;
+        return item.product.price * item.product.quantity;
       })
         .reduce((price, current) => {
           // складываем все цены созданного массива
@@ -63,12 +63,12 @@ export default class BasketList extends PureComponent {
             return (
               <p className="basket_item" key={idx}>
                 <img
-                  src={serverAddress + item.product_image}/>
+                  src={serverAddress + item.product.image}/>
                 <span className="item_name">
-                  {item.product_name}
+                  {item.product.name}
                 </span>
                 <span className="item_price">
-                  {item.product_price} руб.
+                  {item.product.price} руб.
                 </span>
                 <Button
                   variant="fab"
@@ -80,7 +80,7 @@ export default class BasketList extends PureComponent {
                   <AddIcon/>
                 </Button>
                 <span className="item_quantity">
-                  {item.product_quantity}
+                  {item.product.quantity}
                 </span>
                 <Button
                   variant="fab"
@@ -92,7 +92,7 @@ export default class BasketList extends PureComponent {
                   <RemoveIcon/>
                 </Button>
                 <span className="item_full_price">
-                  {item.product_price * item.product_quantity} руб.
+                  {item.product.price * item.product.quantity} руб.
                 </span>
                 <Button
                   variant="fab"

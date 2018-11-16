@@ -25,6 +25,7 @@ export default class LeftMenu extends PureComponent {
    * Устанавливает выбранный пользователем раздел каталога в качестве текущего открытого и передает его номер в MainPage
    * @param event обрабатываемое событие щелчка по разделу каталога
    * @param index номер выбранного пользователем раздела каталога
+   * @param id, с которым выбранный пользователем раздел каталога хранится на сервере
    */
   handleListItemClick = (event, index, id) => {
     this.setState(
@@ -70,11 +71,11 @@ export default class LeftMenu extends PureComponent {
               <ListItem
                 button
                 selected={this.state.section === idx}
-                onClick={event => this.handleListItemClick(event, idx, item.id)}
+                onClick={event => this.handleListItemClick(event, idx, item.category.id)}
                 className="catalogMenuItem"
               >
-                <img src={serverAddress+item.icon} alt={item.name} className="categoryIcon"/>
-                <ListItemText primary={item.name}/>
+                <img src={serverAddress+item.category.icon} alt={item.category.name} className="categoryIcon"/>
+                <ListItemText primary={item.category.name}/>
               </ListItem>
             </Fragment>
           );

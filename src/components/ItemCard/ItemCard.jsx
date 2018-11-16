@@ -33,21 +33,21 @@ export default class ItemCard extends PureComponent {
     return (
       <Card className="catalogItem">
         <CardActionArea
-          onClick={event => itemHandle(event, item.id)}
+          onClick={event => itemHandle(event, item.product.id)}
         >
           <CardMedia
             component="img"
-            alt={item.title}
+            alt={item.product.title}
             height="160"
-            image={serverAddress+item.image}
-            title={item.title}
+            image={serverAddress+item.product.image}
+            title={item.product.title}
           />
           <CardContent className="description">
             <p className="title">
-              {item.title}
+              {item.product.title}
             </p>
             <p className="price">
-              {item.price} руб.&nbsp;/&nbsp;{item.measures}
+              {item.product.price} руб.&nbsp;/&nbsp;{item.product.measures}
             </p>
           </CardContent>
         </CardActionArea>

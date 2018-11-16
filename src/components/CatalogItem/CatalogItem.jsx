@@ -98,13 +98,13 @@ export default class CatalogItem extends PureComponent {
   // обработка щелчков по кнопке Добавить в корзину
   handleAddToBasketClick = () => {
     const itemJSON = JSON.stringify({
-      'item':
+      'cart_item':
         {
-          'product_id': this.state.catalogItem.id,
+          'product_id': this.state.catalogItem.product.id,
           'quantity': this.state.itemCounter,
         },
     });
-    fetch(`${serverAddress}/api/carts/${this.props.basketID}/items`, {
+    fetch(`${serverAddress}/api/carts/${this.props.basketID}/cart_items`, {
       method: 'post',
       headers: {
         'Accept': 'application/json',
@@ -132,12 +132,12 @@ export default class CatalogItem extends PureComponent {
         return (
           <div className="catalog_item">
             <div className="left_info">
-              <h2 className="item_title">{catalogItem.title}</h2>
-              <p className="item_description">{catalogItem.descripion}</p>
-              <p className="item_seller">Производитель: {catalogItem.farmer_name}</p>
+              <h2 className="item_title">{catalogItem.product.title}</h2>
+              <p className="item_description">{catalogItem.product.descripion}</p>
+              <p className="item_seller">Производитель: {catalogItem.product.farmer_name}</p>
             </div>
             <div className="right_info">
-              <img src={serverAddress+catalogItem.image} alt={catalogItem.image}/>
+              <img src={serverAddress+catalogItem.product.image} alt={catalogItem.product.image}/>
               <p>
                 <Button
                   variant="fab"
@@ -159,7 +159,7 @@ export default class CatalogItem extends PureComponent {
                   <RemoveIcon />
                 </Button>
                 <span className="item_price">
-                  {catalogItem.price} руб. / 1 {catalogItem.measures}
+                  {catalogItem.product.price} руб. / 1 {catalogItem.product.measures}
                 </span>
                 </p>
               <Button

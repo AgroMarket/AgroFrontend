@@ -11,6 +11,7 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import HomePage from 'pages/HomePage';
 import BasketPage from 'pages/BasketPage';
+import LoginPage from 'pages/LoginPage';
 // машрутизация сайта
 import routes from '../../routes';
 import {storageAvailable} from 'helpers/localStorage';
@@ -124,6 +125,9 @@ export default class App extends PureComponent {
                 {routes.map((route, idx) => <Route key={idx} basketID={basketID} {...route}/>)}
                 <Route exact path="/basket" render={(props) => (
                   <BasketPage {...props} basketID={basketID} />
+                )}/>
+                <Route exact path="/login" render={(props) => (
+                  <LoginPage {...props} basketID={basketID} />
                 )}/>
               </Switch>
               <Footer/>

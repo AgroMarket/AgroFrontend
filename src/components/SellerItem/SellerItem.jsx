@@ -3,10 +3,10 @@ import './SellerItem.scss';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import DeleteIcon from '@material-ui/icons/DeleteOutlineRounded';
+import Button from '@material-ui/core/Button/Button';
 
 // TODO заменить на ссылку изображения с сервера
 import PhotoMock from 'img/nophoto.jpg';
-import Button from '@material-ui/core/Button/Button';
 
 // Данные для кнопки Добавить объявление
 const editItemButton = {

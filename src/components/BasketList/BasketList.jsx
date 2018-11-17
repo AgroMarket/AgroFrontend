@@ -97,6 +97,7 @@ export default class BasketList extends PureComponent {
                   {item.product.price * item.product.quantity} руб.
                 </span>
                 <Button
+                  className="item_delete"
                   variant="fab"
                   mini
                   color="secondary"

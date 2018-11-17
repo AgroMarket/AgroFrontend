@@ -11,7 +11,9 @@ $k: 16;
   padding-left: 35rem/$k;
   padding-right: 24rem/$k;
   .basket_item {
+    display: flex;
     margin: 0;
+    align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
     border-radius: 2px;
     padding: 7px;
@@ -28,6 +30,8 @@ $k: 16;
     font-weight: normal;
   }
   .items_title {
+    display: flex;
+    align-items: center;
     color: #33691e;
     font-size: 12rem/$k;
     padding-left: 60rem/$k;
@@ -54,16 +58,12 @@ $k: 16;
     .table_total {
       width: 134rem/$k;
     }
-    .table_delete {
-
-    }
   }
   img {
     height: 46rem/$k;
     width: 54rem/$k;
   }
   .item_name, .item_price, .item_full_price {
-    display: inline-block;
     color: #33691e;
     text-align: center;
   }
@@ -79,7 +79,6 @@ $k: 16;
     width: 140rem/$k;
   }
   .item_quantity {
-    display: inline-block;
     font-size: 13rem/$k;
     text-align: center;
     width: 50rem/$k;
@@ -90,6 +89,9 @@ $k: 16;
     font-weight: 500;
     margin-top: 30rem/$k;
     text-align: center;
+  }
+  .table_delete, .item_delete {
+    margin-left: auto;
   }
   @media (max-width: 1920px) {
     font-size: 14rem/$k;

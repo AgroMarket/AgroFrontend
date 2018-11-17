@@ -16,9 +16,7 @@ export default class SellersPage extends PureComponent {
       // состояние загрузки товаров продавца
       itemsForSellLoaded: false,
       // при входе на страницу открывается список товаров, выставленных на продажу
-      openedSection: 0,
-      // адрес открытого пункта меню
-      openedMenuItem: 'SellersItems',
+      openedSection: 'seller_items',
       // ошибка загрузки
       error: null,
       // TODO добавить пагинацию для вывода товаров, выставленных на продажу
@@ -42,8 +40,8 @@ export default class SellersPage extends PureComponent {
     );
   };
 
-  // Пользователь открывает карточку создания нового товара
-  createItem = (event, itemID) => {
+  // Пользователь открывает карточку продажи товара
+  sellItem = (event, itemID) => {
     this.setState(
       prevState => {
         return {
@@ -67,7 +65,7 @@ export default class SellersPage extends PureComponent {
   };
 
   render() {
-    const { openedSection} = this.state;
+    const { openedSection } = this.state;
     return (
       <div className="seller_page">
         <div/>
@@ -75,8 +73,14 @@ export default class SellersPage extends PureComponent {
         <div/>
         <div/>
         <div/>
-        <SellerMenu section={this.changeSection} className="seller_menu"/>
-        <SellerContent section={openedSection} itemHandle={this.createItem}/>
+        <SellerMenu
+          className="seller_menu"
+          section={this.changeSection}
+        />
+        <SellerContent
+          openedSection={openedSection}
+          itemHandle={this.sellItem}
+        />
         <div/>
       </div>
     );

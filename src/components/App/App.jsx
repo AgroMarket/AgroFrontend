@@ -42,10 +42,10 @@ export default class App extends PureComponent {
       .then(res => {
           this.setState(
             prevState => {
-              localStorage.setItem('basketID', res.result.id);
+              localStorage.setItem('basketID', res.result.cart_id);
               return {
                 ...prevState,
-                basketID: String(res.result.id),
+                basketID: String(res.result.cart_id),
                 basketCreated: true,
               };
             }

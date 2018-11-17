@@ -1,6 +1,6 @@
 import './LeftMenu.scss';
 
-import React, {Fragment, PureComponent} from 'react';
+import React, { PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -67,17 +67,15 @@ export default class LeftMenu extends PureComponent {
       <List component="nav" className="leftMenu">
         {menu.map( (item, idx) => {
           return (
-            <Fragment key={idx}>
-              <ListItem
-                button
-                selected={this.state.section === idx}
-                onClick={event => this.handleListItemClick(event, idx, item.category.id)}
-                className="catalogMenuItem"
-              >
-                <img src={serverAddress+item.category.icon} alt={item.category.name} className="categoryIcon"/>
-                <ListItemText primary={item.category.name}/>
-              </ListItem>
-            </Fragment>
+            <ListItem key={idx}
+              button
+              selected={this.state.section === idx}
+              onClick={event => this.handleListItemClick(event, idx, item.category.id)}
+              className="catalogMenuItem"
+            >
+              <img src={serverAddress+item.category.icon} alt={item.category.name} className="categoryIcon"/>
+              <ListItemText primary={item.category.name}/>
+            </ListItem>
           );
         })}
       </List>

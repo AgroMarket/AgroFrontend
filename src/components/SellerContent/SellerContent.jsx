@@ -3,9 +3,9 @@ import './SellerContent.scss';
 import React, { PureComponent } from 'react';
 import SellerItems from 'components/SellerItems';
 import PropTypes from 'prop-types';
-import SellerSells from "components/SellerSells/SellerSells";
-import SellerProfile from "components/SellerProfile/SellerProfile";
-import SellerClients from "components/SellerClients/SellerClients";
+import SellerSells from 'components/SellerSells';
+import SellerProfile from 'components/SellerProfile';
+import SellerClients from 'components/SellerClients';
 
 /**
  * Класс SellerContent - компонент, отображающий данные для выбранного пункта меню на странице продавца

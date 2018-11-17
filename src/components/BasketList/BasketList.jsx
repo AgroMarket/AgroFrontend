@@ -63,7 +63,9 @@ export default class BasketList extends PureComponent {
             return (
               <p className="basket_item" key={idx}>
                 <img
-                  src={serverAddress + item.product.image}/>
+                  src={serverAddress + item.product.image}
+                  alt={item.product.name}
+                />
                 <span className="item_name">
                   {item.product.name}
                 </span>

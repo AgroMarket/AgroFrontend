@@ -102,9 +102,6 @@ export default theme = {
           paddingTop: 18,
         },
       },
-      indicator: {
-        backgroundColor: '#fff',
-      },
     },
     MuiTab: {
       // Название правила

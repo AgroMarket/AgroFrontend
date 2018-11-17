@@ -33,16 +33,6 @@ const menu = [
  * Класс MainMenu - компонент, отображающий главное меню в шапке на всех страницах сайта
  */
 export default class MainMenu extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value: 0,
-      // флаг отображения выбранного пункта меню
-      showIndicator: false,
-    };
-  }
-
   // Проверка свойств
   static propTypes = {
     // Пункты меню - массив объектов
@@ -52,6 +42,13 @@ export default class MainMenu extends PureComponent {
       // адрес
       path: PropTypes.string,
     })),
+    // активный пункт меню
+    indicator: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.bool,
+    ]),
+    // функция выбора активного пункта меню
+    handleChange: PropTypes.func,
   };
 
   // значения атрибутов по умолчанию
@@ -60,38 +57,17 @@ export default class MainMenu extends PureComponent {
     menu: [],
   };
 
-  handleChange = (event, value) => {
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          value,
-        };
-      }
-    );
-  };
-
-  componentDidMount() {
-    // Выделение пункта меню при прямом переходе по ссылке
-    const menuList = ['about', 'sellers', 'buyers', 'delivery'];
-    // ищем в url из адресной строки текст после слэша
-    const newValue = menuList.indexOf(/[^/]*$/.exec(window.location.href)[0]);
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          showIndicator: newValue !== -1,
-          value: (newValue === -1) ? 0 : newValue,
-        };
-      }
-    );
-  }
-
   render() {
-    const { value } = this.state;
+    const { indicator, handleChange } = this.props;
 
     return (
-      <Tabs fullWidth className="main_menu" value={value} onChange={this.handleChange} centered>
+      <Tabs
+        fullWidth
+        className="main_menu"
+        value={indicator}
+        onChange={handleChange}
+        centered
+      >
         {menu.map( (item, idx) => {
           return (
             <MainMenuItem item={item} key={idx}/>

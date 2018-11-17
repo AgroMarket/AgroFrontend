@@ -71,6 +71,10 @@ export default class SellersPage extends PureComponent {
     return (
       <div className="seller_page">
         <div/>
+        <h2 className="private_cab">Личный кабинет</h2>
+        <div/>
+        <div/>
+        <div/>
         <SellerMenu section={this.changeSection} className="seller_menu"/>
         <SellerContent section={openedSection} itemHandle={this.createItem}/>
         <div/>

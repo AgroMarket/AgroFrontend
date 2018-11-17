@@ -1,9 +1,10 @@
 import './SellerContent.scss';
 
 import React, { PureComponent } from 'react';
+import SellerItems from 'components/SellerItems';
 
 /**
- * Класс SellerContent - компонент, отображающий ****** на странице
+ * Класс SellerContent - компонент, отображающий данные для выбранного пункта меню на странице продавца
  */
 export default class SellerContent extends PureComponent {
   constructor(props) {
@@ -16,8 +17,11 @@ export default class SellerContent extends PureComponent {
   }
   
   render() {
+    //const { section, itemHandle } = this.props;
     return (
-      <p>SellerContent</p>
+      <div className="seller_content">
+        <SellerItems/>
+      </div>
     );
   }
 }

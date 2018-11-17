@@ -1,0 +1,93 @@
+// Коэффициент перевода в em
+$k: 16;
+
+.seller_item {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  font-size: 18rem/$k;
+  font-weight: normal;
+  color: #558b2f;
+  height: 68rem/$k;
+  margin-bottom: 7rem/$k;
+  margin-top: 7rem/$k;
+  padding: 7rem/$k 26rem/$k;
+  text-align: center;
+  img {
+    height: 54rem/$k;
+    width: 50rem/$k;
+  }
+  .item_name {
+    margin-left: 30rem/$k;
+    padding-right: 5rem/$k;
+    text-align: left;
+    width: 300rem/$k;
+  }
+  .item_measures {
+    padding-left: 5rem/$k;
+    padding-right: 5rem/$k;
+    width: 100rem/$k;
+  }
+  .item_price {
+    padding-left: 5rem/$k;
+    padding-right: 5rem/$k;
+    width: 140rem/$k;
+  }
+  .edit_button {
+    margin: 0 30rem/$k;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+  }
+  .delete_button {
+    margin-left: auto;
+  }
+  @media (max-width: 1920px) {
+    font-size: 14rem/$k;
+    height: 45rem/$k;
+    padding: 5rem/$k 19rem/$k;
+    img {
+      height: 35rem/$k;
+      width: 35rem/$k;
+    }
+    .item_name {
+      margin-left: 22rem/$k;
+      width: 240rem/$k;
+    }
+    .item_measures {
+      width: 80rem/$k;
+    }
+    .item_price {;
+      width: 110rem/$k;
+    }
+    .edit_button {
+      margin: 0 15rem/$k;
+    }
+  }
+  @media (max-width: 1280px) {
+    font-size: 12rem/$k;
+    height: 40rem/$k;
+    padding: 5rem/$k 5rem/$k;
+    img {
+      height: 25rem/$k;
+      width: 25rem/$k;
+    }
+    .item_name {
+      margin-left: 5rem/$k;
+    }
+    .edit_button {
+      margin: 0 5rem/$k;
+    }
+  }
+  @media (max-width: 960px) {
+    .item_name {
+      width: 150rem/$k;
+    }
+    .item_measures {
+      width: 60rem/$k;
+    }
+    .item_price {;
+      width: 90rem/$k;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import './SellerMenu.scss';
 
-import React, {Fragment, PureComponent} from 'react';
+import React, { PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -81,17 +81,15 @@ export default class SellerMenu extends PureComponent {
       <List component="nav" className="sellerMenu">
         {menuItems.map( (item, idx) => {
           return (
-            <Fragment key={idx}>
-              <ListItem
-                button
-                selected={this.state.section === idx}
-                onClick={event => this.handleListItemClick(event, idx, item.id)}
-                className="catalogMenuItem"
-              >
-                <MyOrdersIcon/>
-                <ListItemText primary={item.name}/>
-              </ListItem>
-            </Fragment>
+            <ListItem key={idx}
+              button
+              selected={this.state.section === idx}
+              onClick={event => this.handleListItemClick(event, idx, item.id)}
+              className="catalogMenuItem"
+            >
+              <MyOrdersIcon/>
+              <ListItemText primary={item.name}/>
+            </ListItem>
           );
         })}
       </List>

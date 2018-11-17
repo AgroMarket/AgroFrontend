@@ -1,0 +1,8 @@
+// Коэффициент перевода в em
+$k: 16;
+.seller_content {
+  padding-left: 15rem/$k;
+  @media (max-width: 960px) {
+    padding-left: 50rem/$k;
+  }
+}

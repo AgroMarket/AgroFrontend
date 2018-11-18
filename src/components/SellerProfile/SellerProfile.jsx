@@ -68,7 +68,7 @@ export default class SellerProfile extends PureComponent {
             Регион: {profile.profile.address}
           </span>
           <span className="profile_phone">
-            Телефон: {profile.profile.phome}
+            Телефон: +7-{profile.profile.phome}
           </span>
           <span className="profile_inn">
             ИНН: {profile.profile.inn}

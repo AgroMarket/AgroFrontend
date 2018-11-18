@@ -40,10 +40,7 @@ export default class OrderItem extends PureComponent {
           {date}
         </span>
         <span className="order_total">
-          на сумму {item.order.total} руб.
-        </span>
-        <span className="order_status">
-          {item.order.status}
+          Заказ на сумму {item.order.total} руб.
         </span>
         <Button
           className="edit_button"
@@ -53,6 +50,9 @@ export default class OrderItem extends PureComponent {
         >
           {openOrderButton.name}
         </Button>
+        <span className="order_status">
+          Состояние: {item.order.status}
+        </span>
       </p>
     );
   }

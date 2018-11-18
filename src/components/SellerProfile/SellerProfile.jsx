@@ -18,11 +18,11 @@ const profileJSON = {
   'result': {
     'profile': {
       'id': 7,
-      'brand': 'Farmer2',
+      'brand': 'Иванов Иван Иванович',
       'address': 'Владикавказ',
       'phome': '450-296-7653',
       'inn': '150072240',
-      'descripion': 'Next level yr DIY +1 blog. Readymade quinoa banh mi mlkshk craft beer iPhone. Craft beer Banksy mlkshk etsy art you probably havent heard of them vice Shoreditch.',
+      'descripion': 'Только свежие продукты по низким ценам! Всегда в наличии картошка',
       'logo': '',
       'sertificates': [],
       'link': '/api/producers/7',

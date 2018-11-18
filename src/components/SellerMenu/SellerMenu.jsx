@@ -22,7 +22,7 @@ const menuItems = [
   },
   {
     id: 'seller_clients',
-    name: 'Мои клиенты',
+    name: 'Мои покупатели',
     component: 'SellerClients',
     icon: MyOrdersIcon,
   },

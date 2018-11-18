@@ -2,6 +2,7 @@ import './SellerProfile.scss';
 
 import React, { PureComponent } from 'react';
 import Button from '@material-ui/core/Button/Button';
+import MyOrdersIcon from '@material-ui/icons/DateRange';
 
 // Данные для кнопки Редактировать профиль
 const editProfileButton = {
@@ -46,8 +47,12 @@ export default class SellerProfile extends PureComponent {
   render() {
     const { profile } = this.state;
     return (
-      <div className="seller_profile">
-        <span className="profile_info">
+      <div className="seller_items">
+        <div className="seller_items_header">
+          <MyOrdersIcon className="my_orders_icon"/>
+          <h2>Мой профиль</h2>
+        </div>
+        <div className="seller_profile">
           <span className="profile_name">
             {profile.profile.brand}
           </span>
@@ -71,7 +76,7 @@ export default class SellerProfile extends PureComponent {
           >
           {editProfileButton.name}
         </Button>
-        </span>
+        </div>
       </div>
     );
   }

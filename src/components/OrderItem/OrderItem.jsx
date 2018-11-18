@@ -28,10 +28,12 @@ export default class OrderItem extends PureComponent {
       // ссылка на заказ
       link: PropTypes.string,
     }),
+    // Функция отображения сведений о заказе
+    itemHandle: PropTypes.func,
   };
 
   render() {
-    const { item } = this.props;
+    const { item, itemHandle } = this.props;
     const date = moment(item.order.date).format('DD.MM.YY HH:MM');
 
     return (
@@ -47,6 +49,7 @@ export default class OrderItem extends PureComponent {
           variant="contained"
           color="primary"
           id={openOrderButton.id}
+          onClick={() => itemHandle('open_order')}
         >
           {openOrderButton.name}
         </Button>

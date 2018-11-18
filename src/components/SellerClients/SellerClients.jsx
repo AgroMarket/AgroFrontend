@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
 
 import SellerClient from 'components/SellerClient';
+import PropTypes from 'prop-types';
 
 // TODO заменить заглушку с товарами на данные с сервера
 const consumersJSON = {
@@ -58,9 +59,16 @@ export default class SellerClients extends PureComponent {
       clients: consumersJSON.result,
     };
   }
-  
+
+  // Проверка свойств
+  static propTypes = {
+    // Функция отображения сведений о клиенте
+    itemHandle: PropTypes.func,
+  };
+
   render() {
     const { clients } = this.state;
+    const { itemHandle } = this.props;
     return (
       <div className="seller_items">
         <div className="seller_items_header">
@@ -69,7 +77,7 @@ export default class SellerClients extends PureComponent {
         </div>
         {clients.consumers.map( (item, idx) => {
           return (
-            <SellerClient item={item} key={idx}/>
+            <SellerClient item={item} key={idx} itemHandle={itemHandle}/>
           );
         })}
       </div>

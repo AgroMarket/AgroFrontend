@@ -3,6 +3,7 @@ import './SellerItems.scss';
 import React, { PureComponent } from 'react';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
 import Button from '@material-ui/core/Button/Button';
+import PropTypes from 'prop-types';
 
 import SellerItem from 'components/SellerItem';
 
@@ -120,9 +121,16 @@ export default class SellerItems extends PureComponent {
       sellerItems: sellerItemsJSON.result,
     };
   }
-  
+
+  // Проверка свойств
+  static propTypes = {
+    // Функция отображения формы редактирования или создания товара
+    itemHandle: PropTypes.func,
+  };
+
   render() {
     const { sellerItems } = this.state;
+    const { itemHandle } = this.props;
     return (
       <div className="seller_items">
         <div className="seller_items_header">
@@ -135,13 +143,14 @@ export default class SellerItems extends PureComponent {
             variant="contained"
             color="primary"
             id={newSellButton.id}
+            onClick={() => itemHandle('new_product')}
           >
             {newSellButton.name}
           </Button>
         </p>
         {sellerItems.products.map( (item, idx) => {
           return (
-            <SellerItem item={item} key={idx}/>
+            <SellerItem item={item} key={idx} itemHandle={itemHandle}/>
           );
         })}
       </div>

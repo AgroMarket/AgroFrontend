@@ -3,6 +3,7 @@ import './SellerSells.scss';
 import React, { PureComponent } from 'react';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
 import OrderItem from 'components/OrderItem';
+import PropTypes from 'prop-types';
 
 // TODO заменить заглушку с товарами на данные с сервера
 const ordersJSON = {
@@ -53,9 +54,16 @@ export default class SellerSells extends PureComponent {
       orders: ordersJSON.result,
     };
   }
-  
+
+  // Проверка свойств
+  static propTypes = {
+    // Функция отображения сведений о заказе
+    itemHandle: PropTypes.func,
+  };
+
   render() {
     const { orders } = this.state;
+    const { itemHandle } = this.props;
     return (
       <div className="seller_items">
         <div className="seller_items_header">
@@ -64,7 +72,7 @@ export default class SellerSells extends PureComponent {
         </div>
         {orders.orders.map( (item, idx) => {
           return (
-            <OrderItem item={item} key={idx}/>
+            <OrderItem item={item} key={idx} itemHandle={itemHandle}/>
           );
         })}
       </div>

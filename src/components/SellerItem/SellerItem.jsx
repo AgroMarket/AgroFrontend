@@ -31,10 +31,12 @@ export default class SellerItem extends PureComponent {
       // цена товара
       price: PropTypes.string,
     }),
+    // Функция отображения формы редактирования товара
+    itemHandle: PropTypes.func,
   };
 
   render() {
-    const { item } = this.props;
+    const { item, itemHandle } = this.props;
     return (
       <p className="seller_item">
         <img
@@ -55,6 +57,7 @@ export default class SellerItem extends PureComponent {
           variant="contained"
           color="primary"
           id={editItemButton.id}
+          onClick={() => itemHandle('new_product')}
         >
           {editItemButton.name}
         </Button>

@@ -3,6 +3,7 @@ import './SellerProfile.scss';
 import React, { PureComponent } from 'react';
 import Button from '@material-ui/core/Button/Button';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
+import PropTypes from 'prop-types';
 
 // Данные для кнопки Редактировать профиль
 const editProfileButton = {
@@ -43,9 +44,16 @@ export default class SellerProfile extends PureComponent {
       profile: profileJSON.result,
     };
   }
-  
+
+  // Проверка свойств
+  static propTypes = {
+    // Функция отображения формы редактирования или создания товара
+    itemHandle: PropTypes.func,
+  };
+
   render() {
     const { profile } = this.state;
+    const { itemHandle } = this.props;
     return (
       <div className="seller_items">
         <div className="seller_items_header">
@@ -73,6 +81,7 @@ export default class SellerProfile extends PureComponent {
             variant="contained"
             color="primary"
             id={editProfileButton.id}
+            onClick={() => itemHandle('edit_profile')}
           >
           {editProfileButton.name}
         </Button>

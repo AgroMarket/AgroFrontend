@@ -40,25 +40,14 @@ export default class SellersPage extends PureComponent {
     );
   };
 
-  // Пользователь открывает карточку продажи товара
-  sellItem = (event, itemID) => {
+  // Пользователь щелкает кнопку создания или редактирования товара, открытия заказа,
+  // просмотра профиля покупателя, редактирования своего профиля
+  itemHandle = itemID => {
     this.setState(
       prevState => {
         return {
           ...prevState,
-          openedItem: itemID,
-        };
-      }
-    );
-  };
-
-  // Пользователь открывает карточку редактирования товара
-  editItem = (event, itemID) => {
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          openedItem: itemID,
+          openedSection: itemID,
         };
       }
     );
@@ -79,7 +68,7 @@ export default class SellersPage extends PureComponent {
         />
         <SellerContent
           openedSection={openedSection}
-          itemHandle={this.sellItem}
+          itemHandle={this.itemHandle}
         />
         <div/>
       </div>

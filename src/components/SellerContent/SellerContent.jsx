@@ -21,33 +21,31 @@ export default class SellerContent extends PureComponent {
 
   render() {
     const { openedSection, itemHandle } = this.props;
-    if (openedSection === 'seller_items') {
-      return (
-        <div className="seller_content">
-          <SellerItems itemHadle={itemHandle}/>
-        </div>
-      );
-    }
-    else
-      if (openedSection === 'seller_sells')
-      return (
-        <div className="seller_content">
-          <SellerSells/>
-        </div>
-      );
-      else
-      if (openedSection === 'seller_clients')
+    switch (openedSection) {
+      case 'seller_items':
+        return (
+          <div className="seller_content">
+            <SellerItems itemHadle={itemHandle}/>
+          </div>
+        );
+      case 'seller_sells':
+        return (
+          <div className="seller_content">
+            <SellerSells/>
+          </div>
+        );
+      case 'seller_clients':
         return (
           <div className="seller_content">
             <SellerClients/>
           </div>
         );
-      else
-      if (openedSection === 'seller_profile')
+      case 'seller_profile':
         return (
           <div className="seller_content">
             <SellerProfile/>
           </div>
         );
+    }
   }
 }

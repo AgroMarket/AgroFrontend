@@ -9,7 +9,7 @@ import SellerItem from 'components/SellerItem';
 // Данные для кнопки Добавить объявление
 const newSellButton = {
   id: 'sell_item',
-  name: 'Продать товар',
+  name: 'Добавить товар',
 };
 
 // TODO заменить заглушку с товарами на данные с сервера

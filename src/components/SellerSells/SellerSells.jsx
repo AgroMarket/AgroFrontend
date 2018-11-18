@@ -57,8 +57,8 @@ export default class SellerSells extends PureComponent {
   render() {
     const { orders } = this.state;
     return (
-      <div className="order_items">
-        <div className="order_items_header">
+      <div className="seller_items">
+        <div className="seller_items_header">
           <MyOrdersIcon className="my_orders_icon"/>
           <h2>Заказы</h2>
         </div>

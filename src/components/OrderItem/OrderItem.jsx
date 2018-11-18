@@ -3,7 +3,7 @@ import './OrderItem.scss';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button/Button';
-import moment from 'moment'
+import moment from 'moment';
 
 // Данные для кнопки Открыть заказ
 const openOrderButton = {

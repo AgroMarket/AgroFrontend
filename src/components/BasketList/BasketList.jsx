@@ -73,6 +73,7 @@ export default class BasketList extends PureComponent {
                   {item.product.price} руб.
                 </span>
                 <Button
+                  className="add_button"
                   variant="fab"
                   mini
                   color="secondary"
@@ -85,6 +86,7 @@ export default class BasketList extends PureComponent {
                   {item.product.quantity}
                 </span>
                 <Button
+                  className="remove_button"
                   variant="fab"
                   mini
                   color="secondary"

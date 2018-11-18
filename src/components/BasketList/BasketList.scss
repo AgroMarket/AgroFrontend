@@ -93,6 +93,9 @@ $k: 16;
   .table_delete, .item_delete {
     margin-left: auto;
   }
+  .add_button, .remove_button, .item_delete {
+    color: #fff;
+  }
   @media (max-width: 1920px) {
     font-size: 14rem/$k;
     .order_total {

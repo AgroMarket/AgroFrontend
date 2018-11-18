@@ -140,6 +140,7 @@ export default class CatalogItem extends PureComponent {
               <img src={serverAddress+catalogItem.product.image} alt={catalogItem.product.image}/>
               <p>
                 <Button
+                  className="add_button"
                   variant="fab"
                   mini
                   color="secondary"
@@ -150,6 +151,7 @@ export default class CatalogItem extends PureComponent {
                 </Button>
                 <span className="item_counter">{itemCounter}</span>
                 <Button
+                  className="remove_button"
                   variant="fab"
                   mini
                   color="secondary"

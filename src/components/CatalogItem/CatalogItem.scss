@@ -24,6 +24,9 @@ $k: 16;
     padding-left: 30rem/$k;
     padding-right: 30rem/$k;
   }
+  .add_button, .remove_button {
+    color: #fff;
+  }
   .left_info {
     padding-left: 46em/$k;
     .item_title {

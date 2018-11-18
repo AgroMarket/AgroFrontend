@@ -38,7 +38,7 @@ export default class SellerContent extends PureComponent {
       else
       if (openedSection === 'seller_clients')
         return (
-          <div className="seller_clients">
+          <div className="seller_content">
             <SellerClients/>
           </div>
         );

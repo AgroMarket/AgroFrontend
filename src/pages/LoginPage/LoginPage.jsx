@@ -10,6 +10,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
+import {serverAddress} from '../../constants/ServerAddress';
+import PropTypes from 'prop-types';
 //import green from '@material-ui/core/colors/green';
 
 /**
@@ -23,21 +25,49 @@ export default class LoginPage extends PureComponent {
     this.state = {
       email: '',
       password: '',
-      isChecked: false,
+      //isChecked: false,
     };
   }
 
-  handleClick = () => {
-    this.setState({
-      isChecked: this.state.isChecked ? false : true,
-    });
-  }
+  static propTypes = {
+    // свойство должно быть функцией
+    loginPage: PropTypes.func,
+    jwt: PropTypes.func,
+  };
 
-  handleChange = () => event => {
-    this.setState({ isChecked: event.target.checked });
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
+  handleSend = () => {
+    const authJSON = JSON.stringify({
+      'auth':
+        {
+          'email': this.state.email,
+          'password': this.state.password,
+        },
+    });
+    fetch(`${serverAddress}/api/login`, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: authJSON,
+    })
+      .then(res => res.json())
+      .then(
+        res => {
+          this.props.loginPage(res.jwt);
+        }        
+      );
   }
   
   render() {
+    const {email, password} = this.state;
+    //const {jwt} = this.props;
     return (
       <div className="container">
         <div className="login_form">
@@ -47,25 +77,26 @@ export default class LoginPage extends PureComponent {
             label='Email'
           // className={classes.textField}
             //value={this.state.email}
-            //onChange={this.handleChange('name')}
+            onChange={this.handleChange('email')}
             type="email"
             name="email"
             autoComplete="email"
             margin='normal'
+            value={email}
             />
             <TextField 
             id='user-password'
             label='Пароль'
-          // value={this.state.password}
+            value={password}
             type="password"
             autoComplete="current-password"
+            onChange={this.handleChange('password')}
             />
             <FormControlLabel
                 control={
                   <Checkbox 
                     checked={this.state.isChecked} 
-                    onChange={this.handleChange} 
-                    onClick={this.handleClick}
+                   // onChange={this.handleChange} 
                     value={this.state.isChecked}
                     color="primary"
                     />
@@ -77,6 +108,7 @@ export default class LoginPage extends PureComponent {
               className="login_button"
               variant="contained"
               color="primary"
+              onClick={this.handleSend}
               >
               Войти
             </Button>

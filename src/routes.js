@@ -3,6 +3,7 @@ import Sellers from 'pages/SellersPage';
 import Buyers from 'pages/BuyersPage';
 import Delivery from 'pages/DeliveryPage';
 import Login from 'pages/LoginPage';
+import Register from 'pages/RegisterPage';
 
 /**
  * Маршрутизация приложения
@@ -36,6 +37,12 @@ export default [
   {
     path: '/login',
     component: Login,
+    exact: true,
+  },
+  // Регистрация
+  {
+    path: '/register',
+    component: Register,
     exact: true,
   },
 ];

@@ -1,4 +1,4 @@
-import './LoginPage.scss';
+import './RegisterPage.scss';
 
 import React, { PureComponent } from 'react';
 /*import PropTypes from 'prop-types';
@@ -10,15 +10,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
-import {Link} from 'react-router-dom';
 //import green from '@material-ui/core/colors/green';
-
-const linkToRegister = props => <Link to="/register" {...props}/>;
 
 /**
  * Класс LoginPage - компонент, отображающий страницу авторизации
  */
-export default class LoginPage extends PureComponent {
+export default class RegisterPage extends PureComponent {
   constructor(props) {
     super(props);
     
@@ -26,7 +23,10 @@ export default class LoginPage extends PureComponent {
     this.state = {
       email: '',
       password: '',
-      isChecked: false,
+      name: '',
+      phone: '',
+      address: '',
+      // isChecked: false,
     };
   }
 
@@ -43,7 +43,7 @@ export default class LoginPage extends PureComponent {
   render() {
     return (
       <div className="container">
-        <div className="login_form">
+        <div className="register_form">
           <FormControl required='true'>        
             <TextField 
             id='user-email'
@@ -83,8 +83,7 @@ export default class LoginPage extends PureComponent {
               >
               Войти
             </Button>
-            <Button
-              component={linkToRegister}
+            <Button               
               className="registration_button"
               variant="contained"
               color="secondary"

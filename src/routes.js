@@ -2,8 +2,6 @@ import About from 'pages/AboutPage';
 import Sellers from 'pages/SellersPage';
 import Buyers from 'pages/BuyersPage';
 import Delivery from 'pages/DeliveryPage';
-import Login from 'pages/LoginPage';
-import Register from 'pages/RegisterPage';
 
 /**
  * Маршрутизация приложения
@@ -31,18 +29,6 @@ export default [
   {
     path: '/delivery',
     component: Delivery,
-    exact: true,
-  },
-  // Логин
-  {
-    path: '/login',
-    component: Login,
-    exact: true,
-  },
-  // Регистрация
-  {
-    path: '/register',
-    component: Register,
     exact: true,
   },
 ];

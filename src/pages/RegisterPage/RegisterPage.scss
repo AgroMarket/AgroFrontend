@@ -6,10 +6,10 @@
   justify-items: center;
 }
 
-.login_form {
+.register_form {
   /* Rectangle 4 */
   width: 410px;
-  height: 401px;
+  height: 481px;
   
 
   background: #ffffff;
@@ -17,10 +17,10 @@
   display: flex;
   align-content: center;
   justify-content: center;
-  .login_button {
+  .registration_button {
     margin-top: 15px;
   }
-  .registration_button {
+  .login_button {
     margin-top: 15px;
     background-color: #ffffff;  
     span {

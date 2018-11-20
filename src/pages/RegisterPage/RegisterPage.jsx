@@ -10,10 +10,13 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
+import {Link} from 'react-router-dom';
 //import green from '@material-ui/core/colors/green';
 
+const linkToLogin = props => <Link to="/login" {...props}/>;
+
 /**
- * Класс LoginPage - компонент, отображающий страницу авторизации
+ * Класс RegisterPage - компонент, отображающий страницу авторизации
  */
 export default class RegisterPage extends PureComponent {
   constructor(props) {
@@ -39,13 +42,13 @@ export default class RegisterPage extends PureComponent {
   handleChange = () => event => {
     this.setState({ isChecked: event.target.checked });
   }
-  
+
   render() {
     return (
       <div className="container">
         <div className="register_form">
-          <FormControl required='true'>        
-            <TextField 
+          <FormControl required='true'>
+            <TextField
             id='user-email'
             label='Email'
           // className={classes.textField}
@@ -56,18 +59,39 @@ export default class RegisterPage extends PureComponent {
             autoComplete="email"
             margin='normal'
             />
-            <TextField 
+            <TextField
             id='user-password'
             label='Пароль'
           // value={this.state.password}
             type="password"
             autoComplete="current-password"
             />
+            <TextField
+                id='user-name'
+                label='Ваше имя'
+                // value={this.state.password}
+                type="text"
+                // autoComplete="current-password"
+            />
+            <TextField
+                id='user-phone'
+                label='Телефон'
+                // value={this.state.password}
+                type="text"
+                // autoComplete="current-password"
+            />
+            <TextField
+                id='user-address'
+                label='Адрес'
+                // value={this.state.password}
+                type="text"
+                // autoComplete="current-password"
+            />
             <FormControlLabel
                 control={
-                  <Checkbox 
-                    checked={this.state.isChecked} 
-                    onChange={this.handleChange} 
+                  <Checkbox
+                    checked={this.state.isChecked}
+                    onChange={this.handleChange}
                     onClick={this.handleClick}
                     value={this.state.isChecked}
                     color="primary"
@@ -76,21 +100,22 @@ export default class RegisterPage extends PureComponent {
                 label="Запомнить меня"
                 className="form_control_label"
               />
-            <Button              
-              className="login_button"
-              variant="contained"
-              color="primary"
-              >
-              Войти
-            </Button>
-            <Button               
+            <Button
               className="registration_button"
               variant="contained"
-              color="secondary"
+              color="primary"
             >
               Зарегистрироваться
             </Button>
-          </FormControl>  
+            <Button
+              component={linkToLogin}
+              className="login_button"
+              variant="contained"
+              color="secondary"
+              >
+              Войти
+            </Button>
+          </FormControl>
         </div>
         </div>
     );

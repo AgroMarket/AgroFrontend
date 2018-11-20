@@ -29,6 +29,8 @@ export default class App extends PureComponent {
       basketID: -1,
       // состояние создания корзины
       basketCreated: false,
+      // jwt token
+      jwt: '',
       // ошибка загрузки
       error: null,
     };
@@ -102,8 +104,19 @@ export default class App extends PureComponent {
     }
   }
 
+  loginPage = token => {
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          jwt: token,
+        };
+      }
+    );
+  }
+
   render() {
-    const { error, basketCreated, basketID } = this.state;
+    const { error, basketCreated, basketID, jwt } = this.state;
     if (error) {
       return <p>Ошибка: {error.message}</p>;
     }
@@ -127,7 +140,7 @@ export default class App extends PureComponent {
                   <BasketPage {...props} basketID={basketID} />
                 )}/>
                 <Route exact path="/login" render={(props) => (
-                  <LoginPage {...props} basketID={basketID} />
+                  <LoginPage {...props} basketID={basketID} jwt={jwt} loginPage={this.loginPage}/>
                 )}/>
               </Switch>
               <Footer/>

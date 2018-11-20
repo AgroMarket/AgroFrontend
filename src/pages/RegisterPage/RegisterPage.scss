@@ -1,0 +1,38 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 500px;
+  align-items: center;
+  justify-items: center;
+}
+
+.register_form {
+  display: flex;
+  width: 410px;
+  height: 481px;
+  background: #ffffff;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  align-content: center;
+  justify-content: center;
+  .registration_button {
+    margin-top: 15px;
+  }
+  .login_button {
+    margin-top: 15px;
+    background-color: #ffffff;
+    span {
+      color: #558b2f;
+    }
+  }
+
+  .login_button:hover {
+    background-color: #558b2f;
+    span {
+      color: #ffffff;
+    }
+  }
+
+  label span {
+    color: #33691e;
+  }
+}

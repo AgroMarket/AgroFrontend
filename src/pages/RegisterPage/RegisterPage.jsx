@@ -15,13 +15,17 @@ import {Link} from 'react-router-dom';
 
 const linkToLogin = props => <Link to="/login" {...props}/>;
 
+import {serverAddress} from '../../constants/ServerAddress';
+import PropTypes from 'prop-types';
+import  { Redirect } from 'react-router-dom';
+
 /**
  * Класс RegisterPage - компонент, отображающий страницу авторизации
  */
 export default class RegisterPage extends PureComponent {
   constructor(props) {
     super(props);
-    
+
     // значения полей, используемых в render()
     this.state = {
       email: '',
@@ -33,17 +37,62 @@ export default class RegisterPage extends PureComponent {
     };
   }
 
-  handleClick = () => {
-    this.setState({
-      isChecked: this.state.isChecked ? false : true,
-    });
-  }
+  static propTypes = {
+      // свойство должно быть функцией
+      registerPage: PropTypes.func,
+      jwt: PropTypes.func,
+  };
 
-  handleChange = () => event => {
-    this.setState({ isChecked: event.target.checked });
-  }
+  // handleClick = () => {
+  //   this.setState({
+  //     isChecked: this.state.isChecked ? false : true,
+  //   });
+  // };
+
+  // handleChange = () => event => {
+  //     this.setState({ isChecked: event.target.checked });
+  // };
+
+  handleChange = name => event => {
+      this.setState({
+          [name]: event.target.value,
+      });
+  };
+
+  handleSend = () => {
+    const authJSON = JSON.stringify({
+      'consumer':
+        {
+          'email': this.state.email,
+          'password': this.state.password,
+          'name': this.state.name,
+          'phone': this.state.phone,
+          'address': this.state.address,
+        },
+    });
+    fetch(`${serverAddress}/api/consumers`, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: authJSON,
+    })
+      .then(res => res.json())
+      .then(
+        res => {
+          this.props.registerPage(res.jwt);
+          if(res.status !== 404)
+          {
+            return <Redirect to='/' exact />;
+          }
+        }
+      );
+
+  };
 
   render() {
+    const {email, password, name, phone, address} = this.state;
     return (
       <div className="container">
         <div className="register_form">
@@ -53,39 +102,48 @@ export default class RegisterPage extends PureComponent {
             label='Email'
           // className={classes.textField}
             //value={this.state.email}
-            //onChange={this.handleChange('name')}
+            onChange={this.handleChange('email')}
             type="email"
             name="email"
             autoComplete="email"
             margin='normal'
+            value={email}
             />
             <TextField
             id='user-password'
             label='Пароль'
+            onChange={this.handleChange('password')}
           // value={this.state.password}
             type="password"
             autoComplete="current-password"
+            value={password}
             />
             <TextField
-                id='user-name'
-                label='Ваше имя'
-                // value={this.state.password}
-                type="text"
-                // autoComplete="current-password"
+            id='user-name'
+            label='Ваше имя'
+            onChange={this.handleChange('name')}
+            // value={this.state.password}
+            type="text"
+            // autoComplete="current-password"
+            value={name}
             />
             <TextField
-                id='user-phone'
-                label='Телефон'
-                // value={this.state.password}
-                type="text"
-                // autoComplete="current-password"
+            id='user-phone'
+            label='Телефон'
+            onChange={this.handleChange('phone')}
+            // value={this.state.password}
+            type="text"
+            // autoComplete="current-password"
+            value={phone}
             />
             <TextField
-                id='user-address'
-                label='Адрес'
-                // value={this.state.password}
-                type="text"
-                // autoComplete="current-password"
+            id='user-address'
+            label='Адрес'
+            onChange={this.handleChange('address')}
+            // value={this.state.password}
+            type="text"
+            // autoComplete="current-password"
+            value={address}
             />
             <FormControlLabel
                 control={
@@ -104,6 +162,7 @@ export default class RegisterPage extends PureComponent {
               className="registration_button"
               variant="contained"
               color="primary"
+              onClick={this.handleSend}
             >
               Зарегистрироваться
             </Button>

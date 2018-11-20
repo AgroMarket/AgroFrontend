@@ -4,7 +4,7 @@ $k: 16;
   display: grid;
   background: url('../../imgs/grass.png') left bottom repeat-x;
   color: #33691e;
-  font-size: 18rem/$k;
+  font-size: 14rem/$k;
   font-weight: normal;
   grid-template-columns: 15% 40% 30% 15%;
   min-height: 927rem/$k;
@@ -25,6 +25,5 @@ $k: 16;
   }
   @media (max-width: 1440px) {
     grid-template-columns: 5% 50% 40% 5%;
-    font-size: 14rem/$k;
   }
 }

@@ -1,23 +1,17 @@
 import './RegisterPage.scss';
 
 import React, { PureComponent } from 'react';
-/*import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';*/
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
-import {Link} from 'react-router-dom';
-//import green from '@material-ui/core/colors/green';
-
-const linkToLogin = props => <Link to="/login" {...props}/>;
-
 import {serverAddress} from '../../constants/ServerAddress';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 import  { Redirect } from 'react-router-dom';
+
+const linkToLogin = props => <Link to="/login" {...props}/>;
 
 /**
  * Класс RegisterPage - компонент, отображающий страницу авторизации
@@ -33,25 +27,14 @@ export default class RegisterPage extends PureComponent {
       name: '',
       phone: '',
       address: '',
-      // isChecked: false,
+      isChecked: false,
     };
   }
 
   static propTypes = {
-      // свойство должно быть функцией
-      registerPage: PropTypes.func,
-      jwt: PropTypes.func,
+    setToken: PropTypes.func,
+    jwtToken: PropTypes.string,
   };
-
-  // handleClick = () => {
-  //   this.setState({
-  //     isChecked: this.state.isChecked ? false : true,
-  //   });
-  // };
-
-  // handleChange = () => event => {
-  //     this.setState({ isChecked: event.target.checked });
-  // };
 
   handleChange = name => event => {
       this.setState({
@@ -79,9 +62,8 @@ export default class RegisterPage extends PureComponent {
       body: authJSON,
     })
       .then(res => res.json())
-      .then(
-        res => {
-          this.props.registerPage(res.jwt);
+      .then(res => {
+          this.props.setToken(res.jwt);
           if(res.status !== 404)
           {
             return <Redirect to='/' exact />;

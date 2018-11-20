@@ -140,17 +140,6 @@ export default class CatalogItem extends PureComponent {
               <img src={serverAddress+catalogItem.product.image} alt={catalogItem.product.image}/>
               <p>
                 <Button
-                  className="add_button"
-                  variant="fab"
-                  mini
-                  color="secondary"
-                  aria-label="Add"
-                  onClick={this.handleAddClick}
-                >
-                  <AddIcon />
-                </Button>
-                <span className="item_counter">{itemCounter}</span>
-                <Button
                   className="remove_button"
                   variant="fab"
                   mini
@@ -159,6 +148,17 @@ export default class CatalogItem extends PureComponent {
                   onClick={this.handleRemoveClick}
                 >
                   <RemoveIcon />
+                </Button>
+                <span className="item_counter">{itemCounter}</span>
+                <Button
+                  className="add_button"
+                  variant="fab"
+                  mini
+                  color="secondary"
+                  aria-label="Add"
+                  onClick={this.handleAddClick}
+                >
+                  <AddIcon />
                 </Button>
                 <span className="item_price">
                   {catalogItem.product.price} руб. / 1 {catalogItem.product.measures}

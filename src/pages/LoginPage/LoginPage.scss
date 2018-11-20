@@ -7,14 +7,11 @@
 }
 
 .login_form {
-  /* Rectangle 4 */
+  display: flex;
   width: 410px;
   height: 401px;
-  
-
   background: #ffffff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  display: flex;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   align-content: center;
   justify-content: center;
   .login_button {
@@ -39,11 +36,4 @@
     color: #33691e;
   }
 }
-
-/*.login_button {
-  width: 322px;
-  height: 56px;
-  border-radius: 10px;
-}*/
-
 

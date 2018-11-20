@@ -32,10 +32,29 @@ export default class App extends PureComponent {
       // состояние создания корзины
       basketCreated: false,
       // jwt token
-      jwt: '',
+      jwtToken: '',
       // ошибка загрузки
       error: null,
     };
+  }
+
+  // Создаем корзину на сервере
+  componentDidMount() {
+    // если доступен localStorage браузера
+    if (storageAvailable('localStorage')) {
+      // если id корзины не существует
+      if (!localStorage.getItem('basketID')) {
+        // получаем с сервера id для новой корзины
+        this.getBasketID();
+      } else {
+        // иначе загружаем id корзины из localStorage
+        this.loadBasketID(localStorage.getItem('basketID'));
+      }
+    }
+    // localStorage не доступен
+    else {
+      this.getBasketID();
+    }
   }
 
   // получает с сервера id новой корзины и сохраняет его в state
@@ -87,24 +106,16 @@ export default class App extends PureComponent {
       });
   };
 
-  // Создаем корзину на сервере
-  componentDidMount() {
-    // если доступен localStorage браузера
-    if (storageAvailable('localStorage')) {
-      // если id корзины не существует
-      if (!localStorage.getItem('basketID')) {
-        // получаем с сервера id для новой корзины
-        this.getBasketID();
-      } else {
-        // иначе загружаем id корзины из localStorage
-        this.loadBasketID(localStorage.getItem('basketID'));
+  setToken = token => {
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          jwtToken: token,
+        };
       }
-    }
-    // localStorage не доступен
-    else {
-      this.getBasketID();
-    }
-  }
+    );
+  };
 
   loginPage = token => {
     this.setState(
@@ -118,7 +129,8 @@ export default class App extends PureComponent {
   }
 
   render() {
-    const { error, basketCreated, basketID, jwt } = this.state;
+    const { error, basketCreated, basketID, jwtToken } = this.state;
+
     if (error) {
       return <p>Ошибка: {error.message}</p>;
     }
@@ -142,10 +154,10 @@ export default class App extends PureComponent {
                   <BasketPage {...props} basketID={basketID} />
                 )}/>
                 <Route exact path="/login" render={(props) => (
-                  <LoginPage {...props} basketID={basketID} jwt={jwt} loginPage={this.loginPage}/>
+                  <LoginPage {...props} basketID={basketID} setToken={this.setToken} jwtToken={jwtToken}/>
                 )}/>
                 <Route exact path="/register" render={(props) => (
-                    <RegisterPage {...props} basketID={basketID} jwt={jwt} loginPage={this.loginPage}/>
+                  <RegisterPage {...props} basketID={basketID} setToken={this.setToken} jwtToken={jwtToken}/>
                 )}/>
               </Switch>
               <Footer/>

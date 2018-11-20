@@ -73,19 +73,6 @@ export default class BasketList extends PureComponent {
                   {item.product.price} руб.
                 </span>
                 <Button
-                  className="add_button"
-                  variant="fab"
-                  mini
-                  color="secondary"
-                  aria-label="Add"
-                  onClick={() => handleCounterClick(idx, 1)}
-                >
-                  <AddIcon/>
-                </Button>
-                <span className="item_quantity">
-                  {item.product.quantity}
-                </span>
-                <Button
                   className="remove_button"
                   variant="fab"
                   mini
@@ -94,6 +81,19 @@ export default class BasketList extends PureComponent {
                   onClick={() => handleCounterClick(idx, -1)}
                 >
                   <RemoveIcon/>
+                </Button>
+                <span className="item_quantity">
+                  {item.product.quantity}
+                </span>
+                <Button
+                  className="add_button"
+                  variant="fab"
+                  mini
+                  color="secondary"
+                  aria-label="Add"
+                  onClick={() => handleCounterClick(idx, 1)}
+                >
+                  <AddIcon/>
                 </Button>
                 <span className="item_full_price">
                   {item.product.price * item.product.quantity} руб.

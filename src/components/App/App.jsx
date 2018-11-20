@@ -12,6 +12,8 @@ import Footer from 'components/Footer';
 import HomePage from 'pages/HomePage';
 import BasketPage from 'pages/BasketPage';
 import LoginPage from 'pages/LoginPage';
+import RegisterPage from 'pages/RegisterPage';
+
 // машрутизация сайта
 import routes from '../../routes';
 import {storageAvailable} from 'helpers/localStorage';
@@ -141,6 +143,9 @@ export default class App extends PureComponent {
                 )}/>
                 <Route exact path="/login" render={(props) => (
                   <LoginPage {...props} basketID={basketID} jwt={jwt} loginPage={this.loginPage}/>
+                )}/>
+                <Route exact path="/register" render={(props) => (
+                    <RegisterPage {...props} basketID={basketID} jwt={jwt} loginPage={this.loginPage}/>
                 )}/>
               </Switch>
               <Footer/>

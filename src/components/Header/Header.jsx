@@ -75,6 +75,9 @@ export default class Header extends PureComponent {
       nextState.userLoginSuccess = !this.userLoginSuccess;
       loginButton.name = this.userLoginSuccess ? 'Вход' : 'Личный кабинет';
     }
+    if (nextProps.jwtToken === '') {
+      loginButton.name = 'Вход';
+    }
   }
 
   closeAllMenuTabs = () => {

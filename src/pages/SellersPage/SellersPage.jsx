@@ -1,6 +1,7 @@
 import './SellersPage.scss';
 
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
 import SellerMenu from 'components/SellerMenu';
 import SellerContent from 'components/SellerContent';
@@ -24,6 +25,12 @@ export default class SellersPage extends PureComponent {
       pagination: 'off',
     };
   }
+
+  // Проверка свойств
+  static propTypes = {
+    // функция обратного вызова в родительский компонент
+    handleLogout: PropTypes.func,
+  };
 
   /**
    * Получает из SellerMenu и сохраняет в state номер текущего открытого раздела меню продавца

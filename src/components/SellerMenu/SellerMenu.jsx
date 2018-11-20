@@ -55,6 +55,13 @@ export default class SellerMenu extends PureComponent {
     };
   }
 
+  // Проверка свойств
+  static propTypes = {
+    // функции обратного вызова в родительский компонент
+    section: PropTypes.func,
+    handleLogout: PropTypes.func,
+  };
+  
   /**
    * Устанавливает выбранный пользователем раздел каталога в качестве текущего открытого и передает его номер в MainPage
    * @param event обрабатываемое событие щелчка по разделу каталога
@@ -75,12 +82,6 @@ export default class SellerMenu extends PureComponent {
     } else {
       this.props.handleLogout();
     }
-  };
-
-  // Проверка свойств
-  static propTypes = {
-    // функция обратного вызова в родительский компонент
-    section: PropTypes.func,
   };
 
   render() {

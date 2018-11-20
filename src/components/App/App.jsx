@@ -105,7 +105,6 @@ export default class App extends PureComponent {
   }
 
   loginPage = token => {
-    console.log('------------token');
     this.setState(
       prevState => {
         return {

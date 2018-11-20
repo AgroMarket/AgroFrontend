@@ -12,7 +12,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import {serverAddress} from '../../constants/ServerAddress';
 import PropTypes from 'prop-types';
+import  { Redirect } from 'react-router-dom';
 //import green from '@material-ui/core/colors/green';
+
 
 /**
  * Класс LoginPage - компонент, отображающий страницу авторизации
@@ -61,8 +63,13 @@ export default class LoginPage extends PureComponent {
       .then(
         res => {
           this.props.loginPage(res.jwt);
-        }        
+          if(res.status !== 404)
+          {
+            return <Redirect to='/' exact />;            
+          }
+        }       
       );
+    
   }
   
   render() {
@@ -104,7 +111,7 @@ export default class LoginPage extends PureComponent {
                 label="Запомнить меня"
                 className="form_control_label"
               />
-            <Button              
+            <Button                         
               className="login_button"
               variant="contained"
               color="primary"

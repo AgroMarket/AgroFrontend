@@ -61,7 +61,7 @@ export default class SellerMenu extends PureComponent {
     section: PropTypes.func,
     handleLogout: PropTypes.func,
   };
-  
+
   /**
    * Устанавливает выбранный пользователем раздел каталога в качестве текущего открытого и передает его номер в MainPage
    * @param event обрабатываемое событие щелчка по разделу каталога

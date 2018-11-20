@@ -8,9 +8,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import {serverAddress} from 'constants/ServerAddress';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+
+const linkToRegister = props => <Link to="/register" {...props}/>;
 
 /**
- * Класс LoginPage - компонент, отображающий страницу авторизации
+ * Класс LoginPage - компонент, отображающий страницу авторизации и аутентификации
  */
 export default class LoginPage extends PureComponent {
   constructor(props) {
@@ -36,11 +39,12 @@ export default class LoginPage extends PureComponent {
   };
 
   handleSend = () => {
+    const  { email, password } = this.state;
     const authJSON = JSON.stringify({
       'auth':
         {
-          'email': this.state.email,
-          'password': this.state.password,
+          'email': email,
+          'password': password,
         },
     });
     const { setToken } = this.props;
@@ -102,11 +106,12 @@ export default class LoginPage extends PureComponent {
               Войти
             </Button>
             <Button
+              component={linkToRegister}
               className="registration_button"
               variant="contained"
               color="secondary"
             >
-              Зарегистрироваться
+              Пройти регистрацию
             </Button>
           </FormControl>
         </div>

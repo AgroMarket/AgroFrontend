@@ -18,6 +18,7 @@ import routes from '../../routes';
 import {storageAvailable} from 'helpers/localStorage';
 import {serverAddress} from 'constants/ServerAddress';
 import SellersPage from 'pages/SellersPage';
+import RegisterPage from 'pages/RegisterPage';
 
 /**
  * Класс App - корневой компонент, отображающий страницы сайта
@@ -160,7 +161,7 @@ export default class App extends PureComponent {
                 <Route
                   exact
                   path="/"
-                  render={(props) => (
+                  render={props => (
                     <HomePage {...props} basketID={basketID}/>
                   )}
                 />
@@ -168,7 +169,7 @@ export default class App extends PureComponent {
                 <Route
                   exact
                   path="/sellers"
-                  render={(props) => (
+                  render={props => (
                     jwtToken !== '' ? (
                       <SellersPage {...props} basketID={basketID} handleLogout={this.handleLogout}/>
                     ) : (
@@ -176,18 +177,29 @@ export default class App extends PureComponent {
                     )
                   )}
                 />
-                <Route exact path="/basket" render={(props) => (
-                  <BasketPage {...props} basketID={basketID} />
-                )}/>
+                <Route
+                  exact
+                  path="/basket"
+                  render={props => (
+                    <BasketPage {...props} basketID={basketID} />
+                  )}
+                />
                 <Route
                   exact
                   path="/login"
-                  render={(props) => (
+                  render={props => (
                     jwtToken === '' ? (
                       <LoginPage {...props} basketID={basketID} setToken={this.setToken} jwtToken={jwtToken}/>
                     ) : (
                       <Redirect to="/sellers"/>
                     )
+                  )}
+                />
+                <Route
+                  exact
+                  path="/register"
+                  render={props => (
+                    <RegisterPage {...props} basketID={basketID} setToken={this.setToken} jwtToken={jwtToken}/>
                   )}
                 />
               </Switch>

@@ -55,6 +55,7 @@ export default class SellersPage extends PureComponent {
 
   render() {
     const { openedSection } = this.state;
+    const { handleLogout } = this.props;
     return (
       <div className="seller_page">
         <div/>
@@ -65,6 +66,7 @@ export default class SellersPage extends PureComponent {
         <SellerMenu
           className="seller_menu"
           section={this.changeSection}
+          handleLogout={handleLogout}
         />
         <SellerContent
           openedSection={openedSection}

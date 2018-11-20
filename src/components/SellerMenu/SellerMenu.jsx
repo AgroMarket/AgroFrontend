@@ -32,6 +32,11 @@ const menuItems = [
     component: 'SellerProfile',
     icon: MyOrdersIcon,
   },
+  {
+    id: 'seller_quit',
+    name: 'Выйти',
+    icon: MyOrdersIcon,
+  },
 ];
 
 /**
@@ -57,15 +62,19 @@ export default class SellerMenu extends PureComponent {
    * @param id, с которым выбранный пользователем раздел каталога хранится на сервере
    */
   handleListItemClick = (event, index, id) => {
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          section: index,
-        };
-      }
-    );
-    this.props.section(id);
+    if (id !== 'seller_quit') {
+      this.setState(
+        prevState => {
+          return {
+            ...prevState,
+            section: index,
+          };
+        }
+      );
+      this.props.section(id);
+    } else {
+      this.props.handleLogout();
+    }
   };
 
   // Проверка свойств

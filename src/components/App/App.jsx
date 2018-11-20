@@ -17,6 +17,7 @@ import LoginPage from 'pages/LoginPage';
 import routes from '../../routes';
 import {storageAvailable} from 'helpers/localStorage';
 import {serverAddress} from 'constants/ServerAddress';
+import SellersPage from 'pages/SellersPage';
 
 /**
  * Класс App - корневой компонент, отображающий страницы сайта
@@ -127,6 +128,18 @@ export default class App extends PureComponent {
     );
   };
 
+  handleLogout = () => {
+    this.setState(
+      prevState => {
+        localStorage.removeItem('jwtToken');
+        return {
+          ...prevState,
+          jwtToken: '',
+        };
+      }
+    );
+  };
+
   render() {
     const { error, basketCreated, basketID, jwtToken } = this.state;
     if (error) {
@@ -144,10 +157,25 @@ export default class App extends PureComponent {
             <div>
               <Header className="header" jwtToken={jwtToken}/>
               <Switch className="page">
-                <Route exact path="/" render={(props) => (
-                  <HomePage {...props} basketID={basketID} />
-                )}/>
+                <Route
+                  exact
+                  path="/"
+                  render={(props) => (
+                    <HomePage {...props} basketID={basketID}/>
+                  )}
+                />
                 {routes.map((route, idx) => <Route key={idx} basketID={basketID} {...route}/>)}
+                <Route
+                  exact
+                  path="/sellers"
+                  render={(props) => (
+                    jwtToken !== '' ? (
+                      <SellersPage {...props} basketID={basketID} handleLogout={this.handleLogout}/>
+                    ) : (
+                      <Redirect to="/"/>
+                    )
+                  )}
+                />
                 <Route exact path="/basket" render={(props) => (
                   <BasketPage {...props} basketID={basketID} />
                 )}/>

@@ -1,10 +1,11 @@
 import './Header.scss';
 
 import React, {PureComponent} from 'react';
-
-import MainMenu from 'components/MainMenu';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import MainMenu from 'components/MainMenu';
 
 const linkToMain = props => <Link to="/" {...props}/>;
 const linkToBasket = props => <Link to="/basket" {...props}/>;
@@ -35,10 +36,27 @@ export default class Header extends PureComponent {
 
     this.state = {
       enableTabIndicator: false,
+      userLoginSuccess: false,
     };
   }
 
+  // Проверка свойств
+  static propTypes = {
+    // токен jwt
+    jwtToken: PropTypes.string,
+  };
+
   componentDidMount() {
+    if (this.props.jwtToken.length !== 0)
+      this.setState(
+        prevState => {
+          loginButton.name = 'Личный кабинет';
+          return {
+            ...prevState,
+            userLoginSuccess: true,
+          };
+        }
+      );
     // Выделение пункта меню при прямом переходе по ссылке
     const menuList = ['about', 'sellers', 'buyers', 'delivery'];
     // ищем в url из адресной строки текст после слэша
@@ -51,6 +69,12 @@ export default class Header extends PureComponent {
         };
       }
     );
+  }
+  UNSAFE_componentWillUpdate(nextProps, nextState) {
+    if (nextProps.jwtToken !== this.props.jwtToken) {
+      nextState.userLoginSuccess = !this.userLoginSuccess;
+      loginButton.name = this.userLoginSuccess ? 'Вход' : 'Личный кабинет';
+    }
   }
 
   closeAllMenuTabs = () => {

@@ -2,6 +2,7 @@ import './App.scss';
 
 import React, { PureComponent} from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import { Redirect } from 'react-router';
 // Сброс CSS для браузеров
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {MuiThemeProvider} from '@material-ui/core';
@@ -47,6 +48,16 @@ export default class App extends PureComponent {
       } else {
         // иначе загружаем id корзины из localStorage
         this.loadBasketID(localStorage.getItem('basketID'));
+      }
+      if (localStorage.getItem('jwtToken') !== null) {
+        this.setState(
+          prevState => {
+            return {
+              ...prevState,
+              jwtToken: localStorage.getItem('jwtToken'),
+            };
+          }
+        );
       }
     }
     // localStorage не доступен
@@ -107,6 +118,7 @@ export default class App extends PureComponent {
   setToken = token => {
     this.setState(
       prevState => {
+        localStorage.setItem('jwtToken', token);
         return {
           ...prevState,
           jwtToken: token,
@@ -130,7 +142,7 @@ export default class App extends PureComponent {
           <CssBaseline/>
           <BrowserRouter>
             <div>
-              <Header className="header"/>
+              <Header className="header" jwtToken={jwtToken}/>
               <Switch className="page">
                 <Route exact path="/" render={(props) => (
                   <HomePage {...props} basketID={basketID} />
@@ -139,9 +151,17 @@ export default class App extends PureComponent {
                 <Route exact path="/basket" render={(props) => (
                   <BasketPage {...props} basketID={basketID} />
                 )}/>
-                <Route exact path="/login" render={(props) => (
-                  <LoginPage {...props} basketID={basketID} setToken={this.setToken} jwtToken={jwtToken}/>
-                )}/>
+                <Route
+                  exact
+                  path="/login"
+                  render={(props) => (
+                    jwtToken === '' ? (
+                      <LoginPage {...props} basketID={basketID} setToken={this.setToken} jwtToken={jwtToken}/>
+                    ) : (
+                      <Redirect to="/sellers"/>
+                    )
+                  )}
+                />
               </Switch>
               <Footer/>
             </div>

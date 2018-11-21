@@ -38,83 +38,83 @@ export default class BasketList extends PureComponent {
 
   render() {
     const { basketItems, handleCounterClick, handleDeleteItem } = this.props;
-      const sum = basketItems.products.map(item => {
-        // создаем массив из произведений цены и количества товара
-        return item.product.price * item.product.quantity;
-      })
-        .reduce((price, current) => {
-          // складываем все цены созданного массива
-          return price + current;
-        });
-      return (
-        <div className="basket_list">
-          <h2>
-            <BasketIcon className="basket_icon"/>
-            Корзина
-          </h2>
-          <p className="items_title">
-            <span className="table_title">Название товара</span>
-            <span className="table_price">Цена за 1 ед.</span>
-            <span className="table_counter">Количество</span>
-            <span className="table_total">Общая стоимость</span>
-            <span className="table_delete">Удалить</span>
-          </p>
-          {basketItems.products.map((item, idx) => {
-            return (
-              <p className="basket_item" key={idx}>
-                <img
-                  src={serverAddress + item.product.image}
-                  alt={item.product.name}
-                />
-                <span className="item_name">
-                  {item.product.name}
-                </span>
-                <span className="item_price">
-                  {item.product.price} руб.
-                </span>
-                <Button
-                  className="remove_button"
-                  variant="fab"
-                  mini
-                  color="secondary"
-                  aria-label="Remove"
-                  onClick={() => handleCounterClick(idx, -1)}
-                >
-                  <RemoveIcon/>
-                </Button>
-                <span className="item_quantity">
-                  {item.product.quantity}
-                </span>
-                <Button
-                  className="add_button"
-                  variant="fab"
-                  mini
-                  color="secondary"
-                  aria-label="Add"
-                  onClick={() => handleCounterClick(idx, 1)}
-                >
-                  <AddIcon/>
-                </Button>
-                <span className="item_full_price">
-                  {item.product.price * item.product.quantity} руб.
-                </span>
-                <Button
-                  className="item_delete"
-                  variant="fab"
-                  mini
-                  color="secondary"
-                  aria-label="Delete"
-                  onClick={() => handleDeleteItem(idx)}
-                >
-                  <DeleteIcon/>
-                </Button>
-              </p>
-            );
-          })}
-          <p className="order_total">
-            Общая стоимость товаров в корзине: {sum} руб.
-          </p>
-        </div>
-      );
+    const sum = basketItems.products.map(item => {
+      // создаем массив из произведений цены и количества товара
+      return item.product.price * item.product.quantity;
+    })
+      .reduce((price, current) => {
+        // складываем все цены созданного массива
+        return price + current;
+      });
+    return (
+      <div className="basket_list">
+        <h2>
+          <BasketIcon className="basket_icon"/>
+          Корзина
+        </h2>
+        <p className="items_title">
+          <span className="table_title">Название товара</span>
+          <span className="table_price">Цена за 1 ед.</span>
+          <span className="table_counter">Количество</span>
+          <span className="table_total">Общая стоимость</span>
+          <span className="table_delete">Удалить</span>
+        </p>
+        {basketItems.products.map((item, idx) => {
+          return (
+            <p className="basket_item" key={idx}>
+              <img
+                src={serverAddress + item.product.image}
+                alt={item.product.name}
+              />
+              <span className="item_name">
+                {item.product.name}
+              </span>
+              <span className="item_price">
+                {item.product.price} руб.
+              </span>
+              <Button
+                className="remove_button"
+                variant="fab"
+                mini
+                color="secondary"
+                aria-label="Remove"
+                onClick={() => handleCounterClick(idx, -1)}
+              >
+                <RemoveIcon/>
+              </Button>
+              <span className="item_quantity">
+                {item.product.quantity}
+              </span>
+              <Button
+                className="add_button"
+                variant="fab"
+                mini
+                color="secondary"
+                aria-label="Add"
+                onClick={() => handleCounterClick(idx, 1)}
+              >
+                <AddIcon/>
+              </Button>
+              <span className="item_full_price">
+                {item.product.price * item.product.quantity} руб.
+              </span>
+              <Button
+                className="item_delete"
+                variant="fab"
+                mini
+                color="secondary"
+                aria-label="Delete"
+                onClick={() => handleDeleteItem(idx)}
+              >
+                <DeleteIcon/>
+              </Button>
+            </p>
+          );
+        })}
+        <p className="order_total">
+          Общая стоимость товаров в корзине: {sum} руб.
+        </p>
+      </div>
+    );
   }
 }

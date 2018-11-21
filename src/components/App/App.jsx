@@ -17,7 +17,7 @@ import LoginPage from 'pages/LoginPage';
 import routes from '../../routes';
 import {storageAvailable} from 'helpers/localStorage';
 import {serverAddress} from 'constants/ServerAddress';
-import SellersPage from 'pages/SellersPage';
+import ProfilePage from 'pages/ProfilePage';
 import RegisterPage from 'pages/RegisterPage';
 
 /**
@@ -168,10 +168,10 @@ export default class App extends PureComponent {
                 {routes.map((route, idx) => <Route key={idx} basketID={basketID} {...route}/>)}
                 <Route
                   exact
-                  path="/sellers"
+                  path="/profile"
                   render={props => (
                     jwtToken !== '' ? (
-                      <SellersPage {...props} basketID={basketID} handleLogout={this.handleLogout}/>
+                      <ProfilePage {...props} basketID={basketID} handleLogout={this.handleLogout}/>
                     ) : (
                       <Redirect to="/"/>
                     )
@@ -191,7 +191,7 @@ export default class App extends PureComponent {
                     jwtToken === '' ? (
                       <LoginPage {...props} basketID={basketID} setToken={this.setToken} jwtToken={jwtToken}/>
                     ) : (
-                      <Redirect to="/sellers"/>
+                      <Redirect to="/profile"/>
                     )
                   )}
                 />

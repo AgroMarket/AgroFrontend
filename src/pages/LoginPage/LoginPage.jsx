@@ -6,9 +6,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
-import {serverAddress} from 'constants/ServerAddress';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+
+import {serverAddress} from 'constants/ServerAddress';
+import {login} from 'helpers/login';
 
 const linkToRegister = props => <Link to="/register" {...props}/>;
 
@@ -40,22 +42,9 @@ export default class LoginPage extends PureComponent {
 
   handleSend = () => {
     const  { email, password } = this.state;
-    const authJSON = JSON.stringify({
-      'auth':
-        {
-          'email': email,
-          'password': password,
-        },
-    });
     const { setToken } = this.props;
-    fetch(`${serverAddress}/api/login`, {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: authJSON,
-    })
+
+    login(serverAddress, email, password)
       .then(res => res.json())
       .then(res => {
         setToken(res.jwt);

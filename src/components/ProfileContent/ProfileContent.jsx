@@ -43,7 +43,7 @@ export default class ProfileContent extends PureComponent {
       case 'seller_sells':
         return (
           <div className="seller_content">
-            <SellerSells itemHandle={itemHandle}/>
+            <SellerSells itemHandle={itemHandle} jwtToken={jwtToken}/>
           </div>
         );
       case 'open_order':

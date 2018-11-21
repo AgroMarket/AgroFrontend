@@ -5,41 +5,7 @@ import MyOrdersIcon from '@material-ui/icons/DateRange';
 import OrderItem from 'components/OrderItem';
 import PropTypes from 'prop-types';
 
-// TODO заменить заглушку с товарами на данные с сервера
-const ordersJSON = {
-  'status': 200,
-  'message': 'Продажи производителя',
-  'result': {
-    'orders': [
-      {
-        'order': {
-          'id': 2,
-          'date': '2018-11-17T11:14:48.760Z',
-          'status': 'Выполнен',
-          'link': '/api/producer/orders/2',
-          'total': 4356,
-        },
-      },
-      {
-        'order': {
-          'id': 2,
-          'date': '2018-11-16T10:24:48.760Z',
-          'status': 'Выполнен',
-          'link': '/api/producer/orders/3',
-          'total': 5645,
-        },
-      },
-    ],
-    'pagination': {
-      'current_page': 1,
-      'first_page': 1,
-      'last_page': 0,
-      'prev_page_url': null,
-      'next_page_url': null,
-    },
-  },
-  'error': null,
-};
+import {serverAddress} from 'constants/ServerAddress';
 
 /**
  * Класс SellerSells - компонент, отображающий заказы на странице продавца
@@ -51,7 +17,8 @@ export default class SellerSells extends PureComponent {
     // значения полей, используемых в render()
     this.state = {
       // Заказы
-      orders: ordersJSON.result,
+      orders: {},
+      itemsLoaded: false,
     };
   }
 
@@ -59,23 +26,70 @@ export default class SellerSells extends PureComponent {
   static propTypes = {
     // Функция отображения сведений о заказе
     itemHandle: PropTypes.func,
+    jwtToken: PropTypes.string,
   };
 
-  render() {
-    const { orders } = this.state;
-    const { itemHandle } = this.props;
-    return (
-      <div className="seller_items">
-        <div className="seller_items_header">
-          <MyOrdersIcon className="my_orders_icon"/>
-          <h2>Заказы</h2>
-        </div>
-        {orders.orders.map( (item, idx) => {
-          return (
-            <OrderItem item={item} key={idx} itemHandle={itemHandle}/>
+  componentDidMount() {
+    const {jwtToken} = this.props;
+    fetch(`${serverAddress}/api/producer/orders`, {
+      headers: {
+        'Authorization': `Bearer ${jwtToken}`,
+      },
+    })
+      .then(res => res.json())
+      .then(res => {
+          this.setState(
+            prevState => {
+              return {
+                ...prevState,
+                orders: res.result,
+                itemsLoaded: true,
+              };
+            }
           );
-        })}
-      </div>
-    );
+        },
+        error => {
+          this.setState({
+            itemsLoaded: true,
+            error,
+          });
+        });
+  }
+
+  render() {
+    const { error, orders, itemsLoaded } = this.state;
+    const { itemHandle } = this.props;
+
+    if (error) {
+      return <p>Ошибка: {error.message}</p>;
+    }
+    else
+    if (!itemsLoaded) {
+      return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
+    }
+    else {
+      let content;
+      if (orders === undefined || orders.length === 0 || orders.orders === undefined || orders.orders.length === 0) {
+        content = <div className="load_info">
+          <div/>
+          <p>К сожалению Вы еще не получили заказ.</p>
+        </div>;
+      }
+      else
+        content = (orders.orders.map((item, idx) => {
+            return (
+              <OrderItem item={item} key={idx} itemHandle={itemHandle}/>
+            );
+          }));
+      return (
+        <div className="seller_items">
+          <div className="seller_items_header">
+            <MyOrdersIcon className="my_orders_icon"/>
+            <h2>Заказы</h2>
+          </div>
+          {content}
+        </div>
+      );
+    }
   }
 }

@@ -1,4 +1,4 @@
-import './SellerContent.scss';
+import './ProfileContent.scss';
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
@@ -13,9 +13,9 @@ import ClientProfile from 'components/ClientProfile/ClientProfile';
 import EditProfile from 'components/EditProfile/EditProfile';
 
 /**
- * Класс SellerContent - компонент, отображающий данные для выбранного пункта меню на странице продавца
+ * Класс ProfileContent - компонент, отображающий данные для выбранного пункта меню на странице продавца
  */
-export default class SellerContent extends PureComponent {
+export default class ProfileContent extends PureComponent {
   // Проверка свойств
   static propTypes = {
     // Функция отображения формы продажи товара

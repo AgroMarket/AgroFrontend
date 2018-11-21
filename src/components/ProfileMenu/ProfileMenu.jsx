@@ -1,4 +1,4 @@
-import './SellerMenu.scss';
+import './ProfileMenu.scss';
 
 import React, { PureComponent} from 'react';
 import PropTypes from 'prop-types';
@@ -40,9 +40,9 @@ const menuItems = [
 ];
 
 /**
- * Класс SellerMenu - компонент, отображающий меню продавца на странице
+ * Класс ProfileMenu - компонент, отображающий меню продавца на странице
  */
-export default class SellerMenu extends PureComponent {
+export default class ProfileMenu extends PureComponent {
   constructor(props) {
     super(props);
     

@@ -1,5 +1,6 @@
 import About from 'pages/AboutPage';
 import Buyers from 'pages/BuyersPage';
+import Sellers from 'pages/SellersPage';
 import Delivery from 'pages/DeliveryPage';
 
 /**
@@ -10,6 +11,12 @@ export default [
   {
     path: '/about',
     component: About,
+    exact: true,
+  },
+  // Продавцам
+  {
+    path: '/sellers',
+    component: Sellers,
     exact: true,
   },
   // Покупателям

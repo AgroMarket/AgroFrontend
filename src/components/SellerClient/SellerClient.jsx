@@ -4,8 +4,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button/Button';
 
-// TODO заменить на ссылку изображения с сервера
-import PhotoMock from 'img/nophoto.jpg';
+import {serverAddress} from 'constants/ServerAddress';
 
 // Данные для кнопки Посмотреть профиль
 const editItemButton = {
@@ -44,7 +43,7 @@ export default class SellerClient extends PureComponent {
     return (
       <p className="seller_item client_info">
         <img
-          src={PhotoMock}
+          src={serverAddress + item.consumer.image}
           alt="Клиент"
         />
         <span className="consumer_info">

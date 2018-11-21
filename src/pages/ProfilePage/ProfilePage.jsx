@@ -30,6 +30,7 @@ export default class ProfilePage extends PureComponent {
   static propTypes = {
     // функция обратного вызова в родительский компонент
     handleLogout: PropTypes.func,
+    jwtToken: PropTypes.string,
   };
 
   /**
@@ -62,7 +63,7 @@ export default class ProfilePage extends PureComponent {
 
   render() {
     const { openedSection } = this.state;
-    const { handleLogout } = this.props;
+    const { handleLogout, jwtToken } = this.props;
     return (
       <div className="seller_page">
         <div/>
@@ -78,6 +79,7 @@ export default class ProfilePage extends PureComponent {
         <ProfileContent
           openedSection={openedSection}
           itemHandle={this.itemHandle}
+          jwtToken={jwtToken}
         />
         <div/>
       </div>

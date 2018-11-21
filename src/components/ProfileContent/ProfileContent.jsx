@@ -22,15 +22,16 @@ export default class ProfileContent extends PureComponent {
     itemHandle: PropTypes.func,
     // открытый пункт меню
     openedSection: PropTypes.string,
+    jwtToken: PropTypes.string,
   };
 
   render() {
-    const { openedSection, itemHandle } = this.props;
+    const { openedSection, itemHandle, jwtToken } = this.props;
     switch (openedSection) {
       case 'seller_items':
         return (
           <div className="seller_content">
-            <SellerItems itemHandle={itemHandle}/>
+            <SellerItems itemHandle={itemHandle} jwtToken={jwtToken}/>
           </div>
         );
       case 'new_product':

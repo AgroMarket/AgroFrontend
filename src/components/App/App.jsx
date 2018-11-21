@@ -171,7 +171,12 @@ export default class App extends PureComponent {
                   path="/profile"
                   render={props => (
                     jwtToken !== '' ? (
-                      <ProfilePage {...props} basketID={basketID} handleLogout={this.handleLogout}/>
+                      <ProfilePage
+                        {...props}
+                        basketID={basketID}
+                        handleLogout={this.handleLogout}
+                        jwtToken={jwtToken}
+                      />
                     ) : (
                       <Redirect to="/"/>
                     )

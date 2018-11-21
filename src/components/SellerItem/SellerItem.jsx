@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import DeleteIcon from '@material-ui/icons/DeleteOutlineRounded';
 import Button from '@material-ui/core/Button/Button';
 
-// TODO заменить на ссылку изображения с сервера
-import PhotoMock from 'img/nophoto.jpg';
+import {serverAddress} from 'constants/ServerAddress';
 
 // Данные для кнопки Добавить объявление
 const editItemButton = {
@@ -40,7 +39,7 @@ export default class SellerItem extends PureComponent {
     return (
       <p className="seller_item">
         <img
-          src={PhotoMock}
+          src={serverAddress + item.product.image}
           alt="Товар"
         />
         <span className="item_name">

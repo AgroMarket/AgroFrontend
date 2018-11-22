@@ -16,8 +16,8 @@ export default class ProfilePage extends PureComponent {
     this.state = {
       // состояние загрузки товаров продавца
       itemsForSellLoaded: false,
-      // при входе на страницу открывается список товаров, выставленных на продажу
-      openedSection: 'seller_items',
+      // при входе на страницу открывается список покупок
+      openedSection: 'profile_purchase',
       // ошибка загрузки
       error: null,
       // TODO добавить пагинацию для вывода товаров, выставленных на продажу

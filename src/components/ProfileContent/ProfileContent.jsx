@@ -8,9 +8,11 @@ import NewProduct from 'components/NewProduct';
 import SellerSells from 'components/SellerSells';
 import SellerProfile from 'components/SellerProfile';
 import SellerClients from 'components/SellerClients';
-import SellerOrder from 'components/SellerOrder/SellerOrder';
-import ClientProfile from 'components/ClientProfile/ClientProfile';
-import EditProfile from 'components/EditProfile/EditProfile';
+import SellerOrder from 'components/SellerOrder';
+import ClientProfile from 'components/ClientProfile';
+import EditProfile from 'components/EditProfile';
+import ProfilePurchase from 'components/ProfilePurchase';
+import ProfileSellers from 'components/ProfileSellers/ProfileSellers';
 
 /**
  * Класс ProfileContent - компонент, отображающий данные для выбранного пункта меню на странице продавца
@@ -28,6 +30,18 @@ export default class ProfileContent extends PureComponent {
   render() {
     const { openedSection, itemHandle, jwtToken } = this.props;
     switch (openedSection) {
+      case 'profile_purchase':
+        return (
+          <div className="seller_content">
+            <ProfilePurchase itemHandle={itemHandle}/>
+          </div>
+        );
+      case 'profile_sellers':
+        return (
+          <div className="seller_content">
+            <ProfileSellers itemHandle={itemHandle}/>
+          </div>
+        );
       case 'seller_items':
         return (
           <div className="seller_content">

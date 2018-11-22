@@ -9,6 +9,18 @@ import MyOrdersIcon from '@material-ui/icons/DateRange';
 
 const menuItems = [
   {
+    id: 'profile_purchase',
+    name: 'Мои покупки',
+    component: 'ProfilePurchase',
+    icon: MyOrdersIcon,
+  },
+  {
+    id: 'profile_sellers',
+    name: 'Мои поставщики',
+    component: 'ProfileSellers',
+    icon: MyOrdersIcon,
+  },
+  {
     id: 'seller_items',
     name: 'Мой прилавок',
     component: 'SellerItems',

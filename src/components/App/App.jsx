@@ -94,7 +94,7 @@ export default class App extends PureComponent {
         });
   };
 
-  // проверяет наличие id корзины на сервере в случае отсутствия получает с сервера id новой корзины и сохраняет его в state
+  // проверяет наличие id корзины на сервере, в случае отсутствия получает с сервера id новой корзины и сохраняет его в state
   loadBasketID = id => {
     fetch(`${serverAddress}/api/carts/${id}`)
       .then(res => res.json())
@@ -117,6 +117,7 @@ export default class App extends PureComponent {
       });
   };
 
+  // сохраняет jwt токен в браузере и в state
   setToken = token => {
     this.setState(
       prevState => {
@@ -129,6 +130,7 @@ export default class App extends PureComponent {
     );
   };
 
+  // удаляет jwt токен из браузера и из state
   handleLogout = () => {
     this.setState(
       prevState => {
@@ -178,7 +180,7 @@ export default class App extends PureComponent {
                         jwtToken={jwtToken}
                       />
                     ) : (
-                      <Redirect to="/"/>
+                      <Redirect to="/login"/>
                     )
                   )}
                 />
@@ -186,7 +188,11 @@ export default class App extends PureComponent {
                   exact
                   path="/basket"
                   render={props => (
-                    <BasketPage {...props} basketID={basketID} />
+                    <BasketPage
+                      {...props}
+                      basketID={basketID}
+                      jwtToken={jwtToken}
+                    />
                   )}
                 />
                 <Route

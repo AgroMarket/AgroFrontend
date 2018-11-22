@@ -7,49 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
 
-const menuItems = [
-  {
-    id: 'profile_purchase',
-    name: 'Мои покупки',
-    component: 'ProfilePurchase',
-    icon: MyOrdersIcon,
-  },
-  {
-    id: 'profile_sellers',
-    name: 'Мои поставщики',
-    component: 'ProfileSellers',
-    icon: MyOrdersIcon,
-  },
-  {
-    id: 'seller_items',
-    name: 'Мой прилавок',
-    component: 'SellerItems',
-    icon: MyOrdersIcon,
-  },
-  {
-    id: 'seller_sells',
-    name: 'Мои продажи',
-    component: 'SellerSells',
-    icon: MyOrdersIcon,
-  },
-  {
-    id: 'seller_clients',
-    name: 'Мои покупатели',
-    component: 'SellerClients',
-    icon: MyOrdersIcon,
-  },
-  {
-    id: 'seller_profile',
-    name: 'Мой профиль',
-    component: 'SellerProfile',
-    icon: MyOrdersIcon,
-  },
-  {
-    id: 'seller_quit',
-    name: 'Выйти',
-    icon: MyOrdersIcon,
-  },
-];
+import { menuItems } from 'constants/ProfileMenuItems';
 
 /**
  * Класс ProfileMenu - компонент, отображающий меню продавца на странице
@@ -60,8 +18,6 @@ export default class ProfileMenu extends PureComponent {
     
     // значения полей, используемых в render()
     this.state = {
-      // пункты меню продавца
-      menuItems: menuItems,
       // при входе на страницу ни один из выбран раздел с товарами продавца
       section: 0,
     };
@@ -72,6 +28,8 @@ export default class ProfileMenu extends PureComponent {
     // функции обратного вызова в родительский компонент
     section: PropTypes.func,
     handleLogout: PropTypes.func,
+    // флаг является ли пользователь продавцом
+    seller: PropTypes.bool,
   };
 
   /**
@@ -97,23 +55,28 @@ export default class ProfileMenu extends PureComponent {
   };
 
   render() {
-    // получаем переданные свойства меню
-    const { menuItems } = this.state;
+    const { seller } = this.props;
+    let content = menuItems.map( (item, idx) => {
+      return (
+        <ListItem key={idx}
+                  button
+                  selected={this.state.section === idx}
+                  onClick={event => this.handleListItemClick(event, idx, item.id)}
+                  className="catalogMenuItem"
+        >
+          <MyOrdersIcon/>
+          <ListItemText primary={item.name}/>
+        </ListItem>
+      );
+    });
+    // удаляем разделы меню, показываемые продавцам
+    if (!seller) {
+      // удаляем пункты меню продавца
+      content.splice(2, 3);
+    }
     return (
       <List component="nav" className="sellerMenu">
-        {menuItems.map( (item, idx) => {
-          return (
-            <ListItem key={idx}
-              button
-              selected={this.state.section === idx}
-              onClick={event => this.handleListItemClick(event, idx, item.id)}
-              className="catalogMenuItem"
-            >
-              <MyOrdersIcon/>
-              <ListItemText primary={item.name}/>
-            </ListItem>
-          );
-        })}
+        {content}
       </List>
     );
   }

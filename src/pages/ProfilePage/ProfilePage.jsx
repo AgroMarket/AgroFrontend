@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import ProfileMenu from 'components/ProfileMenu';
 import ProfileContent from 'components/ProfileContent';
+import {serverAddress} from 'constants/ServerAddress';
 
 /**
  * Класс ProfilePage - компонент, отображающий страницу Личный кабинет
@@ -14,10 +15,12 @@ export default class ProfilePage extends PureComponent {
     super(props);
 
     this.state = {
-      // состояние загрузки товаров продавца
-      itemsForSellLoaded: false,
       // при входе на страницу открывается список покупок
       openedSection: 'profile_purchase',
+      // является ли пользователь продавцом
+      seller: false,
+      // загружен ли профиль пользователя
+      profileLoaded: false,
       // ошибка загрузки
       error: null,
       // TODO добавить пагинацию для вывода товаров, выставленных на продажу
@@ -32,6 +35,34 @@ export default class ProfilePage extends PureComponent {
     handleLogout: PropTypes.func,
     jwtToken: PropTypes.string,
   };
+
+  componentDidMount() {
+    const { jwtToken } = this.props;
+    fetch(`${serverAddress}/api/consumer/profile`, {
+      headers: {
+        'Authorization': `Bearer ${jwtToken}`,
+      },
+    })
+         .then(res => res.json())
+         .then(res => {
+             this.setState(
+               prevState => {
+                 return {
+                   ...prevState,
+                   // устанавливаем является ли пользователь продавцом
+                   seller: res.result.consumer.role === 'Producer',
+                   profileLoaded: true,
+                 };
+               }
+             );
+           },
+           error => {
+             this.setState({
+               profileLoaded: true,
+               error,
+             });
+           });
+  }
 
   /**
    * Получает из ProfileMenu и сохраняет в state номер текущего открытого раздела меню продавца
@@ -62,27 +93,37 @@ export default class ProfilePage extends PureComponent {
   };
 
   render() {
-    const { openedSection } = this.state;
-    const { handleLogout, jwtToken } = this.props;
-    return (
-      <div className="seller_page">
-        <div/>
-        <h2 className="private_cab">Личный кабинет</h2>
-        <div/>
-        <div/>
-        <div/>
-        <ProfileMenu
-          className="seller_menu"
-          section={this.changeSection}
-          handleLogout={handleLogout}
-        />
-        <ProfileContent
-          openedSection={openedSection}
-          itemHandle={this.itemHandle}
-          jwtToken={jwtToken}
-        />
-        <div/>
-      </div>
-    );
+    const { openedSection, seller, profileLoaded, error } = this.state;
+    const { handleLogout, jwtToken }  = this.props;
+
+    if (error) {
+      return <p>Ошибка: {error.message}</p>;
+    }
+    else
+    if (!profileLoaded) {
+      return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
+    }
+    else
+      return (
+        <div className="seller_page">
+          <div/>
+          <h2 className="private_cab">Личный кабинет</h2>
+          <div/>
+          <div/>
+          <div/>
+          <ProfileMenu
+            className="seller_menu"
+            section={this.changeSection}
+            handleLogout={handleLogout}
+            seller={seller}
+          />
+          <ProfileContent
+            openedSection={openedSection}
+            itemHandle={this.itemHandle}
+            jwtToken={jwtToken}
+          />
+          <div/>
+        </div>
+      );
   }
 }

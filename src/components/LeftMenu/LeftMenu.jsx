@@ -21,24 +21,6 @@ export default class LeftMenu extends PureComponent {
     };
   }
 
-  /**
-   * Устанавливает выбранный пользователем раздел каталога в качестве текущего открытого и передает его номер в MainPage
-   * @param event обрабатываемое событие щелчка по разделу каталога
-   * @param index номер выбранного пользователем раздела каталога
-   * @param id, с которым выбранный пользователем раздел каталога хранится на сервере
-   */
-  handleListItemClick = (event, index, id) => {
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          section: index,
-        };
-      }
-    );
-    this.props.section(id);
-  };
-
   // Проверка свойств
   static propTypes = {
     // Пункты меню - массив объектов
@@ -58,6 +40,24 @@ export default class LeftMenu extends PureComponent {
   static defaultProps = {
     // аттрибут menu инициализируем пустым массивом
     menu: [],
+  };
+
+  /**
+   * Устанавливает выбранный пользователем раздел каталога в качестве текущего открытого и передает его номер в MainPage
+   * @param event обрабатываемое событие щелчка по разделу каталога
+   * @param index номер выбранного пользователем раздела каталога
+   * @param id, с которым выбранный пользователем раздел каталога хранится на сервере
+   */
+  handleListItemClick = (event, index, id) => {
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          section: index,
+        };
+      }
+    );
+    this.props.section(id);
   };
 
   render() {

@@ -122,6 +122,7 @@ export default class BasketPage extends PureComponent {
     );
   };
 
+  // TODO форма регистрации пользователя должна скрываться, если пользователь уже вошел под своим логином
   render() {
     const { error, basketItems, basketLoaded, orderFinish } = this.state;
     const { basketID } = this.props;

@@ -1,14 +1,17 @@
 import './RegisterPage.scss';
 
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
-import {serverAddress} from 'constants/ServerAddress';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+
+import {serverAddress} from 'constants/ServerAddress';
+import {login} from 'helpers/login';
+import {register} from 'helpers/register';
 
 const linkToLogin = props => <Link to="/login" {...props}/>;
 
@@ -26,6 +29,7 @@ export default class RegisterPage extends PureComponent {
       name: '',
       phone: '',
       address: '',
+      // TODO обработка сохранения данных аутентификации
       isChecked: false,
     };
   }
@@ -42,30 +46,19 @@ export default class RegisterPage extends PureComponent {
   };
 
   handleSend = () => {
-    const  { email, password, name, phone, address } = this.state;
-    const registerJSON = JSON.stringify({
-      'consumer':
-        {
-          'email': email,
-          'password': password,
-          'name': name,
-          'phone': phone,
-          'address': address,
-        },
+    const {email, password, name, phone, address} = this.state;
+    const {setToken} = this.props;
+
+    // TODO сделать проверку ответа - пользователь может быть уже зарегистрирован
+    register(serverAddress, email, password, name, phone, address)
+    .then(res => res.json())
+    .then(() => {
+      login(serverAddress, email, password)
+        .then(res => res.json())
+        .then(res => {
+          setToken(res.jwt);
+        });
     });
-    const { setToken } = this.props;
-    fetch(`${serverAddress}/api/consumers`, {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: registerJSON,
-    })
-      .then(res => res.json())
-      .then(res => {
-        setToken(res.jwt);
-      });
   };
 
   render() {
@@ -140,7 +133,7 @@ export default class RegisterPage extends PureComponent {
               className="login_button"
               variant="contained"
               color="secondary"
-              >
+            >
               Я уже зарегистрирован
             </Button>
           </FormControl>

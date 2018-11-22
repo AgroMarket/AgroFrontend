@@ -204,7 +204,11 @@ export default class App extends PureComponent {
                   exact
                   path="/register"
                   render={props => (
-                    <RegisterPage {...props} basketID={basketID} setToken={this.setToken} jwtToken={jwtToken}/>
+                    jwtToken === '' ? (
+                      <RegisterPage {...props} basketID={basketID} setToken={this.setToken} jwtToken={jwtToken}/>
+                    ) : (
+                      <Redirect to="/profile"/>
+                    )
                   )}
                 />
               </Switch>

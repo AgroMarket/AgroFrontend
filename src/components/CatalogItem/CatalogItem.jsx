@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import Snackbar from '@material-ui/core/Snackbar';
+import Fade from '@material-ui/core/Fade';
+
 import {serverAddress} from 'constants/ServerAddress';
 
 // Данные для кнопки Добавить в корзину
@@ -28,6 +31,8 @@ export default class CatalogItem extends PureComponent {
       error: null,
       // количество приобретаемого товара
       itemCounter: 1,
+      // флаг отображения информации об отправке товара в корзину
+      showInfo: false,
     };
   }
 
@@ -113,7 +118,16 @@ export default class CatalogItem extends PureComponent {
       body: itemJSON,
     })
       .then(
-        // TODO сообщение об успешном добавлении товара в корзину
+        () => {
+          this.setState(
+            prevState => {
+              return {
+                ...prevState,
+                showInfo: true,
+              };
+            }
+          );
+        }
       );
   };
 
@@ -185,6 +199,19 @@ export default class CatalogItem extends PureComponent {
                 </Button>
               </div>
             </div>
+            <Snackbar
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              open={this.state.showInfo}
+              autoHideDuration={6000}
+              TransitionComponent={Fade}
+              ContentProps={{
+                'aria-describedby': 'message-id',
+              }}
+              message={<span id="message-id">Товар отправлен в корзину</span>}
+            />
           </div>
         );
       }

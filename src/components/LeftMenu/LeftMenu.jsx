@@ -15,7 +15,6 @@ export default class LeftMenu extends PureComponent {
     super(props);
 
     this.state = {
-      // TODO сброс выбранного раздела каталога после нажатия кнопки Найти
       // при входе на страницу ни один из разделов каталога не выбран
       section: -1,
     };
@@ -34,7 +33,21 @@ export default class LeftMenu extends PureComponent {
     })),
     // функция обратного вызова в родительский компонент
     section: PropTypes.func,
+    searchResults: PropTypes.bool,
   };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.searchResults !== prevProps.searchResults)
+      if (this.props.searchResults)
+        this.setState(
+          prevState => {
+            return {
+              ...prevState,
+              section: -1,
+            };
+          }
+        );
+  }
 
   // значения атрибутов по умолчанию
   static defaultProps = {

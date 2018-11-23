@@ -6,7 +6,6 @@ import BasketList from 'components/BasketList';
 import BasketContacts from 'components/BasketContacts';
 import BasketFinish from 'components/BasketFinish';
 import {serverAddress} from 'constants/ServerAddress';
-// TODO Корзина должна хранится даже при обновлении страницы
 
 /**
  * Класс BasketPage - компонент, отображающий страницу Корзина
@@ -31,6 +30,7 @@ export default class BasketPage extends PureComponent {
   static propTypes = {
     // ID корзины на сервере
     basketID: PropTypes.string,
+    jwtToken: PropTypes.string,
   };
 
   componentDidMount() {
@@ -122,10 +122,9 @@ export default class BasketPage extends PureComponent {
     );
   };
 
-  // TODO форма регистрации пользователя должна скрываться, если пользователь уже вошел под своим логином
   render() {
     const { error, basketItems, basketLoaded, orderFinish } = this.state;
-    const { basketID } = this.props;
+    const { basketID, jwtToken } = this.props;
     if (error) {
       return <p>Ошибка: {error.message}</p>;
     }
@@ -165,6 +164,7 @@ export default class BasketPage extends PureComponent {
                 <BasketContacts
                   basketID={basketID}
                   handleOrderClick={this.handleOrderClick}
+                  jwtToken={jwtToken}
                 />
                 </div>
                 <div/>

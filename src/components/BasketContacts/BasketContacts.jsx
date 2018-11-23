@@ -1,6 +1,6 @@
 import './BasketContacts.scss';
 
-import React, { PureComponent } from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import Button from '@material-ui/core/Button/Button';
 import PropTypes from 'prop-types';
 
@@ -17,12 +17,14 @@ export default class BasketContacts extends PureComponent {
     basketID: PropTypes.string,
     // функция отправки заказа
     handleOrderClick: PropTypes.func,
+    jwtToken: PropTypes.string,
   };
 
   render() {
-    const { handleOrderClick } = this.props;
-    return (
-      <div className="basket_contacts">
+    const { handleOrderClick, jwtToken } = this.props;
+    let content;
+    if (jwtToken === '') {
+      content = (<Fragment>
         <p className="description">
           Чтобы продолжить, заполните свои данные
         </p>
@@ -38,6 +40,14 @@ export default class BasketContacts extends PureComponent {
         <label className="contact_email" htmlFor="label_email">Адрес электронной почты</label>
         <input type="text" id="label_password" name="contact_password" placeholder=' '/>
         <label className="contact_password" htmlFor="label_password">Пароль</label>
+      </Fragment>);
+    }
+    else {
+      content = <Fragment/>;
+    }
+    return (
+      <div className="basket_contacts">
+        { content }
         <Button
           className="send_order_button"
           variant="contained"

@@ -191,6 +191,7 @@ export default class App extends PureComponent {
                     <BasketPage
                       {...props}
                       basketID={basketID}
+                      setToken={this.setToken}
                       jwtToken={jwtToken}
                     />
                   )}

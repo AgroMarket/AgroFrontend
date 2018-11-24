@@ -6,6 +6,9 @@ import BasketList from 'components/BasketList';
 import BasketContacts from 'components/BasketContacts';
 import BasketFinish from 'components/BasketFinish';
 import {serverAddress} from 'constants/ServerAddress';
+import {register} from 'helpers/register';
+import {login} from 'helpers/login';
+import {order} from 'helpers/order';
 
 /**
  * Класс BasketPage - компонент, отображающий страницу Корзина
@@ -30,6 +33,7 @@ export default class BasketPage extends PureComponent {
   static propTypes = {
     // ID корзины на сервере
     basketID: PropTypes.string,
+    setToken: PropTypes.func,
     jwtToken: PropTypes.string,
   };
 
@@ -110,16 +114,59 @@ export default class BasketPage extends PureComponent {
       });
   };
 
-  // TODO обработка щелчков по кнопке Оформить заказ
-  handleOrderClick = () => {
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          orderFinish: true,
-        };
-      }
-    );
+  /**
+   * Оформляет заказ на сервере
+   * @param serverAddress адрес сервера
+   * @param basketID id корзины на сервере
+   * @param jwtToken jwt токен аутентификации
+   */
+  doOrder = (serverAddress, basketID, jwtToken) => {
+    order(serverAddress, basketID, jwtToken)
+      .then(res => res.json())
+      .then(() => {
+        this.setState(
+          prevState => {
+            return {
+              ...prevState,
+              orderFinish: true,
+            };
+          }
+        );
+      })
+      .then(
+        () => fetch(`${serverAddress}/api/carts/${this.props.basketID}`, {
+          method: 'delete',
+        })
+          .then(() => {
+            this.setState(
+              prevState => {
+                return {
+                  ...prevState,
+                  basketItems: {},
+                };
+              }
+            );
+          })
+      );
+  };
+
+  handleOrderClick = user => {
+    const { setToken, jwtToken, basketID } = this.props;
+
+    if(jwtToken === '') {
+      register(serverAddress, user.email, user.password, user.name, user.phone, user.address)
+        .then(res => res.json())
+        .then(() => {
+          login(serverAddress, user.email, user.password)
+            .then(res => res.json())
+            .then(res => {
+              setToken(res.jwt);
+              this.doOrder(serverAddress, basketID, res.jwt);
+            });
+        });
+    } else {
+      this.doOrder(serverAddress, basketID, jwtToken);
+    }
   };
 
   render() {

@@ -25,10 +25,11 @@ export default class ProfileContent extends PureComponent {
     // открытый пункт меню
     openedSection: PropTypes.string,
     jwtToken: PropTypes.string,
+    newItemCreated: PropTypes.func,
   };
 
   render() {
-    const { openedSection, itemHandle, jwtToken } = this.props;
+    const { openedSection, itemHandle, jwtToken, newItemCreated } = this.props;
     switch (openedSection) {
       case 'profile_purchase':
         return (
@@ -51,7 +52,7 @@ export default class ProfileContent extends PureComponent {
       case 'new_product':
         return (
           <div className="seller_content">
-            <NewProduct/>
+            <NewProduct newItemCreated={newItemCreated}/>
           </div>
         );
       case 'seller_sells':

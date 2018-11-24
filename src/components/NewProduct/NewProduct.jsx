@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button/Button';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
 
 import {serverAddress} from 'constants/ServerAddress';
+import PropTypes from 'prop-types';
 
 // Данные для кнопки Сохранить изменения
 const saveItemButton = {
@@ -27,11 +28,26 @@ export default class NewProduct extends PureComponent {
     // значения полей, используемых в render()
     this.state = {
       // данные профиля
-      category: [],
+      categories: [],
       itemsLoaded: false,
       error: null,
+      // название продукта
+      name: '',
+      // раздел каталога
+      category: '',
+      // единица измерения товара
+      measures: '',
+      // цена товара
+      price: '',
+      // описание товара
+      description: '',
     };
   }
+
+  // Проверка свойств
+  static propTypes = {
+    newItemCreated: PropTypes.func,
+  };
 
   componentDidMount() {
     fetch(`${serverAddress}/api/categories`)
@@ -41,7 +57,7 @@ export default class NewProduct extends PureComponent {
             prevState => {
               return {
                 ...prevState,
-                category: res.result,
+                categories: res.result,
                 itemsLoaded: true,
               };
             }
@@ -55,8 +71,22 @@ export default class NewProduct extends PureComponent {
         });
   }
 
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
+
   render() {
-    const { error, category, itemsLoaded } = this.state;
+    const { error, categories, itemsLoaded, name, category, measures, price, description } = this.state;
+    const { newItemCreated } = this.props;
+    const item = {
+      name: name,
+      category: category,
+      measures: measures,
+      price: price,
+      description: description,
+    };
 
     if (error) {
       return <p>Ошибка: {error.message}</p>;
@@ -74,25 +104,62 @@ export default class NewProduct extends PureComponent {
           </div>
           <div className="item_parameters">
             <div className="left_item_parameters">
-              <input type="text" id="label_name" name="item_name" placeholder=" "/>
-              <label className="item_name" htmlFor="label_name">Название товара</label>
-              <select id="label_category" name="item_category">
+              <input
+                type="text"
+                id="label_name"
+                name="name"
+                placeholder=" "
+                onChange={this.handleChange}
+              />
+              <label
+                className="item_name"
+                htmlFor="label_name"
+              >
+                Название товара
+              </label>
+              <select
+                id="label_category"
+                name="category"
+                onChange={this.handleChange}
+              >
                 <option value="" disabled="">Выберите категорию товара</option>
                 {
-                  category.categories.map( (item, idx) => {
+                  categories.categories.map( (item, idx) => {
                     return (
                       <option value={item.category.id} key={idx}>{item.category.name}</option>
                     );
                   })
                 }
               </select>
-              <input type="text" id="label_measures" name="item_measures" placeholder=" "/>
-              <label className="item_measures" htmlFor="label_measures">Единицы измерения</label>
-              <input type="text" id="label_price" name="item_price" placeholder=" "/>
+              <input
+                type="text"
+                id="label_measures"
+                name="measures"
+                placeholder=" "
+                onChange={this.handleChange}
+              />
+              <label
+                className="item_measures"
+                htmlFor="label_measures"
+              >
+                Единицы измерения
+              </label>
+              <input
+                type="text"
+                id="label_price"
+                name="price"
+                placeholder=" "
+                onChange={this.handleChange}
+              />
               <label className="item_price" htmlFor="label_price">Цена</label>
             </div>
             <div className="right_item_parameters">
-              <textarea id="label_description" name="item_description" placeholder=' '/>
+              <textarea
+                id="label_description"
+                name="description"
+                placeholder=' '
+                onChange={this.handleChange}
+              />
               <label className="item_description" htmlFor="label_description">Описание, состав, энергетическая ценность</label>
             </div>
             <div/>
@@ -121,6 +188,7 @@ export default class NewProduct extends PureComponent {
               variant="contained"
               color="primary"
               id={saveItemButton.id}
+              onClick={() => newItemCreated('seller_items', item)}
             >
               {saveItemButton.name}
             </Button>

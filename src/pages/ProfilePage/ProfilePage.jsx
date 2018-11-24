@@ -92,6 +92,39 @@ export default class ProfilePage extends PureComponent {
     );
   };
 
+  newItemCreated = (itemID, item) => {
+    const { jwtToken } = this.props;
+    const itemJSON = JSON.stringify({
+      'product':
+        {
+          'name': item.name,
+          'description': item.description,
+          'measures': item.measures,
+          'price': item.price,
+          'category_id': item.category,
+        },
+    });
+    fetch(`${serverAddress}/api/producer/products`, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtToken}`,
+      },
+      body: itemJSON,
+    })
+      .then(
+        () => this.setState(
+          prevState => {
+            return {
+              ...prevState,
+              openedSection: itemID,
+            };
+          }
+        )
+      );
+  };
+
   render() {
     const { openedSection, seller, profileLoaded, error } = this.state;
     const { handleLogout, jwtToken }  = this.props;
@@ -121,6 +154,7 @@ export default class ProfilePage extends PureComponent {
             openedSection={openedSection}
             itemHandle={this.itemHandle}
             jwtToken={jwtToken}
+            newItemCreated={this.newItemCreated}
           />
           <div/>
         </div>

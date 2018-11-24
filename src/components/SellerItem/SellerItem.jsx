@@ -35,6 +35,8 @@ export default class SellerItem extends PureComponent {
     // Функция отображения формы редактирования товара
     itemHandle: PropTypes.func,
     getID: PropTypes.func,
+    handleDeleteItem: PropTypes.func,
+    itemNumber: PropTypes.number,
   };
 
   editItem = (itemID, id) => {
@@ -43,7 +45,7 @@ export default class SellerItem extends PureComponent {
 };
 
   render() {
-    const { item } = this.props;
+    const { item, handleDeleteItem, itemNumber } = this.props;
     return (
       <p className="seller_item">
         <img
@@ -74,6 +76,7 @@ export default class SellerItem extends PureComponent {
           mini
           color="secondary"
           aria-label="Delete"
+          onClick={() => handleDeleteItem(itemNumber, item.product.id)}
         >
           <DeleteIcon/>
         </Button>

@@ -34,6 +34,7 @@ export default class SellerItems extends PureComponent {
     itemHandle: PropTypes.func,
     jwtToken: PropTypes.string,
     getID: PropTypes.func,
+    id: PropTypes.number,
   };
 
   componentDidMount() {
@@ -63,6 +64,25 @@ export default class SellerItems extends PureComponent {
       });
   }
 
+  // обработка щелчков по кнопке Удалить товар
+  handleDeleteItem = (item_number, item_id) => {
+    fetch(`${serverAddress}/api/producer/products/${item_id}`, {
+      method: 'delete',
+    })
+      .then(() => {
+        const newSellerItems = Object.assign({}, this.state.sellerItems);
+        newSellerItems.products.splice(item_number, 1);
+        this.setState(
+          prevState => {
+            return {
+              ...prevState,
+              sellerItems: newSellerItems,
+            };
+          }
+        );
+      });
+  };
+
   render() {
     const { error, sellerItems, itemsLoaded } = this.state;
     const { itemHandle, getID } = this.props;
@@ -85,7 +105,14 @@ export default class SellerItems extends PureComponent {
         else
           content = sellerItems.products.map((item, idx) => {
             return (
-              <SellerItem item={item} key={idx} itemHandle={itemHandle} getID={getID}/>
+              <SellerItem
+                item={item}
+                key={idx}
+                itemNumber={idx}
+                itemHandle={itemHandle}
+                getID={getID}
+                handleDeleteItem={this.handleDeleteItem}
+              />
             );
           });
         return (

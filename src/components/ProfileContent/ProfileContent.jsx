@@ -13,11 +13,22 @@ import ClientProfile from 'components/ClientProfile';
 import EditProfile from 'components/EditProfile';
 import ProfilePurchase from 'components/ProfilePurchase';
 import ProfileSellers from 'components/ProfileSellers/ProfileSellers';
+import {serverAddress} from 'constants/ServerAddress';
 
 /**
  * Класс ProfileContent - компонент, отображающий данные для выбранного пункта меню на странице продавца
  */
 export default class ProfileContent extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    // значения полей, используемых в render()
+    this.state = {
+      // id редактируемого товара
+      id: -1,
+    };
+  }
+
   // Проверка свойств
   static propTypes = {
     // Функция отображения формы продажи товара
@@ -26,12 +37,59 @@ export default class ProfileContent extends PureComponent {
     openedSection: PropTypes.string,
     jwtToken: PropTypes.string,
     newItemCreated: PropTypes.func,
-    getID: PropTypes.func,
-    id: PropTypes.number,
+  };
+
+  newItemCreated = (itemID, item, newItem) => {
+    const { id } = this.state;
+    const { jwtToken, itemHandle } = this.props;
+    const itemJSON = JSON.stringify({
+      'product':
+        {
+          'name': item.name,
+          'description': item.description,
+          'measures': item.measures,
+          'price': item.price,
+          'category_id': item.category,
+        },
+    });
+    let request, method;
+    if (newItem === 'true') {
+      request = `${serverAddress}/api/producer/products`;
+      method = 'post';
+    }
+    else {
+      request = `${serverAddress}/api/producer/products/${id}`;
+      method = 'put';
+    }
+    fetch(request, {
+      method: method,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtToken}`,
+      },
+      body: itemJSON,
+    })
+      .then(
+        () => itemHandle(itemID)
+      );
+  };
+
+  getID = id => {
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          id: id,
+        };
+      }
+    );
   };
 
   render() {
-    const { openedSection, itemHandle, jwtToken, newItemCreated, getID, id } = this.props;
+    const { id } = this.state;
+    const { openedSection, itemHandle, jwtToken } = this.props;
+
     switch (openedSection) {
       case 'profile_purchase':
         return (
@@ -48,19 +106,23 @@ export default class ProfileContent extends PureComponent {
       case 'seller_items':
         return (
           <div className="seller_content">
-            <SellerItems itemHandle={itemHandle} getID={getID} jwtToken={jwtToken}/>
+            <SellerItems
+              itemHandle={itemHandle}
+              getID={this.getID}
+              jwtToken={jwtToken}
+            />
           </div>
         );
       case 'new_product':
         return (
           <div className="seller_content">
-            <NewProduct newItemCreated={newItemCreated} newItem="true"/>
+            <NewProduct newItemCreated={this.newItemCreated} newItem="true"/>
           </div>
         );
       case 'edit_product':
         return (
           <div className="seller_content">
-            <NewProduct newItemCreated={newItemCreated} newItem="false" id={id}/>
+            <NewProduct newItemCreated={this.newItemCreated} newItem="false" id={id}/>
           </div>
         );
       case 'seller_sells':

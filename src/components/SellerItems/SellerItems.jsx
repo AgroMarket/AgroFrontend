@@ -33,6 +33,7 @@ export default class SellerItems extends PureComponent {
     // Функция отображения формы редактирования или создания товара
     itemHandle: PropTypes.func,
     jwtToken: PropTypes.string,
+    getID: PropTypes.func,
   };
 
   componentDidMount() {
@@ -64,7 +65,7 @@ export default class SellerItems extends PureComponent {
 
   render() {
     const { error, sellerItems, itemsLoaded } = this.state;
-    const { itemHandle } = this.props;
+    const { itemHandle, getID } = this.props;
 
     if (error) {
       return <p>Ошибка: {error.message}</p>;
@@ -84,7 +85,7 @@ export default class SellerItems extends PureComponent {
         else
           content = sellerItems.products.map((item, idx) => {
             return (
-              <SellerItem item={item} key={idx} itemHandle={itemHandle}/>
+              <SellerItem item={item} key={idx} itemHandle={itemHandle} getID={getID}/>
             );
           });
         return (

@@ -26,6 +26,8 @@ export default class ProfilePage extends PureComponent {
       // TODO добавить пагинацию для вывода товаров, выставленных на продажу
       // флаг включения пагинации on / off
       pagination: 'off',
+      // id редактируемого товара
+      id: -1,
     };
   }
 
@@ -92,7 +94,8 @@ export default class ProfilePage extends PureComponent {
     );
   };
 
-  newItemCreated = (itemID, item) => {
+  newItemCreated = (itemID, item, newItem) => {
+    const { id } = this.state;
     const { jwtToken } = this.props;
     const itemJSON = JSON.stringify({
       'product':
@@ -104,8 +107,17 @@ export default class ProfilePage extends PureComponent {
           'category_id': item.category,
         },
     });
-    fetch(`${serverAddress}/api/producer/products`, {
-      method: 'post',
+    let request, method;
+    if (newItem === 'true') {
+      request = `${serverAddress}/api/producer/products`;
+      method = 'post';
+    }
+    else {
+      request = `${serverAddress}/api/producer/products/${id}`;
+      method = 'put';
+    }
+    fetch(request, {
+      method: method,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -125,8 +137,19 @@ export default class ProfilePage extends PureComponent {
       );
   };
 
+  getID = id => {
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          id: id,
+        };
+      }
+    );
+  };
+
   render() {
-    const { openedSection, seller, profileLoaded, error } = this.state;
+    const { openedSection, seller, profileLoaded, error, id } = this.state;
     const { handleLogout, jwtToken }  = this.props;
 
     if (error) {
@@ -155,6 +178,8 @@ export default class ProfilePage extends PureComponent {
             itemHandle={this.itemHandle}
             jwtToken={jwtToken}
             newItemCreated={this.newItemCreated}
+            getID={this.getID}
+            id={id}
           />
           <div/>
         </div>

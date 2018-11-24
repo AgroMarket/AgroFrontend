@@ -26,10 +26,12 @@ export default class ProfileContent extends PureComponent {
     openedSection: PropTypes.string,
     jwtToken: PropTypes.string,
     newItemCreated: PropTypes.func,
+    getID: PropTypes.func,
+    id: PropTypes.number,
   };
 
   render() {
-    const { openedSection, itemHandle, jwtToken, newItemCreated } = this.props;
+    const { openedSection, itemHandle, jwtToken, newItemCreated, getID, id } = this.props;
     switch (openedSection) {
       case 'profile_purchase':
         return (
@@ -46,13 +48,19 @@ export default class ProfileContent extends PureComponent {
       case 'seller_items':
         return (
           <div className="seller_content">
-            <SellerItems itemHandle={itemHandle} jwtToken={jwtToken}/>
+            <SellerItems itemHandle={itemHandle} getID={getID} jwtToken={jwtToken}/>
           </div>
         );
       case 'new_product':
         return (
           <div className="seller_content">
-            <NewProduct newItemCreated={newItemCreated}/>
+            <NewProduct newItemCreated={newItemCreated} newItem="true"/>
+          </div>
+        );
+      case 'edit_product':
+        return (
+          <div className="seller_content">
+            <NewProduct newItemCreated={newItemCreated} newItem="false" id={id}/>
           </div>
         );
       case 'seller_sells':

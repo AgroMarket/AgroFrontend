@@ -34,7 +34,7 @@ export default class OrderItem extends PureComponent {
 
   render() {
     const { item, itemHandle } = this.props;
-    const date = moment(item.order.date).format('DD.MM.YY HH:MM');
+    const date = moment(item.order.date).format('DD.MM.YY hh:mm');
 
     return (
       <p className="seller_item">

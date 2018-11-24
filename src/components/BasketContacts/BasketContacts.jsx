@@ -40,9 +40,8 @@ export default class BasketContacts extends PureComponent {
   };
 
   render() {
-    const { handleOrderClick, jwtToken } = this.props;
-
     const { email, password, name, phone, address } = this.state;
+    const { handleOrderClick, jwtToken } = this.props;
     const user = {
       email: email,
       password: password,

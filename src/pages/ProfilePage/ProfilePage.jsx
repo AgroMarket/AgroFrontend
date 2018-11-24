@@ -122,6 +122,7 @@ export default class ProfilePage extends PureComponent {
             itemHandle={this.itemHandle}
             jwtToken={jwtToken}
             newItemCreated={this.newItemCreated}
+            seller={seller}
           />
           <div/>
         </div>

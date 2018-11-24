@@ -6,10 +6,9 @@ import PropTypes from 'prop-types';
 import SellerItems from 'components/SellerItems';
 import NewProduct from 'components/NewProduct';
 import SellerSells from 'components/SellerSells';
-import SellerProfile from 'components/SellerProfile';
+import UserProfile from 'components/UserProfile';
 import SellerClients from 'components/SellerClients';
 import SellerOrder from 'components/SellerOrder';
-import ClientProfile from 'components/ClientProfile';
 import EditProfile from 'components/EditProfile';
 import ProfilePurchase from 'components/ProfilePurchase';
 import ProfileSellers from 'components/ProfileSellers/ProfileSellers';
@@ -37,6 +36,7 @@ export default class ProfileContent extends PureComponent {
     openedSection: PropTypes.string,
     jwtToken: PropTypes.string,
     newItemCreated: PropTypes.func,
+    seller: PropTypes.bool,
   };
 
   newItemCreated = (itemID, item, newItem) => {
@@ -88,7 +88,7 @@ export default class ProfileContent extends PureComponent {
 
   render() {
     const { id } = this.state;
-    const { openedSection, itemHandle, jwtToken } = this.props;
+    const { openedSection, itemHandle, jwtToken, seller } = this.props;
 
     switch (openedSection) {
       case 'profile_purchase':
@@ -143,16 +143,14 @@ export default class ProfileContent extends PureComponent {
             <SellerClients itemHandle={itemHandle} jwtToken={jwtToken}/>
           </div>
         );
-      case 'client_profile':
+      case 'user_profile':
         return (
           <div className="seller_content">
-            <ClientProfile/>
-          </div>
-        );
-      case 'seller_profile':
-        return (
-          <div className="seller_content">
-            <SellerProfile itemHandle={itemHandle} jwtToken={jwtToken}/>
+            <UserProfile
+              itemHandle={itemHandle}
+              jwtToken={jwtToken}
+              seller={seller}
+            />
           </div>
         );
       case 'edit_profile':

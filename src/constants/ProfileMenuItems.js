@@ -32,9 +32,9 @@ export const menuItems = [
     icon: MyOrdersIcon,
   },
   {
-    id: 'seller_profile',
+    id: 'user_profile',
     name: 'Мой профиль',
-    component: 'SellerProfile',
+    component: 'UserProfile',
     icon: MyOrdersIcon,
   },
   {

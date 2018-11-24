@@ -115,37 +115,60 @@ export default class BasketPage extends PureComponent {
 
   // TODO обработка щелчков по кнопке Оформить заказ => СДЕЛАНО
   handleOrderClick = (user) => {
-    const { setToken } = this.props;
+    const { setToken, jwtToken } = this.props;
 
-    register(serverAddress, user.email, user.password, user.name, user.phone, user.address)
-      .then(res => res.json())
-      .then(() => {
-        login(serverAddress, user.email, user.password)
-          .then(res => res.json())
-          .then(res => {
-            setToken(res.jwt);
-            fetch(`${serverAddress}/api/carts/${this.props.basketID}/orders`, {
-              method: 'post',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${res.jwt}`,
-              },
-            }).then(res => res.json())
-              .then(() => {
-                this.setState(
-                  prevState => {
-                    return {
-                      ...prevState,
-                      orderFinish: true,
-                    };
-                  }
-                );
+    if(jwtToken === '') {
+      register(serverAddress, user.email, user.password, user.name, user.phone, user.address)
+        .then(res => res.json())
+        .then(() => {
+          login(serverAddress, user.email, user.password)
+            .then(res => res.json())
+            .then(res => {
+              setToken(res.jwt);
+              fetch(`${serverAddress}/api/carts/${this.props.basketID}/orders`, {
+                method: 'post',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${res.jwt}`,
+                },
+              }).then(res => res.json())
+                .then(() => {
+                  this.setState(
+                    prevState => {
+                      return {
+                        ...prevState,
+                        orderFinish: true,
+                      };
+                    }
+                  );
 
-                // TODO Пересоздать корзину
-              });
-          });
-      });
+                  // TODO Пересоздать корзину
+                });
+            });
+        });
+    } else {
+      fetch(`${serverAddress}/api/carts/${this.props.basketID}/orders`, {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${jwtToken}`,
+        },
+      }).then(res => res.json())
+        .then(() => {
+          this.setState(
+            prevState => {
+              return {
+                ...prevState,
+                orderFinish: true,
+              };
+            }
+          );
+
+          // TODO Пересоздать корзину
+        });
+    }
   };
 
   render() {

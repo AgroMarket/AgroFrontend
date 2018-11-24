@@ -1,0 +1,113 @@
+// Коэффициент перевода в em
+$k: 16;
+
+.item_parameters {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  input, select, textarea {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    color: #33691e;
+    font-size: 18rem/$k;
+    margin-bottom: 38rem/$k;
+    padding-left: 20rem/$k;
+  }
+  input, select {
+    height: 73rem/$k;
+  }
+  textarea {
+    height: 407rem/$k;
+    padding-top: 25rem/$k;
+  }
+  label
+  {
+    position: absolute;
+    color: #33691e;
+    font-size: 18rem/$k;
+    left: 20rem/$k;
+  }
+  .left_item_parameters {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .right_item_parameters {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-left: 15rem/$k;
+  }
+  .item_name {
+    top: 26rem/$k;
+  }
+  .item_measures {
+    top: 247rem/$k;
+  }
+  .item_price {
+    top: 358rem/$k;
+  }
+  .item_description {
+    left: 38rem/$k;
+    top: 25rem/$k;
+  }
+  :focus + label
+  {
+    opacity: 0;
+  }
+  :not(:placeholder-shown) + label {
+    opacity: 0;
+  }
+  .load_photo {
+    display: none;
+  }
+  .item_load {
+    position: inherit;
+  }
+  .item_load:not(:placeholder-shown) {
+      opacity: 1;
+  }
+  @media (max-width: 1440px) {
+    display: block;
+    .right_item_parameters {
+      padding-left: 0;
+    }
+    .save_item {
+      margin-left: 15rem/$k;
+    }
+  }
+  @media (max-width: 1920px) {
+    input, select, textarea {
+      font-size: 14rem/$k;
+      margin-bottom: 22rem/$k;
+      padding-left: 15rem/$k;
+    }
+    input, select {
+      height: 42rem/$k;
+    }
+    textarea {
+      height: 234rem/$k;
+    }
+    label
+    {
+      font-size: 14rem/$k;
+      left: 15rem/$k;
+    }
+    .item_name {
+      top: 12rem/$k;
+    }
+    .item_measures {
+      top: 139rem/$k;
+    }
+    .item_price {
+      top: 203rem/$k;
+    }
+    .item_description {
+      top: 25rem/$k;
+    }
+  }
+  @media (max-width: 1440px) {
+    .item_description {
+      left: 15rem/$k;
+    }
+  }
+}

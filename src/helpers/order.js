@@ -8,11 +8,11 @@
 export function order(address, basketID, jwtToken) {
   return (
     fetch(`${address}/api/carts/${basketID}/orders`, {
-    method: 'post',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${jwtToken}`,
-    },
-  }));
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtToken}`,
+      },
+    }));
 }

@@ -128,21 +128,23 @@ export default class BasketPage extends PureComponent {
           prevState => {
             return {
               ...prevState,
-              orderFinish: true,
+              basketItems: {},
             };
           }
         );
       })
+      // Очищаем корзину
       .then(
         () => fetch(`${serverAddress}/api/carts/${this.props.basketID}`, {
           method: 'delete',
         })
+          .then(res => res.json())
           .then(() => {
             this.setState(
               prevState => {
                 return {
                   ...prevState,
-                  basketItems: {},
+                  orderFinish: true,
                 };
               }
             );

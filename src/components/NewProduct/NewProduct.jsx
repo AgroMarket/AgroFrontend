@@ -72,9 +72,9 @@ export default class NewProduct extends PureComponent {
             <MyOrdersIcon className="my_orders_icon"/>
             <h2>Карточка товара</h2>
           </div>
-          <div className="seller_profile">
+          <div className="item_parameters">
             <div className="left_item_parameters">
-              <input type="text" id="label_name" name="item_name" placeholder=' '/>
+              <input type="text" id="label_name" name="item_name" placeholder=" "/>
               <label className="item_name" htmlFor="label_name">Название товара</label>
               <select id="label_category" name="item_category">
                 <option value="" disabled="">Выберите категорию товара</option>
@@ -86,24 +86,36 @@ export default class NewProduct extends PureComponent {
                   })
                 }
               </select>
-              <label className="item_category" htmlFor="label_category">Категория товара</label>
-              <input type="text" id="label_measures" name="item_measures" placeholder=' '/>
+              <input type="text" id="label_measures" name="item_measures" placeholder=" "/>
               <label className="item_measures" htmlFor="label_measures">Единицы измерения</label>
-              <input type="text" id="label_price" name="item_price" placeholder=' '/>
+              <input type="text" id="label_price" name="item_price" placeholder=" "/>
               <label className="item_price" htmlFor="label_price">Цена</label>
             </div>
             <div className="right_item_parameters">
-              <input type="text" id="label_description" name="item_description" placeholder=' '/>
+              <textarea id="label_description" name="item_description" placeholder=' '/>
               <label className="item_description" htmlFor="label_description">Описание, состав, энергетическая ценность</label>
             </div>
-            <Button
-              className="load_item_photo"
-              variant="text"
-              color="primary"
-              id={loadItemPhotoButton.id}
-            >
-              {loadItemPhotoButton.name}
-            </Button>
+            <div/>
+            <div/>
+            <input
+              accept="image/*"
+              className="load_photo"
+              id="flat-button-file"
+              placeholder=" "
+              multiple
+              type="file"
+            />
+            <label className="item_load" htmlFor="flat-button-file">
+              <Button
+                component="span"
+                className="load_item_photo"
+                variant="text"
+                color="primary"
+                id={loadItemPhotoButton.id}
+              >
+                {loadItemPhotoButton.name}
+              </Button>
+            </label>
             <Button
               className="save_item"
               variant="contained"

@@ -19,14 +19,18 @@ export default class BasketList extends PureComponent {
     basketItems: PropTypes.shape({
       products: PropTypes.arrayOf(PropTypes.shape({
         // название товара
-        product_name: PropTypes.string,
+        name: PropTypes.string,
         // цена товара
-        product_price: PropTypes.number,
+        price: PropTypes.number,
         // количество товара
-        product_quantity: PropTypes.number,
+        quantity: PropTypes.number,
         // изображение товара
-        product_image: PropTypes.string,
+        image: PropTypes.string,
+        // общая стоимость товара
+        sum: PropTypes.number,
       })),
+      // общая стоимость товаров в корзине
+      total: PropTypes.number,
     }),
     // ID корзины на сервере
     basketID: PropTypes.string,
@@ -38,14 +42,7 @@ export default class BasketList extends PureComponent {
 
   render() {
     const { basketItems, handleCounterClick, handleDeleteItem } = this.props;
-    const sum = basketItems.products.map(item => {
-      // создаем массив из произведений цены и количества товара
-      return item.product.price * item.product.quantity;
-    })
-      .reduce((price, current) => {
-        // складываем все цены созданного массива
-        return price + current;
-      });
+
     return (
       <div className="basket_list">
         <h2>
@@ -96,7 +93,7 @@ export default class BasketList extends PureComponent {
                 <AddIcon/>
               </Button>
               <span className="item_full_price">
-                {item.product.price * item.product.quantity} руб.
+                {item.product.sum} руб.
               </span>
               <Button
                 className="item_delete"
@@ -111,8 +108,8 @@ export default class BasketList extends PureComponent {
             </p>
           );
         })}
-        <p className="order_total">
-          Общая стоимость товаров в корзине: {sum} руб.
+        <p className="basket_total">
+          Общая стоимость товаров в корзине: {basketItems.total} руб.
         </p>
       </div>
     );

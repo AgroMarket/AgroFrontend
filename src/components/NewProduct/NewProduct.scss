@@ -50,11 +50,8 @@ $k: 16;
     left: 38rem/$k;
     top: 25rem/$k;
   }
-  :focus + label
+  :focus + label, :not(:placeholder-shown) + label
   {
-    opacity: 0;
-  }
-  :not(:placeholder-shown) + label {
     opacity: 0;
   }
   .load_photo {
@@ -64,7 +61,7 @@ $k: 16;
     position: inherit;
   }
   .item_load:not(:placeholder-shown) {
-      opacity: 1;
+    opacity: 1;
   }
   @media (max-width: 1440px) {
     display: block;

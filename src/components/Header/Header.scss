@@ -6,13 +6,19 @@ header {
   background-color: #fff;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   height: 95px;
-  grid-template-columns: 15% 21% 34% 15% 15%;
+  grid-template-columns: 15% 21% 33% 16% 15%;
   grid-template-rows: 3em;
   @media (max-width: 1920px) {
     height: 81px;
   }
   @media (max-width: 1440px) {
     grid-template-columns: 5% 21% 49% 20% 5%;
+  }
+  @media (max-width: 1280px) {
+    grid-template-columns: 5% 21% 40% 29% 5%;
+  }
+  @media (max-width: 960px) {
+    grid-template-columns: 5% 21% 45% 24% 5%;
   }
 }
 .goto_main {

@@ -174,31 +174,32 @@ export default class BasketPage extends PureComponent {
   render() {
     const { error, basketItems, basketLoaded, orderFinish } = this.state;
     const { basketID, jwtToken } = this.props;
-    if (error) {
-      return <p>Ошибка: {error.message}</p>;
-    }
+
+    if (orderFinish)
+      return (
+        <div className="basket_finish">
+          <div/>
+          <BasketFinish/>
+          <div/>
+        </div>
+      );
     else
-      if (!basketLoaded) {
-        return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
+      if (error) {
+        return <p>Ошибка: {error.message}</p>;
       }
       else
-        if (basketItems === undefined || basketItems.length === 0 || basketItems.products === undefined || basketItems.products.length === 0) {
-          return (
-          <div className="load_info">
-            <div/>
-            <p>Ваша корзина пуста</p>
-          </div>
-          );
+        if (!basketLoaded) {
+          return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
         }
-        else {
-          if (orderFinish)
+        else
+          if (basketItems === undefined || basketItems.length === 0 || basketItems.products === undefined || basketItems.products.length === 0) {
             return (
-              <div className="basket_finish">
-                <div/>
-                  <BasketFinish/>
-                <div/>
-              </div>
+            <div className="load_info">
+              <div/>
+              <p>Ваша корзина пуста</p>
+            </div>
             );
+          }
           else
             return (
               <div className="basket_page">
@@ -219,6 +220,5 @@ export default class BasketPage extends PureComponent {
                 <div/>
               </div>
             );
-        }
-    }
+  }
 }

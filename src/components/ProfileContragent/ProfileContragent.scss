@@ -1,0 +1,24 @@
+// Коэффициент перевода в em
+$k: 16;
+
+.seller_profile {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  background-color: #fff;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  padding: 23rem/$k;
+  span {
+    margin-bottom: 15rem/$k;
+  }
+  .profile_name {
+    color: #33691e;
+    font-size: 18rem/$k;
+  }
+  .edit_profile {
+    span {
+      margin-bottom: 0;
+    }
+  }
+}

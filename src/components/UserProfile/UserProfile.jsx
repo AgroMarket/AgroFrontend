@@ -75,62 +75,77 @@ export default class UserProfile extends PureComponent {
     if (error) {
       return <p>Ошибка: {error.message}</p>;
     }
-    else if (!itemsLoaded) {
-      return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
-    }
-    else if (seller)
-      return (
-        <div className="seller_items">
-          <div className="seller_items_header">
-            <MyOrdersIcon className="my_orders_icon"/>
-            <h2>Мой профиль</h2>
-          </div>
-          <div className="seller_profile">
-            <span className="profile_name">
-              {profile.profile.brand}
-            </span>
-            <span className="profile_address">
-              Регион: {profile.profile.address}
-            </span>
-            <span className="profile_phone">
-              Телефон: +7-{profile.profile.phome}
-            </span>
-            <span className="profile_inn">
-              ИНН: {profile.profile.inn}
-            </span>
-            <span className="profile_description">
-              {profile.profile.descripion}
-            </span>
-            <Button
-              className="edit_profile"
-              variant="contained"
-              color="primary"
-              id={editProfileButton.id}
-              onClick={() => itemHandle('edit_profile')}
-            >
-              {editProfileButton.name}
-            </Button>
-          </div>
-        </div>
-      );
-    else return(
-        <div className="seller_items">
-          <div className="seller_items_header">
-            <MyOrdersIcon className="my_orders_icon"/>
-            <h2>Мой профиль</h2>
-          </div>
-          <div className="seller_profile">
-            <Button
-              className="edit_profile"
-              variant="contained"
-              color="primary"
-              id={editProfileButton.id}
-              onClick={() => itemHandle('edit_profile')}
-            >
-              {editProfileButton.name}
-            </Button>
-          </div>
-        </div>
-      );
-    }
+    else
+      if (!itemsLoaded) {
+        return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
+      }
+      else
+        if (seller)
+          return (
+            <div className="seller_items">
+              <div className="seller_items_header">
+                <MyOrdersIcon className="my_orders_icon"/>
+                <h2>Мой профиль</h2>
+              </div>
+              <div className="seller_profile">
+                <span className="profile_name">
+                  {profile.profile.brand}
+                </span>
+                <span className="profile_address">
+                  Регион: {profile.profile.address}
+                </span>
+                <span className="profile_phone">
+                  Телефон: +7-{profile.profile.phome}
+                </span>
+                <span className="profile_inn">
+                  ИНН: {profile.profile.inn}
+                </span>
+                <span className="profile_description">
+                  {profile.profile.descripion}
+                </span>
+                <Button
+                  className="edit_profile"
+                  variant="contained"
+                  color="primary"
+                  id={editProfileButton.id}
+                  onClick={() => itemHandle('edit_profile')}
+                >
+                  {editProfileButton.name}
+                </Button>
+              </div>
+            </div>
+          );
+          else
+            return(
+              <div className="seller_items">
+                <div className="seller_items_header">
+                  <MyOrdersIcon className="my_orders_icon"/>
+                  <h2>Мой профиль</h2>
+                </div>
+                <div className="seller_profile">
+                  <span className="profile_name">
+                    {profile.consumer.name}
+                  </span>
+                  <span className="profile_address">
+                    Регион: {profile.consumer.address}
+                  </span>
+                  <span className="profile_phone">
+                    Телефон: +7-{profile.consumer.phone}
+                  </span>
+                  <span className="profile_email">
+                    Электронная почта: {profile.consumer.email}
+                  </span>
+                  <Button
+                    className="edit_profile"
+                    variant="contained"
+                    color="primary"
+                    id={editProfileButton.id}
+                    onClick={() => itemHandle('edit_profile')}
+                  >
+                    {editProfileButton.name}
+                  </Button>
+                </div>
+              </div>
+            );
+          }
 }

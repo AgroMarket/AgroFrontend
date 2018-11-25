@@ -6,18 +6,28 @@ import PropTypes from 'prop-types';
 import SellerItems from 'components/SellerItems';
 import NewProduct from 'components/NewProduct';
 import SellerSells from 'components/SellerSells';
-import SellerProfile from 'components/SellerProfile';
+import UserProfile from 'components/UserProfile';
 import SellerClients from 'components/SellerClients';
 import SellerOrder from 'components/SellerOrder';
-import ClientProfile from 'components/ClientProfile';
 import EditProfile from 'components/EditProfile';
 import ProfilePurchase from 'components/ProfilePurchase';
 import ProfileSellers from 'components/ProfileSellers/ProfileSellers';
+import {serverAddress} from 'constants/ServerAddress';
 
 /**
  * Класс ProfileContent - компонент, отображающий данные для выбранного пункта меню на странице продавца
  */
 export default class ProfileContent extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    // значения полей, используемых в render()
+    this.state = {
+      // id редактируемого товара
+      id: -1,
+    };
+  }
+
   // Проверка свойств
   static propTypes = {
     // Функция отображения формы продажи товара
@@ -25,10 +35,61 @@ export default class ProfileContent extends PureComponent {
     // открытый пункт меню
     openedSection: PropTypes.string,
     jwtToken: PropTypes.string,
+    newItemCreated: PropTypes.func,
+    seller: PropTypes.bool,
+  };
+
+  newItemCreated = (itemID, item, newItem) => {
+    const { id } = this.state;
+    const { jwtToken, itemHandle } = this.props;
+    const itemJSON = JSON.stringify({
+      'product':
+        {
+          'name': item.name,
+          'description': item.description,
+          'measures': item.measures,
+          'price': item.price,
+          'category_id': item.category,
+        },
+    });
+    let request, method;
+    if (newItem === 'true') {
+      request = `${serverAddress}/api/producer/products`;
+      method = 'post';
+    }
+    else {
+      request = `${serverAddress}/api/producer/products/${id}`;
+      method = 'put';
+    }
+    fetch(request, {
+      method: method,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtToken}`,
+      },
+      body: itemJSON,
+    })
+      .then(
+        () => itemHandle(itemID)
+      );
+  };
+
+  getID = id => {
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          id: id,
+        };
+      }
+    );
   };
 
   render() {
-    const { openedSection, itemHandle, jwtToken } = this.props;
+    const { id } = this.state;
+    const { openedSection, itemHandle, jwtToken, seller } = this.props;
+
     switch (openedSection) {
       case 'profile_purchase':
         return (
@@ -45,13 +106,23 @@ export default class ProfileContent extends PureComponent {
       case 'seller_items':
         return (
           <div className="seller_content">
-            <SellerItems itemHandle={itemHandle} jwtToken={jwtToken}/>
+            <SellerItems
+              itemHandle={itemHandle}
+              getID={this.getID}
+              jwtToken={jwtToken}
+            />
           </div>
         );
       case 'new_product':
         return (
           <div className="seller_content">
-            <NewProduct/>
+            <NewProduct newItemCreated={this.newItemCreated} newItem="true"/>
+          </div>
+        );
+      case 'edit_product':
+        return (
+          <div className="seller_content">
+            <NewProduct newItemCreated={this.newItemCreated} newItem="false" id={id}/>
           </div>
         );
       case 'seller_sells':
@@ -72,16 +143,14 @@ export default class ProfileContent extends PureComponent {
             <SellerClients itemHandle={itemHandle} jwtToken={jwtToken}/>
           </div>
         );
-      case 'client_profile':
+      case 'user_profile':
         return (
           <div className="seller_content">
-            <ClientProfile/>
-          </div>
-        );
-      case 'seller_profile':
-        return (
-          <div className="seller_content">
-            <SellerProfile itemHandle={itemHandle} jwtToken={jwtToken}/>
+            <UserProfile
+              itemHandle={itemHandle}
+              jwtToken={jwtToken}
+              seller={seller}
+            />
           </div>
         );
       case 'edit_profile':

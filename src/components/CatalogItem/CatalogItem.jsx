@@ -148,7 +148,7 @@ export default class CatalogItem extends PureComponent {
             <div className="left_info">
               <h2 className="item_title">{catalogItem.product.title}</h2>
               <p className="item_description">{catalogItem.product.descripion}</p>
-              <p className="item_seller">Производитель: {catalogItem.product.farmer_name}</p>
+              <p className="item_seller">Производитель: {catalogItem.product.producer_name}</p>
             </div>
             <div className="right_info">
               <img src={serverAddress+catalogItem.product.image} alt={catalogItem.product.image}/>

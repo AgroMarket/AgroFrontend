@@ -33,6 +33,8 @@ export default class SellerItems extends PureComponent {
     // Функция отображения формы редактирования или создания товара
     itemHandle: PropTypes.func,
     jwtToken: PropTypes.string,
+    getID: PropTypes.func,
+    id: PropTypes.number,
   };
 
   componentDidMount() {
@@ -62,9 +64,28 @@ export default class SellerItems extends PureComponent {
       });
   }
 
+  // обработка щелчков по кнопке Удалить товар
+  handleDeleteItem = (item_number, item_id) => {
+    fetch(`${serverAddress}/api/producer/products/${item_id}`, {
+      method: 'delete',
+    })
+      .then(() => {
+        const newSellerItems = Object.assign({}, this.state.sellerItems);
+        newSellerItems.products.splice(item_number, 1);
+        this.setState(
+          prevState => {
+            return {
+              ...prevState,
+              sellerItems: newSellerItems,
+            };
+          }
+        );
+      });
+  };
+
   render() {
     const { error, sellerItems, itemsLoaded } = this.state;
-    const { itemHandle } = this.props;
+    const { itemHandle, getID } = this.props;
 
     if (error) {
       return <p>Ошибка: {error.message}</p>;
@@ -84,7 +105,14 @@ export default class SellerItems extends PureComponent {
         else
           content = sellerItems.products.map((item, idx) => {
             return (
-              <SellerItem item={item} key={idx} itemHandle={itemHandle}/>
+              <SellerItem
+                item={item}
+                key={idx}
+                itemNumber={idx}
+                itemHandle={itemHandle}
+                getID={getID}
+                handleDeleteItem={this.handleDeleteItem}
+              />
             );
           });
         return (

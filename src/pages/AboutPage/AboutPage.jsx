@@ -1,28 +1,70 @@
 import './AboutPage.scss';
 
 import React, { PureComponent } from 'react';
+import Markdown from 'react-markdown';
+import {page} from 'helpers/page';
 
 /**
  * Класс AboutPage - компонент, отображающий страницу О нас
  */
 export default class AboutPage extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    // значения полей, используемых в render()
+    this.state = {
+      pageContent: '',
+      contentLoaded: false,
+    };
+  }
+
+  componentDidMount() {
+    page('about')
+      .then(res => res.json())
+      .then(res => {
+          this.setState(
+            prevState => {
+              return {
+                ...prevState,
+                pageContent: res.result.page.content,
+                contentLoaded: true,
+              };
+            }
+          );
+        },
+        error => {
+          this.setState({
+            contentLoaded: true,
+            error,
+          });
+        });
+  }
+
   render() {
-    // Отображаем main
-    return (
-      <div className="about_page">
-        <div/>
-        <div className="info">
-          <h2>О нас</h2>
-          <p>Ferma Store – это связующее звено между сельхозпроизводителями, желающими продать урожай и горожанами, которым нужны свежие натуральные продукты.</p>
-          <p>Главное преимущество торговой площадки Ferma Store – возможность купить и продать фермерские продукты быстро, напрямую, без посредников.</p>
-          <p>Здесь без труда заказывают свежие, полезные и натуральные продукты для своей семьи, находят поставщика для магазина, ресторана, кафе и агропредприятия.</p>
-          <p>Для садоводов и дачников, владельцев агропредприятий - торговая площадка Ferma Store наименее затратный способ выхода на городские рынки сбыта, простой и удобный сервис для продажи сельхозпродукции.</p>
-          <p>Ferma Store нацелена на развитие интернет рынка натуральных продуктов и создание масштабной федеральной торговой площадки.</p>
-          <p>Со стороны фермеров мы приветствуем качественную продукцию, удобный и лояльный сервис, от покупателя ждем законное и добросовестное поведение.</p>
-          <p>Мы не стоим на месте, усердно работаем и запускаем новые сервисы для удобства продавцов и покупателей.</p>
+    const { error, pageContent, contentLoaded } = this.state;
+
+    if (error) {
+      return <p>Ошибка: {error.message}</p>;
+    }
+    else
+    if (!contentLoaded) {
+      return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
+    }
+    else {
+      return (
+        <div className="about_page">
+          <div/>
+          <div className="info">
+            {/* Render the markdown component */}
+            <Markdown
+              escapeHtml={true}
+              source={pageContent}
+            />
+          </div>
+          <div className="bags"/>
         </div>
-        <div className="bags"/>
-      </div>
-    );
+      );
+    }
+
   }
 }

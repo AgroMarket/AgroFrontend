@@ -42,7 +42,7 @@ export default class SellerItem extends PureComponent {
   editItem = (itemID, id) => {
     this.props.itemHandle(itemID);
     this.props.getID(id);
-};
+  };
 
   render() {
     const { item, handleDeleteItem, itemNumber } = this.props;

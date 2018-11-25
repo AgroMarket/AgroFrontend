@@ -5,13 +5,14 @@ import PropTypes from 'prop-types';
 
 import SellerItems from 'components/SellerItems';
 import NewProduct from 'components/NewProduct';
+import ProfileContragent from 'components/ProfileContragent';
 import SellerSells from 'components/SellerSells';
 import UserProfile from 'components/UserProfile';
 import SellerClients from 'components/SellerClients';
 import SellerOrder from 'components/SellerOrder';
 import EditProfile from 'components/EditProfile';
 import ProfilePurchase from 'components/ProfilePurchase';
-import ProfileSellers from 'components/ProfileSellers/ProfileSellers';
+import ProfileSellers from 'components/ProfileSellers';
 import {serverAddress} from 'constants/ServerAddress';
 
 /**
@@ -23,7 +24,7 @@ export default class ProfileContent extends PureComponent {
 
     // значения полей, используемых в render()
     this.state = {
-      // id редактируемого товара
+      // id редактируемого или отображаемого пользователя
       id: -1,
     };
   }
@@ -37,6 +38,17 @@ export default class ProfileContent extends PureComponent {
     jwtToken: PropTypes.string,
     newItemCreated: PropTypes.func,
     seller: PropTypes.bool,
+  };
+
+  getID = id => {
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          id: id,
+        };
+      }
+    );
   };
 
   newItemCreated = (itemID, item, newItem) => {
@@ -71,19 +83,11 @@ export default class ProfileContent extends PureComponent {
       body: itemJSON,
     })
       .then(
-        () => itemHandle(itemID)
+        () => {
+          itemHandle(itemID);
+          this.getID(-1);
+        }
       );
-  };
-
-  getID = id => {
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          id: id,
-        };
-      }
-    );
   };
 
   render() {
@@ -140,7 +144,20 @@ export default class ProfileContent extends PureComponent {
       case 'seller_clients':
         return (
           <div className="seller_content">
-            <SellerClients itemHandle={itemHandle} jwtToken={jwtToken}/>
+            <SellerClients
+              itemHandle={itemHandle}
+              jwtToken={jwtToken}
+              getID={this.getID}
+            />
+          </div>
+        );
+      case 'contragent_profile':
+        return (
+          <div className="seller_content">
+            <ProfileContragent
+              id={id}
+              getID={this.getID}
+            />
           </div>
         );
       case 'user_profile':

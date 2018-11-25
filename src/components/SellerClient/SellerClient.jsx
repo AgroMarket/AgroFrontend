@@ -35,10 +35,16 @@ export default class SellerClient extends PureComponent {
     }),
     // Функция отображения сведений о клиенте
     itemHandle: PropTypes.func,
+    getID: PropTypes.func,
   };
-  
+
+  showClientInfo = (itemID, id) => {
+    this.props.itemHandle(itemID);
+    this.props.getID(id);
+  };
+
   render() {
-    const { item, itemHandle } = this.props;
+    const { item } = this.props;
 
     return (
       <p className="seller_item client_info">
@@ -62,7 +68,7 @@ export default class SellerClient extends PureComponent {
           variant="contained"
           color="primary"
           id={editItemButton.id}
-          onClick={() => itemHandle('client_profile')}
+          onClick={() => this.showClientInfo('contragent_profile', item.consumer.id)}
         >
           {editItemButton.name}
         </Button>

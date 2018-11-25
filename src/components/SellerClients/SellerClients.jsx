@@ -27,6 +27,7 @@ export default class SellerClients extends PureComponent {
     // Функция отображения сведений о клиенте
     itemHandle: PropTypes.func,
     jwtToken: PropTypes.string,
+    getID: PropTypes.func,
   };
 
   componentDidMount() {
@@ -58,7 +59,7 @@ export default class SellerClients extends PureComponent {
 
   render() {
     const {error, clients, itemsLoaded} = this.state;
-    const {itemHandle} = this.props;
+    const {itemHandle, getID } = this.props;
     if (error) {
       return <p>Ошибка: {error.message}</p>;
     }
@@ -76,7 +77,7 @@ export default class SellerClients extends PureComponent {
       else
         content = (clients.consumers.map((item, idx) => {
           return (
-            <SellerClient item={item} key={idx} itemHandle={itemHandle}/>
+            <SellerClient item={item} key={idx} itemHandle={itemHandle} getID={getID}/>
           );
         }));
       return (

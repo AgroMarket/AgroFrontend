@@ -1,6 +1,9 @@
 import './SellerOrder.scss';
 
 import React, { PureComponent } from 'react';
+import {serverAddress} from '../../constants/ServerAddress';
+import Avatar from '@material-ui/core/Avatar';
+import Moment from 'moment';
 
 const responseOrder = {
   "status": 200,
@@ -61,33 +64,71 @@ export default class SellerOrder extends PureComponent {
     // значения полей, используемых в render()
     this.state = {
       products: responseOrder.result.order.products,
+      order_id: responseOrder.result.order.id,
       producer_id: responseOrder.result.order.producer_id,
-      date: responseOrder.result.order.date,
-      total: responseOrder.result.order.total,
+      order_date: responseOrder.result.order.date,
+      order_total: responseOrder.result.order.total,
     };
   }
   
   render() {
     //let response = JSON.stringify(responseOrder);
     //let products = responseOrder.result.order.products;
+    Moment.locale('ru')
+    const rub = ' руб.'
     return (
-      <div className='container'>
-          <div>
-            <span>{this.state.producer_id}</span>
+      <div className='seller_container'>
+        <div>
+          <div className='order_information'>
+            <div>
+              <span>Номер заказа: {this.state.order_id}</span>
+            </div>
+            <div>
+              <span>Дата заказа: {Moment(this.state.order_date).format('LL')}</span>
+            </div>
           </div>
-          <div>
+          <div className='products'>
+            <div className='product'>
+              <div>
+                <span>Название продукта</span>
+              </div>
+              <div>
+                <span>Количество</span>
+              </div>
+              <div>
+                <span>Цена</span>
+              </div>
+              <div>
+                <span>Сумма</span>
+              </div>
+            </div>
             {this.state.products.map((product, index) =>
             {
               return(
-              <div className={`${product}-${product.id}`}>
-                <span key={product.id}>{product.product_name}</span>
+              <div className='product' key={index}>
+                <div>
+                  <span>{product.product_name}</span>
+                </div>
+                <div>
+                  <span>{product.product_quantity}</span>
+                </div>
+                <div>
+                  <span>{product.product_price + rub}</span>
+                </div>
+                <div>
+                  <span>{product.product_sum + rub}</span>
+                </div>
               </div>
               )
             }
-
-            )}
-           
+            )} 
           </div>
+          <div className='order_information'>
+            <div>
+              <span className='total_sum'>Общая сумма заказа: {this.state.order_total + rub}</span>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

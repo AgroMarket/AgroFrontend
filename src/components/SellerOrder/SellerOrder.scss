@@ -1,0 +1,43 @@
+.seller_container {
+    display: grid;
+    .order_information {
+        display: grid;
+        background: #FFFFFF;
+        box-sizing: border-box;
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        padding: 10px;
+        margin: 15px;
+        align-items: flex-end;
+        div {
+            display: grid;
+            text-align: end;
+            span {
+                padding-right: 3em;
+            }
+        }
+    }
+
+    .product {
+        display: grid;
+        align-items: center;
+        grid-template-columns: 25% 25% 25% 25%;
+        justify-items: center;
+        background: #FFFFFF;
+        box-sizing: border-box;
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        padding: 10px;
+        margin: 15px;
+        padding: 10px;
+        div {
+            justify-items: center;
+        }
+    }
+}
+
+.total_sum {
+    font-size: 1em;
+    font-weight: bold;
+}  
+

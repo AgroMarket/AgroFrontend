@@ -1,6 +1,6 @@
 import './UserProfile.scss';
 
-import React, { PureComponent } from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import Button from '@material-ui/core/Button/Button';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
 import PropTypes from 'prop-types';
@@ -72,6 +72,7 @@ export default class UserProfile extends PureComponent {
   render() {
     const { error, profile, itemsLoaded } = this.state;
     const { itemHandle, seller } = this.props;
+    let content;
     if (error) {
       return <p>Ошибка: {error.message}</p>;
     }
@@ -79,8 +80,40 @@ export default class UserProfile extends PureComponent {
       if (!itemsLoaded) {
         return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
       }
-      else
+      else {
         if (seller)
+          content = <Fragment>
+            <span className="profile_name">
+              {profile.profile.brand}
+            </span>
+            <span className="profile_address">
+                Регион: {profile.profile.address}
+            </span>
+            <span className="profile_phone">
+                Телефон: +7-{profile.profile.phome}
+            </span>
+            <span className="profile_inn">
+                ИНН: {profile.profile.inn}
+            </span>
+            <span className="profile_description">
+                {profile.profile.descripion}
+            </span>
+          </Fragment>;
+        else
+          content = <Fragment>
+            <span className="profile_name">
+              {profile.consumer.name}
+            </span>
+            <span className="profile_address">
+              Регион: {profile.consumer.address}
+            </span>
+            <span className="profile_phone">
+                Телефон: +7-{profile.consumer.phone}
+            </span>
+            <span className="profile_email">
+                Электронная почта: {profile.consumer.email}
+            </span>
+          </Fragment>;
           return (
             <div className="seller_items">
               <div className="seller_items_header">
@@ -88,21 +121,7 @@ export default class UserProfile extends PureComponent {
                 <h2>Мой профиль</h2>
               </div>
               <div className="seller_profile">
-                <span className="profile_name">
-                  {profile.profile.brand}
-                </span>
-                <span className="profile_address">
-                  Регион: {profile.profile.address}
-                </span>
-                <span className="profile_phone">
-                  Телефон: +7-{profile.profile.phome}
-                </span>
-                <span className="profile_inn">
-                  ИНН: {profile.profile.inn}
-                </span>
-                <span className="profile_description">
-                  {profile.profile.descripion}
-                </span>
+                {content}
                 <Button
                   className="edit_profile"
                   variant="contained"
@@ -115,37 +134,6 @@ export default class UserProfile extends PureComponent {
               </div>
             </div>
           );
-          else
-            return(
-              <div className="seller_items">
-                <div className="seller_items_header">
-                  <MyOrdersIcon className="my_orders_icon"/>
-                  <h2>Мой профиль</h2>
-                </div>
-                <div className="seller_profile">
-                  <span className="profile_name">
-                    {profile.consumer.name}
-                  </span>
-                  <span className="profile_address">
-                    Регион: {profile.consumer.address}
-                  </span>
-                  <span className="profile_phone">
-                    Телефон: +7-{profile.consumer.phone}
-                  </span>
-                  <span className="profile_email">
-                    Электронная почта: {profile.consumer.email}
-                  </span>
-                  <Button
-                    className="edit_profile"
-                    variant="contained"
-                    color="primary"
-                    id={editProfileButton.id}
-                    onClick={() => itemHandle('edit_profile')}
-                  >
-                    {editProfileButton.name}
-                  </Button>
-                </div>
-              </div>
-            );
-          }
+      }
+  }
 }

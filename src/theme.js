@@ -231,6 +231,11 @@ export default theme = {
         },
       },
     },
+    MuiSnackbarContent: {
+      root: {
+        backgroundColor: '#558b2f',
+      },
+    },
   },
   // Применени свойств для всех компонентов
   props: {

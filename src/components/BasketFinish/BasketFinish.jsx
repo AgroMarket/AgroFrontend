@@ -15,7 +15,7 @@ export default class BasketFinish extends PureComponent {
   render() {
     return (
       <div className="basket_finish">
-        <p>Ваш заказ № 00001 успешно оформлен</p>
+        <p>Ваш заказ успешно оформлен</p>
         <Button
           className="goto_catalog"
           variant="contained"

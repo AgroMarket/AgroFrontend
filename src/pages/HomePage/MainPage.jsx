@@ -31,6 +31,7 @@ export default class MainPage extends PureComponent {
       pagination: 'off',
       // режим отображения catalogList / catalogItem
       mode: 'catalogList',
+      searchResults: false,
     };
   }
 
@@ -71,6 +72,7 @@ export default class MainPage extends PureComponent {
           openedSection: `/api/products?search=${template.item}`,
           // переходим в режим отображения Каталог товаров
           mode: 'catalogList',
+          searchResults: true,
         };
       }
     );
@@ -88,6 +90,7 @@ export default class MainPage extends PureComponent {
           openedSection: `/api/categories/${sectionID}/products`,
           // переходим в режим отображения Каталог товаров
           mode: 'catalogList',
+          searchResults: false,
         };
       }
     );
@@ -122,7 +125,7 @@ export default class MainPage extends PureComponent {
   };
 
   render() {
-    const { error, menuLoaded, menuItems, openedSection, mode, openedItem } = this.state;
+    const { error, menuLoaded, menuItems, openedSection, mode, openedItem, searchResults } = this.state;
     const { basketID } = this.props;
     if (error) {
       return <p>Ошибка: {error.message}</p>;
@@ -142,7 +145,12 @@ export default class MainPage extends PureComponent {
         return (
           <div className="main_page">
             <div/>
-            <LeftMenu menu={menuItems} section={this.changeSection} className="left_menu"/>
+            <LeftMenu
+              menu={menuItems}
+              section={this.changeSection}
+              className="left_menu"
+              searchResults={searchResults}
+            />
             <div>
               <SearchForm onSend={this.handleItemSearch}/>
               {content}

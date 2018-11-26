@@ -27,6 +27,7 @@ export default class SellerSells extends PureComponent {
     // Функция отображения сведений о заказе
     itemHandle: PropTypes.func,
     jwtToken: PropTypes.string,
+    getID: PropTypes.func,
   };
 
   componentDidMount() {
@@ -56,9 +57,13 @@ export default class SellerSells extends PureComponent {
         });
   }
 
+  showOrderInfo = (itemID, id) => {
+    this.props.itemHandle(itemID);
+    this.props.getID(id);
+  };
+
   render() {
     const { error, orders, itemsLoaded } = this.state;
-    const { itemHandle } = this.props;
 
     if (error) {
       return <p>Ошибка: {error.message}</p>;
@@ -78,7 +83,7 @@ export default class SellerSells extends PureComponent {
       else
         content = (orders.orders.map((item, idx) => {
             return (
-              <OrderItem item={item} key={idx} itemHandle={itemHandle}/>
+              <OrderItem item={item} key={idx} itemHandle={() => this.showOrderInfo('open_order', item.order.id)}/>
             );
           }));
       return (

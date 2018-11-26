@@ -1,0 +1,24 @@
+// Коэффициент перевода в em
+$k: 16;
+
+// TODO подкорректировать CSS
+.seller_order {
+  .product {
+    display: grid;
+    margin: 15px;
+    align-items: center;
+    grid-template-columns: 25% 25% 25% 25%;
+    justify-items: center;
+    background: #ffffff;
+    box-sizing: border-box;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    div {
+      justify-items: center;
+    }
+    @media (max-width: 1280px) {
+      grid-template-columns: 25% 25% 25% 25%;
+    }
+  }
+}
+

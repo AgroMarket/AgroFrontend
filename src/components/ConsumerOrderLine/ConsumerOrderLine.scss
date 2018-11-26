@@ -1,0 +1,11 @@
+// Коэффициент перевода в em
+$k: 16;
+
+.order_total {
+  padding-left: 15rem/$k;
+  text-align: left;
+  width: 300rem/$k;
+}
+.order_status {
+  margin-left: auto;
+}

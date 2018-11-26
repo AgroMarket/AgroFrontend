@@ -12,6 +12,7 @@ import SellerClients from 'components/SellerClients';
 import SellerOrder from 'components/SellerOrder';
 import EditProfile from 'components/EditProfile';
 import ProfilePurchase from 'components/ProfilePurchase';
+import ConsumerOrderDetail from 'components/ConsumerOrderDetail';
 import ProfileSellers from 'components/ProfileSellers';
 import {serverAddress} from 'constants/ServerAddress';
 
@@ -98,7 +99,19 @@ export default class ProfileContent extends PureComponent {
       case 'profile_purchase':
         return (
           <div className="seller_content">
-            <ProfilePurchase itemHandle={itemHandle}/>
+            <ProfilePurchase itemHandle={itemHandle}
+              getID={this.getID}
+              jwtToken={jwtToken}
+            />
+          </div>
+        );
+      case 'consumer_order_detail':
+        return (
+          <div className="seller_content">
+            <ConsumerOrderDetail itemHandle={itemHandle}
+              getID={this.getID}
+              jwtToken={jwtToken}
+            />
           </div>
         );
       case 'profile_sellers':

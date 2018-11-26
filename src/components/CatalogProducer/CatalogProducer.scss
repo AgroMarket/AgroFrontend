@@ -1,0 +1,113 @@
+// Коэффициент перевода в em
+$k: 16;
+
+.load_info {
+  color: #558b2f;
+}
+.catalog_item {
+  display: grid;
+  background-color: #fff;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  grid-template-columns: 48.5% 51.5%;
+  margin-left: 20em/$k;
+  margin-top: 44em/$k;
+  padding: 40em/$k 75em/$k 55em/$k 22em/$k;
+  @media (max-width: 1920px) {
+    padding: 31em/$k 53em/$k 15em/$k 15em/$k;
+  }
+  @media (max-width: 1280px) {
+    grid-template-columns: 100%;
+    .back_button {
+      margin-top: 20rem/$k;
+    }
+    padding-left: 30rem/$k;
+    padding-right: 30rem/$k;
+  }
+  .add_button, .remove_button {
+    color: #fff;
+  }
+  .left_info {
+    padding-left: 46em/$k;
+    .item_title {
+      color: #34495e;
+      font-size: 24rem/$k;
+      font-weight: 500;
+    }
+    .item_description {
+      color: #34495e;
+      font-size: 14rem/$k;
+      font-weight: normal;
+    }
+    .item_seller {
+      color: #33691e;
+      font-size: 18rem/$k;
+      font-weight: normal;
+    }
+    @media (max-width: 1920px) {
+      padding-left: 33rem/$k;
+      .item_title {
+
+      }
+      .item_description {
+
+      }
+      .item_seller {
+        font-size: 14rem/$k;
+      }
+    }
+  }
+  .right_info {
+    padding-left: 37rem/$k;
+    img {
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 2px;
+      height: 292em/$k;
+      width: 383em/$k;
+    }
+    .item_counter {
+      color: #34495e;
+      font-size: 24rem/$k;
+      font-weight: normal;
+      padding-left: 5em/$k;
+      padding-right: 5em/$k;
+    }
+    .item_price {
+      color: #33691e;
+      font-size: 36rem/$k;
+      font-weight: 500;
+      padding-left: 15em/$k;
+    }
+    .add_to_basket_button {
+      font-size: 24rem/$k;
+      font-weight: 500;
+      height: 63rem/$k;
+      width: 383rem/$k;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 5px;
+    }
+    @media (max-width: 1920px) {
+      padding-left: 33em/$k;
+      img {
+        height: 251rem/$k;
+        width: 329rem/$k;
+      }
+      .item_counter {
+
+      }
+      .item_price {
+        font-size: 24rem/$k;
+      }
+      .add_to_basket_button {
+        font-size: 18rem/$k;
+        width: 329rem/$k;
+      }
+    }
+  }
+  .back_button {
+    padding-left: 46em/$k;
+    @media (max-width: 1920px) {
+      font-size: 14rem/$k;
+    }
+  }
+}

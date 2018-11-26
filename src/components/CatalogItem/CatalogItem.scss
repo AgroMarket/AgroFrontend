@@ -43,6 +43,11 @@ $k: 16;
       color: #33691e;
       font-size: 18rem/$k;
       font-weight: normal;
+      text-decoration: underline;
+    }
+    .item_seller:hover {
+      cursor: pointer;
+      text-decoration: none;
     }
     @media (max-width: 1920px) {
       padding-left: 33rem/$k;

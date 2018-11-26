@@ -44,6 +44,7 @@ export default class CatalogItem extends PureComponent {
     actionBack: PropTypes.func,
     // ID корзины на сервере
     basketID: PropTypes.string,
+    producerHandle: PropTypes.func,
   };
 
   // значения атрибутов по умолчанию
@@ -134,7 +135,7 @@ export default class CatalogItem extends PureComponent {
   render() {
     // получаем переданные свойства товаров каталога
     const { error, itemLoaded, catalogItem, itemCounter } = this.state;
-    const { actionBack } = this.props;
+    const { actionBack, producerHandle } = this.props;
     if (error) {
       return <p>Ошибка: {error.message}</p>;
     }
@@ -148,7 +149,9 @@ export default class CatalogItem extends PureComponent {
             <div className="left_info">
               <h2 className="item_title">{catalogItem.product.title}</h2>
               <p className="item_description">{catalogItem.product.descripion}</p>
-              <p className="item_seller">Производитель: {catalogItem.product.producer_name}</p>
+              <p className="item_seller"
+                 onClick={event => producerHandle(event, catalogItem.product.producer_id)}
+              >Производитель: {catalogItem.product.producer_name}</p>
             </div>
             <div className="right_info">
               <img src={serverAddress+catalogItem.product.image} alt={catalogItem.product.image}/>

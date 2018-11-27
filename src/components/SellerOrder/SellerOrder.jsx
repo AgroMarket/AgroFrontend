@@ -82,20 +82,20 @@ export default class SellerOrder extends PureComponent {
               <span>Сумма</span>
             </div>
           </div>
-          {order.products.map((product, index) => {
+          {order.order_items.map((product, index) => {
               return (
                 <div className="product seller_item" key={index}>
                   <div>
                     <span>{product.product_name}</span>
                   </div>
                   <div>
-                    <span>{product.product_quantity}</span>
+                    <span>{product.quantity}</span>
                   </div>
                   <div>
                     <span>{product.product_price + rub}</span>
                   </div>
                   <div>
-                    <span>{product.product_sum + rub}</span>
+                    <span>{product.sum + rub}</span>
                   </div>
                 </div>
               );

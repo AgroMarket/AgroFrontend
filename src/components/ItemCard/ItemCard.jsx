@@ -33,7 +33,7 @@ export default class ItemCard extends PureComponent {
     return (
       <Card className="catalogItem">
         <CardActionArea
-          onClick={event => itemHandle(event, item.product.id)}
+          onClick={() => itemHandle(item.product.id)}
         >
           <CardMedia
             component="img"

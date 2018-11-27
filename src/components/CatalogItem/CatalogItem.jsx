@@ -137,7 +137,7 @@ export default class CatalogItem extends PureComponent {
     const { error, itemLoaded, catalogItem, itemCounter } = this.state;
     const { actionBack, producerHandle } = this.props;
     if (error) {
-      return <p>Ошибка: {error.message}</p>;
+      return <p>CatalogItem::Ошибка: {error.message}</p>;
     }
     else
       if (!itemLoaded) {
@@ -150,7 +150,7 @@ export default class CatalogItem extends PureComponent {
               <h2 className="item_title">{catalogItem.product.title}</h2>
               <p className="item_description">{catalogItem.product.descripion}</p>
               <p className="item_seller"
-                 onClick={event => producerHandle(event, catalogItem.product.producer_id)}
+                 onClick={() => producerHandle(catalogItem.product.producer_id)}
               >Производитель: {catalogItem.product.producer_name}</p>
             </div>
             <div className="right_info">

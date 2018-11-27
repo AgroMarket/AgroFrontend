@@ -10,16 +10,16 @@ import {serverAddress} from 'constants/ServerAddress';
 const backButton = {id: 'back', name: 'Назад'};
 
 /**
- * Класс CatalogItem - компонент, отображающий сведения о товаре на странице
+ * Класс CatalogProducer - компонент, отображающий сведения о продавце на странице товара
  */
 export default class CatalogProducer extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      // товар каталога
+      // производитель товара
       catalogProducer: {},
-      // состояние загрузки товара каталога
+      // состояние загрузки сведений о производителе товара
       producerLoaded: false,
       // ошибка загрузки
       error: null,
@@ -28,9 +28,9 @@ export default class CatalogProducer extends PureComponent {
 
   // Проверка свойств
   static propTypes = {
-    // Адрес для просмотра информации о товаре каталога
+    // Адрес для просмотра информации о производителе товара
     producerLink: PropTypes.string,
-    // Функция возврата в каталог из просмотра информации о товаре каталога
+    // Функция возврата в каталог из просмотра информации о производителе товара
     actionBack: PropTypes.func,
     // ID корзины на сервере
     basketID: PropTypes.string,
@@ -65,7 +65,7 @@ export default class CatalogProducer extends PureComponent {
   }
 
   render() {
-    // получаем переданные свойства товаров каталога
+    // получаем переданные свойства производителя товара
     const { error, producerLoaded, catalogProducer } = this.state;
     const { actionBack } = this.props;
     if (error) {
@@ -77,36 +77,25 @@ export default class CatalogProducer extends PureComponent {
       }
       else {
         return (
-          <div className="catalog_item">
-            <div className="seller_items">
-              <div className="seller_items_header">
-                <h2>Страница производителя</h2>
-              </div>
-              <div className="seller_profile">
-                <span className="profile_name">
-                  {catalogProducer.producer.name}
-                </span>
-                <span className="profile_address">
+          <div className="producer_info">
+            <h2 className="producer_title">Производитель товара: {catalogProducer.producer.name}</h2>
+            <p className="producer_region">
               Регион: {catalogProducer.producer.address}
-            </span>
-                <span className="profile_phone">
-                Телефон: +7-{catalogProducer.producer.phone}
-            </span>
-                <span className="profile_email">
-                Электронная почта: {catalogProducer.producer.email}
-            </span>
-              </div>
-            </div>
-            <div>
-              <div className="back_button">
-                <Button
-                  color="primary"
-                  id={backButton.id}
-                  onClick={() => actionBack()}
-                >
-                  {backButton.name}
-                </Button>
-              </div>
+            </p>
+              <p className="producer_phone">
+              Телефон: +7-{catalogProducer.producer.phone}
+            </p>
+            <p className="producer_email">
+              Электронная почта: {catalogProducer.producer.email}
+            </p>
+            <div className="back_button">
+              <Button
+                color="primary"
+                id={backButton.id}
+                onClick={() => actionBack()}
+              >
+                {backButton.name}
+              </Button>
             </div>
           </div>
         );

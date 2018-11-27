@@ -100,7 +100,7 @@ export default class MainPage extends PureComponent {
   };
 
   // Пользователь открывает карточку товара
-  openItem = (event, itemID) => {
+  itemHandle = itemID => {
     this.setState(
       prevState => {
         return {
@@ -113,17 +113,14 @@ export default class MainPage extends PureComponent {
     );
   };
 
-  // Пользователь открывает страницу производителя
-  openProducer = (event, producerID) => {
-
+  // Пользователь открывает описание производителя
+  producerHandle = producerID => {
     this.setState(
       prevState => {
         return {
           ...prevState,
           openedProducer: `/api/producers/${producerID}`,
-          // openedItem: `/api/producers/143`,
-
-          // переходим в режим отображения Страницы производителя
+          // переходим в режим отображения Описания производителя
           mode: 'catalogProducer',
         };
       }
@@ -132,16 +129,30 @@ export default class MainPage extends PureComponent {
 
   // Пользователь возвращается в каталог из просмотра карточки товара
   closeItem = () => {
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          openedItem: '',
-          // переходим в режим отображения Каталога товаров
-          mode: 'catalogList',
-        };
-      }
-    );
+    if (this.state.mode === 'catalogItem') {
+      this.setState(
+        prevState => {
+          return {
+            ...prevState,
+            openedItem: '',
+            // переходим в режим отображения Каталога товаров
+            mode: 'catalogList',
+          };
+        }
+      );
+    }
+    else {
+      this.setState(
+        prevState => {
+          return {
+            ...prevState,
+            openedProducer: '',
+            // переходим в режим отображения Карточки товара
+            mode: 'catalogItem',
+          };
+        }
+      );
+    }
   };
 
   render() {
@@ -157,10 +168,10 @@ export default class MainPage extends PureComponent {
       else {
         let content;
         if (mode === 'catalogList') {
-          content = <CatalogList section={openedSection} itemHandle={this.openItem}/>;
+          content = <CatalogList section={openedSection} itemHandle={this.itemHandle}/>;
         }
         if (mode === 'catalogItem') {
-          content = <CatalogItem item={openedItem} actionBack={this.closeItem} producerHandle={this.openProducer} basketID={basketID}/>;
+          content = <CatalogItem item={openedItem} actionBack={this.closeItem} producerHandle={this.producerHandle} basketID={basketID}/>;
         }
         if (mode === 'catalogProducer') {
           content = <CatalogProducer producerLink={openedProducer} actionBack={this.closeItem} basketID={basketID}/>;

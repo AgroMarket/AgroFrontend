@@ -37,18 +37,18 @@ export default class ConsumerOrder extends PureComponent {
     const date = moment(item.order.date).format('DD.MM.YY HH:mm');
 
     return (
-      <p className="seller_item">
+      <p className="buyer_item">
         <span className="order_date">
           {date}
         </span>
-        <span>
-          Производитель {item.order.producer}
+        <span className="order_seller">
+          {item.order.producer}
         </span>
         <span className="order_total">
           Заказ на сумму {item.order.total} руб.
         </span>
         <Button
-          className="edit_button"
+          className="open_order_button"
           variant="contained"
           color="primary"
           id={openOrderButton.id}

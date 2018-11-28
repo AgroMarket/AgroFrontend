@@ -1,4 +1,4 @@
-import './ConsumerOrderLine.scss';
+import './BuyerItem.scss';
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
@@ -12,7 +12,7 @@ const openOrderButton = {
 };
 
 /**
- * Класс ConsumerOrder - компонент, отображающий строку со сведениями о заказе на странице покупателя
+ * Класс BuyerItem - компонент, отображающий строку со сведениями о заказе на странице покупателя
  */
 export default class ConsumerOrder extends PureComponent {
   // Проверка свойств

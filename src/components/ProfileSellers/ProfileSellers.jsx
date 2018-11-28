@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
 import PropTypes from 'prop-types';
 
-import ConsumerSellerLine from 'components/ConsumerSellerLine';
+import ProfileSeller from 'components/ProfileSeller';
 import {serverAddress} from 'constants/ServerAddress';
 
 /**
@@ -77,7 +77,7 @@ export default class ProfileSellers extends PureComponent {
       else
         content = (sellers.producers.map((item, idx) => {
           return (
-            <ConsumerSellerLine item={item} key={idx} itemHandle={itemHandle} getID={getID}/>
+            <ProfileSeller item={item} key={idx} itemHandle={itemHandle} getID={getID}/>
           );
         }));
       return (

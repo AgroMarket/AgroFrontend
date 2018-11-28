@@ -1,30 +1,30 @@
-import './SellerClients.scss';
+import './ProfileSells.scss';
 
 import React, { PureComponent } from 'react';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
 import PropTypes from 'prop-types';
 
-import SellerClient from 'components/SellerClient';
+import OrderItem from 'components/OrderItem';
 import {serverAddress} from 'constants/ServerAddress';
 
 /**
- * Класс SellerClients - компонент, отображающий клиентов на странице продавца
+ * Класс ProfileSells - компонент, отображающий заказы на странице продавца
  */
-export default class SellerClients extends PureComponent {
+export default class ProfileSells extends PureComponent {
   constructor(props) {
     super(props);
     
     // значения полей, используемых в render()
     this.state = {
-      // Клиенты
-      clients: {},
+      // Заказы
+      orders: {},
       itemsLoaded: false,
     };
   }
 
   // Проверка свойств
   static propTypes = {
-    // Функция отображения сведений о клиенте
+    // Функция отображения сведений о заказе
     itemHandle: PropTypes.func,
     jwtToken: PropTypes.string,
     getID: PropTypes.func,
@@ -32,7 +32,7 @@ export default class SellerClients extends PureComponent {
 
   componentDidMount() {
     const {jwtToken} = this.props;
-    fetch(`${serverAddress}/api/producer/consumers`, {
+    fetch(`${serverAddress}/api/producer/orders`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },
@@ -43,7 +43,7 @@ export default class SellerClients extends PureComponent {
             prevState => {
               return {
                 ...prevState,
-                clients: res.result,
+                orders: res.result,
                 itemsLoaded: true,
               };
             }
@@ -57,34 +57,40 @@ export default class SellerClients extends PureComponent {
         });
   }
 
+  showOrderInfo = (itemID, id) => {
+    this.props.itemHandle(itemID);
+    this.props.getID(id);
+  };
+
   render() {
-    const {error, clients, itemsLoaded} = this.state;
-    const {itemHandle, getID } = this.props;
+    const { error, orders, itemsLoaded } = this.state;
+
     if (error) {
       return <p>Ошибка: {error.message}</p>;
     }
-    else if (!itemsLoaded) {
+    else
+    if (!itemsLoaded) {
       return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
     }
     else {
       let content;
-      if (clients === undefined || clients.length === 0 || clients.consumers === undefined || clients.consumers.length === 0) {
+      if (orders === undefined || orders.length === 0 || orders.orders === undefined || orders.orders.length === 0) {
         content = <div className="load_info">
           <div/>
-          <p>К сожалению у Вас еще не было покупателей.</p>
+          <p>К сожалению Вы еще не получили заказ.</p>
         </div>;
       }
       else
-        content = (clients.consumers.map((item, idx) => {
-          return (
-            <SellerClient item={item} key={idx} itemHandle={itemHandle} getID={getID}/>
-          );
-        }));
+        content = (orders.orders.map((item, idx) => {
+            return (
+              <OrderItem item={item} key={idx} itemHandle={() => this.showOrderInfo('open_order', item.order.id)}/>
+            );
+          }));
       return (
         <div className="seller_items">
           <div className="seller_items_header">
             <MyOrdersIcon className="my_orders_icon"/>
-            <h2>Мои покупатели</h2>
+            <h2>Заказы</h2>
           </div>
           {content}
         </div>

@@ -22,13 +22,13 @@ export const menuItems = [
   {
     id: 'seller_sells',
     name: 'Продажи',
-    component: 'SellerSells',
+    component: 'ProfileSells',
     icon: MyOrdersIcon,
   },
   {
     id: 'seller_clients',
     name: 'Покупатели',
-    component: 'SellerClients',
+    component: 'ProfileClient',
     icon: MyOrdersIcon,
   },
   {

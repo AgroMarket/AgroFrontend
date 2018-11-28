@@ -1,11 +1,11 @@
-import './ConsumerOrderDetail.scss';
+import './OrderDetails.scss';
 
 import React, { PureComponent } from 'react';
 
 /**
- * Класс SellerOrder - компонент, отображающий подробные сведения о заказе на странице продавца
+ * Класс OrderDetails - компонент, отображающий подробные сведения о заказе на странице продавца
  */
-export default class ConsumerOrderDetail extends PureComponent {
+export default class OrderDetails extends PureComponent {
   constructor(props) {
     super(props);
     

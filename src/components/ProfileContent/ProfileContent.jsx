@@ -6,13 +6,13 @@ import PropTypes from 'prop-types';
 import SellerItems from 'components/SellerItems';
 import NewProduct from 'components/NewProduct';
 import ProfileContragent from 'components/ProfileContragent';
-import SellerSells from 'components/SellerSells';
+import ProfileSells from 'components/ProfileSells';
 import UserProfile from 'components/UserProfile';
-import SellerClients from 'components/SellerClients';
+import ProfileClients from 'components/ProfileClients';
 import SellerOrder from 'components/SellerOrder';
 import EditProfile from 'components/EditProfile';
 import ProfilePurchase from 'components/ProfilePurchase';
-import ConsumerOrderDetail from 'components/ConsumerOrderDetail';
+import OrderDetails from 'components/OrderDetails';
 import ProfileSellers from 'components/ProfileSellers';
 import {serverAddress} from 'constants/ServerAddress';
 
@@ -99,7 +99,8 @@ export default class ProfileContent extends PureComponent {
       case 'profile_purchase':
         return (
           <div className="seller_content">
-            <ProfilePurchase itemHandle={itemHandle}
+            <ProfilePurchase
+              itemHandle={itemHandle}
               getID={this.getID}
               jwtToken={jwtToken}
             />
@@ -108,7 +109,8 @@ export default class ProfileContent extends PureComponent {
       case 'consumer_order_detail':
         return (
           <div className="seller_content">
-            <ConsumerOrderDetail itemHandle={itemHandle}
+            <OrderDetails
+              itemHandle={itemHandle}
               getID={this.getID}
               jwtToken={jwtToken}
             />
@@ -117,7 +119,8 @@ export default class ProfileContent extends PureComponent {
       case 'profile_sellers':
         return (
           <div className="seller_content">
-            <ProfileSellers itemHandle={itemHandle}
+            <ProfileSellers
+              itemHandle={itemHandle}
               getID={this.getID}
               jwtToken={jwtToken}
             />
@@ -148,7 +151,7 @@ export default class ProfileContent extends PureComponent {
       case 'seller_sells':
         return (
           <div className="seller_content">
-            <SellerSells itemHandle={itemHandle} jwtToken={jwtToken} getID={this.getID}/>
+            <ProfileSells itemHandle={itemHandle} jwtToken={jwtToken} getID={this.getID}/>
           </div>
         );
       case 'open_order':
@@ -160,7 +163,7 @@ export default class ProfileContent extends PureComponent {
       case 'seller_clients':
         return (
           <div className="seller_content">
-            <SellerClients
+            <ProfileClients
               itemHandle={itemHandle}
               jwtToken={jwtToken}
               getID={this.getID}

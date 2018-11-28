@@ -1,4 +1,4 @@
-import './ConsumerSellerLine.scss';
+import './ProfileClient.scss';
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
@@ -13,9 +13,9 @@ const editItemButton = {
 };
 
 /**
- * Класс SellerClient - компонент, отображающий сведения о покурателе на странице продавца
+ * Класс ProfileClient - компонент, отображающий сведения о покупателе на странице продавца
  */
-export default class ConsumerSellerLine extends PureComponent {
+export default class ProfileClient extends PureComponent {
 // Проверка свойств
   static propTypes = {
     // Пункты меню - массив объектов
@@ -49,18 +49,18 @@ export default class ConsumerSellerLine extends PureComponent {
     return (
       <p className="seller_item client_info">
         <img
-          src={serverAddress + item.producer.logo}
-          alt={item.producer.name}
+          src={serverAddress + item.consumer.image}
+          alt="Клиент"
         />
         <span className="consumer_info">
           <span className="consumer_name">
-            Покупатель: {item.producer.name}
+            Покупатель: {item.consumer.name}
           </span>
           <span className="consumer_address">
-            Адрес: {item.producer.address}
+            Адрес: {item.consumer.address}
           </span>
           <span className="consumer_phone">
-            Телефон: +7-{item.producer.phone}
+            Телефон: +7-{item.consumer.phone}
           </span>
         </span>
         <Button
@@ -68,7 +68,7 @@ export default class ConsumerSellerLine extends PureComponent {
           variant="contained"
           color="primary"
           id={editItemButton.id}
-          onClick={() => this.showClientInfo('contragent_profile', item.producer.id)}
+          onClick={() => this.showClientInfo('contragent_profile', item.consumer.id)}
         >
           {editItemButton.name}
         </Button>

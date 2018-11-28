@@ -2,9 +2,9 @@ import './ProfilePurchase.scss';
 
 import React, { PureComponent } from 'react';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
-import ConsumerOrderLine from 'components/ConsumerOrderLine';
 import PropTypes from 'prop-types';
 
+import BuyerItem from 'components/BuyerItem';
 import {serverAddress} from 'constants/ServerAddress';
 
 /**
@@ -27,6 +27,7 @@ export default class ProfilePurchase extends PureComponent {
     // Функция отображения сведений о заказе
     itemHandle: PropTypes.func,
     jwtToken: PropTypes.string,
+    getID: PropTypes.func,
   };
 
   componentDidMount() {
@@ -56,9 +57,13 @@ export default class ProfilePurchase extends PureComponent {
         });
   }
 
+  showOrderInfo = (itemID, id) => {
+    this.props.itemHandle(itemID);
+    this.props.getID(id);
+  };
+
   render() {
     const { error, orders, itemsLoaded } = this.state;
-    const { itemHandle } = this.props;
 
     if (error) {
       return <p>Ошибка: {error.message}</p>;
@@ -72,13 +77,13 @@ export default class ProfilePurchase extends PureComponent {
       if (orders === undefined || orders.length === 0 || orders.orders === undefined || orders.orders.length === 0) {
         content = <div className="load_info">
           <div/>
-          <p>К сожалению Вы еще не получили заказ.</p>
+          <p>Вы еще не делали покупок.</p>
         </div>;
       }
       else
         content = (orders.orders.map((item, idx) => {
           return (
-            <ConsumerOrderLine item={item} key={idx} itemHandle={itemHandle}/>
+            <BuyerItem item={item} key={idx} itemHandle={() => this.showOrderInfo('open_order', item.order.id)}/>
           );
         }));
       return (

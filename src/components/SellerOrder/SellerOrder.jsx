@@ -28,7 +28,8 @@ export default class SellerOrder extends PureComponent {
 
   componentDidMount() {
     const { id } = this.props;
-    fetch(`${serverAddress}/api/producer/orders/${id}`)
+    // TODO узнать есть ли разница при получении данных по /api/consumer/orders/:id и /api/producer/orders/:id
+    fetch(`${serverAddress}/api/consumer/orders/${id}`)
       .then(res => res.json())
       .then(res => {
           this.setState(

@@ -30,7 +30,7 @@ export default class SearchForm extends PureComponent {
 
   // TODO Отправка запроса по нажатию Enter
   // обработка нажатий на клавиши
-  handleChange = event => {
+  onChange = event => {
     this.setState({
       // подставляем переменную в ключ объекта (item)
       [event.target.name]: event.target.value,
@@ -43,7 +43,7 @@ export default class SearchForm extends PureComponent {
       // получаем значение
       const {onSend} = this.props;
 
-      onSend(this.state);
+      onSend(this.state.item);
     }
   };
 
@@ -53,7 +53,7 @@ export default class SearchForm extends PureComponent {
     const { item } = this.state;
     return (
       <div className="searcher">
-        <input type="text" name="item" id="search_row" onChange={this.handleChange} value={item} placeholder=' '/>
+        <input type="text" name="item" id="search_row" onChange={this.onChange} value={item} placeholder=' '/>
         <label htmlFor="search_row">Введите название товара</label>
         <span className="search_button">
             <Button

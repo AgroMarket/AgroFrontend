@@ -27,6 +27,8 @@ export default class MainPage extends PureComponent {
       openedItem: '',
       // адрес производителя
       openedProducer: '',
+      // ID производителя
+      producerID: '',
       // ошибка загрузки
       error: null,
       // TODO добавить пагинацию для вывода товаров каталога
@@ -66,13 +68,36 @@ export default class MainPage extends PureComponent {
       });
   }
 
-  handleItemSearch = template => {
+  /**
+   * Отображение товаров, найденных в каталоге по запросу
+   * @param template искомый товар
+   */
+  onSend = template => {
     this.setState(
       prevState => {
         return {
           ...prevState,
           // загружаем найденные товары
-          openedSection: `/api/products?search=${template.item}`,
+          openedSection: `/api/products?search=${template}`,
+          // переходим в режим отображения Каталог товаров
+          mode: 'catalogList',
+          searchResults: true,
+        };
+      }
+    );
+  };
+
+  /**
+   * Отображение товаров производителя по запросу
+   * @param producerID ID искомого производителя
+   */
+  showProducerCatalog = producerID => {
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          // загружаем найденные товары
+          openedSection: `/api/producers/${producerID}/products`,
           // переходим в режим отображения Каталог товаров
           mode: 'catalogList',
           searchResults: true,
@@ -122,6 +147,7 @@ export default class MainPage extends PureComponent {
           openedProducer: `/api/producers/${producerID}`,
           // переходим в режим отображения Описания производителя
           mode: 'catalogProducer',
+          producerID: producerID,
         };
       }
     );
@@ -156,7 +182,7 @@ export default class MainPage extends PureComponent {
   };
 
   render() {
-    const { error, menuLoaded, menuItems, openedSection, mode, openedItem, searchResults, openedProducer } = this.state;
+    const { error, menuLoaded, menuItems, openedSection, mode, openedItem, searchResults, openedProducer, producerID } = this.state;
     const { basketID } = this.props;
     if (error) {
       return <p>Ошибка: {error.message}</p>;
@@ -174,7 +200,13 @@ export default class MainPage extends PureComponent {
           content = <CatalogItem item={openedItem} actionBack={this.closeItem} producerHandle={this.producerHandle} basketID={basketID}/>;
         }
         if (mode === 'catalogProducer') {
-          content = <CatalogProducer producerLink={openedProducer} actionBack={this.closeItem} basketID={basketID}/>;
+          content = <CatalogProducer
+            openedProducer={openedProducer}
+            actionBack={this.closeItem}
+            showProducerCatalog={this.showProducerCatalog}
+            basketID={basketID}
+            producerID={producerID}
+          />;
         }
         return (
           <div className="main_page">
@@ -186,7 +218,7 @@ export default class MainPage extends PureComponent {
               searchResults={searchResults}
             />
             <div>
-              <SearchForm onSend={this.handleItemSearch}/>
+              <SearchForm onSend={this.onSend}/>
               {content}
             </div>
             <div/>

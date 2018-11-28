@@ -8,6 +8,11 @@ import {serverAddress} from 'constants/ServerAddress';
 
 // Данные для кнопки Назад
 const backButton = {id: 'back', name: 'Назад'};
+// Данные для кнопки Все товары производителя
+const showSellerCatalogButton = {
+  id: 'open_products',
+  name: 'Все товары производителя',
+};
 
 /**
  * Класс CatalogProducer - компонент, отображающий сведения о продавце на странице товара
@@ -29,7 +34,7 @@ export default class CatalogProducer extends PureComponent {
   // Проверка свойств
   static propTypes = {
     // Адрес для просмотра информации о производителе товара
-    producerLink: PropTypes.string,
+    openedProducer: PropTypes.string,
     // Функция возврата в каталог из просмотра информации о производителе товара
     actionBack: PropTypes.func,
     // ID корзины на сервере
@@ -38,12 +43,12 @@ export default class CatalogProducer extends PureComponent {
 
   // значения атрибутов по умолчанию
   static defaultProps = {
-    // аттрибут producerLink инициализируем пустой строкой
-    producerLink: '',
+    // аттрибут openedProducer инициализируем пустой строкой
+    openedProducer: '',
   };
 
   componentDidMount() {
-    fetch(`${serverAddress}${this.props.producerLink}`)
+    fetch(`${serverAddress}${this.props.openedProducer}`)
       .then(res => res.json())
       .then(res => {
           this.setState(
@@ -67,7 +72,7 @@ export default class CatalogProducer extends PureComponent {
   render() {
     // получаем переданные свойства производителя товара
     const { error, producerLoaded, catalogProducer } = this.state;
-    const { actionBack } = this.props;
+    const { actionBack, showProducerCatalog, producerID } = this.props;
     if (error) {
       return <p>CatalogProducer::Ошибка: {error.message}</p>;
     }
@@ -88,6 +93,17 @@ export default class CatalogProducer extends PureComponent {
             <p className="producer_email">
               Электронная почта: {catalogProducer.producer.email}
             </p>
+            <div className="seller_catalog_button">
+              <Button
+                className="edit_button"
+                variant="contained"
+                color="primary"
+                id={showSellerCatalogButton.id}
+                onClick={() => showProducerCatalog(producerID)}
+              >
+                {showSellerCatalogButton.name}
+              </Button>
+            </div>
             <div className="back_button">
               <Button
                 color="primary"

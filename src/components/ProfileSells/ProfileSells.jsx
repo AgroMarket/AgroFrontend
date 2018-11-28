@@ -77,7 +77,7 @@ export default class ProfileSells extends PureComponent {
       if (orders === undefined || orders.length === 0 || orders.orders === undefined || orders.orders.length === 0) {
         content = <div className="load_info">
           <div/>
-          <p>К сожалению Вы еще не получили заказ.</p>
+          <p>Вы еще не продали товар.</p>
         </div>;
       }
       else

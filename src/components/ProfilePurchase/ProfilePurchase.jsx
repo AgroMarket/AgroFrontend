@@ -90,7 +90,7 @@ export default class ProfilePurchase extends PureComponent {
         <div className="seller_items">
           <div className="seller_items_header">
             <MyOrdersIcon className="my_orders_icon"/>
-            <h2>Заказы</h2>
+            <h2>Покупки</h2>
           </div>
           {content}
         </div>

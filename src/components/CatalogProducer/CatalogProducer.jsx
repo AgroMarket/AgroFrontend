@@ -39,6 +39,8 @@ export default class CatalogProducer extends PureComponent {
     actionBack: PropTypes.func,
     // ID корзины на сервере
     basketID: PropTypes.string,
+    showProducerCatalog: PropTypes.func,
+    producerID: PropTypes.number,
   };
 
   // значения атрибутов по умолчанию

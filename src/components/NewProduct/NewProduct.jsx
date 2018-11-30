@@ -3,18 +3,18 @@ import './NewProduct.scss';
 import React, { PureComponent } from 'react';
 import Button from '@material-ui/core/Button/Button';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
+import PropTypes from 'prop-types';
 
 import {serverAddress} from 'constants/ServerAddress';
-import PropTypes from 'prop-types';
 
 // Данные для кнопки Сохранить изменения
 const saveItemButton = {
-  id: 'open_profile',
+  id: 'save_item',
   name: 'Сохранить изменения',
 };
 // Данные для кнопки Загрузить фотографию товара
 const loadItemPhotoButton = {
-  id: 'open_profile',
+  id: 'load_item_photo',
   name: 'Загрузить фотографию товара',
 };
 
@@ -27,7 +27,7 @@ export default class NewProduct extends PureComponent {
 
     // значения полей, используемых в render()
     this.state = {
-      // данные профиля
+      // категории товаров
       categories: [],
       itemsLoaded: false,
       error: null,
@@ -47,7 +47,7 @@ export default class NewProduct extends PureComponent {
   // Проверка свойств
   static propTypes = {
     newItemCreated: PropTypes.func,
-    newItem: PropTypes.string,
+    newItem: PropTypes.bool,
     id: PropTypes.number,
   };
 
@@ -74,7 +74,7 @@ export default class NewProduct extends PureComponent {
         })
       .then(
         () => {
-          if (this.props.newItem === 'false') {
+          if (!this.props.newItem) {
             this.setState(
               prevState => {
                 return {
@@ -117,7 +117,7 @@ export default class NewProduct extends PureComponent {
     const { newItemCreated, newItem } = this.props;
     const item = {
       name: name,
-      category: category,
+      category_id: category,
       measures: measures,
       price: price,
       description: description,

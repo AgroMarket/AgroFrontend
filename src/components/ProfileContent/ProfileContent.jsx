@@ -10,7 +10,7 @@ import ProfileSells from 'components/ProfileSells';
 import UserProfile from 'components/UserProfile';
 import ProfileClients from 'components/ProfileClients';
 import SellerOrder from 'components/SellerOrder';
-import EditProfile from 'components/EditProfile';
+import ProfileEdit from 'components/ProfileEdit';
 import ProfilePurchase from 'components/ProfilePurchase';
 import BuyerOrder from 'components/BuyerOrder';
 import ProfileSellers from 'components/ProfileSellers';
@@ -25,7 +25,7 @@ export default class ProfileContent extends PureComponent {
 
     // значения полей, используемых в render()
     this.state = {
-      // id редактируемого или отображаемого пользователя
+      // id редактируемого или отображаемого элемента
       id: -1,
     };
   }
@@ -37,7 +37,6 @@ export default class ProfileContent extends PureComponent {
     // открытый пункт меню
     openedSection: PropTypes.string,
     jwtToken: PropTypes.string,
-    newItemCreated: PropTypes.func,
     seller: PropTypes.bool,
   };
 
@@ -56,14 +55,7 @@ export default class ProfileContent extends PureComponent {
     const { id } = this.state;
     const { jwtToken, itemHandle } = this.props;
     const itemJSON = JSON.stringify({
-      'product':
-        {
-          'name': item.name,
-          'description': item.description,
-          'measures': item.measures,
-          'price': item.price,
-          'category_id': item.category,
-        },
+      'product': item,
     });
     let request, method;
     if (newItem === 'true') {
@@ -137,13 +129,13 @@ export default class ProfileContent extends PureComponent {
       case 'new_product':
         return (
           <div className="seller_content">
-            <NewProduct newItemCreated={this.newItemCreated} newItem="true"/>
+            <NewProduct newItemCreated={this.newItemCreated} newItem={true}/>
           </div>
         );
       case 'edit_product':
         return (
           <div className="seller_content">
-            <NewProduct newItemCreated={this.newItemCreated} newItem="false" id={id}/>
+            <NewProduct newItemCreated={this.newItemCreated} newItem={false} id={id}/>
           </div>
         );
       case 'seller_sells':
@@ -190,7 +182,11 @@ export default class ProfileContent extends PureComponent {
       case 'edit_profile':
         return (
           <div className="seller_content">
-            <EditProfile/>
+            <ProfileEdit
+              itemHandle={itemHandle}
+              jwtToken={jwtToken}
+              seller={seller}
+            />
           </div>
         );
     }

@@ -1,7 +1,7 @@
 /**
- * Проверяет браузер на доступность localStorage
- * @param type
- * @return {boolean}
+ * Проверяет браузер на доступность localStorage или sessionStorage
+ * @param type тип хранилища в браузере (localStorage или sessionStorage)
+ * @return {boolean} true, если браузер поддерживает
  */
 export function storageAvailable(type) {
   try {

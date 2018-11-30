@@ -25,7 +25,7 @@ export default class LoginPage extends PureComponent {
     this.state = {
       email: '',
       password: '',
-      isChecked: false,
+      rememberLogin: false,
     };
   }
 
@@ -40,19 +40,24 @@ export default class LoginPage extends PureComponent {
     });
   };
 
+  handleChangeBox = event => {
+    this.setState({ [event.target.name]: event.target.checked });
+  };
+
+
   handleSend = () => {
-    const  { email, password } = this.state;
+    const  { email, password, rememberLogin } = this.state;
     const { setToken } = this.props;
 
     login(serverAddress, email, password)
       .then(res => res.json())
       .then(res => {
-        setToken(res.jwt);
+        setToken(res.jwt, rememberLogin);
       });
   };
   
   render() {
-    const {email, password, isChecked} = this.state;
+    const {email, password, rememberLogin} = this.state;
     return (
       <div className="container">
         <div className="login_form">
@@ -79,8 +84,10 @@ export default class LoginPage extends PureComponent {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={isChecked}
-                  color="primary"
+                  checked={rememberLogin}
+                  onChange={this.handleChangeBox}
+                  value="rememberLogin"
+                  name="rememberLogin"
                 />
               }
               label="Запомнить меня"

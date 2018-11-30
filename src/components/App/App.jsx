@@ -62,11 +62,20 @@ export default class App extends PureComponent {
         );
       }
     }
-    // localStorage не доступен
-    else {
+    else
       this.getBasketID();
+    // если доступен sessionStorage браузера
+    if (this.state.jwtToken === '' && storageAvailable('sessionStorage') && sessionStorage.getItem('jwtToken') !== null) {
+        this.setState(
+          prevState => {
+            return {
+              ...prevState,
+              jwtToken: sessionStorage.getItem('jwtToken'),
+            };
+          }
+        );
+      }
     }
-  }
 
   // получает с сервера id новой корзины и сохраняет его в state
   getBasketID = () => {
@@ -77,7 +86,8 @@ export default class App extends PureComponent {
       .then(res => {
           this.setState(
             prevState => {
-              localStorage.setItem('basketID', res.result.cart_id);
+              if (storageAvailable('localStorage'))
+                localStorage.setItem('basketID', res.result.cart_id);
               return {
                 ...prevState,
                 basketID: String(res.result.cart_id),
@@ -101,27 +111,31 @@ export default class App extends PureComponent {
       .then(res => {
         // если на сервере корзина с указанным id не существует
         if (res.status !== 200 || this.state.getBasketID === -1)
-          // то олучаем с сервера id для новой корзины
+          // то получаем с сервера id для новой корзины
           this.getBasketID();
         else
-          // иначе загружаем id корзины из localStorage
+          // иначе сохраняем переданный id корзины в state
           this.setState(
             prevState => {
-              return {
-                ...prevState,
-                basketID: localStorage.getItem('basketID'),
-                basketCreated: true,
-              };
+                return {
+                  ...prevState,
+                  basketID: id,
+                  basketCreated: true,
+                };
             }
           );
       });
   };
 
   // сохраняет jwt токен в браузере и в state
-  setToken = token => {
+  setToken = (token, saveToken) => {
     this.setState(
       prevState => {
-        localStorage.setItem('jwtToken', token);
+        if (saveToken && storageAvailable('localStorage'))
+          localStorage.setItem('jwtToken', token);
+        else
+          if (storageAvailable('sessionStorage'))
+            sessionStorage.setItem('jwtToken', token);
         return {
           ...prevState,
           jwtToken: token,
@@ -134,7 +148,10 @@ export default class App extends PureComponent {
   handleLogout = () => {
     this.setState(
       prevState => {
-        localStorage.removeItem('jwtToken');
+        if (storageAvailable('localStorage'))
+          localStorage.removeItem('jwtToken');
+        if (storageAvailable('sessionStorage'))
+          sessionStorage.removeItem('jwtToken');
         return {
           ...prevState,
           jwtToken: '',

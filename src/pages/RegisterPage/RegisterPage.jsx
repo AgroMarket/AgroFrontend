@@ -29,8 +29,7 @@ export default class RegisterPage extends PureComponent {
       name: '',
       phone: '',
       address: '',
-      // TODO обработка сохранения данных аутентификации
-      isChecked: false,
+      rememberLogin: false,
     };
   }
 
@@ -45,8 +44,12 @@ export default class RegisterPage extends PureComponent {
     });
   };
 
+  handleChangeBox = event => {
+    this.setState({ [event.target.name]: event.target.checked });
+  };
+
   handleSend = () => {
-    const {email, password, name, phone, address} = this.state;
+    const {email, password, name, phone, address, rememberLogin} = this.state;
     const {setToken} = this.props;
 
     // TODO сделать проверку ответа - пользователь может быть уже зарегистрирован
@@ -56,13 +59,13 @@ export default class RegisterPage extends PureComponent {
       login(serverAddress, email, password)
         .then(res => res.json())
         .then(res => {
-          setToken(res.jwt);
+          setToken(res.jwt, rememberLogin);
         });
     });
   };
 
   render() {
-    const {email, password, name, phone, address, isChecked} = this.state;
+    const {email, password, name, phone, address, rememberLogin} = this.state;
     return (
       <div className="container">
         <div className="register_form">
@@ -113,8 +116,10 @@ export default class RegisterPage extends PureComponent {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={isChecked}
-                  color="primary"
+                  checked={rememberLogin}
+                  onChange={this.handleChangeBox}
+                  value="rememberLogin"
+                  name="rememberLogin"
                 />
               }
               label="Запомнить меня"

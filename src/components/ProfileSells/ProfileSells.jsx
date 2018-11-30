@@ -83,7 +83,7 @@ export default class ProfileSells extends PureComponent {
       else
         content = (orders.orders.map((item, idx) => {
             return (
-              <OrderItem item={item} key={idx} itemHandle={() => this.showOrderInfo('open_order', item.order.id)}/>
+              <OrderItem item={item} key={idx} itemHandle={() => this.showOrderInfo('open_seller_order', item.order.id)}/>
             );
           }));
       return (

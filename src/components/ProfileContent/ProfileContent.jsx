@@ -12,7 +12,7 @@ import ProfileClients from 'components/ProfileClients';
 import SellerOrder from 'components/SellerOrder';
 import EditProfile from 'components/EditProfile';
 import ProfilePurchase from 'components/ProfilePurchase';
-import OrderDetails from 'components/OrderDetails';
+import BuyerOrder from 'components/BuyerOrder';
 import ProfileSellers from 'components/ProfileSellers';
 import {serverAddress} from 'constants/ServerAddress';
 
@@ -106,13 +106,11 @@ export default class ProfileContent extends PureComponent {
             />
           </div>
         );
-      case 'consumer_order_detail':
+      case 'open_buyer_order':
         return (
           <div className="seller_content">
-            <OrderDetails
-              itemHandle={itemHandle}
-              getID={this.getID}
-              jwtToken={jwtToken}
+            <BuyerOrder
+              id={id}
             />
           </div>
         );
@@ -154,7 +152,7 @@ export default class ProfileContent extends PureComponent {
             <ProfileSells itemHandle={itemHandle} jwtToken={jwtToken} getID={this.getID}/>
           </div>
         );
-      case 'open_order':
+      case 'open_seller_order':
         return (
           <div className="seller_content">
             <SellerOrder id={id}/>

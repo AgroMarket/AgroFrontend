@@ -83,7 +83,7 @@ export default class ProfilePurchase extends PureComponent {
       else
         content = (orders.orders.map((item, idx) => {
           return (
-            <BuyerItem item={item} key={idx} itemHandle={() => this.showOrderInfo('open_order', item.order.id)}/>
+            <BuyerItem item={item} key={idx} itemHandle={() => this.showOrderInfo('open_buyer_order', item.order.id)}/>
           );
         }));
       return (

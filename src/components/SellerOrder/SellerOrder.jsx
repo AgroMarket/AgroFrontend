@@ -28,8 +28,7 @@ export default class SellerOrder extends PureComponent {
 
   componentDidMount() {
     const { id } = this.props;
-    // TODO узнать есть ли разница при получении данных по /api/consumer/orders/:id и /api/producer/orders/:id
-    fetch(`${serverAddress}/api/consumer/orders/${id}`)
+    fetch(`${serverAddress}/api/producer/orders/${id}`)
       .then(res => res.json())
       .then(res => {
           this.setState(
@@ -64,7 +63,7 @@ export default class SellerOrder extends PureComponent {
     else {
       // TODO рефакторинг доделать
       return (
-        <div className="seller_items seller_order">
+        <div className="seller_items order_info">
           <div className="seller_items_header">
             <MyOrdersIcon className="my_orders_icon"/>
             <h2>Заказ № {order.id} от {moment(order.date).format('LL')}</h2>

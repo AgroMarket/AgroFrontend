@@ -66,11 +66,11 @@ export default class ProfileEdit extends PureComponent {
             prevState => {
               return {
                 ...prevState,
-                name: res.result.producer.producer_brand,
-                address: res.result.producer.producer_address,
-                phone: res.result.producer.producer_phome,
-                inn: res.result.producer.inn,
-                description: res.result.producer.producer_descripion,
+                name: res.result.profile.brand,
+                address: res.result.profile.address,
+                phone: res.result.profile.phome,
+                inn: res.result.profile.inn,
+                description: res.result.profile.descripion,
                 itemsLoaded: true,
               };
             }

@@ -1,0 +1,73 @@
+// Коэффициент перевода в em
+$k: 16;
+
+.details_for_return {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  input {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    color: #33691e;
+    font-size: 18rem/$k;
+    margin-bottom: 38rem/$k;
+    padding-left: 20rem/$k;
+  }
+  input {
+    height: 73rem/$k;
+  }
+  label
+  {
+    position: absolute;
+    color: #33691e;
+    font-size: 18rem/$k;
+    left: 20rem/$k;
+  }
+  .item_name {
+    top: 80rem/$k;
+  }
+  .item_account_number {
+    top: 190rem/$k;
+  }
+  .item_bank {
+    top: 300rem/$k;
+  }
+  .item_amount {
+    top: 412rem/$k;
+  }
+  :focus + label
+  {
+    opacity: 0;
+  }
+  :not(:placeholder-shown) + label
+  {
+    opacity: 0;
+  }
+  @media (max-width: 1920px) {
+    input {
+      font-size: 14rem/$k;
+      margin-bottom: 22rem/$k;
+      padding-left: 15rem/$k;
+    }
+    input {
+      height: 42rem/$k;
+    }
+    label
+    {
+      font-size: 14rem/$k;
+      left: 15rem/$k;
+    }
+    .item_name {
+      top: 67rem/$k;
+    }
+    .item_account_number {
+      top: 132rem/$k;
+    }
+    .item_bank {
+      top: 192rem/$k;
+    }
+    .item_amount {
+      top: 259rem/$k;
+    }
+  }
+}

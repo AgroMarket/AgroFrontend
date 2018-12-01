@@ -1,6 +1,7 @@
 import './ProfileAccount.scss';
 
 import React, { PureComponent } from 'react';
+import MyOrdersIcon from '@material-ui/icons/DateRange';
 import Button from '@material-ui/core/Button/Button';
 import PropTypes from 'prop-types';
 
@@ -38,7 +39,11 @@ export default class ProfileAccount extends PureComponent {
     const { itemHandle } = this.props;
 
     return (
-      <div className="profile_account">
+      <div className="profile_account seller_items">
+        <div className="seller_items_header">
+          <MyOrdersIcon className="my_orders_icon"/>
+          <h2>Счет на Ferma Store</h2>
+        </div>
         <p>Остаток денежных средств на счете {money} руб.</p>
         <Button
           className="add_money"

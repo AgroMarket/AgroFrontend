@@ -6,6 +6,7 @@ import MyOrdersIcon from '@material-ui/icons/DateRange';
 import PropTypes from 'prop-types';
 
 import {serverAddress} from 'constants/ServerAddress';
+import {seller, buyer} from 'constants/AuthorizationTypes';
 
 // Данные для кнопки Сохранить изменения
 const saveProfileButton = {
@@ -50,10 +51,11 @@ export default class ProfileEdit extends PureComponent {
     const { userStatus, jwtToken } = this.props;
     let profile;
 
-    if (userStatus === 'Producer')
+    if (userStatus === seller)
       profile = `${serverAddress}/api/producer/profile`;
     else
-      profile = `${serverAddress}/api/consumer/profile`;
+      if (userStatus === buyer)
+        profile = `${serverAddress}/api/consumer/profile`;
     fetch(profile, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
@@ -61,7 +63,7 @@ export default class ProfileEdit extends PureComponent {
     })
       .then(res => res.json())
       .then(res => {
-        if (userStatus === 'Producer') {
+        if (userStatus === seller) {
           this.setState(
             prevState => {
               return {
@@ -77,18 +79,19 @@ export default class ProfileEdit extends PureComponent {
           );
         }
         else
-          this.setState(
-            prevState => {
-              return {
-                ...prevState,
-                name: res.result.consumer.name,
-                email: res.result.consumer.email,
-                phone: res.result.consumer.phone,
-                address: res.result.consumer.address,
-                itemsLoaded: true,
-              };
-            }
-          );
+          if (userStatus === buyer)
+            this.setState(
+              prevState => {
+                return {
+                  ...prevState,
+                  name: res.result.consumer.name,
+                  email: res.result.consumer.email,
+                  phone: res.result.consumer.phone,
+                  address: res.result.consumer.address,
+                  itemsLoaded: true,
+                };
+              }
+            );
         },
         error => {
           this.setState({
@@ -107,20 +110,21 @@ export default class ProfileEdit extends PureComponent {
   profileChanged = (itemID, profile) => {
     const { jwtToken, itemHandle, userStatus } = this.props;
     let itemJSON, request;
-    if (userStatus === 'Producer') {
+    if (userStatus === seller) {
       itemJSON = JSON.stringify({
         'producer': profile,
       });
-      request = `${serverAddress}/api/producer/profile`;
+      request = 'producer';
     }
-    else {
-      itemJSON = JSON.stringify({
-        'consumer': profile,
-      });
-      request = `${serverAddress}/api/consumer/profile`;
-    }
+    else
+      if (userStatus === buyer) {
+        itemJSON = JSON.stringify({
+          'consumer': profile,
+        });
+        request = 'consumer';
+      }
 
-    fetch(request, {
+    fetch(`${serverAddress}/api/${request}/profile`, {
       method: 'put',
       headers: {
         'Accept': 'application/json',
@@ -149,7 +153,7 @@ export default class ProfileEdit extends PureComponent {
       return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
     }
     else
-      if (userStatus === 'Producer') {
+      if (userStatus === seller) {
       profileType = 'seller_profile_parameters profile_parameters';
       userProfile = {
         producer_brand: name,
@@ -234,75 +238,76 @@ export default class ProfileEdit extends PureComponent {
         </div>
       </Fragment>;
     }
-    else {
-      profileType = 'profile_parameters';
-      userProfile = {
-        name: name,
-        email: email,
-        phone: phone,
-        address: address,
-      };
-      content = <Fragment>
-        <div className="left_profile_parameters">
-          <input
-            type="text"
-            id="label_name"
-            name="name"
-            placeholder=" "
-            value={name}
-            onChange={this.handleChange}
-          />
-          <label
-            className="item_name"
-            htmlFor="label_name"
-          >
-            Ваше имя
-          </label>
-          <input
-            type="text"
-            id="label_email"
-            name="email"
-            placeholder=" "
-            value={email}
-            onChange={this.handleChange}
-          />
-          <label
-            className="item_email"
-            htmlFor="label_email"
-          >
-            Электронная почта
-          </label>
-          <input
-            type="text"
-            id="label_address"
-            name="address"
-            placeholder=" "
-            value={address}
-            onChange={this.handleChange}
-          />
-          <label
-            className="item_address"
-            htmlFor="label_address"
-          >
-            Адрес
-          </label>
-          <input
-            type="text"
-            id="label_phone"
-            name="phone"
-            placeholder=" "
-            value={phone}
-            onChange={this.handleChange}
-          />
-          <label
-            className="item_phone"
-            htmlFor="label_phone"
-          >
-            Телефон
-          </label>
-        </div>
-        <div/>
-      </Fragment>;
+    else
+      if (userStatus === buyer) {
+        profileType = 'profile_parameters';
+        userProfile = {
+          name: name,
+          email: email,
+          phone: phone,
+          address: address,
+        };
+        content = <Fragment>
+          <div className="left_profile_parameters">
+            <input
+              type="text"
+              id="label_name"
+              name="name"
+              placeholder=" "
+              value={name}
+              onChange={this.handleChange}
+            />
+            <label
+              className="item_name"
+              htmlFor="label_name"
+            >
+              Ваше имя
+            </label>
+            <input
+              type="text"
+              id="label_email"
+              name="email"
+              placeholder=" "
+              value={email}
+              onChange={this.handleChange}
+            />
+            <label
+              className="item_email"
+              htmlFor="label_email"
+            >
+              Электронная почта
+            </label>
+            <input
+              type="text"
+              id="label_address"
+              name="address"
+              placeholder=" "
+              value={address}
+              onChange={this.handleChange}
+            />
+            <label
+              className="item_address"
+              htmlFor="label_address"
+            >
+              Адрес
+            </label>
+            <input
+              type="text"
+              id="label_phone"
+              name="phone"
+              placeholder=" "
+              value={phone}
+              onChange={this.handleChange}
+            />
+            <label
+              className="item_phone"
+              htmlFor="label_phone"
+            >
+              Телефон
+            </label>
+          </div>
+          <div/>
+        </Fragment>;
     }
     return (
       <div className="seller_items">

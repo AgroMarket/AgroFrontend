@@ -6,7 +6,7 @@ import MyOrdersIcon from '@material-ui/icons/DateRange';
 import PropTypes from 'prop-types';
 
 import {serverAddress} from 'constants/ServerAddress';
-import {seller} from 'constants/AuthorizationTypes';
+import {seller, buyer} from 'constants/AuthorizationTypes';
 
 // Данные для кнопки Редактировать профиль
 const editProfileButton = {
@@ -44,7 +44,8 @@ export default class UserProfile extends PureComponent {
     if (userStatus === seller)
       profile = `${serverAddress}/api/producer/profile`;
     else
-      profile = `${serverAddress}/api/consumer/profile`;
+      if (userStatus === buyer)
+        profile = `${serverAddress}/api/consumer/profile`;
     fetch(profile, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
@@ -102,20 +103,21 @@ export default class UserProfile extends PureComponent {
             </span>
           </Fragment>;
           else
-            content = <Fragment>
-              <span className="profile_name">
-                {profile.consumer.name}
-              </span>
-                  <span className="profile_address">
-                Регион: {profile.consumer.address}
-              </span>
-                  <span className="profile_phone">
-                  Телефон: +7-{profile.consumer.phone}
-              </span>
-                  <span className="profile_email">
-                  Электронная почта: {profile.consumer.email}
-              </span>
-            </Fragment>;
+            if (userStatus === buyer)
+              content = <Fragment>
+                <span className="profile_name">
+                  {profile.consumer.name}
+                </span>
+                    <span className="profile_address">
+                  Регион: {profile.consumer.address}
+                </span>
+                    <span className="profile_phone">
+                    Телефон: +7-{profile.consumer.phone}
+                </span>
+                    <span className="profile_email">
+                    Электронная почта: {profile.consumer.email}
+                </span>
+              </Fragment>;
         return (
           <div className="seller_items">
             <div className="seller_items_header">

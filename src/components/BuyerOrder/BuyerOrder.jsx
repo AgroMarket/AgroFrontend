@@ -85,7 +85,7 @@ export default class SellerOrder extends PureComponent {
           {order.orders.map((items, index) => {
             return(
               <div key={index}>
-                <span className="seller_status">Статус заказа: {items.status}</span>
+                <span className="seller_status">{index+1}. Статус заказа по продавцу: {items.order.status}</span>
                 {items.order.order_items.map((item, idx) => {
                   return (
                     <div className="product seller_item" key={idx}>
@@ -104,10 +104,11 @@ export default class SellerOrder extends PureComponent {
                     </div>
                   );
                 })}
+                <span className="seller_item">Общая сумма заказа по продавцу: {items.order.total + rub}</span>
               </div>
             );
           })}
-          <span className="seller_item">Общая сумма заказа: {order.total + rub}</span>
+          <span className="seller_item">Общая сумма заказа по всем продавцам: {order.amount + rub}</span>
         </div>
       );
     }

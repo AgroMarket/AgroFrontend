@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import ProfileMenu from 'components/ProfileMenu';
 import ProfileContent from 'components/ProfileContent';
 import {serverAddress} from 'constants/ServerAddress';
+import { buyer } from 'constants/AuthorizationTypes';
 
 /**
  * Класс ProfilePage - компонент, отображающий страницу Личный кабинет
@@ -17,8 +18,8 @@ export default class ProfilePage extends PureComponent {
     this.state = {
       // при входе на страницу открывается список покупок
       openedSection: 'profile_account',
-      // является ли пользователь продавцом
-      seller: false,
+      // статус авторизации пользователя на сайте
+      userStatus: buyer,
       // загружен ли профиль пользователя
       profileLoaded: false,
       // ошибка загрузки
@@ -49,8 +50,8 @@ export default class ProfilePage extends PureComponent {
                prevState => {
                  return {
                    ...prevState,
-                   // устанавливаем является ли пользователь продавцом
-                   seller: res.result.consumer.role === 'Producer',
+                   // авторизация пользователя
+                   userStatus: res.result.consumer.role,
                    profileLoaded: true,
                  };
                }
@@ -93,7 +94,7 @@ export default class ProfilePage extends PureComponent {
   };
 
   render() {
-    const { openedSection, seller, profileLoaded, error } = this.state;
+    const { openedSection, userStatus, profileLoaded, error } = this.state;
     const { handleLogout, jwtToken }  = this.props;
 
     if (error) {
@@ -115,14 +116,14 @@ export default class ProfilePage extends PureComponent {
             className="seller_menu"
             section={this.changeSection}
             handleLogout={handleLogout}
-            seller={seller}
+            userStatus={userStatus}
           />
           <ProfileContent
             openedSection={openedSection}
             itemHandle={this.itemHandle}
             jwtToken={jwtToken}
             newItemCreated={this.newItemCreated}
-            seller={seller}
+            userStatus={userStatus}
           />
           <div/>
         </div>

@@ -41,16 +41,16 @@ export default class ProfileEdit extends PureComponent {
 
   // Проверка свойств
   static propTypes = {
-    seller: PropTypes.bool,
+    userStatus: PropTypes.string,
     jwtToken: PropTypes.string,
     itemHandle: PropTypes.func,
   };
 
   componentDidMount() {
-    const { seller, jwtToken } = this.props;
+    const { userStatus, jwtToken } = this.props;
     let profile;
 
-    if (seller)
+    if (userStatus === 'Producer')
       profile = `${serverAddress}/api/producer/profile`;
     else
       profile = `${serverAddress}/api/consumer/profile`;
@@ -61,7 +61,7 @@ export default class ProfileEdit extends PureComponent {
     })
       .then(res => res.json())
       .then(res => {
-        if (seller) {
+        if (userStatus === 'Producer') {
           this.setState(
             prevState => {
               return {
@@ -105,9 +105,9 @@ export default class ProfileEdit extends PureComponent {
   };
 
   profileChanged = (itemID, profile) => {
-    const { jwtToken, itemHandle, seller } = this.props;
+    const { jwtToken, itemHandle, userStatus } = this.props;
     let itemJSON, request;
-    if (seller) {
+    if (userStatus === 'Producer') {
       itemJSON = JSON.stringify({
         'producer': profile,
       });
@@ -138,7 +138,7 @@ export default class ProfileEdit extends PureComponent {
 
   render() {
     const { error, itemsLoaded, name, address, phone, inn, description, email } = this.state;
-    const { seller } = this.props;
+    const { userStatus } = this.props;
     let userProfile, profileType, content;
 
     if (error) {
@@ -149,7 +149,7 @@ export default class ProfileEdit extends PureComponent {
       return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
     }
     else
-      if (seller) {
+      if (userStatus === 'Producer') {
       profileType = 'seller_profile_parameters profile_parameters';
       userProfile = {
         producer_brand: name,

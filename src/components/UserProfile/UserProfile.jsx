@@ -6,6 +6,7 @@ import MyOrdersIcon from '@material-ui/icons/DateRange';
 import PropTypes from 'prop-types';
 
 import {serverAddress} from 'constants/ServerAddress';
+import {seller} from 'constants/AuthorizationTypes';
 
 // Данные для кнопки Редактировать профиль
 const editProfileButton = {
@@ -33,14 +34,14 @@ export default class UserProfile extends PureComponent {
     // Функция отображения формы редактирования или создания товара
     itemHandle: PropTypes.func,
     jwtToken: PropTypes.string,
-    seller: PropTypes.bool,
+    userStatus: PropTypes.string,
   };
 
   componentDidMount() {
-    const {jwtToken, seller} = this.props;
+    const {jwtToken, userStatus} = this.props;
     let profile;
 
-    if (seller)
+    if (userStatus === seller)
       profile = `${serverAddress}/api/producer/profile`;
     else
       profile = `${serverAddress}/api/consumer/profile`;
@@ -71,7 +72,7 @@ export default class UserProfile extends PureComponent {
 
   render() {
     const { error, profile, itemsLoaded } = this.state;
-    const { itemHandle, seller } = this.props;
+    const { itemHandle, userStatus } = this.props;
     let content;
 
     if (error) {
@@ -82,7 +83,7 @@ export default class UserProfile extends PureComponent {
         return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
       }
       else {
-        if (seller)
+        if (userStatus === seller)
           content = <Fragment>
             <span className="profile_name">
               {profile.profile.brand}

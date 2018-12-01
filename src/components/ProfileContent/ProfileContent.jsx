@@ -39,7 +39,7 @@ export default class ProfileContent extends PureComponent {
     // открытый пункт меню
     openedSection: PropTypes.string,
     jwtToken: PropTypes.string,
-    seller: PropTypes.bool,
+    userStatus: PropTypes.string,
   };
 
   getID = id => {
@@ -87,7 +87,7 @@ export default class ProfileContent extends PureComponent {
 
   render() {
     const { id } = this.state;
-    const { openedSection, itemHandle, jwtToken, seller } = this.props;
+    const { openedSection, itemHandle, jwtToken, userStatus } = this.props;
 
     switch (openedSection) {
       case 'profile_account':
@@ -189,7 +189,7 @@ export default class ProfileContent extends PureComponent {
             <UserProfile
               itemHandle={itemHandle}
               jwtToken={jwtToken}
-              seller={seller}
+              userStatus={userStatus}
             />
           </div>
         );
@@ -199,7 +199,7 @@ export default class ProfileContent extends PureComponent {
             <ProfileEdit
               itemHandle={itemHandle}
               jwtToken={jwtToken}
-              seller={seller}
+              userStatus={userStatus}
             />
           </div>
         );

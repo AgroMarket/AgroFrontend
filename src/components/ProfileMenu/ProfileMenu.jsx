@@ -8,6 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
 
 import { menuItems } from 'constants/ProfileMenuItems';
+import { buyer } from 'constants/AuthorizationTypes';
 
 /**
  * Класс ProfileMenu - компонент, отображающий меню продавца на странице
@@ -28,8 +29,8 @@ export default class ProfileMenu extends PureComponent {
     // функции обратного вызова в родительский компонент
     section: PropTypes.func,
     handleLogout: PropTypes.func,
-    // флаг является ли пользователь продавцом
-    seller: PropTypes.bool,
+    // авторизация пользователя
+    userStatus: PropTypes.string,
   };
 
   /**
@@ -55,7 +56,7 @@ export default class ProfileMenu extends PureComponent {
   };
 
   render() {
-    const { seller } = this.props;
+    const { userStatus } = this.props;
     let content = menuItems.map( (item, idx) => {
       return (
         <ListItem key={idx}
@@ -70,7 +71,7 @@ export default class ProfileMenu extends PureComponent {
       );
     });
     // удаляем разделы меню, показываемые продавцам
-    if (!seller) {
+    if (userStatus === buyer) {
       // удаляем пункты меню продавца
       content.splice(3, 4);
     }

@@ -72,7 +72,7 @@ export default class ProfileMenu extends PureComponent {
     // удаляем разделы меню, показываемые продавцам
     if (!seller) {
       // удаляем пункты меню продавца
-      content.splice(2, 3);
+      content.splice(3, 4);
     }
     return (
       <List component="nav" className="sellerMenu">

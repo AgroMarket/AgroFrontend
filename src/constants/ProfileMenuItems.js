@@ -2,6 +2,12 @@ import MyOrdersIcon from '@material-ui/core/SvgIcon/SvgIcon';
 
 export const menuItems = [
   {
+    id: 'profile_account',
+    name: 'Счёт',
+    component: 'ProfileAccount',
+    icon: MyOrdersIcon,
+  },
+  {
     id: 'profile_purchase',
     name: 'Покупки',
     component: 'ProfilePurchase',
@@ -29,6 +35,12 @@ export const menuItems = [
     id: 'seller_clients',
     name: 'Покупатели',
     component: 'ProfileClient',
+    icon: MyOrdersIcon,
+  },
+  {
+    id: 'profile_statistics',
+    name: 'Статистика',
+    component: 'ProfileStatistics',
     icon: MyOrdersIcon,
   },
   {

@@ -16,7 +16,7 @@ export default class ProfilePage extends PureComponent {
 
     this.state = {
       // при входе на страницу открывается список покупок
-      openedSection: 'profile_purchase',
+      openedSection: 'profile_account',
       // является ли пользователь продавцом
       seller: false,
       // загружен ли профиль пользователя

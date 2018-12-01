@@ -3,6 +3,7 @@ import './ProfileContent.scss';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import ProfileAccount from 'components/ProfileAccount';
 import SellerItems from 'components/SellerItems';
 import NewProduct from 'components/NewProduct';
 import ProfileContragent from 'components/ProfileContragent';
@@ -14,6 +15,7 @@ import ProfileEdit from 'components/ProfileEdit';
 import ProfilePurchase from 'components/ProfilePurchase';
 import BuyerOrder from 'components/BuyerOrder';
 import ProfileSellers from 'components/ProfileSellers';
+import ProfileStatistics from 'components/ProfileStatistics';
 import {serverAddress} from 'constants/ServerAddress';
 
 /**
@@ -88,6 +90,12 @@ export default class ProfileContent extends PureComponent {
     const { openedSection, itemHandle, jwtToken, seller } = this.props;
 
     switch (openedSection) {
+      case 'profile_account':
+        return (
+          <div className="seller_content">
+            <ProfileAccount/>
+          </div>
+        );
       case 'profile_purchase':
         return (
           <div className="seller_content">
@@ -167,6 +175,12 @@ export default class ProfileContent extends PureComponent {
               id={id}
               getID={this.getID}
             />
+          </div>
+        );
+      case 'profile_statistics':
+        return (
+          <div className="seller_content">
+            <ProfileStatistics/>
           </div>
         );
       case 'user_profile':

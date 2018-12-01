@@ -4,6 +4,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import ProfileAccount from 'components/ProfileAccount';
+import ProfileMoney from 'components/ProfileMoney';
+import ProfileProfit from 'components/ProfileProfit';
 import SellerItems from 'components/SellerItems';
 import NewProduct from 'components/NewProduct';
 import ProfileContragent from 'components/ProfileContragent';
@@ -93,7 +95,25 @@ export default class ProfileContent extends PureComponent {
       case 'profile_account':
         return (
           <div className="seller_content">
-            <ProfileAccount/>
+            <ProfileAccount
+              itemHandle={itemHandle}
+            />
+          </div>
+        );
+      case 'add_money_to_account':
+        return (
+          <div className="seller_content">
+            <ProfileMoney
+              itemHandle={itemHandle}
+            />
+          </div>
+        );
+      case 'get_money_from_account':
+        return (
+          <div className="seller_content">
+            <ProfileProfit
+              itemHandle={itemHandle}
+            />
           </div>
         );
       case 'profile_purchase':

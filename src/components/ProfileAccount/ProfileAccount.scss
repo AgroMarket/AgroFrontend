@@ -1,0 +1,13 @@
+// Коэффициент перевода в em
+$k: 16;
+
+.profile_account {
+  display: flex;
+  flex-direction: column;
+  button {
+    width: 300rem/$k;
+  }
+  .get_money {
+    margin-top: 15rem/$k;
+  }
+}

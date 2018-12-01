@@ -31,12 +31,11 @@ export default class ProfileEdit extends PureComponent {
       name: '',
       address: '',
       phone: '',
-      inn: -1,
+      inn: '',
       description: '',
       email: '',
       itemsLoaded: false,
       error: null,
-
     };
   }
 

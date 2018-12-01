@@ -51,11 +51,11 @@ $k: 16;
   .item_phone {
     top: 358rem/$k;
   }
-  :focus ~ label
+  :focus + label
   {
     opacity: 0;
   }
-  :focus ~ label, :not(:placeholder-shown) ~ label
+  :not(:placeholder-shown) + label
   {
     opacity: 0;
   }
@@ -67,15 +67,6 @@ $k: 16;
   }
   .item_load:not(:placeholder-shown) {
     opacity: 1;
-  }
-  @media (max-width: 1440px) {
-    display: block;
-    .right_item_parameters {
-      padding-left: 0;
-    }
-    .save_item {
-      margin-left: 15rem/$k;
-    }
   }
   @media (max-width: 1920px) {
     input, select, textarea {
@@ -111,6 +102,13 @@ $k: 16;
     }
   }
   @media (max-width: 1440px) {
+    display: block;
+    .right_item_parameters {
+      padding-left: 0;
+    }
+    .save_item {
+      margin-left: 15rem/$k;
+    }
     .item_description {
       left: 15rem/$k;
     }

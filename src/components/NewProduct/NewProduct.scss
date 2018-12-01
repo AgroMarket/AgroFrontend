@@ -50,11 +50,11 @@ $k: 16;
     left: 38rem/$k;
     top: 25rem/$k;
   }
-  :focus ~ label
+  :focus + label
   {
     opacity: 0;
   }
-  :focus ~ label, :not(:placeholder-shown) ~ label
+  :not(:placeholder-shown) + label
   {
     opacity: 0;
   }

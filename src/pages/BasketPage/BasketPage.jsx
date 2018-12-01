@@ -133,6 +133,7 @@ export default class BasketPage extends PureComponent {
           }
         );
       })
+      // TODO проверить ответ сервера на достаточность средств для оплаты
       // Очищаем корзину
       .then(
         () => fetch(`${serverAddress}/api/carts/${this.props.basketID}`, {

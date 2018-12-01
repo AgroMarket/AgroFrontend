@@ -28,14 +28,14 @@ export default class SellerOrder extends PureComponent {
 
   componentDidMount() {
     const { id } = this.props;
-    fetch(`${serverAddress}/api/consumer/orders/${id}`)
+    fetch(`${serverAddress}/api/consumer/asks/${id}`)
       .then(res => res.json())
       .then(res => {
           this.setState(
             prevState => {
               return {
                 ...prevState,
-                order: res.result.order,
+                order: res.result.ask,
                 itemsLoaded: true,
               };
             }
@@ -82,25 +82,31 @@ export default class SellerOrder extends PureComponent {
               <span>Сумма</span>
             </div>
           </div>
-          {order.order_items.map((product, index) => {
-              return (
-                <div className="product seller_item" key={index}>
-                  <div>
-                    <span>{product.product_name}</span>
-                  </div>
-                  <div>
-                    <span>{product.quantity}</span>
-                  </div>
-                  <div>
-                    <span>{product.product_price + rub}</span>
-                  </div>
-                  <div>
-                    <span>{product.sum + rub}</span>
-                  </div>
-                </div>
-              );
-            }
-          )}
+          {order.orders.map((items, index) => {
+            return(
+              <div key={index}>
+                <span className="seller_status">Статус заказа: {items.status}</span>
+                {items.order.order_items.map((item, idx) => {
+                  return (
+                    <div className="product seller_item" key={idx}>
+                      <div>
+                        <span>{item.product_name}</span>
+                      </div>
+                      <div>
+                        <span>{item.quantity}</span>
+                      </div>
+                      <div>
+                        <span>{item.product_price + rub}</span>
+                      </div>
+                      <div>
+                        <span>{item.sum + rub}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
           <span className="seller_item">Общая сумма заказа: {order.total + rub}</span>
         </div>
       );

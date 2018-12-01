@@ -14,7 +14,7 @@ const openOrderButton = {
 /**
  * Класс BuyerItem - компонент, отображающий строку со сведениями о заказе на странице покупателя
  */
-export default class ConsumerOrder extends PureComponent {
+export default class BuyerItem extends PureComponent {
   // Проверка свойств
   static propTypes = {
     // Пункты меню - массив объектов
@@ -29,12 +29,12 @@ export default class ConsumerOrder extends PureComponent {
       link: PropTypes.string,
     }),
     // Функция отображения сведений о заказе
-    itemHandle: PropTypes.func,
+    showOrderInfo: PropTypes.func,
   };
 
   render() {
-    const { item, itemHandle } = this.props;
-    const date = moment(item.order.date).format('DD.MM.YY HH:mm');
+    const { item, showOrderInfo } = this.props;
+    const date = moment(item.ask.date).format('DD.MM.YY HH:mm');
 
     return (
       <p className="buyer_item">
@@ -42,22 +42,22 @@ export default class ConsumerOrder extends PureComponent {
           {date}
         </span>
         <span className="order_seller">
-          {item.order.producer}
+          {item.ask.producer}
         </span>
         <span className="order_total">
-          Заказ на сумму {item.order.total} руб.
+          Заказ на сумму {item.ask.amount} руб.
         </span>
         <Button
           className="open_order_button"
           variant="contained"
           color="primary"
           id={openOrderButton.id}
-          onClick={() => itemHandle('consumer_order_detail')}
+          onClick={() => showOrderInfo('open_buyer_order', item.ask.id)}
         >
           {openOrderButton.name}
         </Button>
         <span className="order_status">
-          Состояние: {item.order.status}
+          Состояние: {item.ask.status}
         </span>
       </p>
     );

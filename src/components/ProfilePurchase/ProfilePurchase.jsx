@@ -32,7 +32,7 @@ export default class ProfilePurchase extends PureComponent {
 
   componentDidMount() {
     const {jwtToken} = this.props;
-    fetch(`${serverAddress}/api/consumer/orders`, {
+    fetch(`${serverAddress}/api/consumer/asks`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },
@@ -74,16 +74,16 @@ export default class ProfilePurchase extends PureComponent {
     }
     else {
       let content;
-      if (orders === undefined || orders.length === 0 || orders.orders === undefined || orders.orders.length === 0) {
+      if (orders === undefined || orders.length === 0 || orders.asks === undefined || orders.asks.length === 0) {
         content = <div className="load_info">
           <div/>
           <p>Вы еще не делали покупок.</p>
         </div>;
       }
       else
-        content = (orders.orders.map((item, idx) => {
+        content = (orders.asks.map((item, idx) => {
           return (
-            <BuyerItem item={item} key={idx} itemHandle={() => this.showOrderInfo('open_buyer_order', item.order.id)}/>
+            <BuyerItem item={item} key={idx} showOrderInfo={this.showOrderInfo}/>
           );
         }));
       return (

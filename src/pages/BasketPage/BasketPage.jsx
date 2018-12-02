@@ -1,7 +1,9 @@
 import './BasketPage.scss';
 
 import React, { PureComponent } from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button/Button';
 import BasketList from 'components/BasketList';
 import BasketContacts from 'components/BasketContacts';
 import BasketFinish from 'components/BasketFinish';
@@ -9,6 +11,19 @@ import {serverAddress} from 'constants/ServerAddress';
 import {register} from 'helpers/register';
 import {login} from 'helpers/login';
 import {order} from 'helpers/order';
+
+const linkToLogin = props => <Link to="/login" {...props}/>;
+
+// Данные для кнопки Вернуться в корзину
+const backToBasketButton = {
+  id: 'back_to_basket',
+  name: 'Вернуться в корзину',
+};
+// Данные для кнопки Проверить счет в личном кабинете
+const gotoAccountButton = {
+  id: 'back_to_basket',
+  name: 'Проверить счет в личном кабинете',
+};
 
 /**
  * Класс BasketPage - компонент, отображающий страницу Корзина
@@ -26,6 +41,8 @@ export default class BasketPage extends PureComponent {
       error: null,
       // состояние оформления заказа
       orderFinish: false,
+      // флаг недостаточно денег на счете
+      noMoney: false,
     };
   }
 
@@ -124,33 +141,33 @@ export default class BasketPage extends PureComponent {
     order(serverAddress, basketID, jwtToken)
       .then(res => res.json())
       .then(() => {
-        this.setState(
-          prevState => {
-            return {
-              ...prevState,
-              basketItems: {},
-            };
-          }
-        );
-      })
-      // TODO проверить ответ сервера на достаточность средств для оплаты
-      // Очищаем корзину
-      .then(
-        () => fetch(`${serverAddress}/api/carts/${this.props.basketID}`, {
-          method: 'delete',
-        })
-          .then(res => res.json())
-          .then(() => {
-            this.setState(
-              prevState => {
-                return {
-                  ...prevState,
-                  orderFinish: true,
-                };
-              }
-            );
+        // TODO проверить ответ сервера на достаточность средств для оплаты
+        if (1 !== 1) {
+          // Очищаем корзину
+          fetch(`${serverAddress}/api/carts/${this.props.basketID}`, {
+            method: 'delete',
           })
-      );
+            .then(() => {
+              this.setState(
+                prevState => {
+                  return {
+                    ...prevState,
+                    orderFinish: true,
+                  };
+                }
+              );
+            });
+        }
+        else
+          this.setState(
+            prevState => {
+              return {
+                ...prevState,
+                noMoney: true,
+              };
+            }
+          );
+      });
   };
 
   handleOrderClick = user => {
@@ -172,8 +189,19 @@ export default class BasketPage extends PureComponent {
     }
   };
 
+  reset = () => {
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          noMoney: false,
+        };
+      }
+    );
+  };
+
   render() {
-    const { error, basketItems, basketLoaded, orderFinish } = this.state;
+    const { error, basketItems, basketLoaded, orderFinish, noMoney } = this.state;
     const { basketID, jwtToken } = this.props;
 
     if (orderFinish)
@@ -202,24 +230,50 @@ export default class BasketPage extends PureComponent {
             );
           }
           else
-            return (
-              <div className="basket_page">
-                <div/>
-                <div className="basket_container">
-                <BasketList
-                  basketItems={basketItems}
-                  basketID={basketID}
-                  handleCounterClick={this.handleCounterClick}
-                  handleDeleteItem={this.handleDeleteItem}
-                />
-                <BasketContacts
-                  basketID={basketID}
-                  handleOrderClick={this.handleOrderClick}
-                  jwtToken={jwtToken}
-                />
+            if (noMoney) {
+              return (
+                <div className="no_money">
+                  <p>Недостаточно средств на счете</p>
+                  <Button
+                    className="no_money_buttons"
+                    variant="contained"
+                    color="primary"
+                    id={backToBasketButton.id}
+                    onClick={() => this.reset()}
+                  >
+                    {backToBasketButton.name}
+                  </Button>
+                  <Button
+                    className="goto_profile"
+                    component={linkToLogin}
+                    variant="contained"
+                    color="primary"
+                    id={gotoAccountButton.id}
+                  >
+                    {gotoAccountButton.name}
+                  </Button>
                 </div>
-                <div/>
-              </div>
-            );
+              );
+            }
+            else
+              return (
+                <div className="basket_page">
+                  <div/>
+                  <div className="basket_container">
+                  <BasketList
+                    basketItems={basketItems}
+                    basketID={basketID}
+                    handleCounterClick={this.handleCounterClick}
+                    handleDeleteItem={this.handleDeleteItem}
+                  />
+                  <BasketContacts
+                    basketID={basketID}
+                    handleOrderClick={this.handleOrderClick}
+                    jwtToken={jwtToken}
+                  />
+                  </div>
+                  <div/>
+                </div>
+              );
   }
 }

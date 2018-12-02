@@ -4,6 +4,17 @@ $k: 16;
   color: #558b2f;
   text-align: center;
 }
+.no_money {
+  display: flex;
+  margin: 0 auto 100rem/$k auto;
+  flex-direction: column;
+  text-align: center;
+  color: #558b2f;
+  width: 400rem/$k;
+  .no_money_buttons {
+    margin-bottom: 15rem/$k;
+  }
+}
 .basket_page {
   display: grid;
   grid-template-columns: 15% 70% 15%;

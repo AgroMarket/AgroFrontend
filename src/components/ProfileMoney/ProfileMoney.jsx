@@ -5,6 +5,9 @@ import MyOrdersIcon from '@material-ui/icons/DateRange';
 import Button from '@material-ui/core/Button/Button';
 import PropTypes from 'prop-types';
 
+import {serverAddress} from 'constants/ServerAddress';
+import {buyer, seller} from 'constants/AuthorizationTypes';
+
 // Данные для кнопки Пополнить счет
 const sendMoneyButton = {
   id: 'send_money',
@@ -20,6 +23,8 @@ export default class ProfileMoney extends PureComponent {
 
     // значения полей, используемых в render()
     this.state = {
+      // права доступа пользователя
+      user: '',
       name: '',
       cardNumber: '',
       dayExpire: '',
@@ -30,7 +35,30 @@ export default class ProfileMoney extends PureComponent {
 
   static propTypes = {
     itemHandle: PropTypes.func,
+    jwtToken: PropTypes.string,
+    userStatus: PropTypes.string,
   };
+
+  componentDidMount() {
+    const {userStatus} = this.props;
+    let user;
+
+    if (userStatus === seller) {
+      user = 'producer';
+    }
+    else
+      if (userStatus === buyer) {
+        user = 'consumer';
+      }
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          user: user,
+        };
+      }
+    );
+  }
 
   handleChange = event => {
     this.setState({
@@ -38,10 +66,29 @@ export default class ProfileMoney extends PureComponent {
     });
   };
 
-  // TODO отправить money на сервер, когда будет готов api бэкенда
-  sendMoney = (itemID) => {
-    const { itemHandle } = this.props;
-    itemHandle(itemID);
+  sendMoney = () => {
+    const {user, amount} = this.state;
+    const { itemHandle, jwtToken } = this.props;
+    const registerJSON = JSON.stringify({
+      'transaction':
+      {
+        'amount': amount,
+        'status': 'Пополнение',
+      },
+    });
+
+    fetch(`${serverAddress}/api/${user}/transactions`, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtToken}`,
+      },
+      body: registerJSON,
+    })
+      .then(
+        () => itemHandle('profile_account')
+      );
   };
 
   render() {
@@ -128,7 +175,7 @@ export default class ProfileMoney extends PureComponent {
           variant="contained"
           color="primary"
           id={sendMoneyButton.id}
-          onClick={() => this.sendMoney('profile_account')}
+          onClick={() => this.sendMoney()}
         >
           {sendMoneyButton.name}
         </Button>

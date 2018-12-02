@@ -16,7 +16,7 @@ const returnMoneyButton = {
 // Данные для кнопки Ввести данные заново
 const getMoneyAgainButton = {
   id: 'try_again',
-  name: 'Ввести данные заново',
+  name: 'Ввести другую сумму',
 };
 
 /**

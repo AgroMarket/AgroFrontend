@@ -107,7 +107,7 @@ export default class ProfileProfit extends PureComponent {
       });
   };
 
-  resetError = () => {
+  reset = () => {
     this.setState(
       prevState => {
         return {
@@ -129,7 +129,7 @@ export default class ProfileProfit extends PureComponent {
           variant="contained"
           color="primary"
           id={getMoneyAgainButton.id}
-          onClick={() => this.resetError()}
+          onClick={() => this.reset()}
         >
           {getMoneyAgainButton.name}
         </Button>

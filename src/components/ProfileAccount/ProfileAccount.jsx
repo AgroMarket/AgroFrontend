@@ -44,13 +44,14 @@ export default class ProfileAccount extends PureComponent {
     const {jwtToken, userStatus} = this.props;
     let user;
 
+    // TODO проверить работу на акке для продавца, когда заработает профиль на бэкенде
     if (userStatus === seller) {
       user = 'producer';
     }
     else
-    if (userStatus === buyer) {
-      user = 'consumer';
-    }
+      if (userStatus === buyer) {
+        user = 'consumer';
+      }
     fetch(`${serverAddress}/api/${user}/profile`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,

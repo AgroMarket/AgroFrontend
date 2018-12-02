@@ -158,7 +158,7 @@ export default class ProfileEdit extends PureComponent {
         producer_brand: name,
         producer_address: address,
         producer_phome: phone,
-        inn: inn,
+        producer_inn: inn,
         producer_descripion: description,
       };
       content = <Fragment>

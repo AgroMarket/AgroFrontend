@@ -97,6 +97,8 @@ export default class ProfileContent extends PureComponent {
           <div className="seller_content">
             <ProfileAccount
               itemHandle={itemHandle}
+              jwtToken={jwtToken}
+              userStatus={userStatus}
             />
           </div>
         );

@@ -5,6 +5,9 @@ import MyOrdersIcon from '@material-ui/icons/DateRange';
 import Button from '@material-ui/core/Button/Button';
 import PropTypes from 'prop-types';
 
+import {serverAddress} from 'constants/ServerAddress';
+import {buyer, seller} from 'constants/AuthorizationTypes';
+
 // Данные для кнопки Пополнить счёт
 const addMoneyButton = {
   id: 'add_money',
@@ -26,44 +29,92 @@ export default class ProfileAccount extends PureComponent {
     // значения полей, используемых в render()
     this.state = {
       money: 0,
+      itemsLoaded: false,
     };
   }
 
   static propTypes = {
     // Функция отображения формы редактирования или создания товара
     itemHandle: PropTypes.func,
+    jwtToken: PropTypes.string,
+    userStatus: PropTypes.string,
   };
 
+  componentDidMount() {
+    const {jwtToken, userStatus} = this.props;
+    let user;
+
+    if (userStatus === seller) {
+      user = 'producer';
+    }
+    else
+    if (userStatus === buyer) {
+      user = 'consumer';
+    }
+    fetch(`${serverAddress}/api/${user}/profile`, {
+      headers: {
+        'Authorization': `Bearer ${jwtToken}`,
+      },
+    })
+      .then(res => res.json())
+      .then(res => {
+          this.setState(
+            prevState => {
+              return {
+                ...prevState,
+                money: res.result[user].amount,
+                itemsLoaded: true,
+              };
+            }
+          );
+        },
+        error => {
+          this.setState({
+            itemsLoaded: true,
+            error,
+          });
+        });
+  }
+
   render() {
-    const { money } = this.state;
+    const { error, money, itemsLoaded } = this.state;
     const { itemHandle } = this.props;
 
-    return (
-      <div className="profile_account seller_items">
-        <div className="seller_items_header">
-          <MyOrdersIcon className="my_orders_icon"/>
-          <h2>Счет на Ferma Store</h2>
-        </div>
-        <p>Остаток денежных средств на счете {money} руб.</p>
-        <Button
-          className="add_money"
-          variant="contained"
-          color="primary"
-          id={addMoneyButton.id}
-          onClick={() => itemHandle('add_money_to_account')}
-        >
-          {addMoneyButton.name}
-        </Button>
-        <Button
-          className="get_money"
-          variant="contained"
-          color="primary"
-          id={getMoneyButton.id}
-          onClick={() => itemHandle('get_money_from_account')}
-        >
-          {getMoneyButton.name}
-        </Button>
-      </div>
-    );
+    if (error) {
+      return <p>Ошибка: {error.message}</p>;
+    }
+    else
+      if (!itemsLoaded) {
+        return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
+      }
+      else {
+        return (
+          <div className="profile_account seller_items">
+            <div className="seller_items_header">
+              <MyOrdersIcon className="my_orders_icon"/>
+              <h2>Счет на Ferma Store</h2>
+            </div>
+            <p>Остаток денежных средств на счете {money} руб.</p>
+            <Button
+              className="add_money"
+              variant="contained"
+              color="primary"
+              id={addMoneyButton.id}
+              onClick={() => itemHandle('add_money_to_account')}
+            >
+              {addMoneyButton.name}
+            </Button>
+            <Button
+              className="get_money"
+              variant="contained"
+              color="primary"
+              id={getMoneyButton.id}
+              onClick={() => itemHandle('get_money_from_account')}
+            >
+              {getMoneyButton.name}
+            </Button>
+          </div>
+        );
+      }
   }
 }

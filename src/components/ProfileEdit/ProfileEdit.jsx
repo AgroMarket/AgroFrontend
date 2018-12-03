@@ -157,9 +157,9 @@ export default class ProfileEdit extends PureComponent {
       userProfile = {
         producer_brand: name,
         producer_address: address,
-        producer_phome: phone,
+        producer_phone: phone,
         producer_inn: inn,
-        producer_descripion: description,
+        producer_description: description,
       };
       content = <Fragment>
         <div className="left_profile_parameters">

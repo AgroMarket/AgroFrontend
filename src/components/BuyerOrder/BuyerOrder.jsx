@@ -10,7 +10,7 @@ import {serverAddress} from 'constants/ServerAddress';
 /**
  * Класс SellerOrder - компонент, отображающий подробные сведения о заказе на странице покупателя
  */
-export default class SellerOrder extends PureComponent {
+export default class BuyerOrder extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -85,7 +85,7 @@ export default class SellerOrder extends PureComponent {
           {order.orders.map((items, index) => {
             return(
               <div key={index}>
-                <span className="seller_status">{index+1}. Статус заказа по продавцу: {items.order.status}</span>
+                <span className="seller_status">{index+1}. Статус заказа по продавцу {items.order.producer_name} : {items.order.status}</span>
                 {items.order.order_items.map((item, idx) => {
                   return (
                     <div className="product seller_item" key={idx}>

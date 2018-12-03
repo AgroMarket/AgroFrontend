@@ -43,9 +43,8 @@ export default class UserProfile extends PureComponent {
 
     if (userStatus === seller)
       user = 'producer';
-    else
-      if (userStatus === buyer)
-        user = 'consumer';
+    if (userStatus === buyer)
+      user = 'consumer';
     fetch(`${serverAddress}/api/${user}/profile`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,

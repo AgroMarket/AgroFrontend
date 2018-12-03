@@ -52,7 +52,7 @@ export default class ProfileAccount extends PureComponent {
     else
       if (userStatus === buyer) {
         user = 'consumer';
-        data = 'consumer';
+        data = 'profile';
       }
     fetch(`${serverAddress}/api/${user}/profile`, {
       headers: {

@@ -206,7 +206,9 @@ export default class ProfileContent extends PureComponent {
       case 'profile_statistics':
         return (
           <div className="seller_content">
-            <ProfileStatistics/>
+            <ProfileStatistics
+              jwtToken={jwtToken}
+            />
           </div>
         );
       case 'user_profile':

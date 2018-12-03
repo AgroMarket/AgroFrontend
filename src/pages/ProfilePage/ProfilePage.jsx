@@ -51,7 +51,7 @@ export default class ProfilePage extends PureComponent {
                  return {
                    ...prevState,
                    // авторизация пользователя
-                   userStatus: res.result.consumer.role,
+                   userStatus: res.result.profile.role,
                    profileLoaded: true,
                  };
                }

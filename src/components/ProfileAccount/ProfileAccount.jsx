@@ -65,7 +65,7 @@ export default class ProfileAccount extends PureComponent {
             prevState => {
               return {
                 ...prevState,
-                money: res.result[data].amount,
+                money: res.result.result[data].amount,
                 itemsLoaded: true,
               };
             }

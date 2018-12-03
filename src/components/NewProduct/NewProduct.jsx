@@ -93,7 +93,7 @@ export default class NewProduct extends PureComponent {
                       ...prevState,
                       itemsLoaded: true,
                       name: response.title,
-                      category: response.category_id,
+                      category: response.parent_category_id,
                       measures: response.measures,
                       price: response.price,
                       description: response.descripion,

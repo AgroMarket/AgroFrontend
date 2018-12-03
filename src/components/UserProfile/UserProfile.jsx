@@ -106,16 +106,16 @@ export default class UserProfile extends PureComponent {
             if (userStatus === buyer)
               content = <Fragment>
                 <span className="profile_name">
-                  {profile.consumer.name}
+                  {profile.profile.name}
                 </span>
                     <span className="profile_address">
-                  Регион: {profile.consumer.address}
+                  Регион: {profile.profile.address}
                 </span>
                     <span className="profile_phone">
-                    Телефон: +7-{profile.consumer.phone}
+                    Телефон: +7-{profile.profile.phone}
                 </span>
                     <span className="profile_email">
-                    Электронная почта: {profile.consumer.email}
+                    Электронная почта: {profile.profile.email}
                 </span>
               </Fragment>;
         return (

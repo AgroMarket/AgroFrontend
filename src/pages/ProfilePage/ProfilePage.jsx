@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import ProfileMenu from 'components/ProfileMenu';
 import ProfileContent from 'components/ProfileContent';
 import {serverAddress} from 'constants/ServerAddress';
-import { buyer } from 'constants/AuthorizationTypes';
+import { buyer, seller } from 'constants/AuthorizationTypes';
 
 /**
  * Класс ProfilePage - компонент, отображающий страницу Личный кабинет
@@ -39,7 +39,16 @@ export default class ProfilePage extends PureComponent {
 
   componentDidMount() {
     const { jwtToken } = this.props;
-    fetch(`${serverAddress}/api/consumer/profile`, {
+    const { userStatus } = this.state;
+    let user;
+    if (userStatus === seller) {
+      user = 'profile';
+    }
+    if (userStatus === buyer) {
+      user = 'consumer';
+    }
+
+    fetch(`${serverAddress}/api/${user}/profile`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },
@@ -51,7 +60,7 @@ export default class ProfilePage extends PureComponent {
                  return {
                    ...prevState,
                    // авторизация пользователя
-                   userStatus: res.result.consumer.role,
+                   userStatus: res.result.profile.role,
                    profileLoaded: true,
                  };
                }

@@ -78,7 +78,7 @@ export default class ProfileProfit extends PureComponent {
       'transaction':
         {
           'amount': amount,
-          'status': 'Вывод',
+          'status': 3,
         },
     });
 
@@ -93,7 +93,7 @@ export default class ProfileProfit extends PureComponent {
     })
       .then(res => res.json())
       .then(res => {
-        if (res.status === 'Вывод')
+        if (res.result.transaction.id !== null)
           itemHandle('profile_account');
         else
           this.setState(

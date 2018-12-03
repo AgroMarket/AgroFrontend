@@ -73,7 +73,7 @@ export default class ProfileMoney extends PureComponent {
       'transaction':
       {
         'amount': amount,
-        'status': 'Пополнение',
+        'status': 0,
       },
     });
 

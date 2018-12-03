@@ -42,17 +42,15 @@ export default class ProfileAccount extends PureComponent {
 
   componentDidMount() {
     const {jwtToken, userStatus} = this.props;
-    let user, data;
+    let user;
 
     // TODO проверить работу на акке для продавца, когда заработает профиль на бэкенде
     if (userStatus === seller) {
       user = 'producer';
-      data = 'profile';
     }
     else
       if (userStatus === buyer) {
         user = 'consumer';
-        data = 'consumer';
       }
     fetch(`${serverAddress}/api/${user}/profile`, {
       headers: {
@@ -65,7 +63,7 @@ export default class ProfileAccount extends PureComponent {
             prevState => {
               return {
                 ...prevState,
-                money: res.result[data].amount,
+                money: res.result.profile.amount,
                 itemsLoaded: true,
               };
             }

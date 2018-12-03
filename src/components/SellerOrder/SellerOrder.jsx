@@ -89,13 +89,13 @@ export default class SellerOrder extends PureComponent {
                     <span>{product.product_name}</span>
                   </div>
                   <div>
-                    <span>{product.quantity}</span>
+                    <span>{product.product_quantity}</span>
                   </div>
                   <div>
                     <span>{product.product_price + rub}</span>
                   </div>
                   <div>
-                    <span>{product.sum + rub}</span>
+                    <span>{product.product_sum + rub}</span>
                   </div>
                 </div>
               );

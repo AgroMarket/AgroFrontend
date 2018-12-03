@@ -55,23 +55,23 @@ export default class ProfilePage extends PureComponent {
     })
          .then(res => res.json())
          .then(res => {
-             this.setState(
-               prevState => {
-                 return {
-                   ...prevState,
-                   // авторизация пользователя
-                   userStatus: res.result.profile.role,
-                   profileLoaded: true,
-                 };
-               }
-             );
-           },
-           error => {
-             this.setState({
-               profileLoaded: true,
-               error,
-             });
+           this.setState(
+             prevState => {
+               return {
+                 ...prevState,
+                 // авторизация пользователя
+                 userStatus: res.result.profile.role,
+                 profileLoaded: true,
+               };
+             }
+           );
+         },
+         error => {
+           this.setState({
+             profileLoaded: true,
+             error,
            });
+         });
   }
 
   /**

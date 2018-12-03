@@ -8,7 +8,7 @@ import moment from 'moment';
 import {serverAddress} from 'constants/ServerAddress';
 
 /**
- * Класс SellerOrder - компонент, отображающий подробные сведения о заказе на странице покупателя
+ * Класс BuyerOrder - компонент, отображающий подробные сведения о заказе на странице покупателя
  */
 export default class BuyerOrder extends PureComponent {
   constructor(props) {

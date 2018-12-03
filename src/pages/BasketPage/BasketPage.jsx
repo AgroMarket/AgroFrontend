@@ -119,11 +119,14 @@ export default class BasketPage extends PureComponent {
 
   // обработка щелчков по кнопке Удалить товар
   handleDeleteItem = item_number => {
-    fetch(`${serverAddress}/api/carts/${this.props.basketID}/cart_items/${this.state.basketItems.products[item_number].product.cart_item_id}`, {
+    const { basketItems } = this.state;
+    const { basketID } = this.props;
+
+    fetch(`${serverAddress}/api/carts/${basketID}/cart_items/${basketItems.products[item_number].product.cart_item_id}`, {
       method: 'delete',
     })
       .then(() => {
-        const newBasketItems = Object.assign({}, this.state.basketItems);
+        const newBasketItems = Object.assign({}, basketItems);
         newBasketItems.products.splice(item_number, 1);
         this.setState(
           prevState => {
@@ -139,16 +142,17 @@ export default class BasketPage extends PureComponent {
   /**
    * Оформляет заказ на сервере
    * @param serverAddress адрес сервера
-   * @param basketID id корзины на сервере
    * @param jwtToken jwt токен аутентификации
    */
-  doOrder = (serverAddress, basketID, jwtToken) => {
+  doOrder = (serverAddress, jwtToken) => {
+    const { basketID } = this.props;
+
     order(serverAddress, basketID, jwtToken)
       .then(res => res.json())
       .then(res => {
         if (res.message !== 'На счёте недостаточно средств') {
           // Очищаем корзину
-          fetch(`${serverAddress}/api/carts/${this.props.basketID}`, {
+          fetch(`${serverAddress}/api/carts/${basketID}`, {
             method: 'delete',
           })
             .then(() => {
@@ -176,7 +180,7 @@ export default class BasketPage extends PureComponent {
   };
 
   handleOrderClick = user => {
-    const { setToken, jwtToken, basketID } = this.props;
+    const { setToken, jwtToken } = this.props;
 
     if(jwtToken === '') {
       register(serverAddress, user.email, user.password, user.name, user.phone, user.address)
@@ -186,11 +190,11 @@ export default class BasketPage extends PureComponent {
             .then(res => res.json())
             .then(res => {
               setToken(res.jwt);
-              this.doOrder(serverAddress, basketID, res.jwt);
+              this.doOrder(serverAddress, res.jwt);
             });
         });
     } else {
-      this.doOrder(serverAddress, basketID, jwtToken);
+      this.doOrder(serverAddress, jwtToken);
     }
   };
 

@@ -57,8 +57,8 @@ export default class ProfilePurchase extends PureComponent {
         });
   }
 
-  showOrderInfo = (itemID, id) => {
-    this.props.itemHandle(itemID);
+  showOrderInfo = id => {
+    this.props.itemHandle('open_buyer_order');
     this.props.getID(id);
   };
 

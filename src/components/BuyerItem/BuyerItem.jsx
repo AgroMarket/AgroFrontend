@@ -7,7 +7,7 @@ import moment from 'moment';
 
 // Данные для кнопки Открыть заказ
 const openOrderButton = {
-  id: 'open_order',
+  id: 'open_buy_order',
   name: 'Открыть заказ',
 };
 
@@ -52,7 +52,7 @@ export default class BuyerItem extends PureComponent {
           variant="contained"
           color="primary"
           id={openOrderButton.id}
-          onClick={() => showOrderInfo('open_buyer_order', item.ask.id)}
+          onClick={() => showOrderInfo(item.ask.id)}
         >
           {openOrderButton.name}
         </Button>

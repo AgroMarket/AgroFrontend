@@ -32,7 +32,7 @@ export default class ProfileSells extends PureComponent {
 
   componentDidMount() {
     const {jwtToken} = this.props;
-    fetch(`${serverAddress}/api/producer/orders`, {
+    fetch(`${serverAddress}/api/producer/asks`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },
@@ -57,8 +57,8 @@ export default class ProfileSells extends PureComponent {
         });
   }
 
-  showOrderInfo = (itemID, id) => {
-    this.props.itemHandle(itemID);
+  showOrderInfo = id => {
+    this.props.itemHandle('open_seller_order');
     this.props.getID(id);
   };
 
@@ -74,16 +74,16 @@ export default class ProfileSells extends PureComponent {
     }
     else {
       let content;
-      if (orders === undefined || orders.length === 0 || orders.orders === undefined || orders.orders.length === 0) {
+      if (orders === undefined || orders.length === 0 || orders.asks === undefined || orders.asks.length === 0) {
         content = <div className="load_info">
           <div/>
           <p>Вы еще не продали товар.</p>
         </div>;
       }
       else
-        content = (orders.orders.map((item, idx) => {
+        content = (orders.asks.map((item, idx) => {
             return (
-              <OrderItem item={item} key={idx} itemHandle={() => this.showOrderInfo('open_seller_order', item.order.id)}/>
+              <OrderItem item={item} key={idx} showOrderInfo={this.showOrderInfo}/>
             );
           }));
       return (

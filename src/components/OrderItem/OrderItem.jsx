@@ -7,7 +7,7 @@ import moment from 'moment';
 
 // Данные для кнопки Открыть заказ
 const openOrderButton = {
-  id: 'open_order',
+  id: 'open_sell_order',
   name: 'Открыть заказ',
 };
 
@@ -29,12 +29,12 @@ export default class OrderItem extends PureComponent {
       link: PropTypes.string,
     }),
     // Функция отображения сведений о заказе
-    itemHandle: PropTypes.func,
+    showOrderInfo: PropTypes.func,
   };
 
   render() {
-    const { item, itemHandle } = this.props;
-    const date = moment(item.order.date).format('DD.MM.YY HH:mm');
+    const { item, showOrderInfo } = this.props;
+    const date = moment(item.ask.date).format('DD.MM.YY HH:mm');
 
     return (
       <p className="seller_item">
@@ -42,19 +42,19 @@ export default class OrderItem extends PureComponent {
           {date}
         </span>
         <span className="order_total">
-          Заказ на сумму {item.order.total} руб.
+          Заказ на сумму {item.ask.amount} руб.
         </span>
         <Button
           className="edit_button"
           variant="contained"
           color="primary"
           id={openOrderButton.id}
-          onClick={() => itemHandle('open_order')}
+          onClick={() => showOrderInfo(item.ask.id)}
         >
           {openOrderButton.name}
         </Button>
         <span className="order_status">
-          Состояние: {item.order.status}
+          Состояние: {item.ask.status}
         </span>
       </p>
     );

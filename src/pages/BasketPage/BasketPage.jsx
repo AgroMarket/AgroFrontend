@@ -43,6 +43,8 @@ export default class BasketPage extends PureComponent {
       orderFinish: false,
       // флаг недостаточно денег на счете
       noMoney: false,
+      // сумма, которой не хватает на оплату
+      needMoney: 0,
     };
   }
 
@@ -140,9 +142,8 @@ export default class BasketPage extends PureComponent {
   doOrder = (serverAddress, basketID, jwtToken) => {
     order(serverAddress, basketID, jwtToken)
       .then(res => res.json())
-      .then(() => {
-        // TODO проверить ответ сервера на достаточность средств для оплаты
-        if (1 !== 1) {
+      .then(res => {
+        if (res.message !== 'На счёте недостаточно средств') {
           // Очищаем корзину
           fetch(`${serverAddress}/api/carts/${this.props.basketID}`, {
             method: 'delete',
@@ -164,6 +165,7 @@ export default class BasketPage extends PureComponent {
               return {
                 ...prevState,
                 noMoney: true,
+                needMoney: res.result.need_money,
               };
             }
           );
@@ -195,13 +197,14 @@ export default class BasketPage extends PureComponent {
         return {
           ...prevState,
           noMoney: false,
+          needMoney: 0,
         };
       }
     );
   };
 
   render() {
-    const { error, basketItems, basketLoaded, orderFinish, noMoney } = this.state;
+    const { error, basketItems, basketLoaded, orderFinish, noMoney, needMoney } = this.state;
     const { basketID, jwtToken } = this.props;
 
     if (orderFinish)
@@ -233,7 +236,7 @@ export default class BasketPage extends PureComponent {
             if (noMoney) {
               return (
                 <div className="no_money">
-                  <p>Недостаточно средств на счете</p>
+                  <p>Вам не хватает {needMoney} руб. для оплаты покупки. Пожалуйста, пополните счет или удалите товары из корзины.</p>
                   <Button
                     className="no_money_buttons"
                     variant="contained"

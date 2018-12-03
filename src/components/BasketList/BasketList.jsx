@@ -34,6 +34,8 @@ export default class BasketList extends PureComponent {
     }),
     // ID корзины на сервере
     basketID: PropTypes.string,
+    // стоимость доставки
+    deliveryCost: PropTypes.number,
     // Функция изменения количества товаров в корзине
     handleCounterClick: PropTypes.func,
     // Функция удаления товаров в корзине
@@ -41,7 +43,7 @@ export default class BasketList extends PureComponent {
   };
 
   render() {
-    const { basketItems, handleCounterClick, handleDeleteItem } = this.props;
+    const { basketItems, deliveryCost, handleCounterClick, handleDeleteItem } = this.props;
     const sum = basketItems.products.map(item => {
       // создаем массив из произведений цены и количества товара
       return item.product.price * item.product.quantity;
@@ -117,7 +119,13 @@ export default class BasketList extends PureComponent {
           );
         })}
         <p className="basket_total">
+          Общая стоимость доставки товаров в корзине: {deliveryCost} руб.
+        </p>
+        <p className="basket_total">
           Общая стоимость товаров в корзине: {sum} руб.
+        </p>
+        <p className="basket_total">
+          Общая стоимость заказа с доставкой: {deliveryCost + sum} руб.
         </p>
       </div>
     );

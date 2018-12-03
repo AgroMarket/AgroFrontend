@@ -45,6 +45,8 @@ export default class BasketPage extends PureComponent {
       noMoney: false,
       // сумма, которой не хватает на оплату
       needMoney: 0,
+      // стоимость доставки
+      deliveryCost: 0,
     };
   }
 
@@ -66,6 +68,7 @@ export default class BasketPage extends PureComponent {
                 ...prevState,
                 basketItems: res.result,
                 basketLoaded: true,
+                deliveryCost: res.result.delivery_cost,
               };
             }
           );
@@ -204,7 +207,7 @@ export default class BasketPage extends PureComponent {
   };
 
   render() {
-    const { error, basketItems, basketLoaded, orderFinish, noMoney, needMoney } = this.state;
+    const { error, basketItems, basketLoaded, orderFinish, noMoney, needMoney, deliveryCost } = this.state;
     const { basketID, jwtToken } = this.props;
 
     if (orderFinish)
@@ -266,6 +269,7 @@ export default class BasketPage extends PureComponent {
                   <BasketList
                     basketItems={basketItems}
                     basketID={basketID}
+                    deliveryCost={deliveryCost}
                     handleCounterClick={this.handleCounterClick}
                     handleDeleteItem={this.handleDeleteItem}
                   />

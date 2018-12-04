@@ -66,7 +66,7 @@ export default class UserProfile extends PureComponent {
         <div className="seller_items">
           <div className="seller_items_header">
             <MyOrdersIcon className="my_orders_icon"/>
-            <h2>Мой профиль</h2>
+            <h2>Профиль</h2>
           </div>
           <div className="seller_profile">
             <span className="profile_name">

@@ -62,7 +62,7 @@ export default class ProfileContent extends PureComponent {
       'product': item,
     });
     let request, method;
-    if (newItem === 'true') {
+    if (newItem) {
       request = `${serverAddress}/api/producer/products`;
       method = 'post';
     }

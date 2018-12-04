@@ -34,7 +34,7 @@ export default class OrderItem extends PureComponent {
 
   render() {
     const { item, showOrderInfo } = this.props;
-    const date = moment(item.ask.date).format('DD.MM.YY HH:mm');
+    const date = moment(item.order.date).format('DD.MM.YY HH:mm');
 
     return (
       <p className="seller_item">
@@ -42,19 +42,19 @@ export default class OrderItem extends PureComponent {
           {date}
         </span>
         <span className="order_total">
-          Заказ на сумму {item.ask.amount} руб.
+          Заказ на сумму {item.order.total} руб.
         </span>
         <Button
           className="edit_button"
           variant="contained"
           color="primary"
           id={openOrderButton.id}
-          onClick={() => showOrderInfo(item.ask.id)}
+          onClick={() => showOrderInfo(item.order.id)}
         >
           {openOrderButton.name}
         </Button>
         <span className="order_status">
-          Состояние: {item.ask.status}
+          Состояние: {item.order.status}
         </span>
       </p>
     );

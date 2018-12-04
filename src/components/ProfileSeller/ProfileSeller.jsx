@@ -38,8 +38,8 @@ export default class ProfileSeller extends PureComponent {
     getID: PropTypes.func,
   };
 
-  showClientInfo = (itemID, id) => {
-    this.props.itemHandle(itemID);
+  showClientInfo = id => {
+    this.props.itemHandle('contragent_profile');
     this.props.getID(id);
   };
 
@@ -68,7 +68,7 @@ export default class ProfileSeller extends PureComponent {
           variant="contained"
           color="primary"
           id={editItemButton.id}
-          onClick={() => this.showClientInfo('contragent_profile', item.producer.id)}
+          onClick={() => this.showClientInfo(item.producer.id)}
         >
           {editItemButton.name}
         </Button>

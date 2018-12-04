@@ -1,6 +1,7 @@
 import './UserProfile.scss';
 
 import React, {Fragment, PureComponent} from 'react';
+import { Redirect } from 'react-router';
 import Button from '@material-ui/core/Button/Button';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
 import PropTypes from 'prop-types';
@@ -17,11 +18,6 @@ const editProfileButton = {
 const makeSellerButton = {
   id: 'make_seller',
   name: 'Стать продавцом',
-};
-// Данные для кнопки Перейти в личный кабинет продавца
-const gotoNewAccountButton = {
-  id: 'confirm_seller',
-  name: 'Перейти в личный кабинет продавца',
 };
 
 /**
@@ -100,10 +96,12 @@ export default class UserProfile extends PureComponent {
     );
 
     fetch(`${serverAddress}/api/consumer/profile`, {
+      method: 'put',
       headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
         'Authorization': `Bearer ${jwtToken}`,
       },
-      method: 'put',
       body: sellerJSON,
     })
       .then(() => {
@@ -125,17 +123,6 @@ export default class UserProfile extends PureComponent {
         });
   };
 
-  gotoSellerAccount = () => {
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          congratulation: false,
-        };
-      }
-    );
-  };
-
   render() {
     const { error, profile, itemsLoaded, congratulation } = this.state;
     const { itemHandle, userStatus } = this.props;
@@ -150,20 +137,7 @@ export default class UserProfile extends PureComponent {
       }
       else
         if (congratulation) {
-          return (
-            <div className="congratulation_seller">
-              <p>Поздравляем! Теперь Вы можете продавать товары на FermaStore</p>
-              <Button
-                className="edit_profile"
-                variant="contained"
-                color="primary"
-                id={gotoNewAccountButton.id}
-                onClick={() => this.gotoSellerAccount()}
-              >
-                {gotoNewAccountButton.name}
-              </Button>
-            </div>
-          );
+          return <Redirect to="/login"/>;
         }
         else {
           if (userStatus === seller)

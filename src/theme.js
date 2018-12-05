@@ -159,6 +159,13 @@ export default theme = {
         },
       },
     },
+    MuiIconButton: {
+      // Название правила
+      root: {
+        // Изменяем значения CSS для компонента
+        color: '#558B2F',
+      },
+    },
     MuiList: {
       // Название правила
       root: {

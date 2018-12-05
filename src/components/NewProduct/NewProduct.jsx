@@ -10,7 +10,7 @@ import {serverAddress} from 'constants/ServerAddress';
 // Данные для кнопки Сохранить изменения
 const saveItemButton = {
   id: 'save_item',
-  name: 'Сохранить изменения',
+  name: 'Выставить товар на продажу',
 };
 // Данные для кнопки Загрузить фотографию товара
 const loadItemPhotoButton = {

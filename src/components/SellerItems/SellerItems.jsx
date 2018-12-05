@@ -3,6 +3,11 @@ import './SellerItems.scss';
 import React, { PureComponent } from 'react';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
 import Button from '@material-ui/core/Button/Button';
+import IconButton from '@material-ui/core/IconButton';
+import FirstPage from '@material-ui/icons/FirstPage';
+import PrevPage from '@material-ui/icons/ChevronLeft';
+import NextPage from '@material-ui/icons/ChevronRight';
+import LastPage from '@material-ui/icons/LastPage';
 import PropTypes from 'prop-types';
 
 import SellerItem from 'components/SellerItem';
@@ -25,6 +30,14 @@ export default class SellerItems extends PureComponent {
     this.state = {
       sellerItems: {},
       itemsLoaded: false,
+      // текущая страница
+      currentPage: 1,
+      // последняя страница
+      lastPage: 1,
+      firstPageEnable: false,
+      prevPageEnable: false,
+      nextPageEnable: false,
+      lastPageEnable: false,
     };
   }
 
@@ -46,12 +59,16 @@ export default class SellerItems extends PureComponent {
     })
       .then(res => res.json())
       .then(res => {
+        const lastPage = res.result.pagination.last_page;
         this.setState(
           prevState => {
             return {
               ...prevState,
               sellerItems: res.result,
               itemsLoaded: true,
+              lastPage: lastPage,
+              nextPageEnable: lastPage > 1,
+              lastPageEnable: lastPage > 1,
             };
           }
         );
@@ -65,28 +82,81 @@ export default class SellerItems extends PureComponent {
   }
 
   // обработка щелчков по кнопке Удалить товар
-  handleDeleteItem = (item_number, item_id) => {
+  handleDeleteItem = item_id => {
+    const { currentPage } = this.state;
+    const { jwtToken } = this.props;
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          itemsLoaded: false,
+        };
+      }
+    );
     fetch(`${serverAddress}/api/producer/products/${item_id}`, {
       method: 'delete',
+      headers: {
+        'Authorization': `Bearer ${jwtToken}`,
+      },
     })
       .then(() => {
-        const newSellerItems = Object.assign({}, this.state.sellerItems);
-        newSellerItems.products.splice(item_number, 1);
+        this.changeList(currentPage);
+      });
+  };
+
+  changeList = page => {
+    const { jwtToken } = this.props;
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          itemsLoaded: false,
+        };
+      }
+    );
+    fetch(`${serverAddress}/api/producer/products?page=${page}`, {
+      headers: {
+        'Authorization': `Bearer ${jwtToken}`,
+      },
+    })
+      .then(res => res.json())
+      .then(res => {
+        const lastPage = res.result.pagination.last_page;
         this.setState(
           prevState => {
             return {
               ...prevState,
-              sellerItems: newSellerItems,
+              currentPage: page,
+              lastPage: lastPage,
+              firstPageEnable: page > 1,
+              prevPageEnable: page > 1,
+              nextPageEnable: page < lastPage,
+              lastPageEnable: page < lastPage,
+              sellerItems: res.result,
+              itemsLoaded: true,
             };
           }
         );
+          if (res.result.products.length === 0 && page > 1 && this.state.lastPage > 1) {
+            this.changeList(page - 1);
+          }
+          else
+          if (res.result.products.length === 0 && page === 1 && this.state.lastPage > 1) {
+            this.changeList(page + 1);
+          }
+      },
+      error => {
+        this.setState({
+          itemsLoaded: true,
+          error,
+        });
       });
   };
 
   render() {
-    const { error, sellerItems, itemsLoaded } = this.state;
+    const { error, sellerItems, itemsLoaded, currentPage, lastPage, firstPageEnable, prevPageEnable, nextPageEnable, lastPageEnable } = this.state;
     const { itemHandle, getID } = this.props;
-
+    let paginationButtons = '';
     if (error) {
       return <p>Ошибка: {error.message}</p>;
     }
@@ -102,19 +172,52 @@ export default class SellerItems extends PureComponent {
             <p>Вы можете добавить товары на продажу с помощью кнопки {newSellButton.name}</p>
           </div>;
         }
-        else
+        else {
+          if (lastPage > 1) {
+            paginationButtons = (
+              <div className="pagination">
+                <IconButton
+                  disabled={!firstPageEnable}
+                  onClick={() => this.changeList(1)}
+                >
+                  <FirstPage/>
+                </IconButton>
+                <IconButton
+                  disabled={!prevPageEnable}
+                  onClick={() => this.changeList(currentPage - 1)}
+                >
+                  <PrevPage/>
+                </IconButton>
+                <span className="currentPage">
+                  {currentPage}
+                </span>
+                <IconButton
+                  disabled={!nextPageEnable}
+                  onClick={() => this.changeList(currentPage + 1)}
+                >
+                  <NextPage/>
+                </IconButton>
+                <IconButton
+                  disabled={!lastPageEnable}
+                  onClick={() => this.changeList(lastPage)}
+                >
+                  <LastPage/>
+                </IconButton>
+              </div>
+            );
+          }
           content = sellerItems.products.map((item, idx) => {
             return (
               <SellerItem
                 item={item}
                 key={idx}
-                itemNumber={idx}
                 itemHandle={itemHandle}
                 getID={getID}
                 handleDeleteItem={this.handleDeleteItem}
               />
             );
           });
+        }
         return (
           <div className="seller_items">
             <div className="seller_items_header">
@@ -133,8 +236,10 @@ export default class SellerItems extends PureComponent {
               </Button>
             </p>
             {content}
+            {paginationButtons}
           </div>
         );
       }
+
   }
 }

@@ -27,14 +27,18 @@ export default class NewProduct extends PureComponent {
 
     // значения полей, используемых в render()
     this.state = {
-      // категории товаров
+      // дерево категорий каталога товаров
       categories: [],
+      // подкатегории выбранной категории товаров
+      subcategories: [],
       itemsLoaded: false,
       error: null,
       // название продукта
       name: '',
-      // раздел каталога
-      category: '',
+      // родительский элемент каталога
+      categoryParent: '',
+      // подраздел каталога
+      categoryChild: '',
       // единица измерения товара
       measures: '',
       // цена товара
@@ -60,7 +64,7 @@ export default class NewProduct extends PureComponent {
             prevState => {
               return {
                 ...prevState,
-                categories: res.result,
+                categories: res.result.categories,
                 itemsLoaded: true,
               };
             }
@@ -75,6 +79,7 @@ export default class NewProduct extends PureComponent {
       .then(
         () => {
           if (!this.props.newItem) {
+            const {categories} = this.state;
             this.setState(
               prevState => {
                 return {
@@ -87,13 +92,22 @@ export default class NewProduct extends PureComponent {
               .then(res => res.json())
               .then(res => {
                 const response = res.result.product;
+                const parent = response.parent_category_id;
+                const subcategories = categories.filter(item => {
+                  return (
+                    item.category.id === parent
+                  );
+                });
+
                 this.setState(
                   prevState => {
                     return {
                       ...prevState,
                       itemsLoaded: true,
                       name: response.title,
-                      category: response.parent_category_id,
+                      categoryParent: parent,
+                      subcategories: subcategories[0].category.children,
+                      categoryChild: response.category_id,
                       measures: response.measures,
                       price: response.price,
                       description: response.descripion,
@@ -112,17 +126,32 @@ export default class NewProduct extends PureComponent {
     });
   };
 
+  handleCategoryChange = event => {
+    const { categories } = this.state;
+    const value = Number(event.target.value);
+
+    const subcategories = categories.filter(item => {
+      return (
+        item.category.id === value
+      );
+    });
+    this.setState({
+      [event.target.name]: value,
+      subcategories: subcategories[0].category.children,
+    });
+
+  };
+
   render() {
-    const { error, categories, itemsLoaded, name, category, measures, price, description } = this.state;
+    const { error, categories, itemsLoaded, name, subcategories, categoryParent, categoryChild, measures, price, description } = this.state;
     const { newItemCreated, newItem } = this.props;
     const item = {
       name: name,
-      category_id: category,
+      category_id: categoryChild,
       measures: measures,
       price: price,
       description: description,
     };
-
     if (error) {
       return <p>Ошибка: {error.message}</p>;
     }
@@ -154,14 +183,29 @@ export default class NewProduct extends PureComponent {
                   Название товара
                 </label>
                 <select
-                  id="label_category"
-                  name="category"
-                  value={category}
-                  onChange={this.handleChange}
+                  id="label_category_parent"
+                  name="categoryParent"
+                  value={categoryParent}
+                  onChange={this.handleCategoryChange}
                 >
                   <option value="" disabled="">Выберите категорию товара</option>
                   {
-                    categories.categories.map( (item, idx) => {
+                    categories.map( (item, idx) => {
+                      return (
+                        <option value={item.category.id} key={idx}>{item.category.name}</option>
+                      );
+                    })
+                  }
+                </select>
+                <select
+                  id="label_category_child"
+                  name="categoryChild"
+                  value={categoryChild}
+                  onChange={this.handleChange}
+                >
+                  <option value="" disabled="">Выберите подкатегорию товара</option>
+                  {
+                    subcategories.map( (item, idx) => {
                       return (
                         <option value={item.category.id} key={idx}>{item.category.name}</option>
                       );

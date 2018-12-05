@@ -108,6 +108,7 @@ export default class BuyerOrder extends PureComponent {
               </div>
             );
           })}
+          <span className="seller_item">Общая стоимость доставки заказа: {order.delivery_cost + rub}</span>
           <span className="seller_item">Общая сумма заказа по всем продавцам: {order.amount + rub}</span>
         </div>
       );

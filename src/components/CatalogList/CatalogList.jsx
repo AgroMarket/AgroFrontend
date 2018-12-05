@@ -1,8 +1,14 @@
 import './CatalogList.scss';
 
-import React, { PureComponent } from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import ItemCard from 'components/ItemCard';
+import IconButton from '@material-ui/core/IconButton';
+import FirstPage from '@material-ui/icons/FirstPage';
+import PrevPage from '@material-ui/icons/ChevronLeft';
+import NextPage from '@material-ui/icons/ChevronRight';
+import LastPage from '@material-ui/icons/LastPage';
+
 import {serverAddress} from 'constants/ServerAddress';
 
 /**
@@ -19,6 +25,14 @@ export default class CatalogList extends PureComponent {
       itemsLoaded: false,
       // ошибка загрузки
       error: null,
+      // текущая страница
+      currentPage: 1,
+      // последняя страница
+      lastPage: 1,
+      firstPageEnable: false,
+      prevPageEnable: false,
+      nextPageEnable: false,
+      lastPageEnable: false,
     };
   }
 
@@ -37,6 +51,7 @@ export default class CatalogList extends PureComponent {
     section: PropTypes.string,
     // Функция отображения информации о товаре
     itemHandle: PropTypes.func,
+    pagination: PropTypes.bool,
   };
 
   // значения атрибутов по умолчанию
@@ -46,9 +61,26 @@ export default class CatalogList extends PureComponent {
   };
 
   componentDidMount() {
-    fetch(`${serverAddress}${this.props.section}`)
-        .then(res => res.json())
-        .then(res => {
+    const {pagination} = this.props;
+    let page = '';
+    if (pagination)
+      page = 'page=1';
+    fetch(`${serverAddress}${this.props.section}${page}`)
+      .then(res => res.json())
+      .then(res => {
+          if (pagination) {
+            const lastPage = res.result.pagination.last_page;
+            this.setState(
+              prevState => {
+                return {
+                  ...prevState,
+                  lastPage: lastPage,
+                  nextPageEnable: lastPage > 1,
+                  lastPageEnable: lastPage > 1,
+                };
+              }
+            );
+          }
           this.setState(
             prevState => {
               return {
@@ -77,9 +109,29 @@ export default class CatalogList extends PureComponent {
           };
         }
       );
-      fetch(`${serverAddress}${this.props.section}`)
+      const {pagination} = this.props;
+      let page = '';
+      if (pagination)
+        page = 'page=1';
+      fetch(`${serverAddress}${this.props.section}${page}`)
         .then(res => res.json())
         .then(res => {
+            if (pagination) {
+              const lastPage = res.result.pagination.last_page;
+              this.setState(
+                prevState => {
+                  return {
+                    ...prevState,
+                    currentPage: 1,
+                    lastPage: lastPage,
+                    firstPageEnable: false,
+                    prevPageEnable: false,
+                    nextPageEnable: lastPage > 1,
+                    lastPageEnable: lastPage > 1,
+                  };
+                }
+              );
+            }
             this.setState(
               prevState => {
                 return {
@@ -99,10 +151,48 @@ export default class CatalogList extends PureComponent {
     }
   }
 
+  changeList = page => {
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          itemsLoaded: false,
+        };
+      }
+    );
+    fetch(`${serverAddress}${this.props.section}page=${page}`)
+      .then(res => res.json())
+      .then(res => {
+        const lastPage = res.result.pagination.last_page;
+        this.setState(
+          prevState => {
+            return {
+              ...prevState,
+              currentPage: page,
+              lastPage: lastPage,
+              firstPageEnable: page > 1,
+              prevPageEnable: page > 1,
+              nextPageEnable: page < lastPage,
+              lastPageEnable: page < lastPage,
+              catalogItems: res.result,
+              itemsLoaded: true,
+            };
+          }
+        );
+      },
+      error => {
+        this.setState({
+          itemsLoaded: true,
+          error,
+        });
+      });
+  };
+
   render() {
     // получаем переданные свойства товаров каталога
-    const { error, itemsLoaded, catalogItems } = this.state;
-    const { itemHandle } = this.props;
+    const { error, itemsLoaded, catalogItems, currentPage, lastPage, firstPageEnable, prevPageEnable, nextPageEnable, lastPageEnable } = this.state;
+    const { itemHandle, pagination } = this.props;
+    let paginationButtons = '';
     if (error) {
       return <p>Ошибка: {error.message}</p>;
     }
@@ -114,15 +204,51 @@ export default class CatalogList extends PureComponent {
         if (catalogItems === undefined || catalogItems.length === 0 || catalogItems.products === undefined || catalogItems.products.length === 0) {
           return <p className="load_info">Товары не найдены</p>;
         }
-        else
+        else {
+          if (pagination && lastPage > 1)
+            paginationButtons = (
+              <div className="pagination">
+                <IconButton
+                  disabled={!firstPageEnable}
+                  onClick={() => this.changeList(1)}
+                >
+                  <FirstPage/>
+                </IconButton>
+                <IconButton
+                  disabled={!prevPageEnable}
+                  onClick={() => this.changeList(currentPage - 1)}
+                >
+                  <PrevPage/>
+                </IconButton>
+                <span className="currentPage">
+                  {currentPage}
+                </span>
+                <IconButton
+                  disabled={!nextPageEnable}
+                  onClick={() => this.changeList(currentPage + 1)}
+                >
+                  <NextPage/>
+                </IconButton>
+                <IconButton
+                  disabled={!lastPageEnable}
+                  onClick={() => this.changeList(lastPage)}
+                >
+                  <LastPage/>
+                </IconButton>
+              </div>
+            );
           return (
-            <div className="catalog_items">
-              {catalogItems.products.map( (item, idx) => {
-                return (
-                  <ItemCard item={item} itemHandle={itemHandle} key={idx}/>
-                );
-              })}
-            </div>
+            <Fragment>
+              <div className="catalog_items">
+                {catalogItems.products.map((item, idx) => {
+                  return (
+                    <ItemCard item={item} itemHandle={itemHandle} key={idx}/>
+                  );
+                })}
+              </div>
+              {paginationButtons}
+            </Fragment>
           );
+        }
   }
 }

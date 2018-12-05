@@ -31,9 +31,8 @@ export default class MainPage extends PureComponent {
       producerID: '',
       // ошибка загрузки
       error: null,
-      // TODO добавить пагинацию для вывода товаров каталога
-      // флаг включения пагинации on / off
-      pagination: 'off',
+      // флаг включения пагинации
+      pagination: false,
       // режим отображения catalogList / catalogItem
       mode: 'catalogList',
       searchResults: false,
@@ -78,9 +77,11 @@ export default class MainPage extends PureComponent {
         return {
           ...prevState,
           // загружаем найденные товары
-          openedSection: `/api/products?search=${template}`,
+          openedSection: `/api/products?search=${template}&`,
           // переходим в режим отображения Каталог товаров
           mode: 'catalogList',
+          // включаем пагинацию
+          pagination: true,
           searchResults: true,
         };
       }
@@ -97,7 +98,8 @@ export default class MainPage extends PureComponent {
         return {
           ...prevState,
           // загружаем найденные товары
-          openedSection: `/api/producers/${producerID}/products`,
+          openedSection: `/api/producers/${producerID}/products?`,
+          pagination: true,
           // переходим в режим отображения Каталог товаров
           mode: 'catalogList',
           searchResults: true,
@@ -115,9 +117,10 @@ export default class MainPage extends PureComponent {
       prevState => {
         return {
           ...prevState,
-          openedSection: `/api/categories/${sectionID}/products`,
+          openedSection: `/api/categories/${sectionID}/products?`,
           // переходим в режим отображения Каталог товаров
           mode: 'catalogList',
+          pagination: true,
           searchResults: false,
         };
       }
@@ -182,7 +185,7 @@ export default class MainPage extends PureComponent {
   };
 
   render() {
-    const { error, menuLoaded, menuItems, openedSection, mode, openedItem, searchResults, openedProducer, producerID } = this.state;
+    const { error, menuLoaded, menuItems, openedSection, mode, openedItem, searchResults, openedProducer, producerID, pagination } = this.state;
     const { basketID } = this.props;
     if (error) {
       return <p>Ошибка: {error.message}</p>;
@@ -194,10 +197,19 @@ export default class MainPage extends PureComponent {
       else {
         let content;
         if (mode === 'catalogList') {
-          content = <CatalogList section={openedSection} itemHandle={this.itemHandle}/>;
+          content = <CatalogList
+            section={openedSection}
+            itemHandle={this.itemHandle}
+            pagination={pagination}
+          />;
         }
         if (mode === 'catalogItem') {
-          content = <CatalogItem item={openedItem} actionBack={this.closeItem} producerHandle={this.producerHandle} basketID={basketID}/>;
+          content = <CatalogItem
+            item={openedItem}
+            actionBack={this.closeItem}
+            producerHandle={this.producerHandle}
+            basketID={basketID}
+          />;
         }
         if (mode === 'catalogProducer') {
           content = <CatalogProducer

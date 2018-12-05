@@ -12,6 +12,9 @@ $k: 16;
     grid-template-columns: 50% 50%;
   }
 }
-.load_info {
+.load_info, .currentPage {
   color: #558b2f;
+}
+.pagination {
+  text-align: right;
 }

@@ -42,7 +42,7 @@ export default class OrderItem extends PureComponent {
           {date}
         </span>
         <span className="order_total">
-          Заказ на сумму {item.order.total} руб.
+          Заказ на сумму {item.order.total.toLocaleString('ru')} руб.
         </span>
         <Button
           className="edit_button"

@@ -92,16 +92,16 @@ export default class SellerOrder extends PureComponent {
                     <span>{product.product_quantity}</span>
                   </div>
                   <div>
-                    <span>{product.product_price + rub}</span>
+                    <span>{product.product_price.toLocaleString('ru') + rub}</span>
                   </div>
                   <div>
-                    <span>{product.product_sum + rub}</span>
+                    <span>{product.product_sum.toLocaleString('ru') + rub}</span>
                   </div>
                 </div>
               );
             }
           )}
-          <span className="seller_item">Общая сумма заказа: {order.total + rub}</span>
+          <span className="seller_item">Общая сумма заказа: {order.total.toLocaleString('ru') + rub}</span>
         </div>
       );
     }

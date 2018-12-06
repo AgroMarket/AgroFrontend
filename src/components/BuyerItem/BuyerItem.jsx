@@ -45,7 +45,7 @@ export default class BuyerItem extends PureComponent {
           {item.ask.producer}
         </span>
         <span className="order_total">
-          Заказ на сумму {item.ask.amount} руб.
+          Заказ на сумму {item.ask.amount.toLocaleString('ru')} руб.
         </span>
         <Button
           className="open_order_button"

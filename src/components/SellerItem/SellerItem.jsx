@@ -58,7 +58,7 @@ export default class SellerItem extends PureComponent {
           1 {item.product.measures}
         </span>
         <span className="item_price">
-          {item.product.price} руб. / 1 {item.product.measures}
+          {item.product.price.toLocaleString('ru')} руб. / 1 {item.product.measures}
         </span>
         <Button
           className="edit_button"

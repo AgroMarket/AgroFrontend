@@ -178,7 +178,7 @@ export default class CatalogItem extends PureComponent {
                   <AddIcon />
                 </Button>
                 <span className="item_price">
-                  {catalogItem.product.price} руб. / 1 {catalogItem.product.measures}
+                  {catalogItem.product.price.toLocaleString('ru')} руб. / 1 {catalogItem.product.measures}
                 </span>
                 </p>
               <Button

@@ -47,7 +47,7 @@ export default class ItemCard extends PureComponent {
               {item.product.title}
             </p>
             <p className="price">
-              {item.product.price} руб.&nbsp;/&nbsp;{item.product.measures}
+              {item.product.price.toLocaleString('ru')} руб.&nbsp;/&nbsp;{item.product.measures}
             </p>
           </CardContent>
         </CardActionArea>

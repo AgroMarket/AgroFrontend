@@ -77,7 +77,7 @@ export default class BasketList extends PureComponent {
                 {item.product.name}
               </span>
               <span className="item_price">
-                {item.product.price} руб.
+                {item.product.price.toLocaleString('ru')} руб.
               </span>
               <Button
                 className="remove_button"
@@ -103,7 +103,7 @@ export default class BasketList extends PureComponent {
                 <AddIcon/>
               </Button>
               <span className="item_full_price">
-                {item.product.price * item.product.quantity} руб.
+                {(item.product.price * item.product.quantity).toLocaleString('ru')} руб.
               </span>
               <Button
                 className="item_delete"
@@ -119,13 +119,13 @@ export default class BasketList extends PureComponent {
           );
         })}
         <p className="basket_total">
-          Общая стоимость доставки товаров в корзине: {deliveryCost} руб.
+          Общая стоимость доставки товаров в корзине: {deliveryCost.toLocaleString('ru')} руб.
         </p>
         <p className="basket_total">
-          Общая стоимость товаров в корзине: {sum} руб.
+          Общая стоимость товаров в корзине: {sum.toLocaleString('ru')} руб.
         </p>
         <p className="basket_total">
-          Общая стоимость заказа с доставкой: {deliveryCost + sum} руб.
+          Общая стоимость заказа с доставкой: {(deliveryCost + sum).toLocaleString('ru')} руб.
         </p>
       </div>
     );

@@ -95,7 +95,7 @@ export default class ProfileAccount extends PureComponent {
               <MyOrdersIcon className="my_orders_icon"/>
               <h2>Счет на Ferma Store</h2>
             </div>
-            <p>Остаток денежных средств на счете {money} руб.</p>
+            <p>Остаток денежных средств на счете {money.toLocaleString('ru')} руб.</p>
             <Button
               className="add_money"
               variant="contained"

@@ -7,6 +7,7 @@ import ProfileAccount from 'components/ProfileAccount';
 import ProfileMoney from 'components/ProfileMoney';
 import ProfileProfit from 'components/ProfileProfit';
 import ProfileDelivery from 'components/ProfileDelivery';
+import DeliveryOrder from 'components/DeliveryOrder';
 import SellerItems from 'components/SellerItems';
 import NewProduct from 'components/NewProduct';
 import ProfileContragent from 'components/ProfileContragent';
@@ -159,6 +160,12 @@ export default class ProfileContent extends PureComponent {
               getID={this.getID}
               jwtToken={jwtToken}
             />
+          </div>
+        );
+      case 'open_delivery_order':
+        return (
+          <div className="seller_content">
+            <DeliveryOrder id={id} jwtToken={jwtToken}/>
           </div>
         );
       case 'seller_items':

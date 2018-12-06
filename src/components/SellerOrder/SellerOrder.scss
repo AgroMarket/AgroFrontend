@@ -3,8 +3,8 @@ $k: 16;
 
 // TODO подкорректировать CSS
 .order_info {
-  .order_status {
-    color: #558b2f;
+  button {
+    width: 300rem/$k;
   }
   .product {
     display: grid;

@@ -6,6 +6,19 @@ import MyOrdersIcon from '@material-ui/icons/DateRange';
 import moment from 'moment';
 
 import {serverAddress} from 'constants/ServerAddress';
+import Button from '@material-ui/core/Button/Button';
+import OrderStatus from 'components/OrderStatus/OrderStatus';
+
+// Данные для кнопки Передать заказ на доставку
+const orderDoneButton = {
+  id: 'order_done',
+  name: 'Передать заказ на доставку',
+};
+// Данные для кнопки Отменить заказ
+const orderCancelButton = {
+  id: 'order_cancel',
+  name: 'Отменить заказ',
+};
 
 /**
  * Класс SellerOrder - компонент, отображающий подробные сведения о заказе на странице продавца
@@ -18,17 +31,23 @@ export default class SellerOrder extends PureComponent {
     this.state = {
       order: {},
       itemsLoaded: false,
+      orderStatus: '',
     };
   }
 
   // Проверка свойств
   static propTypes = {
     id: PropTypes.number,
+    jwtToken: PropTypes.string,
   };
 
   componentDidMount() {
-    const { id } = this.props;
-    fetch(`${serverAddress}/api/producer/orders/${id}`)
+    const { id, jwtToken } = this.props;
+    fetch(`${serverAddress}/api/producer/orders/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${jwtToken}`,
+      },
+    })
       .then(res => res.json())
       .then(res => {
           this.setState(
@@ -37,6 +56,7 @@ export default class SellerOrder extends PureComponent {
                 ...prevState,
                 order: res.result.order,
                 itemsLoaded: true,
+                orderStatus: res.result.order.status,
               };
             }
           );
@@ -49,8 +69,52 @@ export default class SellerOrder extends PureComponent {
         });
   }
 
+  orderDone = () => {
+    const statusJSON = JSON.stringify({
+      'order': {
+        'status': 1,
+      },
+    });
+    const { id, jwtToken } = this.props;
+
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          orderStatus: 'Обработка данных',
+        };
+      }
+    );
+
+    fetch(`${serverAddress}/api/producer/orders/${id}`, {
+      method: 'put',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtToken}`,
+      },
+      body: statusJSON,
+    })
+      .then(res => res.json())
+      .then(res => {
+          this.setState(
+            prevState => {
+              return {
+                ...prevState,
+                orderStatus: res.result.order.status,
+              };
+            }
+          );
+        },
+        error => {
+          this.setState({
+            error,
+          });
+        });
+  };
+
   render() {
-    const {error, order, itemsLoaded} = this.state;
+    const {error, order, itemsLoaded, orderStatus } = this.state;
     const rub = ' руб.';
     moment.locale('ru');
 
@@ -61,15 +125,38 @@ export default class SellerOrder extends PureComponent {
       return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
     }
     else {
-      // TODO рефакторинг доделать
+      let needAcceptOrder;
+      if (orderStatus === 'Подтверждается')
+      {
+        needAcceptOrder = <p>
+          <Button
+            className="orderDone"
+            variant="contained"
+            color="primary"
+            id={orderDoneButton.id}
+            onClick={() => this.orderDone()}
+          >
+            {orderDoneButton.name}
+          </Button>
+        </p>;
+      }
       return (
         <div className="seller_items order_info">
           <div className="seller_items_header">
             <MyOrdersIcon className="my_orders_icon"/>
             <h2>Заказ № {order.id} от {moment(order.date).format('LL')}</h2>
           </div>
-          <p className="order_status">
-            Статус исполнения заказа: {order.status}
+          <OrderStatus orderStatus={orderStatus}/>
+          {needAcceptOrder}
+          <p>
+            <Button
+              className="orderCancel"
+              variant="contained"
+              color="primary"
+              id={orderCancelButton.id}
+            >
+              {orderCancelButton.name}
+            </Button>
           </p>
           <div className="product seller_item">
             <div>

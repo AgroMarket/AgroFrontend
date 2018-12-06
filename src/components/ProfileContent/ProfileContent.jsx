@@ -181,7 +181,7 @@ export default class ProfileContent extends PureComponent {
       case 'open_seller_order':
         return (
           <div className="seller_content">
-            <SellerOrder id={id}/>
+            <SellerOrder id={id} jwtToken={jwtToken}/>
           </div>
         );
       case 'seller_clients':

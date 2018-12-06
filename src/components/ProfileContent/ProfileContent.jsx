@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import ProfileAccount from 'components/ProfileAccount';
 import ProfileMoney from 'components/ProfileMoney';
 import ProfileProfit from 'components/ProfileProfit';
+import ProfileDelivery from 'components/ProfileDelivery';
 import SellerItems from 'components/SellerItems';
 import NewProduct from 'components/NewProduct';
 import ProfileContragent from 'components/ProfileContragent';
@@ -144,6 +145,16 @@ export default class ProfileContent extends PureComponent {
         return (
           <div className="seller_content">
             <ProfileSellers
+              itemHandle={itemHandle}
+              getID={this.getID}
+              jwtToken={jwtToken}
+            />
+          </div>
+        );
+      case 'delivery_orders':
+        return (
+          <div className="seller_content">
+            <ProfileDelivery
               itemHandle={itemHandle}
               getID={this.getID}
               jwtToken={jwtToken}

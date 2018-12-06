@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "Ferma store front",
   "main": "index.jsx",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:AgroMarket/AgroFrontend.git"
+  },
   "scripts": {
     "build": "webpack --mode production --watch",
     "dev": "webpack --mode development --watch",
@@ -24,6 +28,7 @@
     "@material-ui/icons": "^3.0.1",
     "autoprefixer": "^9.1.5",
     "classnames": "^2.2.6",
+    "merge": "^1.2.1",
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
     "react": "^16.5.0",

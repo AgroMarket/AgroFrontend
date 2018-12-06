@@ -20,6 +20,12 @@ export const menuItems = [
     icon: MyOrdersIcon,
   },
   {
+    id: 'delivery_orders',
+    name: 'Доставка',
+    component: 'ProfileDelivery',
+    icon: MyOrdersIcon,
+  },
+  {
     id: 'seller_items',
     name: 'Товары на продажу',
     component: 'SellerItems',

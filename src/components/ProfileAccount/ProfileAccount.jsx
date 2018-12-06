@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button/Button';
 import PropTypes from 'prop-types';
 
 import {serverAddress} from 'constants/ServerAddress';
-import {buyer, seller} from 'constants/AuthorizationTypes';
+import {buyer, seller, admin, delivery} from 'constants/AuthorizationTypes';
 
 // Данные для кнопки Пополнить счёт
 const addMoneyButton = {
@@ -44,12 +44,11 @@ export default class ProfileAccount extends PureComponent {
     const {jwtToken, userStatus} = this.props;
     let user;
 
-    // TODO проверить работу на акке для продавца, когда заработает профиль на бэкенде
     if (userStatus === seller) {
       user = 'producer';
     }
     else
-      if (userStatus === buyer) {
+      if (userStatus === buyer || userStatus === delivery || userStatus === admin) {
         user = 'consumer';
       }
     fetch(`${serverAddress}/api/${user}/profile`, {
@@ -79,7 +78,7 @@ export default class ProfileAccount extends PureComponent {
 
   render() {
     const { error, money, itemsLoaded } = this.state;
-    const { itemHandle } = this.props;
+    const { itemHandle, userStatus } = this.props;
 
     if (error) {
       return <p>Ошибка: {error.message}</p>;
@@ -89,6 +88,19 @@ export default class ProfileAccount extends PureComponent {
         return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
       }
       else {
+        let addMoney = '';
+        if (userStatus === buyer || userStatus === seller) {
+          addMoney = <Button
+            className="add_money"
+            variant="contained"
+            color="primary"
+            id={addMoneyButton.id}
+            onClick={() => itemHandle('add_money_to_account')}
+          >
+            {addMoneyButton.name}
+          </Button>;
+        }
+
         return (
           <div className="profile_account seller_items">
             <div className="seller_items_header">
@@ -96,15 +108,7 @@ export default class ProfileAccount extends PureComponent {
               <h2>Счет на Ferma Store</h2>
             </div>
             <p>Остаток денежных средств на счете {money.toLocaleString('ru')} руб.</p>
-            <Button
-              className="add_money"
-              variant="contained"
-              color="primary"
-              id={addMoneyButton.id}
-              onClick={() => itemHandle('add_money_to_account')}
-            >
-              {addMoneyButton.name}
-            </Button>
+            {addMoney}
             <Button
               className="get_money"
               variant="contained"

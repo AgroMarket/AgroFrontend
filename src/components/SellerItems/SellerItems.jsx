@@ -1,6 +1,6 @@
 import './SellerItems.scss';
 
-import React, { PureComponent } from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
 import Button from '@material-ui/core/Button/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -180,93 +180,100 @@ export default class SellerItems extends PureComponent {
   render() {
     const { error, sellerItems, itemsLoaded, itemsForSell, currentPage, lastPage, firstPageEnable, prevPageEnable, nextPageEnable, lastPageEnable } = this.state;
     const { itemHandle, getID } = this.props;
-    let paginationButtons = '';
+    let paginationButtons = '',
+      content = '',
+      subcontent = '';
+    const button = <Fragment>
+      <p>
+        <Button
+          className="sell_button"
+          variant="contained"
+          color="primary"
+          id={newSellButton.id}
+          onClick={() => itemHandle('new_product')}
+        >
+          {newSellButton.name}
+        </Button>
+      </p>
+      <p className="total_items">
+        Всего выставлено товаров на продажу: {itemsForSell} ед.
+      </p>
+    </Fragment>;
+
+    if (lastPage > 1) {
+      paginationButtons = (
+        <div className="pagination">
+          <IconButton
+            disabled={!firstPageEnable}
+            onClick={() => this.changeList(1)}
+          >
+            <FirstPage/>
+          </IconButton>
+          <IconButton
+            disabled={!prevPageEnable}
+            onClick={() => this.changeList(currentPage - 1)}
+          >
+            <PrevPage/>
+          </IconButton>
+          <span className="currentPage">
+                  {currentPage}
+                </span>
+          <IconButton
+            disabled={!nextPageEnable}
+            onClick={() => this.changeList(currentPage + 1)}
+          >
+            <NextPage/>
+          </IconButton>
+          <IconButton
+            disabled={!lastPageEnable}
+            onClick={() => this.changeList(lastPage)}
+          >
+            <LastPage/>
+          </IconButton>
+        </div>
+      );
+    }
     if (error) {
-      return <p>Ошибка: {error.message}</p>;
+      subcontent = <p className="load_info sell_items_content">Ошибка: {error.message}</p>;
     }
     else
       if (!itemsLoaded) {
-        return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
+        subcontent = <p className="load_info sell_items_content">Пожалуйста, подождите, идет загрузка страницы</p>;
       }
       else {
-        let content;
         if (sellerItems === undefined || sellerItems.length === 0 || sellerItems.products === undefined || sellerItems.products.length === 0) {
-          content = <div className="load_info">
+          subcontent = <div className="load_info sell_items_content">
             <div/>
             <p>Вы можете добавить товары на продажу с помощью кнопки {newSellButton.name}</p>
           </div>;
         }
         else {
-          if (lastPage > 1) {
-            paginationButtons = (
-              <div className="pagination">
-                <IconButton
-                  disabled={!firstPageEnable}
-                  onClick={() => this.changeList(1)}
-                >
-                  <FirstPage/>
-                </IconButton>
-                <IconButton
-                  disabled={!prevPageEnable}
-                  onClick={() => this.changeList(currentPage - 1)}
-                >
-                  <PrevPage/>
-                </IconButton>
-                <span className="currentPage">
-                  {currentPage}
-                </span>
-                <IconButton
-                  disabled={!nextPageEnable}
-                  onClick={() => this.changeList(currentPage + 1)}
-                >
-                  <NextPage/>
-                </IconButton>
-                <IconButton
-                  disabled={!lastPageEnable}
-                  onClick={() => this.changeList(lastPage)}
-                >
-                  <LastPage/>
-                </IconButton>
-              </div>
-            );
-          }
-          content = sellerItems.products.map((item, idx) => {
-            return (
-              <SellerItem
-                item={item}
-                key={idx}
-                itemHandle={itemHandle}
-                getID={getID}
-                handleDeleteItem={this.handleDeleteItem}
-              />
-            );
-          });
+          subcontent = <div className="sell_items_content">
+            {sellerItems.products.map((item, idx) => {
+              return (
+                <SellerItem
+                  item={item}
+                  key={idx}
+                  itemHandle={itemHandle}
+                  getID={getID}
+                  handleDeleteItem={this.handleDeleteItem}
+                />
+              );
+            })}
+          </div>;
         }
-        return (
-          <div className="seller_items">
-            <div className="seller_items_header">
-              <MyOrdersIcon className="my_orders_icon"/>
-              <h2>Товары, выставленные на продажу</h2>
-            </div>
-            {content}
-            {paginationButtons}
-            <p className="total_items">
-              Всего на продажу выставлено {itemsForSell} товаров.
-            </p>
-            <p>
-              <Button
-                className="sell_button"
-                variant="contained"
-                color="primary"
-                id={newSellButton.id}
-                onClick={() => itemHandle('new_product')}
-              >
-                {newSellButton.name}
-              </Button>
-            </p>
-          </div>
-        );
       }
-
+    return (
+      <div className="seller_items">
+        <div className="seller_items_header">
+          <MyOrdersIcon className="my_orders_icon"/>
+          <h2>Товары, выставленные на продажу</h2>
+        </div>
+          {button}
+          {subcontent}
+          {paginationButtons}
+          {content}
+      </div>
+    );
   }
 }

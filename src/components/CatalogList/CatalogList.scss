@@ -16,5 +16,17 @@ $k: 16;
   color: #558b2f;
 }
 .pagination {
+  margin-top: 20rem/$k;
   text-align: right;
+}
+.catalog_content {
+  margin-top: 0;
+  padding-top: 20rem/$k;
+  height: 555rem/$k;
+  @media (max-width: 1280px) {
+    height: 820rem/$k;
+  }
+  @media (max-width: 960px) {
+    height: 1120rem/$k;
+  }
 }

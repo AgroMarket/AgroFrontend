@@ -192,63 +192,63 @@ export default class CatalogList extends PureComponent {
     // получаем переданные свойства товаров каталога
     const { error, itemsLoaded, catalogItems, currentPage, lastPage, firstPageEnable, prevPageEnable, nextPageEnable, lastPageEnable } = this.state;
     const { itemHandle, pagination } = this.props;
-    let paginationButtons = '';
+    let paginationButtons = '', content = '';
+
+    if (pagination && lastPage > 1)
+      paginationButtons = (
+        <div className="pagination">
+          <IconButton
+            disabled={!firstPageEnable}
+            onClick={() => this.changeList(1)}
+          >
+            <FirstPage/>
+          </IconButton>
+          <IconButton
+            disabled={!prevPageEnable}
+            onClick={() => this.changeList(currentPage - 1)}
+          >
+            <PrevPage/>
+          </IconButton>
+          <span className="currentPage">
+                  {currentPage}
+                </span>
+          <IconButton
+            disabled={!nextPageEnable}
+            onClick={() => this.changeList(currentPage + 1)}
+          >
+            <NextPage/>
+          </IconButton>
+          <IconButton
+            disabled={!lastPageEnable}
+            onClick={() => this.changeList(lastPage)}
+          >
+            <LastPage/>
+          </IconButton>
+        </div>
+      );
     if (error) {
-      return <p>Ошибка: {error.message}</p>;
+      content = <p className="catalog_content">Ошибка: {error.message}</p>;
     }
     else
       if (!itemsLoaded) {
-        return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
+        content = <p className="load_info catalog_content">Пожалуйста, подождите, идет загрузка страницы</p>;
       }
       else
         if (catalogItems === undefined || catalogItems.length === 0 || catalogItems.products === undefined || catalogItems.products.length === 0) {
-          return <p className="load_info">Товары не найдены</p>;
+          content = <p className="load_info catalog_content">Товары не найдены</p>;
         }
-        else {
-          if (pagination && lastPage > 1)
-            paginationButtons = (
-              <div className="pagination">
-                <IconButton
-                  disabled={!firstPageEnable}
-                  onClick={() => this.changeList(1)}
-                >
-                  <FirstPage/>
-                </IconButton>
-                <IconButton
-                  disabled={!prevPageEnable}
-                  onClick={() => this.changeList(currentPage - 1)}
-                >
-                  <PrevPage/>
-                </IconButton>
-                <span className="currentPage">
-                  {currentPage}
-                </span>
-                <IconButton
-                  disabled={!nextPageEnable}
-                  onClick={() => this.changeList(currentPage + 1)}
-                >
-                  <NextPage/>
-                </IconButton>
-                <IconButton
-                  disabled={!lastPageEnable}
-                  onClick={() => this.changeList(lastPage)}
-                >
-                  <LastPage/>
-                </IconButton>
-              </div>
-            );
-          return (
-            <Fragment>
-              <div className="catalog_items">
-                {catalogItems.products.map((item, idx) => {
-                  return (
-                    <ItemCard item={item} itemHandle={itemHandle} key={idx}/>
-                  );
-                })}
-              </div>
-              {paginationButtons}
-            </Fragment>
-          );
-        }
+        else
+          content = <div className="catalog_items catalog_content">
+              {catalogItems.products.map((item, idx) => {
+                return (
+                  <ItemCard item={item} itemHandle={itemHandle} key={idx}/>
+                );
+              })}
+            </div>;
+    return (<Fragment>
+        {content}
+        {paginationButtons}
+      </Fragment>
+    );
   }
 }

@@ -23,4 +23,15 @@ $k: 16;
   .total_items {
     color: #558b2f;
   }
+  .sell_items_content {
+    margin-top: 0;
+    padding-top: 20rem/$k;
+    height: 460rem/$k;
+    @media (max-width: 1920px) {
+      height: 320rem/$k;
+    }
+    @media (max-width: 1280px) {
+      height: 288rem/$k;
+    }
+  }
 }

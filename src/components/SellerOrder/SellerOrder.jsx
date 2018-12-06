@@ -7,7 +7,7 @@ import moment from 'moment';
 
 import {serverAddress} from 'constants/ServerAddress';
 import Button from '@material-ui/core/Button/Button';
-import OrderStatus from 'components/OrderStatus/OrderStatus';
+import OrderStatus from 'components/OrderStatus';
 
 // Данные для кнопки Передать заказ на доставку
 const orderDoneButton = {
@@ -114,7 +114,7 @@ export default class SellerOrder extends PureComponent {
   };
 
   render() {
-    const {error, order, itemsLoaded, orderStatus } = this.state;
+    const { error, order, itemsLoaded, orderStatus } = this.state;
     const rub = ' руб.';
     moment.locale('ru');
 
@@ -125,7 +125,7 @@ export default class SellerOrder extends PureComponent {
       return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
     }
     else {
-      let needAcceptOrder;
+      let needAcceptOrder = '';
       if (orderStatus === 'Подтверждается')
       {
         needAcceptOrder = <p>

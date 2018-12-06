@@ -33,22 +33,22 @@ export default class ProfileStatistics extends PureComponent {
     })
       .then(res => res.json())
       .then(res => {
-          this.setState(
-            prevState => {
-              return {
-                ...prevState,
-                statistics: res.result.dashboard,
-                itemsLoaded: true,
-              };
-            }
-          );
-        },
-        error => {
-          this.setState({
-            itemsLoaded: true,
-            error,
-          });
+        this.setState(
+          prevState => {
+            return {
+              ...prevState,
+              statistics: res.result.dashboard,
+              itemsLoaded: true,
+            };
+          }
+        );
+      },
+      error => {
+        this.setState({
+          itemsLoaded: true,
+          error,
         });
+      });
   }
   
   render() {
@@ -75,13 +75,15 @@ export default class ProfileStatistics extends PureComponent {
         <div className="seller_items">
           <div className="seller_items_header">
             <MyOrdersIcon className="my_orders_icon"/>
-            <h2>Статистика производителя</h2>
+            <h2>Статистика</h2>
           </div>
-          <div>Товаров {statistics.products_count}</div>
-          <div>Покупателей {statistics.consumers_count}</div>
-          <div>Заказов {statistics.orders_count}</div>
-          <div>Оборот {statistics.turnover}</div>
-          <div>На счету {statistics.amount}</div>
+          <div className="statistics">
+            <div className="statistics_item"><span className="statistics_text">Товары на продаже</span><span className="statistics_counts">{statistics.products_count}</span></div>
+            <div className="statistics_item"><span className="statistics_text">Уникальные покупатели</span> <span className="statistics_counts">{statistics.consumers_count}</span></div>
+          <div className="statistics_item"><span className="statistics_text">Приняты заказы</span> <span className="statistics_counts">{statistics.orders_count}</span></div>
+            <div className="statistics_item"><span className="statistics_text">Оборот</span> <span className="statistics_counts">{statistics.turnover.toLocaleString('ru')}</span></div>
+      <div className="statistics_item"><span className="statistics_text">Сумма на счете</span> <span className="statistics_counts">{statistics.amount.toLocaleString('ru')}</span></div>
+          </div>
         </div>
       );
     }

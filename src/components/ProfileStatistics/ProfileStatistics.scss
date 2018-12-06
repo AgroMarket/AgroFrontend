@@ -1,0 +1,31 @@
+// Коэффициент перевода в em
+$k: 16;
+
+.statistics {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  background-color: #f0f4c3;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  padding: 10rem/$k;
+  .statistics_item {
+    display: flex;
+    margin: 10rem/$k;
+    flex-direction: column;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    background-color: #fff;
+    padding: 47rem/$k;
+    .statistics_text {
+      color: #558b2f;
+      font-size: 18rem/$k;
+    }
+    .statistics_counts {
+      margin-top: 20rem/$k;
+      color: #33691e;
+      font-size: 64rem/$k;
+    }
+  }
+  @media (max-width: 1280px) {
+    display: block;
+  }
+}

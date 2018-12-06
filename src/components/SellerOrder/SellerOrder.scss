@@ -3,6 +3,9 @@ $k: 16;
 
 // TODO подкорректировать CSS
 .order_info {
+  .order_status {
+    color: #558b2f;
+  }
   .product {
     display: grid;
     margin: 15px;

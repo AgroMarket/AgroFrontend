@@ -47,12 +47,15 @@ export default class ProfilePage extends PureComponent {
     })
          .then(res => res.json())
          .then(res => {
+           let status = res.result.profile.role;
+           if (status === undefined)
+             status = res.result.profile.type;
            this.setState(
              prevState => {
                return {
                  ...prevState,
                  // авторизация пользователя
-                 userStatus: res.result.profile.role,
+                 userStatus: status,
                  profileLoaded: true,
                };
              }

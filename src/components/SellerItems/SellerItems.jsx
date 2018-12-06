@@ -29,6 +29,7 @@ export default class SellerItems extends PureComponent {
     // значения полей, используемых в render()
     this.state = {
       sellerItems: {},
+      itemsForSell: 0,
       itemsLoaded: false,
       // текущая страница
       currentPage: 1,
@@ -65,7 +66,6 @@ export default class SellerItems extends PureComponent {
             return {
               ...prevState,
               sellerItems: res.result,
-              itemsLoaded: true,
               lastPage: lastPage,
               nextPageEnable: lastPage > 1,
               lastPageEnable: lastPage > 1,
@@ -78,7 +78,31 @@ export default class SellerItems extends PureComponent {
           itemsLoaded: true,
           error,
         });
-      });
+      })
+      .then(
+        () => fetch(`${serverAddress}/api/producer/dashboard`, {
+          headers: {
+            'Authorization': `Bearer ${jwtToken}`,
+          },
+        })
+          .then(res => res.json())
+          .then(res => {
+              this.setState(
+                prevState => {
+                  return {
+                    ...prevState,
+                    itemsForSell: res.result.dashboard.products_count,
+                    itemsLoaded: true,
+                  };
+                }
+              );
+            },
+            error => {
+              this.setState({
+                itemsLoaded: true,
+                error,
+              });
+            }));
   }
 
   // обработка щелчков по кнопке Удалить товар
@@ -154,7 +178,7 @@ export default class SellerItems extends PureComponent {
   };
 
   render() {
-    const { error, sellerItems, itemsLoaded, currentPage, lastPage, firstPageEnable, prevPageEnable, nextPageEnable, lastPageEnable } = this.state;
+    const { error, sellerItems, itemsLoaded, itemsForSell, currentPage, lastPage, firstPageEnable, prevPageEnable, nextPageEnable, lastPageEnable } = this.state;
     const { itemHandle, getID } = this.props;
     let paginationButtons = '';
     if (error) {
@@ -224,6 +248,11 @@ export default class SellerItems extends PureComponent {
               <MyOrdersIcon className="my_orders_icon"/>
               <h2>Товары, выставленные на продажу</h2>
             </div>
+            {content}
+            {paginationButtons}
+            <p className="total_items">
+              Всего на продажу выставлено {itemsForSell} товаров.
+            </p>
             <p>
               <Button
                 className="sell_button"
@@ -235,8 +264,6 @@ export default class SellerItems extends PureComponent {
                 {newSellButton.name}
               </Button>
             </p>
-            {content}
-            {paginationButtons}
           </div>
         );
       }

@@ -38,8 +38,8 @@ export default class ProfileClient extends PureComponent {
     getID: PropTypes.func,
   };
 
-  showClientInfo = (itemID, id) => {
-    this.props.itemHandle(itemID);
+  showClientInfo = id => {
+    this.props.itemHandle('contragent_profile');
     this.props.getID(id);
   };
 
@@ -49,18 +49,18 @@ export default class ProfileClient extends PureComponent {
     return (
       <p className="seller_item client_info">
         <img
-          src={serverAddress + item.consumer.image}
+          src={serverAddress + item.member.image}
           alt="Клиент"
         />
         <span className="consumer_info">
           <span className="consumer_name">
-            Покупатель: {item.consumer.name}
+            Покупатель: {item.member.name}
           </span>
           <span className="consumer_address">
-            Адрес: {item.consumer.address}
+            Адрес: {item.member.address}
           </span>
           <span className="consumer_phone">
-            Телефон: +7-{item.consumer.phone}
+            Телефон: +7-{item.member.phone}
           </span>
         </span>
         <Button
@@ -68,7 +68,7 @@ export default class ProfileClient extends PureComponent {
           variant="contained"
           color="primary"
           id={editItemButton.id}
-          onClick={() => this.showClientInfo('contragent_profile', item.consumer.id)}
+          onClick={() => this.showClientInfo(item.member.id)}
         >
           {editItemButton.name}
         </Button>

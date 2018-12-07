@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button/Button';
 import PropTypes from 'prop-types';
 
 import {serverAddress} from 'constants/ServerAddress';
-import {buyer, seller, admin, delivery} from 'constants/AuthorizationTypes';
+import {buyer, seller} from 'constants/AuthorizationTypes';
 
 // Данные для кнопки Пополнить счёт
 const addMoneyButton = {
@@ -41,17 +41,8 @@ export default class ProfileAccount extends PureComponent {
   };
 
   componentDidMount() {
-    const {jwtToken, userStatus} = this.props;
-    let user;
-
-    if (userStatus === seller) {
-      user = 'producer';
-    }
-    else
-      if (userStatus === buyer || userStatus === delivery || userStatus === admin) {
-        user = 'consumer';
-      }
-    fetch(`${serverAddress}/api/${user}/profile`, {
+    const {jwtToken } = this.props;
+    fetch(`${serverAddress}/api/member/profile`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },
@@ -62,7 +53,7 @@ export default class ProfileAccount extends PureComponent {
             prevState => {
               return {
                 ...prevState,
-                money: res.result.profile.amount,
+                money: res.result.member.amount,
                 itemsLoaded: true,
               };
             }

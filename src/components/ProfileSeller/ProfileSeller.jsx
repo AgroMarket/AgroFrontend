@@ -13,7 +13,7 @@ const editItemButton = {
 };
 
 /**
- * Класс ProfileClient - компонент, отображающий сведения о покупателе на странице продавца
+ * Класс ProfileSeller - компонент, отображающий сведения о продавце
  */
 export default class ProfileSeller extends PureComponent {
 // Проверка свойств
@@ -54,7 +54,7 @@ export default class ProfileSeller extends PureComponent {
         />
         <span className="consumer_info">
           <span className="consumer_name">
-            Покупатель: {item.producer.name}
+            Продавец: {item.producer.name}
           </span>
           <span className="consumer_address">
             Адрес: {item.producer.address}

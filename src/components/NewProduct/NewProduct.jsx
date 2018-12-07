@@ -88,7 +88,7 @@ export default class NewProduct extends PureComponent {
                 };
               }
             );
-            fetch(`${serverAddress}/api/producer/products/${id}`)
+            fetch(`${serverAddress}/api/member/products/${id}`)
               .then(res => res.json())
               .then(res => {
                 const response = res.result.product;

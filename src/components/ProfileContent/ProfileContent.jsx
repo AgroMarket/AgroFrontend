@@ -65,11 +65,11 @@ export default class ProfileContent extends PureComponent {
     });
     let request, method;
     if (newItem) {
-      request = `${serverAddress}/api/producer/products`;
+      request = `${serverAddress}/api/member/products`;
       method = 'post';
     }
     else {
-      request = `${serverAddress}/api/producer/products/${id}`;
+      request = `${serverAddress}/api/member/products/${id}`;
       method = 'put';
     }
     fetch(request, {

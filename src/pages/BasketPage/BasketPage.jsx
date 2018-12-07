@@ -66,9 +66,9 @@ export default class BasketPage extends PureComponent {
             prevState => {
               return {
                 ...prevState,
-                basketItems: res.result,
+                basketItems: res.result.cart,
                 basketLoaded: true,
-                deliveryCost: res.result.delivery_cost,
+                deliveryCost: res.result.cart.delivery_cost,
               };
             }
           );
@@ -87,15 +87,15 @@ export default class BasketPage extends PureComponent {
    * @param count количество добавляемого товара
    */
   handleCounterClick = (item_number, count) => {
-    if (count === -1 && this.state.basketItems.products[item_number].product.quantity === 1)
+    if (count === -1 && this.state.basketItems.cart_items[item_number].cart_item.quantity === 1)
       return;
     const itemJSON = JSON.stringify({
       'cart_item':
         {
-          'quantity': this.state.basketItems.products[item_number].product.quantity + count,
+          'quantity': this.state.basketItems.cart_items[item_number].cart_item.quantity + count,
         },
     });
-    fetch(`${serverAddress}/api/carts/${this.props.basketID}/cart_items/${this.state.basketItems.products[item_number].product.cart_item_id}`, {
+    fetch(`${serverAddress}/api/carts/${this.props.basketID}/cart_items/${this.state.basketItems.cart_items[item_number].cart_item.id}`, {
       method: 'put',
       headers: {
         'Accept': 'application/json',
@@ -105,7 +105,7 @@ export default class BasketPage extends PureComponent {
     })
       .then(() => {
         const newBasketItems = Object.assign({}, this.state.basketItems);
-        newBasketItems.products[item_number].product.quantity += count;
+        newBasketItems.cart_items[item_number].cart_item.quantity += count;
         this.setState(
           prevState => {
             return {
@@ -122,12 +122,12 @@ export default class BasketPage extends PureComponent {
     const { basketItems } = this.state;
     const { basketID } = this.props;
 
-    fetch(`${serverAddress}/api/carts/${basketID}/cart_items/${basketItems.products[item_number].product.cart_item_id}`, {
+    fetch(`${serverAddress}/api/carts/${basketID}/cart_items/${basketItems.cart_items[item_number].cart_item.id}`, {
       method: 'delete',
     })
       .then(() => {
         const newBasketItems = Object.assign({}, basketItems);
-        newBasketItems.products.splice(item_number, 1);
+        newBasketItems.cart_items.splice(item_number, 1);
         this.setState(
           prevState => {
             return {
@@ -231,7 +231,7 @@ export default class BasketPage extends PureComponent {
           return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
         }
         else
-          if (basketItems === undefined || basketItems.length === 0 || basketItems.products === undefined || basketItems.products.length === 0) {
+          if (basketItems === undefined || basketItems.length === 0 || basketItems.cart_items === undefined || basketItems.cart_items.length === 0) {
             return (
             <div className="load_info">
               <div/>

@@ -40,7 +40,7 @@ export default class ProfilePage extends PureComponent {
   componentDidMount() {
     const { jwtToken } = this.props;
 
-    fetch(`${serverAddress}/api/consumer/profile`, {
+    fetch(`${serverAddress}/api/member/profile`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },

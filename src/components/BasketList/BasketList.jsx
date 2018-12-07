@@ -44,9 +44,9 @@ export default class BasketList extends PureComponent {
 
   render() {
     const { basketItems, deliveryCost, handleCounterClick, handleDeleteItem } = this.props;
-    const sum = basketItems.products.map(item => {
+    const sum = basketItems.cart_items.map(item => {
       // создаем массив из произведений цены и количества товара
-      return item.product.price * item.product.quantity;
+      return item.cart_item.product.price * item.cart_item.quantity;
     })
       .reduce((price, current) => {
         // складываем все цены созданного массива
@@ -66,18 +66,18 @@ export default class BasketList extends PureComponent {
           <span className="table_total">Общая стоимость</span>
           <span className="table_delete">Удалить</span>
         </p>
-        {basketItems.products.map((item, idx) => {
+        {basketItems.cart_items.map((item, idx) => {
           return (
             <p className="basket_item" key={idx}>
               <img
-                src={serverAddress + item.product.image}
-                alt={item.product.name}
+                src={serverAddress + item.cart_item.product.image}
+                alt={item.cart_item.product.name}
               />
               <span className="item_name">
-                {item.product.name}
+                {item.cart_item.product.name}
               </span>
               <span className="item_price">
-                {item.product.price.toLocaleString('ru')} руб.
+                {item.cart_item.product.price.toLocaleString('ru')} руб.
               </span>
               <Button
                 className="remove_button"
@@ -90,7 +90,7 @@ export default class BasketList extends PureComponent {
                 <RemoveIcon/>
               </Button>
               <span className="item_quantity">
-                {item.product.quantity}
+                {item.cart_item.quantity}
               </span>
               <Button
                 className="add_button"
@@ -103,7 +103,7 @@ export default class BasketList extends PureComponent {
                 <AddIcon/>
               </Button>
               <span className="item_full_price">
-                {(item.product.price * item.product.quantity).toLocaleString('ru')} руб.
+                {(item.cart_item.product.price * item.cart_item.quantity).toLocaleString('ru')} руб.
               </span>
               <Button
                 className="item_delete"

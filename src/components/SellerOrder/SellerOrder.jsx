@@ -43,7 +43,7 @@ export default class SellerOrder extends PureComponent {
 
   componentDidMount() {
     const { id, jwtToken } = this.props;
-    fetch(`${serverAddress}/api/producer/orders/${id}`, {
+    fetch(`${serverAddress}/api/member/orders/${id}`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },
@@ -86,7 +86,7 @@ export default class SellerOrder extends PureComponent {
       }
     );
 
-    fetch(`${serverAddress}/api/producer/orders/${id}`, {
+    fetch(`${serverAddress}/api/member/orders/${id}`, {
       method: 'put',
       headers: {
         'Accept': 'application/json',
@@ -179,13 +179,13 @@ export default class SellerOrder extends PureComponent {
                     <span>{product.product_name}</span>
                   </div>
                   <div>
-                    <span>{product.product_quantity}</span>
+                    <span>{product.quantity}</span>
                   </div>
                   <div>
                     <span>{product.product_price.toLocaleString('ru') + rub}</span>
                   </div>
                   <div>
-                    <span>{product.product_sum.toLocaleString('ru') + rub}</span>
+                    <span>{product.sum.toLocaleString('ru') + rub}</span>
                   </div>
                 </div>
               );

@@ -68,7 +68,7 @@ export default class CatalogList extends PureComponent {
     fetch(`${serverAddress}${this.props.section}${page}`)
       .then(res => res.json())
       .then(res => {
-          if (pagination) {
+          if (res.result.pagination !== null && pagination) {
             const lastPage = res.result.pagination.last_page;
             this.setState(
               prevState => {
@@ -116,8 +116,11 @@ export default class CatalogList extends PureComponent {
       fetch(`${serverAddress}${this.props.section}${page}`)
         .then(res => res.json())
         .then(res => {
-            if (res.result.products.length > 0 && pagination) {
-              const lastPage = res.result.pagination.last_page;
+          let lastPage;
+            if (res.result.products.length > 0 && res.result.pagination !== null && pagination)
+              lastPage = res.result.pagination.last_page;
+            else
+              lastPage = 1;
               this.setState(
                 prevState => {
                   return {
@@ -128,19 +131,11 @@ export default class CatalogList extends PureComponent {
                     prevPageEnable: false,
                     nextPageEnable: lastPage > 1,
                     lastPageEnable: lastPage > 1,
+                    catalogItems: res.result,
+                    itemsLoaded: true,
                   };
                 }
               );
-            }
-            this.setState(
-              prevState => {
-                return {
-                  ...prevState,
-                  catalogItems: res.result,
-                  itemsLoaded: true,
-                };
-              }
-            );
           },
           error => {
             this.setState({
@@ -163,22 +158,26 @@ export default class CatalogList extends PureComponent {
     fetch(`${serverAddress}${this.props.section}page=${page}`)
       .then(res => res.json())
       .then(res => {
-        const lastPage = res.result.pagination.last_page;
-        this.setState(
-          prevState => {
-            return {
-              ...prevState,
-              currentPage: page,
-              lastPage: lastPage,
-              firstPageEnable: page > 1,
-              prevPageEnable: page > 1,
-              nextPageEnable: page < lastPage,
-              lastPageEnable: page < lastPage,
-              catalogItems: res.result,
-              itemsLoaded: true,
-            };
-          }
-        );
+        let lastPage;
+        if (res.result.pagination !== null)
+          lastPage = res.result.pagination.last_page;
+        else
+          lastPage = 1;
+          this.setState(
+            prevState => {
+              return {
+                ...prevState,
+                currentPage: page,
+                lastPage: lastPage,
+                firstPageEnable: page > 1,
+                prevPageEnable: page > 1,
+                nextPageEnable: page < lastPage,
+                lastPageEnable: page < lastPage,
+                catalogItems: res.result,
+                itemsLoaded: true,
+              };
+            }
+          );
       },
       error => {
         this.setState({

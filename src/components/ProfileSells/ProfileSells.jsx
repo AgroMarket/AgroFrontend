@@ -49,14 +49,18 @@ export default class ProfileSells extends PureComponent {
 
   componentDidMount() {
     const {jwtToken} = this.props;
-    fetch(`${serverAddress}/api/producer/orders?scope=pending`, {
+    fetch(`${serverAddress}/api/member/orders?scope=pending`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },
     })
       .then(res => res.json())
       .then(res => {
-          const lastPage = res.result.pagination.last_page;
+          let lastPage;
+          if (res.result.pagination !== null)
+            lastPage = res.result.pagination.last_page;
+          else
+            lastPage = 1;
           this.setState(
             prevState => {
               return {
@@ -109,14 +113,18 @@ export default class ProfileSells extends PureComponent {
       }
     );
 
-    fetch(`${serverAddress}/api/producer/orders?scope=${scope}`, {
+    fetch(`${serverAddress}/api/member/orders?scope=${scope}`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },
     })
       .then(res => res.json())
       .then(res => {
-          const lastPage = res.result.pagination.last_page;
+          let lastPage;
+          if (res.result.pagination !== null)
+            lastPage = res.result.pagination.last_page;
+          else
+            lastPage = 1;
           this.setState(
             prevState => {
               return {
@@ -166,14 +174,18 @@ export default class ProfileSells extends PureComponent {
         };
       }
     );
-    fetch(`${serverAddress}/api/producer/orders?scope=${scope}&page=${page}`, {
+    fetch(`${serverAddress}/api/member/orders?scope=${scope}&page=${page}`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },
     })
       .then(res => res.json())
       .then(res => {
-          const lastPage = res.result.pagination.last_page;
+          let lastPage;
+          if (res.result.pagination !== null)
+            lastPage = res.result.pagination.last_page;
+          else
+            lastPage = 1;
           this.setState(
             prevState => {
               return {
@@ -200,8 +212,7 @@ export default class ProfileSells extends PureComponent {
 
   render() {
     const { error, orders, itemsLoaded, value, currentPage, lastPage, firstPageEnable, prevPageEnable, nextPageEnable, lastPageEnable } = this.state;
-    let content = '',
-      subcontent = '',
+    let subcontent = '',
       scope = '',
       paginationButtons = '';
 
@@ -272,7 +283,7 @@ export default class ProfileSells extends PureComponent {
             })}
           </div>;
       }
-    content = (
+    const content = (
       <Fragment>
         <Tabs
           value={value}

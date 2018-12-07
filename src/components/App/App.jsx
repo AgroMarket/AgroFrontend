@@ -87,10 +87,10 @@ export default class App extends PureComponent {
           this.setState(
             prevState => {
               if (storageAvailable('localStorage'))
-                localStorage.setItem('basketID', res.result.cart_id);
+                localStorage.setItem('basketID', res.result.cart.id);
               return {
                 ...prevState,
-                basketID: String(res.result.cart_id),
+                basketID: String(res.result.cart.id),
                 basketCreated: true,
               };
             }

@@ -53,10 +53,11 @@ export default class NewProduct extends PureComponent {
     newItemCreated: PropTypes.func,
     newItem: PropTypes.bool,
     id: PropTypes.number,
+    jwtToken: PropTypes.string,
   };
 
   componentDidMount() {
-    const { id } = this.props;
+    const { id, jwtToken } = this.props;
     fetch(`${serverAddress}/api/categories`)
       .then(res => res.json())
       .then(res => {
@@ -88,7 +89,11 @@ export default class NewProduct extends PureComponent {
                 };
               }
             );
-            fetch(`${serverAddress}/api/member/products/${id}`)
+            fetch(`${serverAddress}/api/member/products/${id}`, {
+              headers: {
+                'Authorization': `Bearer ${jwtToken}`,
+              },
+            })
               .then(res => res.json())
               .then(res => {
                 const response = res.result.product;

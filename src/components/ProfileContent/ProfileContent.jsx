@@ -188,7 +188,11 @@ export default class ProfileContent extends PureComponent {
       case 'edit_product':
         return (
           <div className="seller_content">
-            <NewProduct newItemCreated={this.newItemCreated} newItem={false} id={id}/>
+            <NewProduct
+              newItemCreated={this.newItemCreated}
+              newItem={false}
+              id={id}
+              jwtToken={jwtToken}/>
           </div>
         );
       case 'seller_sells':

@@ -32,7 +32,7 @@ export default class ProfileSellers extends PureComponent {
 
   componentDidMount() {
     const {jwtToken} = this.props;
-    fetch(`${serverAddress}/api/consumer/producers`, {
+    fetch(`${serverAddress}/api/member/producers`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },

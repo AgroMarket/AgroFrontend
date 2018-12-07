@@ -43,7 +43,7 @@ export default class BuyerOrder extends PureComponent {
 
   componentDidMount() {
     const { id, jwtToken } = this.props;
-    fetch(`${serverAddress}/api/consumer/asks/${id}`, {
+    fetch(`${serverAddress}/api/member/asks/${id}`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },
@@ -81,7 +81,7 @@ export default class BuyerOrder extends PureComponent {
       }
     );
 
-    fetch(`${serverAddress}/api/consumers/asks/${id}`, {
+    fetch(`${serverAddress}/api/member/asks/${id}`, {
       method: 'put',
       headers: {
         'Accept': 'application/json',

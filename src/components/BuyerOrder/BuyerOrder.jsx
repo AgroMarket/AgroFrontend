@@ -110,6 +110,7 @@ export default class BuyerOrder extends PureComponent {
   render() {
     const { error, order, itemsLoaded, orderStatus } = this.state;
     const rub = ' руб.';
+    let content = '';
     moment.locale('ru');
 
     if (error) {
@@ -119,6 +120,8 @@ export default class BuyerOrder extends PureComponent {
       return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
     }
     else {
+      if (order.orders.length > 1)
+        content = <span className="seller_item">Общая сумма заказа по всем продавцам: {order.sum.toLocaleString('ru') + rub}</span>;
       let buttons = '';
       // TODO узнать какой статус у исполненного заказа
       if (orderStatus !== 'Получен')
@@ -196,7 +199,8 @@ export default class BuyerOrder extends PureComponent {
             );
           })}
           <span className="seller_item">Общая стоимость доставки заказа: {order.delivery_cost.toLocaleString('ru') + rub}</span>
-          <span className="seller_item">Общая сумма заказа по всем продавцам: {order.amount.toLocaleString('ru') + rub}</span>
+          {content}
+          <span className="seller_item">Общая сумма заказа по всем продавцам с доставкой: {order.total.toLocaleString('ru') + rub}</span>
         </div>
       );
     }

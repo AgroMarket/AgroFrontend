@@ -139,6 +139,7 @@ export default class ProfileContent extends PureComponent {
           <div className="seller_content">
             <BuyerOrder
               id={id}
+              jwtToken={jwtToken}
             />
           </div>
         );

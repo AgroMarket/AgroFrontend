@@ -29,14 +29,14 @@ export default class UserProfile extends PureComponent {
 
   componentDidMount() {
     const {id, getID} = this.props;
-    fetch(`${serverAddress}/api/consumers/${id}`)
+    fetch(`${serverAddress}/api/producers/${id}`)
       .then(res => res.json())
       .then(res => {
           this.setState(
             prevState => {
               return {
                 ...prevState,
-                profile: res,
+                profile: res.result.producer,
                 itemsLoaded: true,
               };
             }
@@ -70,16 +70,22 @@ export default class UserProfile extends PureComponent {
           </div>
           <div className="seller_profile">
             <span className="profile_name">
-              {profile.consumer.name}
+              {profile.name}
+            </span>
+            <span className="profile_inn">
+                Электронная почта: {profile.inn}
             </span>
             <span className="profile_address">
-              Регион: {profile.consumer.address}
+              Адрес: {profile.address}
             </span>
             <span className="profile_phone">
-                Телефон: +7-{profile.consumer.phone}
+                Телефон: +7-{profile.phone}
             </span>
             <span className="profile_email">
-                Электронная почта: {profile.consumer.email}
+                Электронная почта: {profile.email}
+            </span>
+            <span className="profile_description">
+                Электронная почта: {profile.descripion}
             </span>
           </div>
         </div>

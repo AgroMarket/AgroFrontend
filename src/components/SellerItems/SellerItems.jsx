@@ -53,7 +53,7 @@ export default class SellerItems extends PureComponent {
 
   componentDidMount() {
     const {jwtToken} = this.props;
-    fetch(`${serverAddress}/api/producer/products`, {
+    fetch(`${serverAddress}/api/member/products`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },
@@ -80,7 +80,7 @@ export default class SellerItems extends PureComponent {
         });
       })
       .then(
-        () => fetch(`${serverAddress}/api/producer/dashboard`, {
+        () => fetch(`${serverAddress}/api/member/dashboard`, {
           headers: {
             'Authorization': `Bearer ${jwtToken}`,
           },
@@ -117,7 +117,7 @@ export default class SellerItems extends PureComponent {
         };
       }
     );
-    fetch(`${serverAddress}/api/producer/products/${item_id}`, {
+    fetch(`${serverAddress}/api/member/products/${item_id}`, {
       method: 'delete',
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
@@ -138,7 +138,7 @@ export default class SellerItems extends PureComponent {
         };
       }
     );
-    fetch(`${serverAddress}/api/producer/products?page=${page}`, {
+    fetch(`${serverAddress}/api/member/products?page=${page}`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },

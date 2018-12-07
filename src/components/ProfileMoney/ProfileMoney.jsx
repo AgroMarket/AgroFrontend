@@ -6,7 +6,6 @@ import Button from '@material-ui/core/Button/Button';
 import PropTypes from 'prop-types';
 
 import {serverAddress} from 'constants/ServerAddress';
-import {buyer, seller} from 'constants/AuthorizationTypes';
 
 // Данные для кнопки Пополнить счет
 const sendMoneyButton = {
@@ -23,8 +22,6 @@ export default class ProfileMoney extends PureComponent {
 
     // значения полей, используемых в render()
     this.state = {
-      // права доступа пользователя
-      user: '',
       name: '',
       cardNumber: '',
       dayExpire: '',
@@ -39,27 +36,6 @@ export default class ProfileMoney extends PureComponent {
     userStatus: PropTypes.string,
   };
 
-  componentDidMount() {
-    const {userStatus} = this.props;
-    let user;
-
-    if (userStatus === seller) {
-      user = 'producer';
-    }
-    else
-      if (userStatus === buyer) {
-        user = 'consumer';
-      }
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          user: user,
-        };
-      }
-    );
-  }
-
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -67,17 +43,17 @@ export default class ProfileMoney extends PureComponent {
   };
 
   sendMoney = () => {
-    const {user, amount} = this.state;
+    const { amount } = this.state;
     const { itemHandle, jwtToken } = this.props;
     const registerJSON = JSON.stringify({
       'transaction':
       {
-        'amount': amount,
-        'status': 0,
+        'amount': Number(amount),
+        'type': 'replenish',
       },
     });
 
-    fetch(`${serverAddress}/api/${user}/transactions`, {
+    fetch(`${serverAddress}/api/member/transactions`, {
       method: 'post',
       headers: {
         'Accept': 'application/json',

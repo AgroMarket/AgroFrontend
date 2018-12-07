@@ -6,7 +6,6 @@ import Button from '@material-ui/core/Button/Button';
 import PropTypes from 'prop-types';
 
 import {serverAddress} from 'constants/ServerAddress';
-import {buyer, seller} from 'constants/AuthorizationTypes';
 
 // Данные для кнопки Перевести на счет
 const returnMoneyButton = {
@@ -28,8 +27,6 @@ export default class ProfileProfit extends PureComponent {
 
     // значения полей, используемых в render()
     this.state = {
-      // права доступа пользователя
-      user: '',
       error: false,
       name: '',
       accountNumber: '',
@@ -44,27 +41,6 @@ export default class ProfileProfit extends PureComponent {
     userStatus: PropTypes.string,
   };
 
-  componentDidMount() {
-    const {userStatus} = this.props;
-    let user;
-
-    if (userStatus === seller) {
-      user = 'producer';
-    }
-    else
-      if (userStatus === buyer) {
-        user = 'consumer';
-      }
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          user: user,
-        };
-      }
-    );
-  }
-
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -72,17 +48,17 @@ export default class ProfileProfit extends PureComponent {
   };
 
   sendMoney = () => {
-    const {user, amount} = this.state;
+    const { amount } = this.state;
     const { itemHandle, jwtToken } = this.props;
     const registerJSON = JSON.stringify({
       'transaction':
         {
-          'amount': amount,
-          'status': 3,
+          'amount': Number(amount),
+          'type': 'withdrawal',
         },
     });
 
-    fetch(`${serverAddress}/api/${user}/transactions`, {
+    fetch(`${serverAddress}/api/member/transactions`, {
       method: 'post',
       headers: {
         'Accept': 'application/json',

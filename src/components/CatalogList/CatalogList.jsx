@@ -116,7 +116,7 @@ export default class CatalogList extends PureComponent {
       fetch(`${serverAddress}${this.props.section}${page}`)
         .then(res => res.json())
         .then(res => {
-            if (pagination) {
+            if (res.result.products.length > 0 && pagination) {
               const lastPage = res.result.pagination.last_page;
               this.setState(
                 prevState => {

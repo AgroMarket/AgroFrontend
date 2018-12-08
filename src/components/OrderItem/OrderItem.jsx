@@ -44,17 +44,16 @@ export default class OrderItem extends PureComponent {
         <span className="order_total">
           Заказ на сумму {item.order.total.toLocaleString('ru')} руб.
         </span>
-        <Button
-          className="edit_button"
-          variant="contained"
-          color="primary"
-          id={openOrderButton.id}
-          onClick={() => showOrderInfo(item.order.id)}
-        >
-          {openOrderButton.name}
-        </Button>
-        <span className="order_status">
-          Состояние: {item.order.status}
+        <span className="open_order">
+          <Button
+            className="edit_button"
+            variant="contained"
+            color="primary"
+            id={openOrderButton.id}
+            onClick={() => showOrderInfo(item.order.id)}
+          >
+            {openOrderButton.name}
+          </Button>
         </span>
       </p>
     );

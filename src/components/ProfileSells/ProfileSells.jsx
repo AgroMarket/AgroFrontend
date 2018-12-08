@@ -96,10 +96,10 @@ export default class ProfileSells extends PureComponent {
         scope = 'pending';
         break;
       case 1:
-        scope = 'close';
+        scope = 'confirmed';
         break;
       case 2:
-        scope = 'reject';
+        scope = 'completed';
         break;
     }
 
@@ -159,10 +159,10 @@ export default class ProfileSells extends PureComponent {
         scope = 'pending';
         break;
       case 1:
-        scope = 'close';
+        scope = 'confirmed';
         break;
       case 2:
-        scope = 'reject';
+        scope = 'completed';
         break;
     }
 
@@ -260,13 +260,13 @@ export default class ProfileSells extends PureComponent {
         if (orders === undefined || orders.length === 0 || orders.orders === undefined || orders.orders.length === 0) {
           switch (value) {
             case 0:
-              scope = 'неотправленные';
+              scope = 'новые';
               break;
             case 1:
-              scope = 'отпраленные';
+              scope = 'доставляемые';
               break;
             case 2:
-              scope = 'отмененные';
+              scope = 'выполненные';
               break;
           }
           subcontent = <div className="load_info sell_orders_content">
@@ -289,9 +289,9 @@ export default class ProfileSells extends PureComponent {
           value={value}
           onChange={this.handleChange}
         >
-          <Tab label="Заказы для отправки"/>
-          <Tab label="Отправленные заказы"/>
-          <Tab label="Отмененные заказы"/>
+          <Tab label="Новые заказы"/>
+          <Tab label="Доставляемые заказы"/>
+          <Tab label="Выполненные заказы"/>
         </Tabs>
         {subcontent}
       </Fragment>

@@ -42,7 +42,7 @@ export default class DeliveryItem extends PureComponent {
           variant="contained"
           color="primary"
           id={openOrderButton.id}
-          onClick={() => showOrderInfo(item.id)}
+          onClick={() => showOrderInfo(item.task.id)}
         >
           {openOrderButton.name}
         </Button>

@@ -166,14 +166,14 @@ export default class ProfileSellers extends PureComponent {
       );
     }
     if (error) {
-      content = <p>Ошибка: {error.message}</p>;
+      content = <p className="orders_content">Ошибка: {error.message}</p>;
     }
     else if (!itemsLoaded) {
-      content = <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
+      content = <p className="load_info orders_content">Пожалуйста, подождите, идет загрузка страницы</p>;
     }
     else {
       if (sellers === undefined || sellers.length === 0 || sellers.producers === undefined || sellers.producers.length === 0) {
-        content = <div className="load_info">
+        content = <div className="load_info orders_content">
           <div/>
           <p>К сожалению у Вас еще нет поставщиков.</p>
         </div>;

@@ -250,11 +250,11 @@ export default class ProfilePurchase extends PureComponent {
       );
     }
     if (error) {
-      subcontent = <p>Ошибка: {error.message}</p>;
+      subcontent = <p className="sell_orders_content">Ошибка: {error.message}</p>;
     }
     else
     if (!itemsLoaded) {
-      subcontent = <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
+      subcontent = <p className="load_info sell_orders_content">Пожалуйста, подождите, идет загрузка страницы</p>;
     }
     else {
       if (orders === undefined || orders.length === 0 || orders.asks === undefined || orders.asks.length === 0) {

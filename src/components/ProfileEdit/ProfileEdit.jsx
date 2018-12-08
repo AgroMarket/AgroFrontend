@@ -48,14 +48,8 @@ export default class ProfileEdit extends PureComponent {
 
   componentDidMount() {
     const { userStatus, jwtToken } = this.props;
-    let profile;
 
-    if (userStatus === seller)
-      profile = `${serverAddress}/api/producer/profile`;
-    else
-      if (userStatus === buyer)
-        profile = `${serverAddress}/api/consumer/profile`;
-    fetch(profile, {
+    fetch(`${serverAddress}/api/member/profile`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },
@@ -67,11 +61,11 @@ export default class ProfileEdit extends PureComponent {
             prevState => {
               return {
                 ...prevState,
-                name: res.result.profile.brand,
-                address: res.result.profile.address,
-                phone: res.result.profile.phome,
-                inn: res.result.profile.inn,
-                description: res.result.profile.descripion,
+                name: res.result.member.producer_brand,
+                address: res.result.member.producer_address,
+                phone: res.result.member.producer_phone,
+                inn: res.result.member.producer_inn,
+                description: res.result.member.producer_descripion,
                 itemsLoaded: true,
               };
             }
@@ -83,10 +77,10 @@ export default class ProfileEdit extends PureComponent {
               prevState => {
                 return {
                   ...prevState,
-                  name: res.result.profile.name,
-                  email: res.result.profile.email,
-                  phone: res.result.profile.phone,
-                  address: res.result.profile.address,
+                  name: res.result.member.name,
+                  email: res.result.member.email,
+                  phone: res.result.member.phone,
+                  address: res.result.member.address,
                   itemsLoaded: true,
                 };
               }
@@ -106,24 +100,13 @@ export default class ProfileEdit extends PureComponent {
     });
   };
 
-  profileChanged = (itemID, profile) => {
-    const { jwtToken, itemHandle, userStatus } = this.props;
-    let itemJSON, request;
-    if (userStatus === seller) {
-      itemJSON = JSON.stringify({
-        'producer': profile,
+  profileChanged = profile => {
+    const { jwtToken, itemHandle } = this.props;
+    const itemJSON = JSON.stringify({
+        'member': profile,
       });
-      request = 'producer';
-    }
-    else
-      if (userStatus === buyer) {
-        itemJSON = JSON.stringify({
-          'consumer': profile,
-        });
-        request = 'consumer';
-      }
 
-    fetch(`${serverAddress}/api/${request}/profile`, {
+    fetch(`${serverAddress}/api/member/profile`, {
       method: 'put',
       headers: {
         'Accept': 'application/json',
@@ -134,7 +117,7 @@ export default class ProfileEdit extends PureComponent {
     })
       .then(
         () => {
-          itemHandle(itemID);
+          itemHandle('user_profile');
         }
       );
   };
@@ -342,7 +325,7 @@ export default class ProfileEdit extends PureComponent {
             variant="contained"
             color="primary"
             id={saveProfileButton.id}
-            onClick={() => this.profileChanged('user_profile', userProfile)}
+            onClick={() => this.profileChanged(userProfile)}
           >
             {saveProfileButton.name}
           </Button>

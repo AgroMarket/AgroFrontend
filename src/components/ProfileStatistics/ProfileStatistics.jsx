@@ -26,7 +26,7 @@ export default class ProfileStatistics extends PureComponent {
 
   componentDidMount() {
     const {jwtToken} = this.props;
-    fetch(`${serverAddress}/api/producer/dashboard`, {
+    fetch(`${serverAddress}/api/member/dashboard`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },
@@ -78,11 +78,38 @@ export default class ProfileStatistics extends PureComponent {
             <h2>Статистика</h2>
           </div>
           <div className="statistics">
-            <div className="statistics_item"><span className="statistics_text">Товары на продаже</span><span className="statistics_counts">{statistics.products_count}</span></div>
-            <div className="statistics_item"><span className="statistics_text">Уникальные покупатели</span> <span className="statistics_counts">{statistics.consumers_count}</span></div>
-          <div className="statistics_item"><span className="statistics_text">Приняты заказы</span> <span className="statistics_counts">{statistics.orders_count}</span></div>
-            <div className="statistics_item"><span className="statistics_text">Оборот</span> <span className="statistics_counts">{statistics.turnover.toLocaleString('ru')}</span></div>
-      <div className="statistics_item"><span className="statistics_text">Сумма на счете</span> <span className="statistics_counts">{statistics.amount.toLocaleString('ru')}</span></div>
+            <div className="statistics_item">
+              <span className="statistics_text">Товары на продаже</span>
+              <span className="statistics_counts">{statistics.products_count}</span>
+            </div>
+            <div className="statistics_item">
+              <span className="statistics_text">Уникальные покупатели</span>
+              <span className="statistics_counts">{statistics.consumers_count}</span>
+            </div>
+            <div className="statistics_item">
+              <span className="statistics_text">Приняты заказы</span>
+              <span className="statistics_counts">{statistics.sells_count}</span>
+            </div>
+            <div className="statistics_item">
+              <span className="statistics_text">Стоимость продаж</span>
+              <span className="statistics_counts">{statistics.sells_sum.toLocaleString('ru')}</span>
+            </div>
+            <div className="statistics_item">
+              <span className="statistics_text">Сумма на счете</span>
+              <span className="statistics_counts">{statistics.amount.toLocaleString('ru')}</span>
+            </div>
+            <div className="statistics_item">
+              <span className="statistics_text">Уникальные поставщики</span>
+              <span className="statistics_counts">{statistics.producers_count}</span>
+            </div>
+            <div className="statistics_item">
+              <span className="statistics_text">Совершено покупок</span>
+              <span className="statistics_counts">{statistics.buys_count}</span>
+            </div>
+            <div className="statistics_item">
+              <span className="statistics_text">Стоимость покупок</span>
+              <span className="statistics_counts">{statistics.buys_sum.toLocaleString('ru')}</span>
+            </div>
           </div>
         </div>
       );

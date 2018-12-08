@@ -45,14 +45,8 @@ export default class UserProfile extends PureComponent {
   };
 
   componentDidMount() {
-    const {jwtToken, userStatus} = this.props;
-    let user;
-
-    if (userStatus === seller)
-      user = 'producer';
-    if (userStatus === buyer)
-      user = 'consumer';
-    fetch(`${serverAddress}/api/${user}/profile`, {
+    const { jwtToken } = this.props;
+    fetch(`${serverAddress}/api/member/profile`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },
@@ -63,7 +57,7 @@ export default class UserProfile extends PureComponent {
             prevState => {
               return {
                 ...prevState,
-                profile: res.result,
+                profile: res.result.member,
                 itemsLoaded: true,
               };
             }
@@ -80,9 +74,9 @@ export default class UserProfile extends PureComponent {
   makeSeller = () => {
     const { jwtToken } = this.props;
     const sellerJSON = JSON.stringify({
-      'consumer':
+      'member':
         {
-          'type': 'Producer',
+          'user_type': 'producer',
         },
     });
 
@@ -95,7 +89,7 @@ export default class UserProfile extends PureComponent {
       }
     );
 
-    fetch(`${serverAddress}/api/consumer/profile`, {
+    fetch(`${serverAddress}/api/member/profile`, {
       method: 'put',
       headers: {
         'Accept': 'application/json',
@@ -143,35 +137,35 @@ export default class UserProfile extends PureComponent {
           if (userStatus === seller)
             content = <Fragment>
               <span className="profile_name">
-                {profile.profile.brand}
+                Название: {profile.producer_brand}
               </span>
               <span className="profile_address">
-                  Регион: {profile.profile.address}
+                Регион: {profile.producer_address}
               </span>
               <span className="profile_phone">
-                  Телефон: +7-{profile.profile.phome}
+                Телефон: +7-{profile.producer_phone}
               </span>
               <span className="profile_inn">
-                  ИНН: {profile.profile.inn}
+                ИНН: {profile.producer_inn}
               </span>
               <span className="profile_description">
-                  {profile.profile.descripion}
+                О нас: {profile.producer_descripion}
               </span>
             </Fragment>;
             else
               if (userStatus === buyer)
                 content = <Fragment>
                   <span className="profile_name">
-                    {profile.profile.name}
+                    {profile.name}
                   </span>
-                      <span className="profile_address">
-                    Регион: {profile.profile.address}
+                    <span className="profile_address">
+                    Регион: {profile.address}
                   </span>
-                      <span className="profile_phone">
-                      Телефон: +7-{profile.profile.phone}
+                    <span className="profile_phone">
+                    Телефон: +7-{profile.phone}
                   </span>
-                      <span className="profile_email">
-                      Электронная почта: {profile.profile.email}
+                    <span className="profile_email">
+                    Электронная почта: {profile.email}
                   </span>
                   <Button
                     className="make_seller"

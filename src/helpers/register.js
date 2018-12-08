@@ -10,8 +10,9 @@
  */
 export function register(address, login, password, name, phone, region) {
   const registerJSON = JSON.stringify({
-    'consumer':
+    'member':
       {
+        'user_type': 'consumer',
         'email': login,
         'password': password,
         'name': name,
@@ -19,7 +20,7 @@ export function register(address, login, password, name, phone, region) {
         'address': region,
       },
   });
-  return (fetch(`${address}/api/consumers`, {
+  return (fetch(`${address}/api/members`, {
     method: 'post',
     headers: {
       'Accept': 'application/json',

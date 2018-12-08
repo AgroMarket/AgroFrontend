@@ -24,9 +24,6 @@ export default class ProfilePage extends PureComponent {
       profileLoaded: false,
       // ошибка загрузки
       error: null,
-      // TODO добавить пагинацию для вывода товаров, выставленных на продажу
-      // флаг включения пагинации on / off
-      pagination: 'off',
     };
   }
 

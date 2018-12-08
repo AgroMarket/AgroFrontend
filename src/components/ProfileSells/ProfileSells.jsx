@@ -232,8 +232,8 @@ export default class ProfileSells extends PureComponent {
             <PrevPage/>
           </IconButton>
           <span className="currentPage">
-                  {currentPage}
-                </span>
+            {currentPage}
+          </span>
           <IconButton
             disabled={!nextPageEnable}
             onClick={() => this.changeList(currentPage + 1)}

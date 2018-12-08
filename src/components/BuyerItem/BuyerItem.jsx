@@ -53,9 +53,6 @@ export default class BuyerItem extends PureComponent {
         >
           {openOrderButton.name}
         </Button>
-        <span className="order_status">
-          Состояние: {item.ask.status}
-        </span>
       </p>
     );
   }

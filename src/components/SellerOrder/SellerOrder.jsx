@@ -126,7 +126,7 @@ export default class SellerOrder extends PureComponent {
     }
     else {
       let needAcceptOrder = '';
-      if (orderStatus === 'Подтверждается')
+      if (orderStatus === 'Упаковывается')
       {
         needAcceptOrder = <p>
           <Button

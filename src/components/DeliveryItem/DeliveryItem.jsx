@@ -27,7 +27,7 @@ export default class DeliveryItem extends PureComponent {
   render() {
     const { item, showOrderInfo } = this.props;
     // TODO выяснить какое поле отвечает за дату передачи товара в службу доставки
-    const date = moment(item.task.created_at).format('DD.MM.YY HH:mm');
+    const date = moment(item.task.task_start).format('DD.MM.YY HH:mm');
 
     return (
       <p className="seller_item">

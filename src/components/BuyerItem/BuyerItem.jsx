@@ -44,15 +44,17 @@ export default class BuyerItem extends PureComponent {
         <span className="order_total">
           Заказ на сумму {item.ask.total.toLocaleString('ru')} руб.
         </span>
-        <Button
-          className="open_order_button"
-          variant="contained"
-          color="primary"
-          id={openOrderButton.id}
-          onClick={() => showOrderInfo(item.ask.id)}
-        >
-          {openOrderButton.name}
-        </Button>
+        <span className="open_order">
+          <Button
+            className="open_order_button"
+            variant="contained"
+            color="primary"
+            id={openOrderButton.id}
+            onClick={() => showOrderInfo(item.ask.id)}
+          >
+            {openOrderButton.name}
+          </Button>
+        </span>
       </p>
     );
   }

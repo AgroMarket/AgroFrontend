@@ -1,0 +1,20 @@
+// Коэффициент перевода в em
+$k: 16;
+
+.delivery_order_info {
+  .delivery_header {
+    
+  }
+  .delivery_order {
+    color: #558b2f;
+  }
+  .client_contacts {
+    background-color: #fff;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    padding: 10rem/$k;
+    margin-bottom: 10rem/$k;
+  }
+  .client_name {
+    
+  }
+}

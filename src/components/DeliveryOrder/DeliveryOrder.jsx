@@ -140,24 +140,29 @@ export default class DeliveryOrder extends PureComponent {
         <div className="seller_items order_info">
           <div className="seller_items_header">
             <MyOrdersIcon className="my_orders_icon"/>
-            <h2>Заказ № {order.id} от {moment(order.created_at).format('LL')}</h2>
+            <h2>Сведения о заказе на доставку</h2>
           </div>
-          <OrderStatus orderStatus={orderStatus}/>
-          {orderDone}
-          <div className="product seller_item">
-            <div>
-              <span>Получатель</span>
-            </div>
-            <div>
-              <span>Стоимость доставки</span>
-            </div>
-          </div>
-          <div className="product seller_item">
-            <div>
-              <span>{order.consumer}</span>
-            </div>
-            <div>
-              <span>{order.delivery_cost.toLocaleString('ru') + rub}</span>
+          <div className="delivery_order_info">
+            <p className="delivery_header">Заказ № {order.id} от {moment(order.ask_start).format('LL')}</p>
+            <OrderStatus orderStatus={orderStatus}/>
+            {orderDone}
+            <div className="delivery_order">
+              <div className="client_contacts">
+                <p className="client_name">Грузополучатель: {order.consumer_name}</p>
+                <p>Адрес грузополучателя: {order.consumer_address}</p>
+                <p>Телефон грузополучателя {order.consumer_phone}</p>
+                <p>Список грузоотправителей:</p>
+              </div>
+              {order.ask.ask.orders.map((item, idx) => {
+                return (
+                  <div className="client_contacts" key={idx}>
+                    <p className="client_name">{idx+1}. Грузоотправитель: {item.order.producer_name}</p>
+                    <p>Адрес грузоотправителя: {item.order.producer_address}</p>
+                    <p>Телефон грузоотправителя: {item.order.producer_phone}</p>
+                  </div>
+                );
+              })}
+              <p>Стоимость доставки {order.delivery_cost.toLocaleString('ru') + rub}</p>
             </div>
           </div>
         </div>

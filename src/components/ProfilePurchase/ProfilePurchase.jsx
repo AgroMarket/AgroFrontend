@@ -232,8 +232,8 @@ export default class ProfilePurchase extends PureComponent {
             <PrevPage/>
           </IconButton>
           <span className="currentPage">
-                  {currentPage}
-                </span>
+            {currentPage}
+          </span>
           <IconButton
             disabled={!nextPageEnable}
             onClick={() => this.changeList(currentPage + 1)}
@@ -257,7 +257,7 @@ export default class ProfilePurchase extends PureComponent {
       subcontent = <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
     }
     else {
-      if (orders === undefined || orders.length === 0 || orders.orders === undefined || orders.orders.length === 0) {
+      if (orders === undefined || orders.length === 0 || orders.asks === undefined || orders.asks.length === 0) {
         switch (value) {
           case 0:
             scope = 'новые';
@@ -293,7 +293,7 @@ export default class ProfilePurchase extends PureComponent {
         >
           <Tab label="Новые покупки"/>
           <Tab label="Доставляемые покупки"/>
-          <Tab label="Доставленные покупки"/>
+          <Tab label="Полученные покупки"/>
         </Tabs>
         {subcontent}
       </Fragment>

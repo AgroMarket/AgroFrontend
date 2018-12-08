@@ -1,0 +1,14 @@
+// Коэффициент перевода в em
+$k: 16;
+
+.orders_content {
+  margin-top: 0;
+  padding-top: 20rem/$k;
+  height: 875rem/$k;
+  @media (max-width: 1920px) {
+    height: 712rem/$k;
+  }
+  @media (max-width: 1280px) {
+    height: 552rem/$k;
+  }
+}

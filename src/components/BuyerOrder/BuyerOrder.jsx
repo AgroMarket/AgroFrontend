@@ -1,6 +1,6 @@
 import './BuyerOrder.scss';
 
-import React, {Fragment, PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
 import moment from 'moment';
@@ -9,11 +9,6 @@ import {serverAddress} from 'constants/ServerAddress';
 import Button from '@material-ui/core/Button/Button';
 import OrderStatus from 'components/OrderStatus';
 
-// Данные для кнопки Подтвердить получение заказа
-const orderReceivedButton = {
-  id: 'order_received',
-  name: 'Подтвердить получение заказа',
-};
 // Данные для кнопки Отменить заказ
 const orderCancelButton = {
   id: 'order_delete',
@@ -69,44 +64,6 @@ export default class BuyerOrder extends PureComponent {
         });
   }
 
-  orderDone = () => {
-    const { id, jwtToken } = this.props;
-
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          orderStatus: 'Обработка данных',
-        };
-      }
-    );
-
-    fetch(`${serverAddress}/api/member/asks/${id}`, {
-      method: 'put',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${jwtToken}`,
-      },
-    })
-      .then(res => res.json())
-      .then(res => {
-          this.setState(
-            prevState => {
-              return {
-                ...prevState,
-                orderStatus: res.result.ask.status,
-              };
-            }
-          );
-        },
-        error => {
-          this.setState({
-            error,
-          });
-        });
-  };
-
   render() {
     const { error, order, itemsLoaded, orderStatus } = this.state;
     const rub = ' руб.';
@@ -126,19 +83,7 @@ export default class BuyerOrder extends PureComponent {
       // TODO узнать какой статус у исполненного заказа
       if (orderStatus !== 'Получен')
       {
-        buttons = <Fragment>
-          <p>
-            <Button
-              className="orderDone"
-              variant="contained"
-              color="primary"
-              id={orderReceivedButton.id}
-              onClick={() => this.orderDone()}
-            >
-              {orderReceivedButton.name}
-            </Button>
-          </p>
-          <p>
+        buttons = <p>
             <Button
               className="orderDone"
               variant="contained"
@@ -147,8 +92,7 @@ export default class BuyerOrder extends PureComponent {
             >
               {orderCancelButton.name}
             </Button>
-          </p>
-        </Fragment>;
+          </p>;
       }
       return (
         <div className="seller_items order_info">

@@ -20,12 +20,6 @@ export const menuItems = [
     icon: MyOrdersIcon,
   },
   {
-    id: 'delivery_orders',
-    name: 'Доставка',
-    component: 'ProfileDelivery',
-    icon: MyOrdersIcon,
-  },
-  {
     id: 'seller_items',
     name: 'Товары на продажу',
     component: 'SellerItems',
@@ -47,6 +41,12 @@ export const menuItems = [
     id: 'profile_statistics',
     name: 'Статистика',
     component: 'ProfileStatistics',
+    icon: MyOrdersIcon,
+  },
+  {
+    id: 'delivery_orders',
+    name: 'Доставка',
+    component: 'ProfileDelivery',
     icon: MyOrdersIcon,
   },
   {

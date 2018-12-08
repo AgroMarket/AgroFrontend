@@ -76,16 +76,16 @@ export default class ProfileMenu extends PureComponent {
     }
     // разделы меню для администрации FermaStore
     if (userStatus === admin) {
-      content.splice(1, 6);
+      content.splice(1, 5);
+      content.splice(2, 1);
     }
     // разделы меню для службы доставки
     if (userStatus === delivery) {
-      content.splice(1, 2);
-      content.splice(2, 3);
+      content.splice(1, 6);
     }
     // разделы меню для продавцов
     if (userStatus === seller) {
-      content.splice(3, 1);
+      content.splice(7, 1);
     }
     return (
       <List component="nav" className="sellerMenu">

@@ -60,7 +60,11 @@ export default class SellerItems extends PureComponent {
     })
       .then(res => res.json())
       .then(res => {
-        const lastPage = res.result.pagination.last_page;
+          let lastPage;
+          if (res.result.pagination !== null)
+            lastPage = res.result.pagination.last_page;
+          else
+            lastPage = 1;
         this.setState(
           prevState => {
             return {
@@ -145,7 +149,11 @@ export default class SellerItems extends PureComponent {
     })
       .then(res => res.json())
       .then(res => {
-        const lastPage = res.result.pagination.last_page;
+          let lastPage;
+          if (res.result.pagination !== null)
+            lastPage = res.result.pagination.last_page;
+          else
+            lastPage = 1;
         this.setState(
           prevState => {
             return {

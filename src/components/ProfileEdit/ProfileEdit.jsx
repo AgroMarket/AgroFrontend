@@ -56,23 +56,23 @@ export default class ProfileEdit extends PureComponent {
     })
       .then(res => res.json())
       .then(res => {
-        if (userStatus === seller) {
-          this.setState(
-            prevState => {
-              return {
-                ...prevState,
-                name: res.result.member.producer_brand,
-                address: res.result.member.producer_address,
-                phone: res.result.member.producer_phone,
-                inn: res.result.member.producer_inn,
-                description: res.result.member.producer_descripion,
-                itemsLoaded: true,
-              };
-            }
-          );
-        }
-        else
-          if (userStatus === buyer)
+        switch (userStatus) {
+          case seller:
+            this.setState(
+              prevState => {
+                return {
+                  ...prevState,
+                  name: res.result.member.producer_brand,
+                  address: res.result.member.producer_address,
+                  phone: res.result.member.producer_phone,
+                  inn: res.result.member.producer_inn,
+                  description: res.result.member.producer_descripion,
+                  itemsLoaded: true,
+                };
+              }
+            );
+            break;
+          case buyer:
             this.setState(
               prevState => {
                 return {
@@ -85,7 +85,7 @@ export default class ProfileEdit extends PureComponent {
                 };
               }
             );
-        },
+        }},
         error => {
           this.setState({
             itemsLoaded: true,

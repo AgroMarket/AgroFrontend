@@ -80,8 +80,7 @@ export default class BuyerOrder extends PureComponent {
       if (order.orders.length > 1)
         content = <span className="seller_item">Общая сумма заказа по всем продавцам: {order.sum.toLocaleString('ru') + rub}</span>;
       let buttons = '';
-      // TODO узнать какой статус у исполненного заказа
-      if (orderStatus !== 'Получен')
+      if (orderStatus !== 'Выполнен')
       {
         buttons = <p>
             <Button

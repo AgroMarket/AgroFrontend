@@ -38,6 +38,10 @@ $k: 16;
     flex-direction: column;
     position: relative;
     padding-left: 15rem/$k;
+    label {
+      left: 36rem/$k;
+      top: 25rem/$k;
+    }
   }
   .item_name {
     top: 26rem/$k;

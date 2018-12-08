@@ -41,12 +41,6 @@ export default class BuyerItem extends PureComponent {
         <span className="order_date">
           {date}
         </span>
-        {/*
-        // TODO показать, когда на бэке появится поле с названием продавца
-        <span className="order_seller">
-          {item.ask.producer}
-        </span>
-        */}
         <span className="order_total">
           Заказ на сумму {item.ask.total.toLocaleString('ru')} руб.
         </span>

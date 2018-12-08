@@ -32,7 +32,7 @@ export default class ProfileDelivery extends PureComponent {
 
   componentDidMount() {
     const {jwtToken} = this.props;
-    fetch(`${serverAddress}/api/users/tasks`, {
+    fetch(`${serverAddress}/api/carrier/tasks`, {
       headers: {
         'Authorization': `Bearer ${jwtToken}`,
       },

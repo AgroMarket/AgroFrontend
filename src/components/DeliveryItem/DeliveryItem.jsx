@@ -27,7 +27,7 @@ export default class DeliveryItem extends PureComponent {
   render() {
     const { item, showOrderInfo } = this.props;
     // TODO выяснить какое поле отвечает за дату передачи товара в службу доставки
-    const date = moment(item.user.created_at).format('DD.MM.YY HH:mm');
+    const date = moment(item.task.created_at).format('DD.MM.YY HH:mm');
 
     return (
       <p className="seller_item">
@@ -35,8 +35,7 @@ export default class DeliveryItem extends PureComponent {
           {date}
         </span>
         <span className="order_total">
-          {/* TODO выяснить какое поле отвечает за стоимость доставки */}
-          Заказ на сумму {item.ask.amount.toLocaleString('ru')} руб.
+          Заказ на сумму {item.task.delivery_cost.toLocaleString('ru')} руб.
         </span>
         <Button
           className="edit_button"
@@ -48,7 +47,7 @@ export default class DeliveryItem extends PureComponent {
           {openOrderButton.name}
         </Button>
         <span className="order_status">
-          Состояние: {item.status}
+          Состояние: {item.task.status}
         </span>
       </p>
     );

@@ -7,7 +7,7 @@ import MyOrdersIcon from '@material-ui/icons/DateRange';
 import PropTypes from 'prop-types';
 
 import {serverAddress} from 'constants/ServerAddress';
-import {seller, buyer} from 'constants/AuthorizationTypes';
+import {seller, buyer, admin, delivery} from 'constants/AuthorizationTypes';
 
 // Данные для кнопки Редактировать профиль
 const editProfileButton = {
@@ -121,6 +121,15 @@ export default class UserProfile extends PureComponent {
     const { error, profile, itemsLoaded, congratulation } = this.state;
     const { itemHandle, userStatus } = this.props;
     let content;
+    const editButton = <Button
+      className="edit_profile"
+      variant="contained"
+      color="primary"
+      id={editProfileButton.id}
+      onClick={() => itemHandle('edit_profile')}
+    >
+      {editProfileButton.name}
+    </Button>;
 
     if (error) {
       return <p>Ошибка: {error.message}</p>;
@@ -134,39 +143,41 @@ export default class UserProfile extends PureComponent {
           return <Redirect to="/login"/>;
         }
         else {
-          if (userStatus === seller)
-            content = <Fragment>
-              <span className="profile_name">
-                Название: {profile.producer_brand}
-              </span>
-              <span className="profile_address">
-                Регион: {profile.producer_address}
-              </span>
-              <span className="profile_phone">
-                Телефон: +7-{profile.producer_phone}
-              </span>
-              <span className="profile_inn">
-                ИНН: {profile.producer_inn}
-              </span>
-              <span className="profile_description">
-                О нас: {profile.producer_descripion}
-              </span>
-            </Fragment>;
-            else
-              if (userStatus === buyer)
-                content = <Fragment>
+          switch (userStatus) {
+            case seller:
+              content = <Fragment>
+                  <span className="profile_name">
+                    Название: {profile.producer_brand}
+                  </span>
+                    <span className="profile_address">
+                    Регион: {profile.producer_address}
+                  </span>
+                    <span className="profile_phone">
+                    Телефон: +7-{profile.producer_phone}
+                  </span>
+                    <span className="profile_inn">
+                    ИНН: {profile.producer_inn}
+                  </span>
+                    <span className="profile_description">
+                    О нас: {profile.producer_descripion}
+                  </span>
+                {editButton}
+                </Fragment>;
+                break;
+            case buyer:
+              content = <Fragment>
                   <span className="profile_name">
                     {profile.name}
                   </span>
-                    <span className="profile_address">
-                    Регион: {profile.address}
-                  </span>
-                    <span className="profile_phone">
-                    Телефон: +7-{profile.phone}
-                  </span>
-                    <span className="profile_email">
-                    Электронная почта: {profile.email}
-                  </span>
+                  <span className="profile_address">
+                      Регион: {profile.address}
+                    </span>
+                  <span className="profile_phone">
+                      Телефон: +7-{profile.phone}
+                    </span>
+                  <span className="profile_email">
+                      Электронная почта (имя для входа на сайт): {profile.email}
+                    </span>
                   <Button
                     className="make_seller"
                     variant="contained"
@@ -176,7 +187,22 @@ export default class UserProfile extends PureComponent {
                   >
                     {makeSellerButton.name}
                   </Button>
-                </Fragment>;
+                {editButton}
+              </Fragment>;
+              break;
+            case admin:
+              content =
+                <span className="profile_name">
+                  Электронная почта (имя для входа на сайт): {profile.email}
+                </span>;
+              break;
+            case delivery:
+              content =
+                <span className="profile_name">
+                  Электронная почта (имя для входа на сайт): {profile.email}
+                </span>;
+              break;
+          }
           return (
             <div className="seller_items">
               <div className="seller_items_header">
@@ -185,15 +211,6 @@ export default class UserProfile extends PureComponent {
               </div>
               <div className="seller_profile">
                 {content}
-                <Button
-                  className="edit_profile"
-                  variant="contained"
-                  color="primary"
-                  id={editProfileButton.id}
-                  onClick={() => itemHandle('edit_profile')}
-                >
-                  {editProfileButton.name}
-                </Button>
               </div>
             </div>
           );

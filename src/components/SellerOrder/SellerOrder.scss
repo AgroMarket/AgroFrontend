@@ -2,6 +2,13 @@
 $k: 16;
 
 .order_info {
+  .client_contacts {
+    background-color: #fff;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    color: #558b2f;
+    padding: 10rem/$k;
+    margin-bottom: 10rem/$k;
+  }
   button {
     width: 300rem/$k;
   }

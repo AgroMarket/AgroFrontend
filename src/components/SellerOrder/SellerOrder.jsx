@@ -141,6 +141,11 @@ export default class SellerOrder extends PureComponent {
             <MyOrdersIcon className="my_orders_icon"/>
             <h2>Заказ № {order.id} от {moment(order.date).format('LL')}</h2>
           </div>
+          <div className="client_contacts">
+            <p className="client_name">Покупатель: {order.consumer_name}</p>
+            <p>Адрес покупателя: {order.consumer_address}</p>
+            <p>Телефон покупателя {order.consumer_phone}</p>
+          </div>
           <OrderStatus orderStatus={orderStatus}/>
           {needAcceptOrder}
           <div className="product seller_item">

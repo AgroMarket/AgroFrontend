@@ -292,7 +292,7 @@ export default class ProfilePurchase extends PureComponent {
           onChange={this.handleChange}
         >
           <Tab label="Новые покупки"/>
-          <Tab label="Доставляемые покупки"/>
+          <Tab label="Заказы в пути"/>
           <Tab label="Полученные покупки"/>
         </Tabs>
         {subcontent}

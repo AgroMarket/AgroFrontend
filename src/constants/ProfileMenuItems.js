@@ -45,7 +45,7 @@ export const menuItems = [
   },
   {
     id: 'delivery_orders',
-    name: 'Доставка',
+    name: 'Заказы на доставку',
     component: 'ProfileDelivery',
     icon: MyOrdersIcon,
   },

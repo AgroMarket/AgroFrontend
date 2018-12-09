@@ -209,8 +209,13 @@ export default class UserProfile extends PureComponent {
                 <MyOrdersIcon className="my_orders_icon"/>
                 <h2>Мой профиль</h2>
               </div>
-              <div className="seller_profile">
-                {content}
+              <div className="user_profile_content">
+                <div className="user_avatar">
+                  <img src={serverAddress+profile.image} alt="Аватар"/>
+                </div>
+                <div className="seller_profile">
+                  {content}
+                </div>
               </div>
             </div>
           );

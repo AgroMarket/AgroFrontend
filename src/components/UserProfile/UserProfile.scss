@@ -23,3 +23,13 @@ $k: 16;
     width: 250rem/$k;
   }
 }
+.user_profile_content {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  .user_avatar {
+    margin: auto;
+  }
+  @media (max-width: 960px) {
+    display: block;
+  }
+}

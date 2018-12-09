@@ -9,9 +9,13 @@ $k: 16;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);
   border-radius: 2px;
   padding: 23rem/$k;
+  .profile_address, .profile_phone, .profile_email, .profile_inn {
+    margin-bottom: 10rem/$k;
+  }
   .profile_name {
     color: #33691e;
     font-size: 18rem/$k;
+    margin-bottom: 15rem/$k;
   }
   .profile_phone a, .profile_email a {
     color: #558b2f;

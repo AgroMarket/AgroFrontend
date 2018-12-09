@@ -1,6 +1,6 @@
 import './ProfileContragent.scss';
 
-import React, {Fragment, PureComponent} from 'react';
+import React, {PureComponent} from 'react';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
 import PropTypes from 'prop-types';
 
@@ -70,25 +70,34 @@ export default class ProfileContragent extends PureComponent {
       switch (userType) {
         case buyer:
           phone = 'tel:+7-' + profile.phone;
-          content = <Fragment>
-            <span className="profile_name">
-              {profile.name}
-            </span>
-            <span className="profile_address">
-              Адрес: {profile.address}
-            </span>
-            <span className="profile_phone">
-              Телефон: <a href={phone}>{profile.phone}</a>
-            </span>
-            <span className="profile_email">
-              Электронная почта: <code><a href={mail}>{profile.email}</a></code>
-            </span>
-          </Fragment>;
+          content = <div className="user_profile_content">
+            <div className="user_avatar">
+              <img src={serverAddress+profile.image} alt="Аватар"/>
+            </div>
+            <div className="seller_profile">
+              <span className="profile_name">
+                {profile.name}
+              </span>
+              <span className="profile_address">
+                Адрес: {profile.address}
+              </span>
+              <span className="profile_phone">
+                Телефон: <a href={phone}>{profile.phone}</a>
+              </span>
+              <span className="profile_email">
+                Электронная почта: <code><a href={mail}>{profile.email}</a></code>
+              </span>
+            </div>
+          </div>;
           description = 'покупателя';
           break;
         case seller:
           phone = 'tel:+7-' + profile.producer_phone;
-          content = <Fragment>
+          content = <div className="user_profile_content">
+            <div className="user_avatar">
+              <img src={serverAddress+profile.producer_logo} alt="Аватар"/>
+            </div>
+            <div className="seller_profile">
             <span className="profile_name">
               {profile.producer_brand}
             </span>
@@ -104,7 +113,8 @@ export default class ProfileContragent extends PureComponent {
             <span className="profile_email">
               Электронная почта: <code><a href={mail}>{profile.email}</a></code>
             </span>
-          </Fragment>;
+            </div>
+          </div>;
           description = 'продавца';
           break;
       }
@@ -115,9 +125,7 @@ export default class ProfileContragent extends PureComponent {
           <MyOrdersIcon className="my_orders_icon"/>
           <h2>Профиль {description}</h2>
         </div>
-        <div className="seller_profile">
-          {content}
-        </div>
+        {content}
       </div>
     );
   }

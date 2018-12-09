@@ -1,15 +1,16 @@
 import './ProfileContragent.scss';
 
-import React, { PureComponent} from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
 import PropTypes from 'prop-types';
 
-import {serverAddress} from 'constants/ServerAddress';
+import { serverAddress } from 'constants/ServerAddress';
+import { seller, buyer } from 'constants/AuthorizationTypes';
 
 /**
  * Класс ProfileContragent - компонент, отображающий профиль контрагента на странице личного кабинета
  */
-export default class UserProfile extends PureComponent {
+export default class ProfileContragent extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -53,6 +54,9 @@ export default class UserProfile extends PureComponent {
 
   render() {
     const { error, profile, itemsLoaded } = this.state;
+    // тип контрагента
+    const userType = profile.user_type;
+    let content, description;
 
     if (error) {
       return <p>Ошибка: {error.message}</p>;
@@ -62,18 +66,11 @@ export default class UserProfile extends PureComponent {
       return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
     }
     else
-      return (
-        <div className="seller_items">
-          <div className="seller_items_header">
-            <MyOrdersIcon className="my_orders_icon"/>
-            <h2>Профиль</h2>
-          </div>
-          <div className="seller_profile">
+      switch (userType) {
+        case buyer:
+          content = <Fragment>
             <span className="profile_name">
               {profile.name}
-            </span>
-            <span className="profile_inn">
-              ИНН {profile.inn}
             </span>
             <span className="profile_address">
               Адрес: {profile.address}
@@ -84,9 +81,38 @@ export default class UserProfile extends PureComponent {
             <span className="profile_email">
               Электронная почта: {profile.email}
             </span>
-            <span className="profile_description">
-              Описание: {profile.descripion}
+          </Fragment>;
+          description = 'покупателя';
+          break;
+        case seller:
+          content = <Fragment>
+            <span className="profile_name">
+              {profile.producer_brand}
             </span>
+            <span className="profile_inn">
+              ИНН {profile.proucer_inn}
+            </span>
+            <span className="profile_address">
+              Адрес: {profile.producer_address}
+            </span>
+            <span className="profile_phone">
+              Телефон: +7-{profile.producer_phone}
+            </span>
+            <span className="profile_email">
+              Электронная почта: {profile.email}
+            </span>
+          </Fragment>;
+          description = 'продавца';
+          break;
+      }
+      return (
+        <div className="seller_items">
+          <div className="seller_items_header">
+            <MyOrdersIcon className="my_orders_icon"/>
+            <h2>Профиль {description}</h2>
+          </div>
+          <div className="seller_profile">
+            {content}
           </div>
         </div>
       );

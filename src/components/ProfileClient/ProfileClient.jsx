@@ -1,10 +1,11 @@
 import './ProfileClient.scss';
 
-import React, { PureComponent } from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button/Button';
 
 import {serverAddress} from 'constants/ServerAddress';
+import {buyer, seller} from 'constants/AuthorizationTypes';
 
 // Данные для кнопки Посмотреть профиль
 const editItemButton = {
@@ -45,14 +46,13 @@ export default class ProfileClient extends PureComponent {
 
   render() {
     const { item } = this.props;
+    // тип контрагента
+    const userType = item.member.user_type;
+    let content;
 
-    return (
-      <p className="seller_item client_info">
-        <img
-          src={serverAddress + item.member.image}
-          alt="Клиент"
-        />
-        <span className="consumer_info">
+    switch (userType) {
+      case buyer:
+        content = <Fragment>
           <span className="consumer_name">
             Покупатель: {item.member.name}
           </span>
@@ -62,6 +62,30 @@ export default class ProfileClient extends PureComponent {
           <span className="consumer_phone">
             Телефон: +7-{item.member.phone}
           </span>
+        </Fragment>;
+        break;
+      case seller:
+        content = <Fragment>
+          <span className="consumer_name">
+            Покупатель: {item.member.producer_brand}
+          </span>
+          <span className="consumer_address">
+            Адрес: {item.member.producer_address}
+          </span>
+          <span className="consumer_phone">
+            Телефон: +7-{item.member.producer_phone}
+          </span>
+        </Fragment>;
+        break;
+    }
+    return (
+      <p className="seller_item client_info">
+        <img
+          src={serverAddress + item.member.image}
+          alt="Клиент"
+        />
+        <span className="consumer_info">
+          {content}
         </span>
         <Button
           className="edit_button"

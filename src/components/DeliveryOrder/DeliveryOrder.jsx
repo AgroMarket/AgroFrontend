@@ -144,19 +144,21 @@ export default class DeliveryOrder extends PureComponent {
           </div>
           <div className="delivery_order_info">
             <p className="delivery_header">Заказ № {order.id} от {moment(order.ask_start).format('LL')}</p>
-            <OrderStatus orderStatus={orderStatus}/>
-            {orderDone}
             <div className="delivery_order">
               <div className="client_contacts">
                 <p className="client_name">Грузополучатель: {order.consumer_name}</p>
                 <p>Адрес грузополучателя: {order.consumer_address}</p>
                 <p>Телефон грузополучателя {order.consumer_phone}</p>
-                <p>Список грузоотправителей:</p>
+              </div>
+              <OrderStatus orderStatus={orderStatus}/>
+              {orderDone}
+              <div className="client_contacts">
+                <p>Сведения о грузоотправител{order.ask.ask.orders.length > 1 ? 'ях' : 'е'}:</p>
               </div>
               {order.ask.ask.orders.map((item, idx) => {
                 return (
                   <div className="client_contacts" key={idx}>
-                    <p className="client_name">{idx+1}. Грузоотправитель: {item.order.producer_name}</p>
+                    <p className="client_name">{order.ask.ask.orders.length > 1 ? idx+1+'. ' : ''}Грузоотправитель: {item.order.producer_name}</p>
                     <p>Адрес грузоотправителя: {item.order.producer_address}</p>
                     <p>Телефон грузоотправителя: {item.order.producer_phone}</p>
                   </div>

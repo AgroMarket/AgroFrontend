@@ -90,7 +90,7 @@ export default class ProfileContragent extends PureComponent {
               {profile.producer_brand}
             </span>
             <span className="profile_inn">
-              ИНН {profile.proucer_inn}
+              ИНН {profile.producer_inn}
             </span>
             <span className="profile_address">
               Адрес: {profile.producer_address}

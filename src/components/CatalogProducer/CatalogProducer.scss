@@ -20,5 +20,19 @@ $k: 16;
     color: #558b2f;
     text-decoration: none;
   }
-
+  .producer_profile_content {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    .producer_logo {
+      margin: auto;
+      width: 90%;
+      img {
+        border-radius: 50%;
+        width: 100%;
+      }
+    }
+    @media (max-width: 960px) {
+      display: block;
+    }
+  }
 }

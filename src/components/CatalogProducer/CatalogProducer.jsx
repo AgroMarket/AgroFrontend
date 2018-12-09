@@ -87,16 +87,23 @@ export default class CatalogProducer extends PureComponent {
         const mail = 'mailto:' + catalogProducer.producer.email;
         return (
           <div className="producer_info">
-            <h2 className="producer_title">Производитель товара: {catalogProducer.producer.name}</h2>
-            <p className="producer_region">
-              Регион: {catalogProducer.producer.address}
-            </p>
-              <p className="producer_phone">
-              Телефон: <a href={phone}>{catalogProducer.producer.phone}</a>
-            </p>
-            <p className="producer_email">
-              Электронная почта: <code><a href={mail}>{catalogProducer.producer.email}</a></code>
-            </p>
+            <div className="producer_profile_content">
+              <div>
+                <h2 className="producer_title">Производитель товара: {catalogProducer.producer.name}</h2>
+                <p className="producer_region">
+                  Регион: {catalogProducer.producer.address}
+                </p>
+                  <p className="producer_phone">
+                  Телефон: <a href={phone}>{catalogProducer.producer.phone}</a>
+                </p>
+                <p className="producer_email">
+                  Электронная почта: <code><a href={mail}>{catalogProducer.producer.email}</a></code>
+                </p>
+              </div>
+              <div className="producer_logo">
+                <img src={serverAddress+catalogProducer.producer.logo} alt="Аватар"/>
+              </div>
+            </div>
             <div className="seller_catalog_button">
               <Button
                 className="edit_button"

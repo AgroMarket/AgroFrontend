@@ -149,16 +149,16 @@ export default class UserProfile extends PureComponent {
                   <span className="profile_name">
                     Название: {profile.producer_brand}
                   </span>
-                    <span className="profile_address">
-                    Регион: {profile.producer_address}
-                  </span>
-                    <span className="profile_phone">
-                    Телефон: +7-{profile.producer_phone}
-                  </span>
-                    <span className="profile_inn">
+                  <span className="profile_inn">
                     ИНН: {profile.producer_inn}
                   </span>
-                    <span className="profile_description">
+                  <span className="profile_address">
+                    Регион: {profile.producer_address}
+                  </span>
+                  <span className="profile_phone">
+                    Телефон: +7-{profile.producer_phone}
+                  </span>
+                  <span className="profile_description">
                     О нас: {profile.producer_descripion}
                   </span>
                 {editButton}
@@ -171,13 +171,13 @@ export default class UserProfile extends PureComponent {
                   </span>
                   <span className="profile_address">
                       Регион: {profile.address}
-                    </span>
+                  </span>
                   <span className="profile_phone">
                       Телефон: +7-{profile.phone}
-                    </span>
+                  </span>
                   <span className="profile_email">
                       Электронная почта (имя для входа на сайт): {profile.email}
-                    </span>
+                  </span>
                   <Button
                     className="make_seller"
                     variant="contained"

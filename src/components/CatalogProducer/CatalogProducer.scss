@@ -16,4 +16,9 @@ $k: 16;
   .seller_catalog_button {
     margin-bottom: 15rem/$k;
   }
+  .producer_phone a, .producer_email a {
+    color: #558b2f;
+    text-decoration: none;
+  }
+
 }

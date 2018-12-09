@@ -56,7 +56,7 @@ export default class ProfileContragent extends PureComponent {
     const { error, profile, itemsLoaded } = this.state;
     // тип контрагента
     const userType = profile.user_type;
-    let content, description;
+    let content, description, phone;
 
     if (error) {
       return <p>Ошибка: {error.message}</p>;
@@ -65,9 +65,11 @@ export default class ProfileContragent extends PureComponent {
     if (!itemsLoaded) {
       return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
     }
-    else
+    else {
+      const mail = 'mailto:' + profile.email;
       switch (userType) {
         case buyer:
+          phone = 'tel:+7-' + profile.phone;
           content = <Fragment>
             <span className="profile_name">
               {profile.name}
@@ -76,15 +78,16 @@ export default class ProfileContragent extends PureComponent {
               Адрес: {profile.address}
             </span>
             <span className="profile_phone">
-              Телефон: +7-{profile.phone}
+              Телефон: <a href={phone}>{profile.phone}</a>
             </span>
             <span className="profile_email">
-              Электронная почта: {profile.email}
+              Электронная почта: <code><a href={mail}>{profile.email}</a></code>
             </span>
           </Fragment>;
           description = 'покупателя';
           break;
         case seller:
+          phone = 'tel:+7-' + profile.producer_phone;
           content = <Fragment>
             <span className="profile_name">
               {profile.producer_brand}
@@ -96,25 +99,26 @@ export default class ProfileContragent extends PureComponent {
               Адрес: {profile.producer_address}
             </span>
             <span className="profile_phone">
-              Телефон: +7-{profile.producer_phone}
+              Телефон: <a href={phone}>{profile.producer_phone}</a>
             </span>
             <span className="profile_email">
-              Электронная почта: {profile.email}
+              Электронная почта: <code><a href={mail}>{profile.email}</a></code>
             </span>
           </Fragment>;
           description = 'продавца';
           break;
       }
-      return (
-        <div className="seller_items">
-          <div className="seller_items_header">
-            <MyOrdersIcon className="my_orders_icon"/>
-            <h2>Профиль {description}</h2>
-          </div>
-          <div className="seller_profile">
-            {content}
-          </div>
+    }
+    return (
+      <div className="seller_items">
+        <div className="seller_items_header">
+          <MyOrdersIcon className="my_orders_icon"/>
+          <h2>Профиль {description}</h2>
         </div>
-      );
+        <div className="seller_profile">
+          {content}
+        </div>
+      </div>
+    );
   }
 }

@@ -83,6 +83,8 @@ export default class CatalogProducer extends PureComponent {
         return <p className="load_info">Пожалуйста, подождите, идет загрузка страницы</p>;
       }
       else {
+        const phone = 'tel:+7-' + catalogProducer.producer.phone;
+        const mail = 'mailto:' + catalogProducer.producer.email;
         return (
           <div className="producer_info">
             <h2 className="producer_title">Производитель товара: {catalogProducer.producer.name}</h2>
@@ -90,10 +92,10 @@ export default class CatalogProducer extends PureComponent {
               Регион: {catalogProducer.producer.address}
             </p>
               <p className="producer_phone">
-              Телефон: +7-{catalogProducer.producer.phone}
+              Телефон: <a href={phone}>{catalogProducer.producer.phone}</a>
             </p>
             <p className="producer_email">
-              Электронная почта: {catalogProducer.producer.email}
+              Электронная почта: <code><a href={mail}>{catalogProducer.producer.email}</a></code>
             </p>
             <div className="seller_catalog_button">
               <Button

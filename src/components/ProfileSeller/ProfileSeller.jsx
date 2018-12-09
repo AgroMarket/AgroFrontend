@@ -54,13 +54,13 @@ export default class ProfileSeller extends PureComponent {
         />
         <span className="consumer_info">
           <span className="consumer_name">
-            Продавец: {item.producer.name}
+            Продавец: {item.producer.producer_brand}
           </span>
           <span className="consumer_address">
-            Адрес: {item.producer.address}
+            Адрес: {item.producer.producer_address}
           </span>
           <span className="consumer_phone">
-            Телефон: +7-{item.producer.phone}
+            Телефон: +7-{item.producer.producer_phone}
           </span>
         </span>
         <Button

@@ -6,14 +6,7 @@ import MyOrdersIcon from '@material-ui/icons/DateRange';
 import moment from 'moment';
 
 import {serverAddress} from 'constants/ServerAddress';
-import Button from '@material-ui/core/Button/Button';
 import OrderStatus from 'components/OrderStatus';
-
-// Данные для кнопки Отменить заказ
-const orderCancelButton = {
-  id: 'order_delete',
-  name: 'Отменить заказ',
-};
 
 /**
  * Класс BuyerOrder - компонент, отображающий подробные сведения о заказе на странице покупателя
@@ -79,20 +72,7 @@ export default class BuyerOrder extends PureComponent {
     else {
       if (order.orders.length > 1)
         content = <span className="seller_item">Общая сумма заказа по всем продавцам: {order.sum.toLocaleString('ru') + rub}</span>;
-      let buttons = '';
-      if (orderStatus !== 'Выполнен')
-      {
-        buttons = <p>
-            <Button
-              className="orderDone"
-              variant="contained"
-              color="primary"
-              id={orderCancelButton.id}
-            >
-              {orderCancelButton.name}
-            </Button>
-          </p>;
-      }
+
       return (
         <div className="seller_items order_info">
           <div className="seller_items_header">
@@ -100,7 +80,6 @@ export default class BuyerOrder extends PureComponent {
             <h2>Заказ № {order.id} от {moment(order.date).format('LL')}</h2>
           </div>
           <OrderStatus orderStatus={orderStatus}/>
-          {buttons}
           <div className="product seller_item">
             <div>
               <span>Название продукта</span>

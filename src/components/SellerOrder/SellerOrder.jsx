@@ -14,11 +14,6 @@ const orderDoneButton = {
   id: 'order_done',
   name: 'Передать заказ на доставку',
 };
-// Данные для кнопки Отменить заказ
-const orderCancelButton = {
-  id: 'order_cancel',
-  name: 'Отменить заказ',
-};
 
 /**
  * Класс SellerOrder - компонент, отображающий подробные сведения о заказе на странице продавца
@@ -148,16 +143,6 @@ export default class SellerOrder extends PureComponent {
           </div>
           <OrderStatus orderStatus={orderStatus}/>
           {needAcceptOrder}
-          <p>
-            <Button
-              className="orderCancel"
-              variant="contained"
-              color="primary"
-              id={orderCancelButton.id}
-            >
-              {orderCancelButton.name}
-            </Button>
-          </p>
           <div className="product seller_item">
             <div>
               <span>Название продукта</span>

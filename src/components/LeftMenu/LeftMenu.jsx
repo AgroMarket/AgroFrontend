@@ -86,7 +86,7 @@ export default class LeftMenu extends PureComponent {
               onClick={event => this.handleListItemClick(event, idx, item.category.id)}
               className="catalogMenuItem"
             >
-              <img src={serverAddress+item.category.icon} alt={item.category.name} className="categoryIcon"/>
+              <span className="categoryIcon"><img src={serverAddress+item.category.icon} alt={item.category.name}/></span>
               <ListItemText primary={item.category.name}/>
             </ListItem>
           );

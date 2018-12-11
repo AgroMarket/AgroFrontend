@@ -238,6 +238,11 @@ export default theme = {
         },
       },
     },
+    MuiCardMedia: {
+      root: {
+        objectFit: 'scale-down',
+      },
+    },
     MuiSnackbarContent: {
       root: {
         backgroundColor: '#558b2f',

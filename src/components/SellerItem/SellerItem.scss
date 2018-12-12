@@ -15,6 +15,7 @@ $k: 16;
   padding: 7rem/$k 26rem/$k;
   text-align: center;
   img {
+    object-fit: scale-down;
     height: 54rem/$k;
     width: 50rem/$k;
   }

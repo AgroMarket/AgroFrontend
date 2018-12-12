@@ -60,6 +60,7 @@ $k: 16;
     }
   }
   img {
+    object-fit: scale-down;
     height: 46rem/$k;
     width: 54rem/$k;
   }

@@ -302,14 +302,6 @@ export default class ProfileEdit extends PureComponent {
           {content}
           <div/>
           <div/>
-          <input
-            accept="image/*"
-            className="load_photo"
-            id="flat-button-file"
-            placeholder=" "
-            multiple="false"
-            type="file"
-          />     
           <ActiveStorageProvider 
             headers={[
               "Accept: application/json",

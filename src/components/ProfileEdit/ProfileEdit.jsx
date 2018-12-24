@@ -331,9 +331,7 @@ export default class ProfileEdit extends PureComponent {
               path: `${serverAddress}/api/members/profile`,
               model: 'Member',
               attribute: 'image',
-              method: 'PUT',
-              host?: {serverAddress},
-              
+              method: 'PUT',              
             }}
             onSubmit={user => this.setState({ avatar: user.avatar })}
             render={({ handleUpload, uploads, ready }) => (

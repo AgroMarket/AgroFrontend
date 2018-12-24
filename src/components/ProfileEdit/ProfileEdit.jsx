@@ -309,18 +309,7 @@ export default class ProfileEdit extends PureComponent {
             placeholder=" "
             multiple
             type="file"
-          />           
-          /*<label className="item_load" htmlFor="flat-button-file">
-            <Button
-              component="span"
-              className="load_item_photo"
-              variant="text"
-              color="primary"
-              id={loadProfilePhotoButton.id}
-            >
-              {loadProfilePhotoButton.name}
-            </Button>
-            </label>*/       
+          />     
           <ActiveStorageProvider 
             endpoint={{
               path: `${serverAddress}/api/members/profile`,

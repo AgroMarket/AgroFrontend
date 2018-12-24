@@ -306,7 +306,7 @@ export default class ProfileEdit extends PureComponent {
             headers={[
               "Accept: application/json",
               "Content-Type: application/json",
-              `Authorization: Bearer ${jwtToken}`
+              `Authorization: Bearer ${this.propTypes.jwtToken}`
             ]}
             endpoint={{
               path: `${serverAddress}/api/member/profile`,

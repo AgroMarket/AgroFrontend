@@ -314,7 +314,7 @@ export default class ProfileEdit extends PureComponent {
             endpoint={{
               path: `${serverAddress}/api/member/profile`,
               model: 'Member',
-              attribute: 'image',
+              attribute: 'logo',
               method: 'PUT',
               //host?: {serverAddress},
               

@@ -312,7 +312,7 @@ export default class ProfileEdit extends PureComponent {
           />     
           <ActiveStorageProvider 
             endpoint={{
-              path: `${serverAddress}/api/members/profile`,
+              path: `${serverAddress}/api/member/profile`,
               model: 'Member',
               attribute: 'image',
               method: 'PUT',

@@ -307,7 +307,7 @@ export default class ProfileEdit extends PureComponent {
             className="load_photo"
             id="flat-button-file"
             placeholder=" "
-            multiple
+            multiple="false"
             type="file"
           />     
           <ActiveStorageProvider 

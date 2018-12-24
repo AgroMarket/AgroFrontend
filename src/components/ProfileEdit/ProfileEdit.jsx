@@ -302,18 +302,37 @@ export default class ProfileEdit extends PureComponent {
           {content}
           <div/>
           <div/>
+          <input
+            accept="image/*"
+            className="load_photo"
+            id="flat-button-file"
+            placeholder=" "
+            multiple
+            type="file"
+          />           
+          <label className="item_load" htmlFor="flat-button-file">
+            <Button
+              component="span"
+              className="load_item_photo"
+              variant="text"
+              color="primary"
+              id={loadProfilePhotoButton.id}
+            >
+              {loadProfilePhotoButton.name}
+            </Button>
+          </label>       
           <ActiveStorageProvider 
-            headers={[
-              'Accept: application/json',
-              'Content-Type: application/json',
-              `Authorization: Bearer ${this.propTypes.jwtToken}`,
-            ]}
+            headers={{
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${jwtToken}`,
+            }}
             endpoint={{
-              path: `${serverAddress}/api/member/profile`,
+              path: `${serverAddress}/api/members/profile`,
               model: 'Member',
               attribute: 'image',
               method: 'PUT',
-              //host?: {serverAddress},
+              host?: {serverAddress},
               
             }}
             onSubmit={user => this.setState({ avatar: user.avatar })}
@@ -328,21 +347,21 @@ export default class ProfileEdit extends PureComponent {
                 {uploads.map(upload => {
                   switch (upload.state) {
                     case 'waiting':
-                      return <p key={upload.id}>Waiting to upload {upload.file.name}</p>;
+                      return <p key={upload.id}>Waiting to upload {upload.file.name}</p>
                     case 'uploading':
                       return (
                         <p key={upload.id}>
                           Uploading {upload.file.name}: {upload.progress}%
                         </p>
-                      );
+                      )
                     case 'error':
                       return (
                         <p key={upload.id}>
                           Error uploading {upload.file.name}: {upload.error}
                         </p>
-                      );
+                      )
                     case 'finished':
-                      return <p key={upload.id}>Finished uploading {upload.file.name}</p>;
+                      return <p key={upload.id}>Finished uploading {upload.file.name}</p>
                   }
                 })}
               </div>

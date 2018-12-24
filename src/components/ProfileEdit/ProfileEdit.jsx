@@ -304,9 +304,9 @@ export default class ProfileEdit extends PureComponent {
           <div/>
           <ActiveStorageProvider 
             headers={[
-              "Accept: application/json",
-              "Content-Type: application/json",
-              `Authorization: Bearer ${this.propTypes.jwtToken}`
+              'Accept: application/json',
+              'Content-Type: application/json',
+              `Authorization: Bearer ${this.propTypes.jwtToken}`,
             ]}
             endpoint={{
               path: `${serverAddress}/api/member/profile`,

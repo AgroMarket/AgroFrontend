@@ -4,6 +4,7 @@ import React, {Fragment, PureComponent} from 'react';
 import Button from '@material-ui/core/Button/Button';
 import MyOrdersIcon from '@material-ui/icons/DateRange';
 import PropTypes from 'prop-types';
+import ActiveStorageProvider from 'react-activestorage-provider';
 
 import {serverAddress} from 'constants/ServerAddress';
 import {seller, buyer} from 'constants/AuthorizationTypes';
@@ -308,8 +309,8 @@ export default class ProfileEdit extends PureComponent {
             placeholder=" "
             multiple
             type="file"
-          />
-          <label className="item_load" htmlFor="flat-button-file">
+          />           
+          /*<label className="item_load" htmlFor="flat-button-file">
             <Button
               component="span"
               className="load_item_photo"
@@ -319,7 +320,49 @@ export default class ProfileEdit extends PureComponent {
             >
               {loadProfilePhotoButton.name}
             </Button>
-          </label>
+            </label>*/       
+          <ActiveStorageProvider 
+            endpoint={{
+              path: `${serverAddress}/api/members/profile`,
+              model: 'Member',
+              attribute: 'image',
+              method: 'PUT',
+              //host?: {serverAddress},
+              
+            }}
+            onSubmit={user => this.setState({ avatar: user.avatar })}
+            render={({ handleUpload, uploads, ready }) => (
+              <div>
+                <input
+                  type="file"
+                  disabled={!ready}
+                  onChange={e => handleUpload(e.currentTarget.files)}
+                />
+          
+                {uploads.map(upload => {
+                  switch (upload.state) {
+                    case 'waiting':
+                      return <p key={upload.id}>Waiting to upload {upload.file.name}</p>
+                    case 'uploading':
+                      return (
+                        <p key={upload.id}>
+                          Uploading {upload.file.name}: {upload.progress}%
+                        </p>
+                      )
+                    case 'error':
+                      return (
+                        <p key={upload.id}>
+                          Error uploading {upload.file.name}: {upload.error}
+                        </p>
+                      )
+                    case 'finished':
+                      return <p key={upload.id}>Finished uploading {upload.file.name}</p>
+                  }
+                })}
+              </div>
+            )}
+          />
+
           <Button
             className="save_item"
             variant="contained"
